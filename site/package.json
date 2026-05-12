@@ -1,0 +1,22 @@
+{
+  "name": "andivino-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site Andivino avec paiement Stripe Elements integre.",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "stripe:listen": "powershell -ExecutionPolicy Bypass -File scripts/stripe-listen.ps1",
+    "stripe:listen:check": "powershell -ExecutionPolicy Bypass -File scripts/stripe-listen.ps1 -Check",
+    "handoff:zip": "powershell -ExecutionPolicy Bypass -File scripts/create-handoff.ps1",
+    "check": "node --check server.js && node --check assets/js/home.js && node --check assets/js/home-carousel.js && node --check assets/js/checkout.js && node --check assets/js/chronicles.js && node --check assets/js/success.js && node --check assets/js/config.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.18.3",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^7.1.0",
+    "stripe": "^17.7.0"
+  }
+}

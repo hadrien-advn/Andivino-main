@@ -1,0 +1,11 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#F2EAE0;--cream-l:#FAF6F1;--charbon:#3C3835;--bdx:#6E1828;--or:#C4A44A;--gris:#8A8278;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}
+body{min-height:100vh;font-family:var(--fb);background:var(--cream-l);color:var(--charbon);display:grid;place-items:center;padding:2rem}
+.wrap{text-align:center;max-width:560px}
+.brand{display:inline-flex;align-items:center;gap:.8rem;margin-bottom:2.5rem;text-decoration:none}
+.brand img:first-child{height:52px;width:auto}.brand img:last-child{height:32px;width:auto}
+.code{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--or);margin-bottom:.8rem}
+h1{font-family:var(--fd);font-size:clamp(2.6rem,7vw,4.8rem);font-weight:300;line-height:1.05;margin-bottom:1rem}
+h1 em{font-style:italic;color:var(--bdx)}
+p{font-size:.92rem;line-height:1.8;color:var(--gris);margin:0 auto 2rem;max-width:420px}
+.btn{display:inline-block;text-decoration:none;background:var(--bdx);color:var(--cream-l);padding:.85rem 1.8rem;font-size:.64rem;letter-spacing:.17em;text-transform:uppercase}

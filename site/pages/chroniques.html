@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chroniques sur les vins de Mendoza — Andivino</title>
+<meta name="description" content="Chroniques Andivino sur Mendoza, le Malbec, la Bodega Poesía, les terroirs argentins et les récits de dégustation.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://andivino.fr/chroniques">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Andivino">
+<meta property="og:title" content="Chroniques sur les vins de Mendoza — Andivino">
+<meta property="og:description" content="Terroirs, cépages, vendanges et culture du vin argentin par Andivino.">
+<meta property="og:url" content="https://andivino.fr/chroniques">
+<meta property="og:image" content="https://andivino.fr/assets/images/vignes-hero.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/images/logo-sans-fond.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/chronicles.css">
+</head>
+<body>
+<nav>
+  <a href="/" class="nl">
+    <img src="/assets/images/logo-sans-fond.png" alt="Andivino" class="nav-logo-img"><img src="/assets/images/ecriture-sans-fond.png" alt="Andivino — Vin des Andes" class="nav-text-img">
+  </a>
+  <ul class="nlinks">
+    <li><a href="/#vins">Les vins</a></li>
+    <li><a href="/commande">Commander</a></li>
+    <li><a href="/#degustations">Dégustations</a></li>
+  </ul>
+  <a href="/" class="back-link">← Accueil</a>
+</nav>
+
+<div class="page-header">
+  <h1>Les <em>chroniques</em></h1>
+  <p>Terroir, éducation, reportages — tout ce qu'il faut savoir sur le vin argentin et l'univers Andivino.</p>
+</div>
+
+<div class="cats-bar" id="catsBar">
+  <button class="cat-btn active" data-cat="all">Tout</button>
+  <button class="cat-btn" data-cat="Terroir">Terroir</button>
+  <button class="cat-btn" data-cat="Éducation">Éducation</button>
+  <button class="cat-btn" data-cat="Reportage">Reportage</button>
+</div>
+
+<div class="chron-body">
+  <div class="chron-grid" id="chronGrid"></div>
+</div>
+
+<!-- ARTICLE MODAL -->
+<div class="art-ov" id="artModal">
+  <div class="art-box">
+    <button class="art-cl" id="artCl">✕</button>
+    <div class="art-cat" id="aCat"></div>
+    <div class="art-title" id="aTitle"></div>
+    <div class="art-meta" id="aMeta"></div>
+    <div class="art-body" id="aBody"></div>
+  </div>
+</div>
+
+<script src="/assets/js/chronicles.js"></script>
+</body>
+</html>
