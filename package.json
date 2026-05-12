@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "node server.js",
-    "start": "node server.js",
+    "start": "cd site && node server.js",
     "stripe:listen": "powershell -ExecutionPolicy Bypass -File scripts/stripe-listen.ps1",
     "stripe:listen:check": "powershell -ExecutionPolicy Bypass -File scripts/stripe-listen.ps1 -Check",
     "handoff:zip": "powershell -ExecutionPolicy Bypass -File scripts/create-handoff.ps1",
