@@ -16,7 +16,7 @@ const DEF={wines:[
   {id:'c3',titre:'Trois Français aux vendanges : le récit de Gaspard',categorie:'Reportage',date:'2025-03-01',resume:'Gaspard, Esteban et Hadrien racontent leurs premières vendanges à Luján de Cuyo. Une expérience fondatrice.',contenu:'<p>C\'était en été austral, sous un soleil de mars brûlant.</p>'}
 ],cart:[]};
 
-function getData(){try{const r=localStorage.getItem(STORE);if(!r)return JSON.parse(JSON.stringify(DEF));const d=JSON.parse(r);return{wines:d.wines||DEF.wines,degustations:d.degustations||DEF.degustations,chroniques:d.chroniques||DEF.chroniques,cart:d.cart||[]};}catch(e){return JSON.parse(JSON.stringify(DEF));}}
+function getData(){try{const r=localStorage.getItem(STORE);const d=r?JSON.parse(r):{};return{wines:DEF.wines,degustations:DEF.degustations,chroniques:DEF.chroniques,cart:d.cart||[]};}catch(e){return JSON.parse(JSON.stringify(DEF));}}
 function saveData(d){try{localStorage.setItem(STORE,JSON.stringify(d));}catch(e){}}
 if(!localStorage.getItem(STORE))saveData(JSON.parse(JSON.stringify(DEF)));
 function calcPrix(w){if(!w.reduction)return w.prix;return parseFloat((w.prix*(1-w.reduction/100)).toFixed(2));}
