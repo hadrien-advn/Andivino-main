@@ -152,20 +152,6 @@ document.querySelectorAll('.dtab').forEach(b=>{
   });
 });
 
-/* ── CHRONIQUES ── */
-function renderChron(){
-  const {chroniques}=getData();const g=document.getElementById('chronGrid');if(!g)return;
-  const syms=['◈','△','∾'];
-  g.innerHTML=chroniques.slice(0,3).map((c,i)=>`
-    <a href="/chroniques#${c.id}" class="ccard fi${i?' d'+i:''}">
-      <div class="cimg"><div class="cimg-ph">${syms[i]||'◈'}</div></div>
-      <div class="ccat">${c.categorie}</div>
-      <div class="ctit">${c.titre}</div>
-      <p class="cres">${c.resume}</p>
-      <div class="cdat">${fmtDate(c.date)}</div>
-    </a>`).join('');
-  observeFade();
-}
 function fmtDate(s){return new Date(s).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}
 
 /* ── NAV + CART ── */
@@ -176,7 +162,6 @@ updateBadge();
 /* ── INIT ── */
 renderWines();
 renderDeg('upcoming');
-renderChron();
 observeFade();
 
 /* ── MORE LISTENERS ── */
