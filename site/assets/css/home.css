@@ -187,6 +187,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .lall{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:gap var(--e)}
 .lall:hover{gap:.8rem}
 .chron-g{display:grid;grid-template-columns:1.65fr 1fr 1fr;gap:2.5rem}
+.chron-coming{padding:3rem 0;text-align:center;color:var(--gris);font-family:var(--fd);font-style:italic;font-size:1.15rem;letter-spacing:.01em;border-top:1px solid var(--cream-d)}
 .ccard{text-decoration:none;color:inherit;display:block}
 .cimg{aspect-ratio:16/9;background:var(--cream-d);overflow:hidden;margin-bottom:1.1rem;position:relative;display:flex;align-items:center;justify-content:center}
 .cimg-ph{font-family:var(--fd);font-style:italic;font-size:3.5rem;color:var(--gris-l)}
