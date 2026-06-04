@@ -166,20 +166,24 @@ const burgerBtn=document.getElementById('burgerBtn');
 const navMobile=document.getElementById('navMobile');
 function closeMobileMenu(){
   if(!navMobile||!burgerBtn)return;
-  navMobile.classList.remove('open');
+  navMobile.style.display='none';
   burgerBtn.classList.remove('open');
   burgerBtn.setAttribute('aria-expanded','false');
   document.body.style.overflow='';
 }
 if(burgerBtn&&navMobile){
   burgerBtn.addEventListener('click',()=>{
-    const open=navMobile.classList.toggle('open');
-    burgerBtn.classList.toggle('open',open);
-    burgerBtn.setAttribute('aria-expanded',open);
-    document.body.style.overflow=open?'hidden':'';
+    const isOpen=navMobile.style.display==='flex';
+    if(isOpen){
+      closeMobileMenu();
+    } else {
+      navMobile.style.display='flex';
+      burgerBtn.classList.add('open');
+      burgerBtn.setAttribute('aria-expanded','true');
+      document.body.style.overflow='hidden';
+    }
   });
   navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileMenu));
-  // Ferme le menu si on passe en mode desktop
   window.addEventListener('resize',()=>{if(window.innerWidth>600)closeMobileMenu();});
 }
 
