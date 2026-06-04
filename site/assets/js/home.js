@@ -159,6 +159,24 @@ const navEl=document.getElementById('nav');
 window.addEventListener('scroll',()=>{navEl.classList.toggle('scrolled',window.scrollY>50);});
 updateBadge();
 
+/* ── BURGER MENU ── */
+const burgerBtn=document.getElementById('burgerBtn');
+const navMobile=document.getElementById('navMobile');
+if(burgerBtn&&navMobile){
+  burgerBtn.addEventListener('click',()=>{
+    const open=navMobile.classList.toggle('open');
+    burgerBtn.classList.toggle('open',open);
+    burgerBtn.setAttribute('aria-expanded',open);
+    document.body.style.overflow=open?'hidden':'';
+  });
+  navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    navMobile.classList.remove('open');
+    burgerBtn.classList.remove('open');
+    burgerBtn.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+  }));
+}
+
 /* ── INIT ── */
 renderWines();
 renderDeg('upcoming');
