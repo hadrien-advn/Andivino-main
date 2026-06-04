@@ -162,6 +162,13 @@ updateBadge();
 /* ── BURGER MENU ── */
 const burgerBtn=document.getElementById('burgerBtn');
 const navMobile=document.getElementById('navMobile');
+function closeMobileMenu(){
+  if(!navMobile||!burgerBtn)return;
+  navMobile.classList.remove('open');
+  burgerBtn.classList.remove('open');
+  burgerBtn.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
 if(burgerBtn&&navMobile){
   burgerBtn.addEventListener('click',()=>{
     const open=navMobile.classList.toggle('open');
@@ -169,12 +176,9 @@ if(burgerBtn&&navMobile){
     burgerBtn.setAttribute('aria-expanded',open);
     document.body.style.overflow=open?'hidden':'';
   });
-  navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-    navMobile.classList.remove('open');
-    burgerBtn.classList.remove('open');
-    burgerBtn.setAttribute('aria-expanded','false');
-    document.body.style.overflow='';
-  }));
+  navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileMenu));
+  // Ferme le menu si on passe en mode desktop
+  window.addEventListener('resize',()=>{if(window.innerWidth>600)closeMobileMenu();});
 }
 
 /* ── INIT ── */
