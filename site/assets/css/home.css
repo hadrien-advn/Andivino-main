@@ -132,6 +132,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .vins-hd h2{font-family:var(--fd);font-size:clamp(2.3rem,4.5vw,4rem);font-weight:300;color:var(--charbon)}
 .vins-hd h2 em{font-style:italic}
 .vins-g{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:1200px;margin:0 auto}
+.wc-soldout{display:inline-block;background:var(--bdx);color:var(--cream-l);font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;padding:.3rem .85rem;margin-bottom:.8rem}
 .wcard{background:var(--cream-l);padding:2.5rem 2rem;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow var(--e),transform var(--e)}
 .wcard:hover{box-shadow:0 16px 48px rgba(20,16,12,.1);z-index:2;transform:translateY(-3px)}
 .wc-vin{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bdx);margin-bottom:.4rem}
