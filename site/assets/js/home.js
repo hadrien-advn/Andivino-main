@@ -163,7 +163,27 @@ updateBadge();
 
 /* ── BURGER MENU ── */
 const burgerBtn=document.getElementById('burgerBtn');
-const navMobile=document.getElementById('navMobile');
+let navMobile=null;
+
+function createMobileMenu(){
+  if(document.getElementById('navMobile'))return;
+  const div=document.createElement('div');
+  div.className='nav-mobile';
+  div.id='navMobile';
+  div.style.display='none';
+  div.innerHTML=`<ul>
+    <li><a href="#philosophie">Notre histoire</a></li>
+    <li><a href="#bodega">La Bodega</a></li>
+    <li><a href="#vins">Les vins</a></li>
+    <li><a href="#degustations">Dégustations</a></li>
+    <li><a href="#chroniques">Chroniques</a></li>
+    <li><a href="/commande" class="nav-mobile-cta">Commander</a></li>
+  </ul>`;
+  document.body.appendChild(div);
+  navMobile=div;
+  div.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileMenu));
+}
+
 function closeMobileMenu(){
   if(!navMobile||!burgerBtn)return;
   navMobile.style.display='none';
@@ -171,19 +191,19 @@ function closeMobileMenu(){
   burgerBtn.setAttribute('aria-expanded','false');
   document.body.style.overflow='';
 }
-if(burgerBtn&&navMobile){
+
+if(burgerBtn){
   burgerBtn.addEventListener('click',()=>{
+    if(!navMobile)createMobileMenu();
     const isOpen=navMobile.style.display==='flex';
-    if(isOpen){
-      closeMobileMenu();
-    } else {
+    if(isOpen){closeMobileMenu();}
+    else{
       navMobile.style.display='flex';
       burgerBtn.classList.add('open');
       burgerBtn.setAttribute('aria-expanded','true');
       document.body.style.overflow='hidden';
     }
   });
-  navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileMenu));
   window.addEventListener('resize',()=>{if(window.innerWidth>600)closeMobileMenu();});
 }
 
