@@ -43,9 +43,17 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false
 }));
 
+// Version générée au démarrage — change à chaque redéploiement Railway
+const BUILD_VERSION = Date.now().toString(36);
+
+// Images : cache 7 jours (rarement modifiées)
+app.use('/assets/images', express.static(path.join(rootDir, 'assets/images'), {
+  maxAge: '7d'
+}));
+
+// CSS et JS : cache 1h, invalidé par ?v= dans les URLs HTML
 app.use('/assets', express.static(path.join(rootDir, 'assets'), {
-  immutable: true,
-  maxAge: '30d'
+  maxAge: '1h'
 }));
 
 app.post('/api/stripe/webhook', express.raw({ type: 'application/json', limit: '100kb' }), async (req, res) => {
@@ -94,8 +102,28 @@ function page(fileName) {
   return path.join(pagesDir, fileName);
 }
 
+// Cache HTML en mémoire avec version injectée dans les URLs CSS/JS
+const htmlCache = {};
+
+async function getHtmlWithVersion(fileName) {
+  if (htmlCache[fileName]) return htmlCache[fileName];
+  let html = await fs.readFile(page(fileName), 'utf8');
+  html = html.replace(/(href|src)="(\/assets\/[^"]+\.(css|js))"/g, `$1="$2?v=${BUILD_VERSION}"`);
+  htmlCache[fileName] = html;
+  return html;
+}
+
 function sendPage(fileName) {
-  return (req, res) => res.sendFile(page(fileName));
+  return async (req, res) => {
+    try {
+      const html = await getHtmlWithVersion(fileName);
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.send(html);
+    } catch (e) {
+      res.status(500).send('Erreur serveur');
+    }
+  };
 }
 
 function cleanText(value, maxLength = 120) {
