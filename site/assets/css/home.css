@@ -225,6 +225,8 @@ footer{background:var(--noir);padding:4.5rem}
 .ft-in{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem}
 .ft-br p{font-size:.75rem;line-height:1.75;color:rgba(250,246,241,.35);margin-top:1rem}
 .ft-brand-row{display:flex;align-items:center;gap:.8rem}
+.ft-logo-mark{height:44px;width:auto;filter:brightness(0) invert(1);opacity:.85}
+.ft-logo-text{height:28px;width:auto;filter:brightness(0) invert(1);opacity:.85}
 .ft-brand-name{font-family:var(--fd);font-size:1rem;letter-spacing:.2em;color:var(--or);text-transform:uppercase}
 .ft-brand-sub{font-size:.5rem;letter-spacing:.28em;color:var(--bdx);text-transform:uppercase}
 .ft-col h4{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:1.2rem}
