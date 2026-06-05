@@ -86,12 +86,12 @@ function renderWines(){
   });
   h+=`<div class="wsoon fi d3">
     <span class="soon-b">Prochainement</span>
-    <h3>Gualtallary Wines</h3>
-    <div class="sr">Gualtallary, Valle de Uco</div>
+    <h3>Nouvelle cuvée...</h3>
+    <div class="sr">En cours de sélection</div>
     <svg viewBox="0 0 80 50" width="55" height="35" fill="none" class="soon-icon">
       <path d="M40 5 L10 43 L70 43 Z" stroke="var(--charbon)" stroke-width="1.5"/>
     </svg>
-    <p>Notre prochaine sélection, depuis les hauteurs de Gualtallary. Altitude, expression minérale unique.</p>
+    <p>Esteban est actuellement en Argentine pour sélectionner notre prochain domaine.</p>
   </div>`;
   g.innerHTML=h;
   g.querySelectorAll('[data-wine-id]').forEach(card=>{
