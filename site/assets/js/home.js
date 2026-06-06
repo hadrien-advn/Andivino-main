@@ -71,7 +71,7 @@ function renderWines(){
     const p=calcPrix(w);const hr=w.reduction>0;
     const soldOutSoon=['helene-2016','poesia-2014'].includes(w.id);
     h+=`<div class="wcard fi${i?' d'+i:''}" data-wine-id="${w.id}">
-      ${soldOutSoon?'<div class="wc-soldout">Bientôt Sold Out</div>':''}
+      <div class="wc-badge-slot">${soldOutSoon?'<div class="wc-soldout">Bientôt Sold Out</div>':''}</div>
       <div class="wc-vin">${w.millesime}</div>
       <div class="wc-nm">${w.nom}</div>
       <div class="wc-bod">${w.bodega}</div>
