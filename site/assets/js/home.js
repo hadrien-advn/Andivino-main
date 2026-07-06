@@ -115,8 +115,10 @@ function renderWines(){
 
 /* ── MODAL ── */
 let curW=null;
+let scrollYBeforeModal=0;
 function openModal(id){
   const w=getData().wines.find(x=>x.id===id);if(!w)return;curW=w;
+  scrollYBeforeModal=window.scrollY;
   document.getElementById('mVin').textContent=`${w.millesime} · ${w.appellation}`;
   document.getElementById('mNm').textContent=w.nom;
   document.getElementById('mDesc').textContent=w.description;
@@ -130,7 +132,11 @@ function openModal(id){
   document.getElementById('wineModal').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeModal(){document.getElementById('wineModal').classList.remove('open');document.body.style.overflow='';}
+function closeModal(){
+  document.getElementById('wineModal').classList.remove('open');
+  document.body.style.overflow='';
+  window.scrollTo(0, scrollYBeforeModal);
+}
 document.getElementById('modalCl').addEventListener('click', closeModal);
 document.getElementById('wineModal').addEventListener('click', e=>{if(e.target===e.currentTarget)closeModal();});
 document.getElementById('mAdd').addEventListener('click', ()=>{if(curW)addToCart(curW.id);});

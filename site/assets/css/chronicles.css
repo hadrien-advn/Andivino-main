@@ -53,6 +53,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .art-body strong{color:var(--charbon);font-weight:500}
 .art-body em{font-style:italic;color:var(--bdx)}
 .art-body h3{font-family:var(--fd);font-size:1.4rem;font-style:italic;color:var(--charbon);margin:2rem 0 .8rem}
+.art-body a{color:var(--bdx);text-decoration:none;border-bottom:1px solid rgba(110,24,40,.35);transition:border-color var(--e),color var(--e)}
+.art-body a:hover{color:var(--bdx-d);border-color:var(--bdx-d)}
+.art-body ul{list-style:none;margin:0 0 1.2rem;padding:0}
+.art-body li{position:relative;padding-left:1.2rem;margin-bottom:.7rem}
+.art-body li::before{content:'—';position:absolute;left:0;color:var(--or)}
 .empty-chron{text-align:center;padding:5rem;font-family:var(--fd);font-style:italic;color:var(--gris-l);font-size:1.3rem;grid-column:1/-1}
 @media(max-width:960px){
   nav{padding:1rem 1.5rem}.nlinks{display:none}
