@@ -2,6 +2,7 @@ const STORE='andivino_v1';
 const IMAGE_BASE_URL = new URL('../images/', document.currentScript.src).href;
 const MN=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
 const SCORES={'clos-2017':[],'helene-2016':[],'poesia-2014':[{src:'Wine Advocate',pts:'94'},{src:'Vinous',pts:'91'},{src:'James Suckling',pts:'92'}]};
+const WINE_PAGES={'clos-2017':{slug:'clos-des-andes-2017',label:'Découvrir Clos des Andes 2017'},'helene-2016':{slug:'cuvee-helene-2016',label:'Découvrir la Cuvée Hélène 2016'},'poesia-2014':{slug:'poesia-2014',label:'Découvrir Poésía 2014'}};
 const DEF={wines:[
   {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:19,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'100% Malbec — Vendanges manuelles',superficie:'2 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre s'étirent vers une finale douce et veloutée, gagnant en finesse à l'aération."},
   {id:'helene-2016',nom:'Poésía — Cuvée Hélène',millesime:2016,prix:35,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60% Malbec — 40% Cabernet Sauvignon',superficie:'1 ha planté en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'16 à 18 mois',garde:'25 ans',dispo:true,description:"D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La finale, longue et persistante, repose sur des tanins nobles et harmonieux — un vin d'une grande élégance et profondeur."},
@@ -77,6 +78,7 @@ function renderWines(){
       <div class="wc-bod">${w.bodega}</div>
       <div class="wc-bot">${bottleSVG(w.id)}</div>
       <p class="wc-desc">${w.description}</p>
+      <a class="wc-discover" href="/vins/${WINE_PAGES[w.id].slug}/" data-discover-id="${w.id}">${WINE_PAGES[w.id].label} →</a>
       <div class="wc-ft">
         <div class="wc-px">
           ${hr?`<span class="wc-px-old">${w.prix} €</span>`:''}${p} €
@@ -104,6 +106,9 @@ function renderWines(){
       event.stopPropagation();
       addToCart(btn.dataset.addId);
     });
+  });
+  g.querySelectorAll('[data-discover-id]').forEach(link=>{
+    link.addEventListener('click', event => event.stopPropagation());
   });
   observeFade();
 }

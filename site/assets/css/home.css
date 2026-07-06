@@ -142,6 +142,8 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .wc-bot{flex:1;display:flex;align-items:center;justify-content:center;padding:1rem 0;min-height:160px}
 .bottle-img{width:auto;object-fit:contain;display:block}
 .wc-desc{font-size:.78rem;line-height:1.75;color:var(--gris);border-top:1px solid var(--cream-d);padding-top:1.2rem;margin-top:1.2rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.wc-discover{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bdx);text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;margin-top:.9rem;transition:gap var(--e)}
+.wc-discover:hover{gap:.65rem}
 .wc-ft{display:flex;justify-content:space-between;align-items:flex-end;margin-top:1.5rem}
 .wc-px{font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--charbon);line-height:1}
 .wc-px-old{font-size:.9rem;text-decoration:line-through;color:var(--gris-l);display:block;margin-bottom:.1rem}

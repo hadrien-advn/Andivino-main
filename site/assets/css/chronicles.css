@@ -82,3 +82,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .article-cta .btn-p:hover{background:var(--bdx-d)}
 .article-cta .btn-o{border:1px solid var(--cream-d);color:var(--charbon)}
 .article-cta .btn-o:hover{border-color:var(--bdx);color:var(--bdx)}
+
+/* ── WINE PAGE ── */
+.wine-bottle{text-align:center;padding:1rem 0 2rem}
+.wine-bottle img{height:260px;width:auto}
+.scores-row{display:flex;gap:1.5rem;margin-bottom:1.8rem;flex-wrap:wrap}
+.score-it{text-align:center}
+.score-pts{font-family:var(--fd);font-size:1.5rem;font-weight:300;color:var(--charbon);line-height:1}
+.score-src{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.m-specs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;border-top:1px solid var(--cream-d);border-bottom:1px solid var(--cream-d);padding:1.5rem 0;margin:1.8rem 0}
+.msl{font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-bottom:.15rem}
+.msv{font-size:.85rem;color:var(--charbon);font-weight:500}
+.wine-price{font-family:var(--fd);font-size:1.7rem;color:var(--charbon);margin-bottom:1.8rem}
+.wine-price span{font-size:.6rem;letter-spacing:.08em;color:var(--gris);font-family:var(--fb);margin-left:.4rem}
+@media(max-width:600px){.m-specs{grid-template-columns:1fr 1fr}}
