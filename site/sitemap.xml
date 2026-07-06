@@ -14,8 +14,26 @@
   </url>
   <url>
     <loc>https://andivino.fr/chroniques</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://andivino.fr/chroniques/mendoza-terroir-andin</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://andivino.fr/chroniques/malbec-cabernet-assemblage-argentin</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://andivino.fr/chroniques/vendanges-bodega-poesia-recit</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

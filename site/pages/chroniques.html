@@ -20,6 +20,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/chronicles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://andivino.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Chroniques", "item": "https://andivino.fr/chroniques" }
+  ]
+}
+</script>
 </head>
 <body>
 <nav>
@@ -47,17 +57,35 @@
 </div>
 
 <div class="chron-body">
-  <div class="chron-grid" id="chronGrid"></div>
-</div>
+  <div class="chron-grid" id="chronGrid">
 
-<!-- ARTICLE MODAL -->
-<div class="art-ov" id="artModal">
-  <div class="art-box">
-    <button class="art-cl" id="artCl">✕</button>
-    <div class="art-cat" id="aCat"></div>
-    <div class="art-title" id="aTitle"></div>
-    <div class="art-meta" id="aMeta"></div>
-    <div class="art-body" id="aBody"></div>
+    <a class="ccard" data-cat="Terroir" href="/chroniques/mendoza-terroir-andin">
+      <div class="cimg"><div class="cimg-ph">◈</div></div>
+      <div class="ccat">Terroir</div>
+      <div class="ctit">Mendoza vue de l'intérieur : comprendre le terroir andin</div>
+      <p class="cres">À 900 mètres d'altitude, entre sol sablo-argileux et sous-sol de graviers, la Bodega Poesía produit des vins d'une minéralité rare. Voyage géologique au cœur de la Primera Zona.</p>
+      <div class="cdat">10 janvier 2025</div>
+      <span class="clire">Lire l'article →</span>
+    </a>
+
+    <a class="ccard" data-cat="Éducation" href="/chroniques/malbec-cabernet-assemblage-argentin">
+      <div class="cimg"><div class="cimg-ph">△</div></div>
+      <div class="ccat">Éducation</div>
+      <div class="ctit">Malbec &amp; Cabernet : le grand assemblage argentin</div>
+      <p class="cres">Pourquoi associer le Malbec local au Cabernet bordelais ? La Bodega Poesía révèle sa philosophie d'assemblage, héritée directement des Grands Crus de Bordeaux.</p>
+      <div class="cdat">14 février 2025</div>
+      <span class="clire">Lire l'article →</span>
+    </a>
+
+    <a class="ccard" data-cat="Reportage" href="/chroniques/vendanges-bodega-poesia-recit">
+      <div class="cimg"><div class="cimg-ph">∾</div></div>
+      <div class="ccat">Reportage</div>
+      <div class="ctit">Trois Français aux vendanges : le récit de Gaspard</div>
+      <p class="cres">Gaspard, Esteban et Hadrien racontent leurs premières vendanges à Luján de Cuyo. Une expérience fondatrice, sous le soleil de mars austral.</p>
+      <div class="cdat">1 mars 2025</div>
+      <span class="clire">Lire l'article →</span>
+    </a>
+
   </div>
 </div>
 

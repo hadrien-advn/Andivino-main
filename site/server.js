@@ -214,6 +214,9 @@ async function recordPaymentIntentEvent(event) {
 app.get('/', sendPage('home.html'));
 app.get(['/commande', '/commande/'], sendPage('commande.html'));
 app.get(['/chroniques', '/chroniques/'], sendPage('chroniques.html'));
+app.get(['/chroniques/mendoza-terroir-andin', '/chroniques/mendoza-terroir-andin/'], sendPage('chronique-mendoza-terroir-andin.html'));
+app.get(['/chroniques/malbec-cabernet-assemblage-argentin', '/chroniques/malbec-cabernet-assemblage-argentin/'], sendPage('chronique-malbec-cabernet-assemblage-argentin.html'));
+app.get(['/chroniques/vendanges-bodega-poesia-recit', '/chroniques/vendanges-bodega-poesia-recit/'], sendPage('chronique-vendanges-bodega-poesia-recit.html'));
 app.get(['/paiement/success', '/paiement/success/'], sendPage('payment-success.html'));
 app.get(['/paiement/cancel', '/paiement/cancel/'], sendPage('payment-cancel.html'));
 app.get(['/legal/cgv', '/legal/cgv/'], sendPage('legal-cgv.html'));
