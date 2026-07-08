@@ -10,7 +10,7 @@
     "stripe:listen": "powershell -ExecutionPolicy Bypass -File scripts/stripe-listen.ps1",
     "stripe:listen:check": "powershell -ExecutionPolicy Bypass -File scripts/stripe-listen.ps1 -Check",
     "handoff:zip": "powershell -ExecutionPolicy Bypass -File scripts/create-handoff.ps1",
-    "check": "node --check server.js && node --check assets/js/home.js && node --check assets/js/home-carousel.js && node --check assets/js/checkout.js && node --check assets/js/chronicles.js && node --check assets/js/success.js && node --check assets/js/config.js"
+    "check": "node --check server.js && node --check assets/js/home.js && node --check assets/js/home-carousel.js && node --check assets/js/checkout.js && node --check assets/js/chronicles.js && node --check assets/js/success.js && node --check assets/js/config.js && node --check assets/js/legal-banners.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
