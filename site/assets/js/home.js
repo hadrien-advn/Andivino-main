@@ -1,7 +1,6 @@
 const STORE='andivino_v1';
 const IMAGE_BASE_URL = new URL('../images/', document.currentScript.src).href;
 const MN=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-const SCORES={'clos-2017':[],'helene-2016':[],'poesia-2014':[{src:'Wine Advocate',pts:'94'},{src:'Vinous',pts:'91'},{src:'James Suckling',pts:'92'}]};
 const WINE_PAGES={'clos-2017':{slug:'clos-des-andes-2017',label:'Découvrir Clos des Andes 2017'},'helene-2016':{slug:'cuvee-helene-2016',label:'Découvrir la Cuvée Hélène 2016'},'poesia-2014':{slug:'poesia-2014',label:'Découvrir Poésía 2014'}};
 const DEF={wines:[
   {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:19,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'100% Malbec — Vendanges manuelles',superficie:'2 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre s'étirent vers une finale douce et veloutée, gagnant en finesse à l'aération."},
@@ -71,14 +70,13 @@ function renderWines(){
   wines.forEach((w,i)=>{
     const p=calcPrix(w);const hr=w.reduction>0;
     const soldOutSoon=['helene-2016','poesia-2014'].includes(w.id);
-    h+=`<div class="wcard fi${i?' d'+i:''}" data-wine-id="${w.id}">
+    h+=`<a class="wcard fi${i?' d'+i:''}" href="/vins/${WINE_PAGES[w.id].slug}/" data-wine-id="${w.id}">
       <div class="wc-badge-slot">${soldOutSoon?'<div class="wc-soldout">Bientôt Sold Out</div>':''}</div>
       <div class="wc-vin">${w.millesime}</div>
       <div class="wc-nm">${w.nom}</div>
       <div class="wc-bod">${w.bodega}</div>
       <div class="wc-bot">${bottleSVG(w.id)}</div>
       <p class="wc-desc">${w.description}</p>
-      <a class="wc-discover" href="/vins/${WINE_PAGES[w.id].slug}/" data-discover-id="${w.id}">${WINE_PAGES[w.id].label} →</a>
       <div class="wc-ft">
         <div class="wc-px">
           ${hr?`<span class="wc-px-old">${w.prix} €</span>`:''}${p} €
@@ -86,7 +84,7 @@ function renderWines(){
         </div>
         <button class="btn-add" data-add-id="${w.id}">+ Ajouter</button>
       </div>
-    </div>`;
+    </a>`;
   });
   h+=`<div class="wsoon fi d3">
     <span class="soon-b">Prochainement</span>
@@ -98,49 +96,15 @@ function renderWines(){
     <p>Esteban est actuellement en Argentine pour sélectionner notre prochain domaine.</p>
   </div>`;
   g.innerHTML=h;
-  g.querySelectorAll('[data-wine-id]').forEach(card=>{
-    card.addEventListener('click',()=>openModal(card.dataset.wineId));
-  });
   g.querySelectorAll('[data-add-id]').forEach(btn=>{
     btn.addEventListener('click',(event)=>{
+      event.preventDefault();
       event.stopPropagation();
       addToCart(btn.dataset.addId);
     });
   });
-  g.querySelectorAll('[data-discover-id]').forEach(link=>{
-    link.addEventListener('click', event => event.stopPropagation());
-  });
   observeFade();
 }
-
-/* ── MODAL ── */
-let curW=null;
-let scrollYBeforeModal=0;
-function openModal(id){
-  const w=getData().wines.find(x=>x.id===id);if(!w)return;curW=w;
-  scrollYBeforeModal=window.scrollY;
-  document.getElementById('mVin').textContent=`${w.millesime} · ${w.appellation}`;
-  document.getElementById('mNm').textContent=w.nom;
-  document.getElementById('mDesc').textContent=w.description;
-  const p=calcPrix(w);const hr=w.reduction>0;
-  document.getElementById('mPx').innerHTML=`${hr?`<span class="m-px-old">${w.prix} €</span>`:''}${p} €`;
-  document.getElementById('mBot').innerHTML=bottleSVG(w.id,220);
-  const specs=[{l:'Cépages',v:w.cepages},{l:'Superficie',v:w.superficie},{l:'Sol',v:w.sol},{l:'Fermentation',v:w.fermentation},{l:'Élevage',v:w.elevage},{l:'Garde',v:w.garde}];
-  document.getElementById('mSpecs').innerHTML=specs.map(s=>`<div class="msp"><div class="msl">${s.l}</div><div class="msv">${s.v}</div></div>`).join('');
-  const sc=SCORES[id]||[];
-  document.getElementById('mScores').innerHTML=sc.map(s=>`<div class="score-it"><div class="score-pts">${s.pts}<sup>pts</sup></div><div class="score-src">${s.src}</div></div>`).join('');
-  document.getElementById('wineModal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){
-  document.getElementById('wineModal').classList.remove('open');
-  document.body.style.overflow='';
-  window.scrollTo(0, scrollYBeforeModal);
-}
-document.getElementById('modalCl').addEventListener('click', closeModal);
-document.getElementById('wineModal').addEventListener('click', e=>{if(e.target===e.currentTarget)closeModal();});
-document.getElementById('mAdd').addEventListener('click', ()=>{if(curW)addToCart(curW.id);});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 /* ── DÉGUSTATIONS ── */
 function renderDeg(tab='upcoming'){
