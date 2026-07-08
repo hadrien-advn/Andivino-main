@@ -52,13 +52,6 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .hero-ind-l{width:1px;height:44px;background:var(--cream-l);animation:lp 2s ease-in-out infinite}
 @keyframes lp{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* ── STATS BAR ── */
-.stats-bar{background:var(--noir);padding:1.6rem 4rem;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
-.stat-it{display:flex;flex-direction:column;align-items:center;gap:.25rem}
-.stat-v{font-family:var(--fd);font-size:2rem;font-weight:300;color:var(--or);line-height:1}
-.stat-v sup{font-size:1.1rem}
-.stat-l{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,246,241,.38)}
-
 /* ── SHARED ── */
 .si{max-width:1160px;margin:0 auto;padding:0 4rem}
 .sl{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bdx);display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem}
@@ -221,24 +214,6 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .social-link.soon{opacity:.42;cursor:default;pointer-events:none}
 .social-name{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:inherit}
 
-/* ── FOOTER ── */
-footer{background:#2A2420;padding:4.5rem}
-.ft-in{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem}
-.ft-br p{font-size:.75rem;line-height:1.75;color:rgba(250,246,241,.5);margin-top:1rem}
-.ft-brand-row{display:flex;align-items:center;gap:.9rem}
-.ft-logo-mark{height:44px;width:44px;object-fit:contain}
-.ft-logo-text{height:26px;width:auto;max-width:140px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8}
-.ft-brand-name{font-family:var(--fd);font-size:1rem;letter-spacing:.2em;color:var(--or);text-transform:uppercase}
-.ft-brand-sub{font-size:.5rem;letter-spacing:.28em;color:var(--bdx);text-transform:uppercase}
-.ft-col h4{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:1.2rem}
-.ft-col a,.ft-col p{display:block;font-size:.75rem;line-height:1.7;color:rgba(250,246,241,.6);text-decoration:none;margin-bottom:.35rem;transition:color var(--e)}
-.ft-col .ft-note{margin-top:.9rem;font-size:.68rem;font-style:italic;line-height:1.6}
-.ft-col a:hover{color:var(--cream-l)}
-.ft-btm{border-top:1px solid rgba(250,246,241,.12);margin-top:3rem;padding-top:1.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.ft-btm p,.ft-btm a{font-size:.6rem;color:rgba(250,246,241,.4);text-decoration:none}
-.ft-btm a:hover{color:rgba(250,246,241,.75)}
-.ft-links{display:flex;gap:1.5rem}
-
 
 #toast{position:fixed;bottom:2rem;right:2rem;background:var(--bdx);color:var(--cream-l);padding:.75rem 1.5rem;font-size:.68rem;letter-spacing:.06em;z-index:2000;opacity:0;transition:opacity .3s;pointer-events:none}
 
@@ -261,15 +236,12 @@ footer{background:#2A2420;padding:4.5rem}
   .nlinks{display:none}
   .hero{padding:0 1.5rem 4rem}
   .hero-ind{right:1.5rem}
-  .stats-bar{padding:1.5rem;gap:2rem}
   .si,.deg-in,.chron-in,.b2b-in{padding:0 1.5rem}
   .philo-g,.bodega-g{grid-template-columns:1fr}
   .bodega-map{position:static}
   .vins-g{grid-template-columns:1fr 1fr;max-width:640px;margin:0 auto}
   .chron-g{grid-template-columns:1fr}
   .chron-hd{flex-direction:column;align-items:flex-start;gap:1rem}
-  .ft-in{grid-template-columns:1fr 1fr;gap:2rem}
-  footer{padding:3rem 1.5rem}
   .ditem{grid-template-columns:60px 1fr;row-gap:1rem}
   .ditem > *:last-child{grid-column:1/-1}
   .b2b-in{flex-direction:column;text-align:center}
@@ -289,10 +261,6 @@ footer{background:#2A2420;padding:4.5rem}
   .hero-ctas{flex-direction:column;gap:.7rem}
   .btn-p,.btn-o{text-align:center;padding:.85rem 1.5rem}
   .hero-ind{display:none}
-
-  /* STATS */
-  .stats-bar{padding:1.2rem 1rem;gap:1.2rem;justify-content:space-around}
-  .stat-v{font-size:1.6rem}
 
   /* SECTIONS padding */
   .s-philo,.s-founders,.s-bodega,.s-vins,.s-deg,.s-chron{padding:4.5rem 0}
@@ -325,10 +293,4 @@ footer{background:#2A2420;padding:4.5rem}
   /* B2B */
   .b2b-in{gap:1.5rem;padding:0 1.2rem}
   .b2b-t h2{font-size:1.6rem}
-
-  /* FOOTER */
-  .ft-in{grid-template-columns:1fr;gap:1.8rem}
-  footer{padding:2.5rem 1.2rem}
-  .ft-btm{flex-direction:column;align-items:flex-start;gap:.5rem}
-  .ft-links{flex-wrap:wrap;gap:1rem}
 }

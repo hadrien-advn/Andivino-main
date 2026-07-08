@@ -1,0 +1,27 @@
+/* ── FOOTER (shared across all pages) ── */
+footer{background:#2A2420;padding:4.5rem}
+.ft-in{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem}
+.ft-br p{font-size:.75rem;line-height:1.75;color:rgba(250,246,241,.5);margin-top:1rem}
+.ft-brand-row{display:flex;align-items:center;gap:.9rem}
+.ft-logo-mark{height:44px;width:44px;object-fit:contain}
+.ft-logo-text{height:26px;width:auto;max-width:140px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8}
+.ft-brand-name{font-family:var(--fd);font-size:1rem;letter-spacing:.2em;color:var(--or);text-transform:uppercase}
+.ft-brand-sub{font-size:.5rem;letter-spacing:.28em;color:var(--bdx);text-transform:uppercase}
+.ft-col h4{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:1.2rem}
+.ft-col a,.ft-col p{display:block;font-size:.75rem;line-height:1.7;color:rgba(250,246,241,.6);text-decoration:none;margin-bottom:.35rem;transition:color .3s ease}
+.ft-col .ft-note{margin-top:.9rem;font-size:.68rem;font-style:italic;line-height:1.6}
+.ft-col a:hover{color:var(--cream-l)}
+.ft-btm{border-top:1px solid rgba(250,246,241,.12);margin-top:3rem;padding-top:1.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.ft-btm p,.ft-btm a{font-size:.6rem;color:rgba(250,246,241,.4);text-decoration:none}
+.ft-btm a:hover{color:rgba(250,246,241,.75)}
+.ft-links{display:flex;gap:1.5rem}
+@media(max-width:960px){
+  .ft-in{grid-template-columns:1fr 1fr;gap:2rem}
+  footer{padding:3rem 1.5rem}
+}
+@media(max-width:600px){
+  .ft-in{grid-template-columns:1fr;gap:1.8rem}
+  footer{padding:2.5rem 1.2rem}
+  .ft-btm{flex-direction:column;align-items:flex-start;gap:.5rem}
+  .ft-links{flex-wrap:wrap;gap:1rem}
+}
