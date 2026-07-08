@@ -2,9 +2,9 @@
 footer{background:#2A2420;padding:4.5rem}
 .ft-in{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem}
 .ft-br p{font-size:.75rem;line-height:1.75;color:rgba(250,246,241,.5);margin-top:1rem}
-.ft-brand-row{display:flex;align-items:center;gap:.9rem}
-.ft-logo-mark{height:44px;width:44px;object-fit:contain}
-.ft-logo-text{height:26px;width:auto;max-width:140px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8}
+.ft-brand-row{display:flex;align-items:center;gap:1.1rem;margin-bottom:.5rem}
+.ft-logo-mark{height:64px;width:64px;object-fit:contain;filter:brightness(0) invert(1)}
+.ft-logo-text{height:38px;width:auto;max-width:190px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8}
 .ft-brand-name{font-family:var(--fd);font-size:1rem;letter-spacing:.2em;color:var(--or);text-transform:uppercase}
 .ft-brand-sub{font-size:.5rem;letter-spacing:.28em;color:var(--bdx);text-transform:uppercase}
 .ft-col h4{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:1.2rem}
