@@ -1,7 +1,7 @@
 const STORE='andivino_v1';
 const IMAGE_BASE_URL = new URL('../images/', document.currentScript.src).href;
 const MN=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-const WINE_PAGES={'clos-2017':{slug:'clos-des-andes-2017',label:'Découvrir Clos des Andes 2017'},'helene-2016':{slug:'cuvee-helene-2016',label:'Découvrir la Cuvée Hélène 2016'},'poesia-2014':{slug:'poesia-2014',label:'Découvrir Poésía 2014'}};
+const WINE_PAGES={'clos-2017':{slug:'mendoza/lujan-de-cuyo/clos-des-andes-2017',label:'Découvrir Clos des Andes 2017'},'helene-2016':{slug:'mendoza/lujan-de-cuyo/cuvee-helene-2016',label:'Découvrir la Cuvée Hélène 2016'},'poesia-2014':{slug:'mendoza/lujan-de-cuyo/poesia-2014',label:'Découvrir Poésía 2014'}};
 const DEF={wines:[
   {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:19,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'100% Malbec — Vendanges manuelles',superficie:'2 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre s'étirent vers une finale douce et veloutée, gagnant en finesse à l'aération."},
   {id:'helene-2016',nom:'Poésía — Cuvée Hélène',millesime:2016,prix:35,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60% Malbec — 40% Cabernet Sauvignon',superficie:'1 ha planté en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'16 à 18 mois',garde:'25 ans',dispo:true,description:"D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La finale, longue et persistante, repose sur des tanins nobles et harmonieux — un vin d'une grande élégance et profondeur."},
@@ -70,7 +70,7 @@ function renderWines(){
   wines.forEach((w,i)=>{
     const p=calcPrix(w);const hr=w.reduction>0;
     const soldOutSoon=['helene-2016','poesia-2014'].includes(w.id);
-    h+=`<a class="wcard fi${i?' d'+i:''}" href="/vins/${WINE_PAGES[w.id].slug}/" data-wine-id="${w.id}">
+    h+=`<a class="wcard fi${i?' d'+i:''}" href="/products/${WINE_PAGES[w.id].slug}/" data-wine-id="${w.id}">
       <div class="wc-badge-slot">${soldOutSoon?'<div class="wc-soldout">Bientôt Sold Out</div>':''}</div>
       <div class="wc-vin">${w.millesime}</div>
       <div class="wc-nm">${w.nom}</div>

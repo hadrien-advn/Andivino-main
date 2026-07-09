@@ -217,9 +217,14 @@ app.get(['/chroniques', '/chroniques/'], sendPage('chroniques.html'));
 app.get(['/chroniques/mendoza-terroir-andin', '/chroniques/mendoza-terroir-andin/'], sendPage('chronique-mendoza-terroir-andin.html'));
 app.get(['/chroniques/malbec-cabernet-assemblage-argentin', '/chroniques/malbec-cabernet-assemblage-argentin/'], sendPage('chronique-malbec-cabernet-assemblage-argentin.html'));
 app.get(['/chroniques/vendanges-bodega-poesia-recit', '/chroniques/vendanges-bodega-poesia-recit/'], sendPage('chronique-vendanges-bodega-poesia-recit.html'));
-app.get(['/vins/poesia-2014', '/vins/poesia-2014/'], sendPage('vin-poesia-2014.html'));
-app.get(['/vins/cuvee-helene-2016', '/vins/cuvee-helene-2016/'], sendPage('vin-cuvee-helene-2016.html'));
-app.get(['/vins/clos-des-andes-2017', '/vins/clos-des-andes-2017/'], sendPage('vin-clos-des-andes-2017.html'));
+app.get(['/products/mendoza/lujan-de-cuyo/poesia-2014', '/products/mendoza/lujan-de-cuyo/poesia-2014/'], sendPage('vin-poesia-2014.html'));
+app.get(['/products/mendoza/lujan-de-cuyo/cuvee-helene-2016', '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016/'], sendPage('vin-cuvee-helene-2016.html'));
+app.get(['/products/mendoza/lujan-de-cuyo/clos-des-andes-2017', '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017/'], sendPage('vin-clos-des-andes-2017.html'));
+
+// Anciennes URLs /vins/xxx (indexées avant restructuration) -> redirection permanente
+app.get(['/vins/poesia-2014', '/vins/poesia-2014/'], (req, res) => res.redirect(301, '/products/mendoza/lujan-de-cuyo/poesia-2014'));
+app.get(['/vins/cuvee-helene-2016', '/vins/cuvee-helene-2016/'], (req, res) => res.redirect(301, '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016'));
+app.get(['/vins/clos-des-andes-2017', '/vins/clos-des-andes-2017/'], (req, res) => res.redirect(301, '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017'));
 app.get(['/paiement/success', '/paiement/success/'], sendPage('payment-success.html'));
 app.get(['/paiement/cancel', '/paiement/cancel/'], sendPage('payment-cancel.html'));
 app.get(['/legal/cgv', '/legal/cgv/'], sendPage('legal-cgv.html'));

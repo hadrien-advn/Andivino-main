@@ -1,6 +1,6 @@
 const STORE='andivino_v1';
 const IMAGE_BASE_URL = new URL('../images/', document.currentScript.src).href;
-const WINE_PAGES={'clos-2017':'clos-des-andes-2017','helene-2016':'cuvee-helene-2016','poesia-2014':'poesia-2014'};
+const WINE_PAGES={'clos-2017':'mendoza/lujan-de-cuyo/clos-des-andes-2017','helene-2016':'mendoza/lujan-de-cuyo/cuvee-helene-2016','poesia-2014':'mendoza/lujan-de-cuyo/poesia-2014'};
 const DEF={wines:[
   {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:19,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'100% Malbec — Vendanges manuelles',superficie:'2 ha plantés en 1935',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir."},
   {id:'helene-2016',nom:'Poésía — Cuvée Hélène',millesime:2016,prix:35,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60% Malbec — 40% Cabernet Sauvignon',superficie:'1 ha planté en 1935',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'16 à 18 mois',garde:'25 ans',dispo:true,description:"D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso."},
@@ -61,7 +61,7 @@ function renderProducts(){
         <div class="pn">${w.nom}</div>
         <div class="pb">${w.bodega}</div>
         <div class="pd">${w.description}</div>
-        <a class="pf-link" href="/vins/${WINE_PAGES[w.id]}/" target="_blank" rel="noopener">Fiche produit détaillée →</a>
+        <a class="pf-link" href="/products/${WINE_PAGES[w.id]}/" target="_blank" rel="noopener">Fiche produit détaillée →</a>
       </div>
       <div class="prod-right">
         <div class="prod-px">
