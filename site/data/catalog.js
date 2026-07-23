@@ -2,7 +2,7 @@ const PRODUCTS = Object.freeze({
   'clos-2017': Object.freeze({
     id: 'clos-2017',
     name: 'Clos des Andes 2017',
-    unitAmount: 1999
+    unitAmount: 2199
   }),
   'helene-2016': Object.freeze({
     id: 'helene-2016',
@@ -12,7 +12,7 @@ const PRODUCTS = Object.freeze({
   'poesia-2014': Object.freeze({
     id: 'poesia-2014',
     name: 'Poesia 2014',
-    unitAmount: 3999
+    unitAmount: 4499
   })
 });
 
