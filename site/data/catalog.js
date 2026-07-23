@@ -2,17 +2,17 @@ const PRODUCTS = Object.freeze({
   'clos-2017': Object.freeze({
     id: 'clos-2017',
     name: 'Clos des Andes 2017',
-    unitAmount: 2400
+    unitAmount: 1999
   }),
   'helene-2016': Object.freeze({
     id: 'helene-2016',
     name: 'Poesia - Cuvee Helene 2016',
-    unitAmount: 3600
+    unitAmount: 3599
   }),
   'poesia-2014': Object.freeze({
     id: 'poesia-2014',
     name: 'Poesia 2014',
-    unitAmount: 4500
+    unitAmount: 3999
   })
 });
 
