@@ -145,6 +145,25 @@ const navEl=document.getElementById('nav');
 window.addEventListener('scroll',()=>{navEl.classList.toggle('scrolled',window.scrollY>50);});
 updateBadge();
 
+/* ── NAV : lien de la section en cours ── */
+const navLinks=[...document.querySelectorAll('.nlinks a[href^="#"]')];
+function setActiveNav(id){
+  navLinks.forEach(a=>{
+    const on=a.getAttribute('href')==='#'+id;
+    a.classList.toggle('is-active',on);
+    if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');
+  });
+}
+navLinks.forEach(a=>a.addEventListener('click',()=>setActiveNav(a.getAttribute('href').slice(1))));
+const navSections=navLinks.map(a=>document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+if('IntersectionObserver' in window&&navSections.length){
+  const spy=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting)setActiveNav(e.target.id);});
+  },{rootMargin:'-45% 0px -50% 0px'});
+  navSections.forEach(s=>spy.observe(s));
+  window.addEventListener('scroll',()=>{if(window.scrollY<window.innerHeight*.5)setActiveNav('');},{passive:true});
+}
+
 /* ── BURGER MENU ── */
 const burgerBtn=document.getElementById('burgerBtn');
 let navMobile=null;

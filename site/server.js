@@ -22,6 +22,10 @@ const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const stripe = stripeSecretKey ? new Stripe(stripeSecretKey) : null;
 
 app.disable('x-powered-by');
+// Dev-only allowance so impeccable live mode can load. Never active on Railway or in production.
+const __impeccableLiveDev = !process.env.RAILWAY_ENVIRONMENT && process.env.NODE_ENV !== 'production';
+const __liveSrc = __impeccableLiveDev ? ['http://localhost:8400'] : [];
+
 app.use(helmet({
   contentSecurityPolicy: {
     useDefaults: true,
@@ -30,11 +34,11 @@ app.use(helmet({
       baseUri: ["'self'"],
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"],
-      scriptSrc: ["'self'", 'https://js.stripe.com', "'sha256-wdcBSdLWsvB7koKbH4Q4rVx7/fjw4vYHJKGw3NnqCC8='"],
-      styleSrc: ["'self'", 'https://fonts.googleapis.com'],
+      scriptSrc: ["'self'", 'https://js.stripe.com', "'sha256-wdcBSdLWsvB7koKbH4Q4rVx7/fjw4vYHJKGw3NnqCC8='", ...__liveSrc],
+      styleSrc: ["'self'", 'https://fonts.googleapis.com', ...(__impeccableLiveDev ? ["'unsafe-inline'"] : [])],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
       imgSrc: ["'self'", 'data:'],
-      connectSrc: ["'self'", 'https://api.stripe.com'],
+      connectSrc: ["'self'", 'https://api.stripe.com', ...__liveSrc],
       frameSrc: ['https://js.stripe.com', 'https://hooks.stripe.com'],
       formAction: ["'self'"],
       upgradeInsecureRequests: null
