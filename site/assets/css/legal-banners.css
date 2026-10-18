@@ -6,7 +6,7 @@
 .age-box p{font-family:var(--fb);font-size:.85rem;line-height:1.7;color:var(--gris);margin-bottom:1rem}
 .age-warning{font-style:italic;font-size:.75rem!important}
 .age-actions{display:flex;flex-direction:column;gap:.8rem;margin-top:1.5rem}
-.age-actions button{font-family:var(--fb);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:1rem;cursor:pointer;border:none;transition:background .3s ease,color .3s ease,border-color .3s ease}
+.age-actions button{font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:1rem;cursor:pointer;border:none;transition:background .3s ease,color .3s ease,border-color .3s ease}
 .age-actions .age-btn-yes{background:var(--bdx);color:#fff}
 .age-actions .age-btn-yes:hover{background:#521220}
 .age-actions .age-btn-no{background:none;border:1px solid #C0BBB5;color:var(--gris)}
@@ -18,7 +18,7 @@
 .cookie-in p{font-family:var(--fb);font-size:.78rem;line-height:1.6;color:rgba(250,246,241,.75);flex:1;min-width:260px;margin:0}
 .cookie-in a{color:var(--or);text-decoration:underline}
 .cookie-actions{display:flex;gap:.8rem;flex-shrink:0}
-.cookie-actions button{font-family:var(--fb);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:.8rem 1.4rem;cursor:pointer;border:none;white-space:nowrap;transition:background .3s ease,border-color .3s ease}
+.cookie-actions button{font-family:var(--fb);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.8rem 1.4rem;cursor:pointer;border:none;white-space:nowrap;transition:background .3s ease,border-color .3s ease}
 .cookie-actions .cookie-btn-accept{background:var(--bdx);color:#fff}
 .cookie-actions .cookie-btn-accept:hover{background:#521220}
 .cookie-actions .cookie-btn-refuse{background:transparent;border:1px solid rgba(250,246,241,.3);color:rgba(250,246,241,.85)}

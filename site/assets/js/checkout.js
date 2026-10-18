@@ -52,6 +52,12 @@ function renderProducts(){
   const cart=getCart();
   // init QTY from cart
   cart.forEach(ci=>{QTY[ci.id]=ci.qty;});
+  // ?ajout=<id> depuis une fiche vin : ajoute 1 bouteille si absente du panier
+  const ajout=new URLSearchParams(location.search).get('ajout');
+  if(ajout&&wines.some(w=>w.id===ajout)){
+    if(!QTY[ajout]){QTY[ajout]=1;const c=getCart();c.push({id:ajout,qty:1});saveCart(c);}
+    history.replaceState(null,'',location.pathname);
+  }
   const list=document.getElementById('prodList');if(!list)return;
   list.innerHTML=wines.map(w=>{
     const p=calcPrix(w);const hr=w.reduction>0;const qty=QTY[w.id]||0;
@@ -71,9 +77,9 @@ function renderProducts(){
           <span class="prod-px-lbl">TTC / btl</span>
         </div>
         <div class="qty-ctrl">
-          <button class="qty-btn" data-wine-id="${w.id}" data-delta="-1">−</button>
-          <span class="qty-val" id="qv-${w.id}">${qty}</span>
-          <button class="qty-btn" data-wine-id="${w.id}" data-delta="1">+</button>
+          <button type="button" class="qty-btn" data-wine-id="${w.id}" data-delta="-1" aria-label="Retirer une bouteille de ${w.nom}">−</button>
+          <span class="qty-val" id="qv-${w.id}" aria-live="polite">${qty}</span>
+          <button type="button" class="qty-btn" data-wine-id="${w.id}" data-delta="1" aria-label="Ajouter une bouteille de ${w.nom}">+</button>
         </div>
       </div>
     </div>`;
@@ -113,9 +119,9 @@ function updateCart(){
   lines.innerHTML=c.map(ci=>{
     const w=wines.find(x=>x.id===ci.id);if(!w)return'';
     const p=calcPrix(w);const sub=parseFloat((p*ci.qty).toFixed(2));total+=sub;
-    return `<div class="cart-line"><span>${ci.qty}× <span class="cn">${w.nom}</span></span><span class="cpx">${sub.toFixed(2)} €</span></div>`;
+    return `<div class="cart-line"><span>${ci.qty}× <span class="cn">${w.nom}</span></span><span class="cpx">${fmtPrix(sub)} €</span></div>`;
   }).join('');
-  if(totalEl)totalEl.textContent=total.toFixed(2)+' €';
+  if(totalEl)totalEl.textContent=fmtPrix(total)+' €';
   updateShippingPrices();
   updateGrandTotal();
   document.getElementById('btnCheckout').disabled=false;
@@ -156,14 +162,18 @@ function updateShippingPrices() {
 
 function selectLiv(el) {
   if (el.classList.contains('disabled')) return;
-  document.querySelectorAll('.liv-opt').forEach(function(o){ o.classList.remove('selected'); });
+  document.querySelectorAll('.liv-opt').forEach(function(o){ o.classList.remove('selected'); o.setAttribute('aria-checked','false'); });
   el.classList.add('selected');
+  el.setAttribute('aria-checked','true');
   selectedLiv = el.getAttribute('data-mode');
   updateGrandTotal();
   resetPaymentElement();
 }
 document.querySelectorAll('.liv-opt').forEach(function(el){
   el.addEventListener('click', function(){ selectLiv(el); });
+  el.addEventListener('keydown', function(e){
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); selectLiv(el); }
+  });
 });
 
 function updateGrandTotal() {
@@ -196,11 +206,15 @@ document.addEventListener('DOMContentLoaded', function() {
       var isIDF = idfDepts.some(function(d){ return cp.startsWith(d); });
       var livIDF  = document.getElementById('livIDF');
       var idfNote = document.getElementById('idfNote');
-      if (livIDF) livIDF.classList.toggle('disabled', !isIDF);
+      if (livIDF) {
+        livIDF.classList.toggle('disabled', !isIDF);
+        livIDF.setAttribute('aria-disabled', String(!isIDF));
+        livIDF.tabIndex = isIDF ? 0 : -1;
+      }
       if (idfNote) idfNote.classList.toggle('visible', cp.length >= 2 && !isIDF);
       // Si IDF désactivé et c'est le mode sélectionné, deselect
       if (!isIDF && selectedLiv === 'main-propre') {
-        document.querySelectorAll('.liv-opt').forEach(function(o){ o.classList.remove('selected'); });
+        document.querySelectorAll('.liv-opt').forEach(function(o){ o.classList.remove('selected'); o.setAttribute('aria-checked','false'); });
         selectedLiv = null;
         updateGrandTotal();
         checkForm();

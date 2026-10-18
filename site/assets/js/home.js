@@ -1,5 +1,7 @@
 const STORE='andivino_v1';
 const IMAGE_BASE_URL = new URL('../images/', document.currentScript.src).href;
+const ICON_TIME='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+const ICON_PIN='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 const MN=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
 const WINE_PAGES={'clos-2017':{slug:'mendoza/lujan-de-cuyo/clos-des-andes-2017',label:'Découvrir Clos des Andes 2017'},'helene-2016':{slug:'mendoza/lujan-de-cuyo/cuvee-helene-2016',label:'Découvrir la Cuvée Hélène 2016'},'poesia-2014':{slug:'mendoza/lujan-de-cuyo/poesia-2014',label:'Découvrir Poésía 2014'}};
 const DEF={wines:[
@@ -26,9 +28,9 @@ function fmtDate(s){return new Date(s).toLocaleDateString('fr-FR',{day:'numeric'
 function getCart(){return getData().cart||[];}
 function saveCart(c){const d=getData();d.cart=c;saveData(d);}
 function cartCount(){return getCart().reduce((s,i)=>s+i.qty,0);}
-function addToCart(id,qty=1){const c=getCart();const i=c.findIndex(x=>x.id===id);if(i>-1)c[i].qty+=qty;else c.push({id,qty});saveCart(c);updateBadge();showToast();}
+function addToCart(id,qty=1){const c=getCart();const i=c.findIndex(x=>x.id===id);if(i>-1)c[i].qty+=qty;else c.push({id,qty});saveCart(c);updateBadge();}
 function updateBadge(){const b=document.getElementById('cartBadge');if(!b)return;const n=cartCount();b.textContent=n;b.classList.toggle('on',n>0);}
-function showToast(msg='✓ Ajouté au panier'){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2400);}
+function showToast(msg='Ajouté au panier'){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2400);}
 
 function bottleSVG(id,h){
   if(!h)h=175;
@@ -39,7 +41,7 @@ function bottleSVG(id,h){
     'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.png'
   };
   if(imgs[id]){
-    return '<img src="'+imgs[id]+'" alt="'+id+'" height="'+h+'" class="bottle-img">';
+    return '<img src="'+imgs[id]+'" alt="" height="'+h+'" class="bottle-img">';
   }
   var caps={clos2017:'#2A2016',helene2016:'#6E1828',poesia2014:'#C4A44A'};
   var labs={clos2017:'#B89A55',helene2016:'#D4BC7A',poesia2014:'#C4A44A'};
@@ -71,10 +73,10 @@ function renderWines(){
   wines.forEach((w,i)=>{
     const p=calcPrix(w);const hr=w.reduction>0;
     const soldOutSoon=['helene-2016','poesia-2014'].includes(w.id);
-    h+=`<a class="wcard fi${i?' d'+i:''}" href="/products/${WINE_PAGES[w.id].slug}/" data-wine-id="${w.id}">
+    h+=`<article class="wcard fi${i?' d'+i:''}" data-wine-id="${w.id}">
       <div class="wc-badge-slot">${soldOutSoon?'<div class="wc-soldout">Bientôt Sold Out</div>':''}</div>
       <div class="wc-vin">${w.millesime}</div>
-      <div class="wc-nm">${w.nom}</div>
+      <h3 class="wc-nm"><a class="wc-link" href="/products/${WINE_PAGES[w.id].slug}/">${w.nom}</a></h3>
       <div class="wc-bod">${w.bodega}</div>
       <div class="wc-bot">${bottleSVG(w.id)}</div>
       <p class="wc-desc">${w.description}</p>
@@ -83,9 +85,9 @@ function renderWines(){
           ${hr?`<span class="wc-px-old">${fmtPrix(w.prix)} €</span>`:''}${fmtPrix(p)} €
           <span class="wc-px-lbl">TTC / bouteille</span>
         </div>
-        <button class="btn-add" data-add-id="${w.id}">+ Ajouter</button>
+        <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">+ Ajouter</button>
       </div>
-    </a>`;
+    </article>`;
   });
   h+=`<div class="wsoon fi d3">
     <span class="soon-b">Prochainement</span>
@@ -101,7 +103,9 @@ function renderWines(){
     btn.addEventListener('click',(event)=>{
       event.preventDefault();
       event.stopPropagation();
+      const w=wines.find(x=>x.id===btn.dataset.addId);
       addToCart(btn.dataset.addId);
+      if(w)showToast(`${w.nom} ${w.millesime} ajouté au panier`);
     });
   });
   observeFade();
@@ -115,20 +119,22 @@ function renderDeg(tab='upcoming'){
     const dt=new Date(d.date);
     return tab==='upcoming'?(dt>=now&&!d.passee):(dt<now||d.passee);
   }).sort((a,b)=>new Date(a.date)-new Date(b.date));
-  if(!items.length){list.innerHTML=`<div class="deg-empty">Aucun événement ${tab==='upcoming'?'à venir':'passé'}.</div>`;return;}
+  if(!items.length){list.innerHTML=tab==='upcoming'
+    ?`<div class="deg-empty">Aucune dégustation programmée pour le moment.<small>Les prochaines dates sont annoncées sur <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer">Instagram</a>.</small></div>`
+    :`<div class="deg-empty">Aucun événement passé.</div>`;return;}
   list.innerHTML=items.map(d=>{
     const dt=new Date(d.date);
     return `<div class="ditem">
       <div class="ddate"><div class="dday">${dt.getDate()}</div><div class="dmon">${MN[dt.getMonth()]} ${dt.getFullYear()}</div></div>
-      <div class="dinfo"><h3>${d.titre}</h3><div class="dmeta"><span>⏱ ${d.heure}</span><span>📍 ${d.lieu}</span></div></div>
+      <div class="dinfo"><h3>${d.titre}</h3><div class="dmeta"><span>${ICON_TIME}${d.heure}</span><span>${ICON_PIN}${d.lieu}</span></div></div>
       ${tab==='upcoming'?(d.url?`<a href="${d.url}" class="btn-or">S'inscrire</a>`:`<span class="btn-or disabled">Sur invitation</span>`):''}
     </div>`;
   }).join('');
 }
 document.querySelectorAll('.dtab').forEach(b=>{
   b.addEventListener('click', function(){
-    document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
-    this.classList.add('active');renderDeg(this.dataset.tab);
+    document.querySelectorAll('.dtab').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});
+    this.classList.add('active');this.setAttribute('aria-pressed','true');renderDeg(this.dataset.tab);
   });
 });
 
