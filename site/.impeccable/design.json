@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-18T20:59:58+00:00",
+  "title": "Design System: Andivino",
+  "extensions": {
+    "colorMeta": {
+      "bordeaux-malbec": {
+        "role": "primary",
+        "displayName": "Bordeaux Malbec",
+        "canonical": "#6E1828",
+        "tonalRamp": [
+          "oklch(15% 0.119 15.3)",
+          "oklch(25% 0.119 15.3)",
+          "oklch(35% 0.119 15.3)",
+          "oklch(45% 0.119 15.3)",
+          "oklch(58% 0.119 15.3)",
+          "oklch(72% 0.119 15.3)",
+          "oklch(85% 0.119 15.3)",
+          "oklch(95% 0.119 15.3)"
+        ]
+      },
+      "bordeaux-malbec-deep": {
+        "role": "primary",
+        "displayName": "Bordeaux Malbec profond",
+        "canonical": "#521220",
+        "tonalRamp": [
+          "oklch(15% 0.094 12.4)",
+          "oklch(25% 0.094 12.4)",
+          "oklch(35% 0.094 12.4)",
+          "oklch(45% 0.094 12.4)",
+          "oklch(58% 0.094 12.4)",
+          "oklch(72% 0.094 12.4)",
+          "oklch(85% 0.094 12.4)",
+          "oklch(95% 0.094 12.4)"
+        ]
+      },
+      "or-de-cuyo": {
+        "role": "secondary",
+        "displayName": "Or de Cuyo",
+        "canonical": "#C4A44A",
+        "tonalRamp": [
+          "oklch(15% 0.115 89.7)",
+          "oklch(25% 0.115 89.7)",
+          "oklch(35% 0.115 89.7)",
+          "oklch(45% 0.115 89.7)",
+          "oklch(58% 0.115 89.7)",
+          "oklch(72% 0.115 89.7)",
+          "oklch(85% 0.115 89.7)",
+          "oklch(95% 0.115 89.7)"
+        ]
+      },
+      "or-de-cuyo-light": {
+        "role": "secondary",
+        "displayName": "Or de Cuyo clair",
+        "canonical": "#D9BC74",
+        "tonalRamp": [
+          "oklch(15% 0.097 88.3)",
+          "oklch(25% 0.097 88.3)",
+          "oklch(35% 0.097 88.3)",
+          "oklch(45% 0.097 88.3)",
+          "oklch(58% 0.097 88.3)",
+          "oklch(72% 0.097 88.3)",
+          "oklch(85% 0.097 88.3)",
+          "oklch(95% 0.097 88.3)"
+        ]
+      },
+      "papier-creme": {
+        "role": "neutral",
+        "displayName": "Papier crème",
+        "canonical": "#FAF6F1",
+        "tonalRamp": [
+          "oklch(15% 0.008 73.7)",
+          "oklch(25% 0.008 73.7)",
+          "oklch(35% 0.008 73.7)",
+          "oklch(45% 0.008 73.7)",
+          "oklch(58% 0.008 73.7)",
+          "oklch(72% 0.008 73.7)",
+          "oklch(85% 0.008 73.7)",
+          "oklch(95% 0.008 73.7)"
+        ]
+      },
+      "creme": {
+        "role": "neutral",
+        "displayName": "Crème",
+        "canonical": "#F2EAE0",
+        "tonalRamp": [
+          "oklch(15% 0.016 73.7)",
+          "oklch(25% 0.016 73.7)",
+          "oklch(35% 0.016 73.7)",
+          "oklch(45% 0.016 73.7)",
+          "oklch(58% 0.016 73.7)",
+          "oklch(72% 0.016 73.7)",
+          "oklch(85% 0.016 73.7)",
+          "oklch(95% 0.016 73.7)"
+        ]
+      },
+      "creme-ombre": {
+        "role": "neutral",
+        "displayName": "Crème ombré",
+        "canonical": "#E6DDD0",
+        "tonalRamp": [
+          "oklch(15% 0.020 77.3)",
+          "oklch(25% 0.020 77.3)",
+          "oklch(35% 0.020 77.3)",
+          "oklch(45% 0.020 77.3)",
+          "oklch(58% 0.020 77.3)",
+          "oklch(72% 0.020 77.3)",
+          "oklch(85% 0.020 77.3)",
+          "oklch(95% 0.020 77.3)"
+        ]
+      },
+      "charbon": {
+        "role": "neutral",
+        "displayName": "Charbon",
+        "canonical": "#3C3835",
+        "tonalRamp": [
+          "oklch(15% 0.008 59.4)",
+          "oklch(25% 0.008 59.4)",
+          "oklch(35% 0.008 59.4)",
+          "oklch(45% 0.008 59.4)",
+          "oklch(58% 0.008 59.4)",
+          "oklch(72% 0.008 59.4)",
+          "oklch(85% 0.008 59.4)",
+          "oklch(95% 0.008 59.4)"
+        ]
+      },
+      "encre": {
+        "role": "neutral",
+        "displayName": "Encre",
+        "canonical": "#14100C",
+        "tonalRamp": [
+          "oklch(15% 0.010 67.1)",
+          "oklch(25% 0.010 67.1)",
+          "oklch(35% 0.010 67.1)",
+          "oklch(45% 0.010 67.1)",
+          "oklch(58% 0.010 67.1)",
+          "oklch(72% 0.010 67.1)",
+          "oklch(85% 0.010 67.1)",
+          "oklch(95% 0.010 67.1)"
+        ]
+      },
+      "terre-de-chai": {
+        "role": "neutral",
+        "displayName": "Terre de chai",
+        "canonical": "#2A2420",
+        "tonalRamp": [
+          "oklch(15% 0.012 55.8)",
+          "oklch(25% 0.012 55.8)",
+          "oklch(35% 0.012 55.8)",
+          "oklch(45% 0.012 55.8)",
+          "oklch(58% 0.012 55.8)",
+          "oklch(72% 0.012 55.8)",
+          "oklch(85% 0.012 55.8)",
+          "oklch(95% 0.012 55.8)"
+        ]
+      },
+      "gris-sarment": {
+        "role": "neutral",
+        "displayName": "Gris sarment",
+        "canonical": "#655D54",
+        "tonalRamp": [
+          "oklch(15% 0.017 70.7)",
+          "oklch(25% 0.017 70.7)",
+          "oklch(35% 0.017 70.7)",
+          "oklch(45% 0.017 70.7)",
+          "oklch(58% 0.017 70.7)",
+          "oklch(72% 0.017 70.7)",
+          "oklch(85% 0.017 70.7)",
+          "oklch(95% 0.017 70.7)"
+        ]
+      },
+      "gris-cendre": {
+        "role": "neutral",
+        "displayName": "Gris cendre",
+        "canonical": "#C0BBB5",
+        "tonalRamp": [
+          "oklch(15% 0.010 72.6)",
+          "oklch(25% 0.010 72.6)",
+          "oklch(35% 0.010 72.6)",
+          "oklch(45% 0.010 72.6)",
+          "oklch(58% 0.010 72.6)",
+          "oklch(72% 0.010 72.6)",
+          "oklch(85% 0.010 72.6)",
+          "oklch(95% 0.010 72.6)"
+        ]
+      },
+      "vert-vigne": {
+        "role": "tertiary",
+        "displayName": "Vert Vigne",
+        "canonical": "#2D6A4F",
+        "tonalRamp": [
+          "oklch(15% 0.078 162.2)",
+          "oklch(25% 0.078 162.2)",
+          "oklch(35% 0.078 162.2)",
+          "oklch(45% 0.078 162.2)",
+          "oklch(58% 0.078 162.2)",
+          "oklch(72% 0.078 162.2)",
+          "oklch(85% 0.078 162.2)",
+          "oklch(95% 0.078 162.2)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titre du hero uniquement, sur photographie."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titres de section, avec un fragment en italique bordeaux."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Noms de cuvée, de fondateurs et titres de chroniques, en italique."
+      },
+      "price": {
+        "displayName": "Prix",
+        "purpose": "Prix et totaux, chiffres tabulaires."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Récits et descriptions en gris sarment, ≤ 66ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigation, boutons, millésimes, mentions : capitales espacées, 0.7rem minimum."
+      }
+    },
+    "shadows": [
+      {
+        "name": "filet-navigation",
+        "value": "0 1px 0 rgba(196,164,74,.15)",
+        "purpose": "Trait d'or sous la navigation (0.25 une fois défilée)."
+      },
+      {
+        "name": "elevation-survol",
+        "value": "0 16px 48px rgba(20,16,12,.1)",
+        "purpose": "Carte vin survolée, avec soulèvement de 3px."
+      },
+      {
+        "name": "survol-discret",
+        "value": "0 4px 20px rgba(20,16,12,.06)",
+        "purpose": "Lignes produit de la commande au survol."
+      },
+      {
+        "name": "notification",
+        "value": "0 8px 24px rgba(20,16,12,.18)",
+        "purpose": "Toast d'ajout au panier."
+      },
+      {
+        "name": "anneau-champ",
+        "value": "0 0 0 3px rgba(110,24,40,.12)",
+        "purpose": "Champ de formulaire actif."
+      }
+    ],
+    "motion": [
+      {
+        "name": "etat",
+        "value": ".3s ease",
+        "purpose": "Couleurs, bordures et ombres au survol."
+      },
+      {
+        "name": "apparition",
+        "value": "opacity .7s ease, transform .7s ease (translateY 24px), décalages .12s",
+        "purpose": "Entrée des blocs au défilement ; désactivée avec prefers-reduced-motion."
+      },
+      {
+        "name": "carrousel",
+        "value": "transform .7s cubic-bezier(.4,0,.2,1)",
+        "purpose": "Défilement des photos de la bodega."
+      },
+      {
+        "name": "zoom-image",
+        "value": "transform .5s–.6s ease, scale(1.03–1.04)",
+        "purpose": "Photos au survol de leur carte."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "600px"
+      },
+      {
+        "name": "tablette",
+        "value": "960px"
+      },
+      {
+        "name": "nav-serree",
+        "value": "1240px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Action principale : Commander, Découvrir nos vins, paiement.",
+      "html": "<button class=\"ds-btn-primary\">Commander cette cuvée</button>",
+      "css": ":host{--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--or-l:#D9BC74;--cream-l:#FAF6F1;--cream:#F2EAE0;--cream-d:#E6DDD0;--charbon:#3C3835;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}.ds-btn-primary{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);border:1px solid var(--bdx);padding:.85rem 2rem;border-radius:0;cursor:pointer;transition:background .3s ease}.ds-btn-primary:hover{background:var(--bdx-d)}.ds-btn-primary:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}"
+    },
+    {
+      "name": "Bouton contour sur photo",
+      "kind": "button",
+      "refersTo": "button-outline-on-dark",
+      "description": "Action secondaire posée sur la photo du hero.",
+      "html": "<div class=\"ds-dark\"><a href=\"#\" class=\"ds-btn-outline\">Commander</a></div>",
+      "css": ":host{--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--or-l:#D9BC74;--cream-l:#FAF6F1;--cream:#F2EAE0;--cream-d:#E6DDD0;--charbon:#3C3835;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}.ds-dark{background:#3C3835;padding:2rem}.ds-btn-outline{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;display:inline-block;color:var(--cream-l);border:1px solid rgba(250,246,241,.4);padding:.85rem 2rem;text-decoration:none;transition:border-color .3s ease}.ds-btn-outline:hover{border-color:var(--cream-l)}.ds-btn-outline:focus-visible{outline:2px solid var(--or-l);outline-offset:3px}"
+    },
+    {
+      "name": "Bouton or sur fond sombre",
+      "kind": "button",
+      "refersTo": "button-gold-on-dark",
+      "description": "Inscription aux dégustations, sur la section charbon.",
+      "html": "<div class=\"ds-dark\"><a href=\"#\" class=\"ds-btn-or\">S'inscrire</a></div>",
+      "css": ":host{--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--or-l:#D9BC74;--cream-l:#FAF6F1;--cream:#F2EAE0;--cream-d:#E6DDD0;--charbon:#3C3835;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}.ds-dark{background:#3C3835;padding:2rem}.ds-btn-or{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;letter-spacing:.14em;display:inline-block;color:var(--or);border:1px solid rgba(196,164,74,.35);padding:.55rem 1.1rem;text-decoration:none;transition:all .3s ease}.ds-btn-or:hover{background:var(--or);color:var(--charbon)}.ds-btn-or:focus-visible{outline:2px solid var(--or-l);outline-offset:3px}"
+    },
+    {
+      "name": "Carte vin",
+      "kind": "card",
+      "refersTo": "wine-card",
+      "description": "Cuvée de la sélection : millésime, nom, bouteille, description, prix, ajout au panier.",
+      "html": "<article class=\"ds-wcard\"><div class=\"ds-wc-vin\">2014</div><h3 class=\"ds-wc-nm\"><a href=\"#\">Poésía</a></h3><div class=\"ds-wc-bod\">Bodega Poesía</div><div class=\"ds-wc-bot\"><svg width=\"40\" height=\"140\" viewBox=\"0 0 56 200\"><path d=\"M19 68Q15 82 14 102L14 172Q14 184 23 184L33 184Q42 184 42 172L42 102Q41 82 37 68Z\" fill=\"#14100C\"/><path d=\"M22 54Q20 62 19 68L37 68Q36 62 34 54Z\" fill=\"#1E1610\"/><rect x=\"24\" y=\"19\" width=\"8\" height=\"35\" fill=\"#14100C\"/><rect x=\"23\" y=\"11\" width=\"10\" height=\"14\" fill=\"#6E1828\"/><rect x=\"15.5\" y=\"100\" width=\"25\" height=\"56\" fill=\"#D4BC7A\"/></svg></div><p class=\"ds-wc-desc\">Robe rouge rubis intense, fruits noirs mûrs, café et cèdre ; finale longue et raffinée.</p><div class=\"ds-wc-ft\"><div class=\"ds-wc-px\">44,99 €<span>TTC / bouteille</span></div><button class=\"ds-btn-add\">+ Ajouter</button></div></article>",
+      "css": ":host{--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--or-l:#D9BC74;--cream-l:#FAF6F1;--cream:#F2EAE0;--cream-d:#E6DDD0;--charbon:#3C3835;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}.ds-wcard{position:relative;max-width:280px;background:var(--cream-l);padding:2.5rem 2rem;display:flex;flex-direction:column;transition:box-shadow .3s ease,transform .3s ease}.ds-wcard:hover{box-shadow:0 16px 48px rgba(20,16,12,.1);transform:translateY(-3px)}.ds-wc-vin{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;letter-spacing:.2em;color:var(--bdx);margin-bottom:.4rem}.ds-wc-nm{margin:0 0 .25rem;font-family:var(--fd);font-size:1.5rem;font-weight:300;font-style:italic;line-height:1.1}.ds-wc-nm a{color:var(--charbon);text-decoration:none}.ds-wc-nm a::after{content:'';position:absolute;inset:0}.ds-wc-bod{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;letter-spacing:.14em;color:var(--gris);margin-bottom:1.5rem}.ds-wc-bot{display:flex;justify-content:center;padding:1rem 0}.ds-wc-desc{font-family:var(--fb);font-size:.78rem;line-height:1.75;color:var(--gris);border-top:1px solid var(--cream-d);padding-top:1.2rem;margin:1.2rem 0 0}.ds-wc-ft{display:flex;justify-content:space-between;align-items:flex-end;margin-top:1.5rem}.ds-wc-px{font-family:var(--fd);font-size:1.5rem;color:var(--charbon);line-height:1}.ds-wc-px span{display:block;font-family:var(--fb);font-size:.7rem;color:var(--gris);margin-top:.15rem}.ds-btn-add{position:relative;z-index:2;font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;letter-spacing:.15em;color:var(--cream-l);background:var(--bdx);border:0;padding:.6rem 1.1rem;cursor:pointer;transition:background .3s ease}.ds-btn-add:hover{background:var(--bdx-d)}.ds-btn-add:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}"
+    },
+    {
+      "name": "Champ de formulaire",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Coordonnées de commande : libellé en capitales lié au champ.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-email\">Email *</label><input id=\"ds-email\" type=\"email\" placeholder=\"vous@exemple.fr\"></div>",
+      "css": ":host{--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--or-l:#D9BC74;--cream-l:#FAF6F1;--cream:#F2EAE0;--cream-d:#E6DDD0;--charbon:#3C3835;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}.ds-field{display:flex;flex-direction:column;gap:.4rem;max-width:360px}.ds-field label{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}.ds-field input{font-family:var(--fb);font-size:1rem;color:var(--charbon);background:var(--cream-l);border:1px solid var(--cream-d);border-radius:0;padding:.75rem 1rem;outline:none;transition:border-color .3s ease,box-shadow .3s ease}.ds-field input::placeholder{color:#736B62}.ds-field input:focus{border-color:var(--bdx);box-shadow:0 0 0 3px rgba(110,24,40,.12)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Barre fixe crème, filet d'or, liens en capitales, CTA bordeaux.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-brand\">Andivino</span><ul><li><a href=\"#\">Notre histoire</a></li><li><a href=\"#\">Les vins</a></li><li><a href=\"#\">Dégustations</a></li></ul><a href=\"#\" class=\"ds-nav-cta\">Commander</a></nav>",
+      "css": ":host{--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--or-l:#D9BC74;--cream-l:#FAF6F1;--cream:#F2EAE0;--cream-d:#E6DDD0;--charbon:#3C3835;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}.ds-nav{display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:1.2rem 2rem;background:rgba(250,246,241,.97);box-shadow:0 1px 0 rgba(196,164,74,.2)}.ds-nav-brand{font-family:var(--fd);font-size:1.1rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--bdx)}.ds-nav ul{display:flex;gap:2rem;list-style:none;margin:0;padding:0}.ds-nav ul a{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;letter-spacing:.14em;color:var(--charbon);text-decoration:none;transition:color .3s ease}.ds-nav ul a:hover{color:var(--bdx)}.ds-nav a:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}.ds-nav-cta{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;letter-spacing:.16em;color:var(--cream-l);background:var(--bdx);padding:.65rem 1.6rem;text-decoration:none;transition:background .3s ease}.ds-nav-cta:hover{background:var(--bdx-d)}"
+    },
+    {
+      "name": "Filtre / onglet",
+      "kind": "chip",
+      "refersTo": null,
+      "description": "Filtres des chroniques et onglets À venir / Passées.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip is-active\">Tout</button><button class=\"ds-chip\">Terroir</button><button class=\"ds-chip\">Reportage</button></div>",
+      "css": ":host{--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--or-l:#D9BC74;--cream-l:#FAF6F1;--cream:#F2EAE0;--cream-d:#E6DDD0;--charbon:#3C3835;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}.ds-chips{display:flex;gap:.6rem}.ds-chip{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;letter-spacing:.16em;padding:.45rem 1rem;background:none;border:1px solid var(--cream-d);color:var(--gris);border-radius:0;cursor:pointer;transition:all .3s ease}.ds-chip:hover{border-color:var(--bdx);color:var(--bdx)}.ds-chip.is-active{background:var(--bdx);border-color:var(--bdx);color:#fff}.ds-chip:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}"
+    },
+    {
+      "name": "Option de livraison",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Rangée radio cliquable et utilisable au clavier, prix en Cormorant.",
+      "html": "<div class=\"ds-liv is-selected\" role=\"radio\" aria-checked=\"true\" tabindex=\"0\"><span class=\"ds-liv-radio\"><span></span></span><span class=\"ds-liv-body\"><span class=\"ds-liv-title\">Colissimo — Livraison à domicile</span><span class=\"ds-liv-desc\">Livraison en 48h avec suivi. Emballage bouteilles inclus.</span></span><span class=\"ds-liv-badge\">9,90 €</span></div>",
+      "css": ":host{--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--or-l:#D9BC74;--cream-l:#FAF6F1;--cream:#F2EAE0;--cream-d:#E6DDD0;--charbon:#3C3835;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}.ds-liv{position:relative;display:flex;gap:1.2rem;align-items:flex-start;max-width:520px;padding:1.2rem 4.5rem 1.2rem 1.4rem;border:1.5px solid var(--cream-d);background:var(--cream-l);cursor:pointer;transition:border-color .3s ease,background .3s ease}.ds-liv:hover{border-color:#C0BBB5;background:var(--cream)}.ds-liv.is-selected{border-color:var(--bdx);background:rgba(110,24,40,.04)}.ds-liv:focus-visible{outline:2px solid var(--bdx);outline-offset:2px}.ds-liv-radio{width:18px;height:18px;border:2px solid var(--bdx);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.15rem}.ds-liv-radio span{width:8px;height:8px;border-radius:50%;background:var(--bdx)}.ds-liv-body{display:flex;flex-direction:column}.ds-liv-title{font-family:var(--fb);font-size:.85rem;font-weight:500;color:var(--charbon)}.ds-liv-desc{font-family:var(--fb);font-size:.75rem;line-height:1.55;color:var(--gris)}.ds-liv-badge{position:absolute;top:.9rem;right:1rem;font-family:var(--fd);font-size:1rem;color:var(--charbon)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "L'Étiquette des Andes",
+    "overview": "**Creative North Star: \"L'Étiquette des Andes\"**\n\nAndivino s'habille comme une belle étiquette de grand vin : un papier crème, une encre bordeaux, un filet d'or, des capitales finement espacées et un nom de cuvée en italique. Tout est posé avec la rigueur d'un imprimeur. Rien ne brille, rien ne crie. La couleur est rare et chargée de sens, la typographie fait l'essentiel du travail, et les photographies de Mendoza (vignes, Andes, finca) apportent la chaleur que l'interface s'interdit.\n\nLe ton est raffiné et retenu. Les pages respirent : sections hautes (7.5rem), larges marges, colonnes de texte étroites. On lit un récit, celui de trois amis et d'une bodega de Luján de Cuyo, avant d'acheter une bouteille. L'interface s'efface derrière le vin, le terroir et le lien humain.\n\nLa surface alterne trois papiers (crème clair, crème, crème ombré) et deux nuits (charbon pour les dégustations et l'en-tête de commande, terre de chai pour le pied de page), ponctués d'un seul aplat bordeaux pleine largeur pour l'appel aux professionnels.",
+    "keyCharacteristics": [
+      "Serif italique Cormorant Garamond pour les voix nobles (titres, noms de cuvée, prix, citations) ; DM Sans pour le texte courant et les libellés.",
+      "Libellés en capitales espacées (0.14–0.28em), comme les mentions d'une étiquette.",
+      "Angles droits partout ; le cercle est réservé aux portraits et aux icônes sociales.",
+      "Plat au repos ; une ombre douce n'apparaît qu'au survol.",
+      "Bordeaux pour l'action, or pour l'ornement : jamais l'inverse."
+    ],
+    "rules": [
+      {
+        "name": "La Règle de l'Encre et du Filet",
+        "body": "Le bordeaux agit, l'or orne. Un bouton, un lien ou un état actif est bordeaux ; un trait, un chiffre décoratif ou un titre de colonne est or. Sur crème, l'or ne porte jamais de texte.",
+        "section": "colors"
+      },
+      {
+        "name": "La Règle du Papier",
+        "body": "Pas de blanc pur ni de gris froid : chaque fond est un des trois crèmes ou une des deux nuits. Le texte sur fond sombre est un crème transparent (≥ 0.62 d'opacité), jamais un gris.",
+        "section": "colors"
+      },
+      {
+        "name": "La Règle du Plancher de 11 px",
+        "body": "Aucun texte fonctionnel sous 0.7rem (11.2 px), même en capitales espacées. L'élégance vient de l'espacement, pas de la miniaturisation.",
+        "section": "typography"
+      },
+      {
+        "name": "La Règle de l'Italique Signifiant",
+        "body": "L'italique désigne ce qui a une âme (un vin, une personne, un lieu, une citation). Il ne sert pas à décorer une interface.",
+        "section": "typography"
+      },
+      {
+        "name": "La Règle du Plat au Repos",
+        "body": "Une surface ne porte d'ombre que pour répondre à un geste (survol, focus) ou pour flotter (toast, bandeau). Jamais d'ombre permanente sur une carte.",
+        "section": "elevation"
+      },
+      {
+        "name": "La Règle du Massicot",
+        "body": "Si ce n'est ni un visage ni un pictogramme, c'est un rectangle à angles vifs.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** réserver le bordeaux Malbec (#6E1828) aux actions et aux états actifs, et l'or de Cuyo (#C4A44A) aux filets et ornements.",
+      "**Do** composer chaque fond à partir des trois crèmes (#FAF6F1, #F2EAE0, #E6DDD0) ou des deux nuits (#3C3835, #2A2420).",
+      "**Do** écrire noms de cuvée, personnes et citations en Cormorant Garamond italique ; le reste en DM Sans.",
+      "**Do** garder tout texte fonctionnel à 0.7rem minimum et le texte courant à ≥ 4.5:1 (gris sarment #655D54 sur crème).",
+      "**Do** laisser respirer : 7.5rem entre sections, colonnes de lecture ≤ 66ch.",
+      "**Do** utiliser de vraies photographies de Mendoza (vignes, Andes, finca, dégustations) pour la chaleur et l'illustration.",
+      "**Do** donner à chaque élément interactif un focus visible (2px bordeaux, or clair sur fond sombre)."
+    ],
+    "donts": [
+      "**Don't** arrondir boutons, cartes ou champs : le cercle est réservé aux visages et pictogrammes.",
+      "**Don't** poser une ombre permanente sur une carte ; l'ombre répond au survol.",
+      "**Don't** écrire du texte en or sur fond crème, ni du texte lisible en gris cendre (#C0BBB5).",
+      "**Don't** utiliser d'émojis ou de glyphes Unicode comme icônes : icônes SVG au trait de 1.6px.",
+      "**Don't** introduire une nouvelle couleur d'accent, un dégradé de texte ou du blanc pur.",
+      "**Don't** utiliser le vert vigne (#2D6A4F) en décoration : il signale uniquement gratuit, sécurisé ou réussi."
+    ]
+  }
+}
