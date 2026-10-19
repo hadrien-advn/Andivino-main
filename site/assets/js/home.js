@@ -82,8 +82,8 @@ function renderWines(){
       <p class="wc-desc">${w.description}</p>
       <div class="wc-ft">
         <div class="wc-px">
-          ${hr?`<span class="wc-px-old">${fmtPrix(w.prix)} €</span>`:''}${fmtPrix(p)} €
-          <span class="wc-px-lbl">TTC / bouteille</span>
+          ${hr?`<span class="wc-px-old">${fmtPrix(w.prix)} €</span>`:''}<span class="wc-px-amt">${fmtPrix(p)}<span class="wc-px-eur">&nbsp;€</span></span>
+          <span class="wc-px-lbl">TTC · la bouteille</span>
         </div>
         <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">+ Ajouter</button>
       </div>

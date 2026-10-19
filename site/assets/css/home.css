@@ -147,10 +147,14 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .wc-bot{flex:1;display:flex;align-items:center;justify-content:center;padding:1rem 0;min-height:160px}
 .bottle-img{width:auto;object-fit:contain;display:block}
 .wc-desc{font-size:.78rem;line-height:1.75;color:var(--gris);border-top:1px solid var(--cream-d);padding-top:1.2rem;margin-top:1.2rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.wc-ft{display:flex;justify-content:space-between;align-items:flex-end;margin-top:1.5rem}
-.wc-px{font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--charbon);line-height:1}
-.wc-px-old{font-size:.9rem;text-decoration:line-through;color:var(--gris-l);display:block;margin-bottom:.1rem}
-.wc-px-lbl{font-size:.7rem;letter-spacing:.08em;color:var(--gris);font-family:var(--fb);display:block;margin-top:.15rem}
+.wc-ft{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.6rem}
+.wc-px{font-family:var(--fd);font-weight:400;color:var(--charbon);line-height:1;display:flex;flex-direction:column;gap:.45rem;min-width:0}
+.wc-px-amt{font-size:2rem;letter-spacing:-.01em;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+.wc-px-eur{font-size:.55em;vertical-align:.55em;color:var(--gris)}
+.wc-px-old{font-size:.95rem;text-decoration:line-through;color:var(--gris);font-variant-numeric:lining-nums}
+.wc-px-lbl{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);font-family:var(--fb);white-space:nowrap}
+.wcard{container-type:inline-size}
+@container (max-width:255px){.wc-ft{flex-direction:column;align-items:stretch;gap:1.1rem}.wc-ft .btn-add{padding:.75rem 1.1rem}}
 .btn-add{position:relative;z-index:2;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);border:none;padding:.6rem 1.1rem;cursor:pointer;transition:background var(--e);flex-shrink:0}
 .btn-add:hover{background:var(--bdx-d)}
 .wsoon{background:var(--cream-d);border:1px dashed rgba(139,130,120,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;min-height:420px}
