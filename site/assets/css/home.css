@@ -70,7 +70,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .fi.show{opacity:1;transform:none}
 
 /* ── PHILOSOPHIE ── */
-.s-philo{padding:7.5rem 0 5rem;background:var(--cream-l)}
+.s-philo{padding:7.5rem 0 6.5rem;background:var(--cream)}
 .philo-g{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
 .philo-t h2{font-family:var(--fd);font-size:clamp(2rem,3.8vw,3.2rem);font-weight:300;line-height:1.12;margin-bottom:1.8rem;color:var(--charbon)}
 .philo-t h2 em{font-style:italic;color:var(--bdx)}
