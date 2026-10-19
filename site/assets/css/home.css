@@ -224,7 +224,6 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .social-link:hover{color:var(--bdx)}
 .social-icon{width:52px;height:52px;border:1px solid var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color var(--e),background var(--e)}
 .social-link:hover .social-icon{border-color:var(--bdx);background:rgba(110,24,40,.06)}
-.social-link.soon{opacity:.42;cursor:default;pointer-events:none}
 .social-name{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:inherit}
 
 
