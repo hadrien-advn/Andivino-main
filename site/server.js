@@ -218,9 +218,10 @@ async function recordPaymentIntentEvent(event) {
 app.get('/', sendPage('home.html'));
 app.get(['/commande', '/commande/'], sendPage('commande.html'));
 app.get(['/chroniques', '/chroniques/'], sendPage('chroniques.html'));
-app.get(['/chroniques/mendoza-terroir-andin', '/chroniques/mendoza-terroir-andin/'], sendPage('chronique-mendoza-terroir-andin.html'));
-app.get(['/chroniques/malbec-cabernet-assemblage-argentin', '/chroniques/malbec-cabernet-assemblage-argentin/'], sendPage('chronique-malbec-cabernet-assemblage-argentin.html'));
-app.get(['/chroniques/vendanges-bodega-poesia-recit', '/chroniques/vendanges-bodega-poesia-recit/'], sendPage('chronique-vendanges-bodega-poesia-recit.html'));
+// Anciennes chroniques supprimées -> redirection permanente
+app.get(['/chroniques/mendoza-terroir-andin', '/chroniques/mendoza-terroir-andin/'], (req, res) => res.redirect(301, '/chroniques/malbec-argentin-histoire-terroirs'));
+app.get(['/chroniques/malbec-cabernet-assemblage-argentin', '/chroniques/malbec-cabernet-assemblage-argentin/'], (req, res) => res.redirect(301, '/chroniques/malbec-argentin-histoire-terroirs'));
+app.get(['/chroniques/vendanges-bodega-poesia-recit', '/chroniques/vendanges-bodega-poesia-recit/'], (req, res) => res.redirect(301, '/chroniques'));
 app.get(['/chroniques/malbec-argentin-histoire-terroirs', '/chroniques/malbec-argentin-histoire-terroirs/'], sendPage('chronique-malbec-argentin-histoire-terroirs.html'));
 app.get(['/chroniques/accords-mets-vins-malbec-argentin', '/chroniques/accords-mets-vins-malbec-argentin/'], sendPage('chronique-accords-mets-vins-malbec-argentin.html'));
 app.get(['/products/mendoza/lujan-de-cuyo/poesia-2014', '/products/mendoza/lujan-de-cuyo/poesia-2014/'], sendPage('vin-poesia-2014.html'));
