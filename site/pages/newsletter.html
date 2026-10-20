@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Newsletter — Andivino</title>
+<meta name="description" content="Inscrivez-vous à la newsletter Andivino : nouvelles chroniques sur les vins argentins, arrivées de cuvées et invitations aux dégustations.">
+<link rel="canonical" href="https://andivino.fr/newsletter">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Newsletter Andivino — des nouvelles des Andes">
+<meta property="og:description" content="Nouvelles chroniques, arrivées de cuvées et invitations aux dégustations.">
+<meta property="og:url" content="https://andivino.fr/newsletter">
+<meta property="og:image" content="https://andivino.fr/assets/images/banque/sarment-vigne-contre-jour-soleil.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/newsletter.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/legal-banners.css">
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nl">
+    <img src="/assets/images/logo-sans-fond.png" alt="Andivino" class="nav-logo-mark">
+    <img src="/assets/images/ecriture-sans-fond.png" alt="Andivino — Vin des Andes" class="nav-logo-text">
+  </a>
+  <a href="/" class="back-link">← Retour au site</a>
+</nav>
+
+<main>
+  <div class="nl-visual" aria-hidden="true">
+    <picture>
+      <source srcset="/assets/images/banque/sarment-vigne-contre-jour-soleil.webp" type="image/webp">
+      <img src="/assets/images/banque/sarment-vigne-contre-jour-soleil.jpg" alt="" width="2000" height="1336">
+    </picture>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">Newsletter</div>
+    <h1>Des nouvelles <em>des Andes</em></h1>
+    <p class="lead">
+      Nos nouvelles chroniques, l'arrivée des prochaines cuvées et les invitations à nos dégustations, directement dans votre boîte mail.
+    </p>
+
+    <form id="newsletterForm" novalidate>
+      <div class="form-row">
+        <div class="form-group"><label for="nl-prenom">Prénom *</label><input type="text" id="nl-prenom" name="prenom" autocomplete="given-name" maxlength="80" required></div>
+        <div class="form-group"><label for="nl-nom">Nom *</label><input type="text" id="nl-nom" name="nom" autocomplete="family-name" maxlength="80" required></div>
+      </div>
+      <div class="form-group"><label for="nl-email">Email *</label><input type="email" id="nl-email" name="email" autocomplete="email" maxlength="160" required placeholder="vous@exemple.fr"></div>
+
+      <!-- Champ piège pour les robots : laissé vide par les humains -->
+      <div class="hp" aria-hidden="true"><label for="nl-site">Site web</label><input type="text" id="nl-site" name="site" tabindex="-1" autocomplete="off"></div>
+
+      <label class="consent">
+        <input type="checkbox" id="nl-consent" name="consent" required>
+        <span>J'accepte de recevoir la newsletter d'Andivino. Je peux me désinscrire à tout moment.</span>
+      </label>
+
+      <p class="status" id="nlStatus" role="status" aria-live="polite"></p>
+
+      <button type="submit" class="btn-p" id="nlSubmit">S'inscrire</button>
+
+      <p class="form-note">
+        Vos prénom, nom et email servent uniquement à l'envoi de la newsletter et ne sont jamais cédés à des tiers.
+        Voir les <a href="/legal/mentions-legales">mentions légales</a>.
+      </p>
+    </form>
+
+    <div class="done" id="nlDone" hidden>
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7"/></svg></div>
+      <h2>Merci <span id="nlDoneName"></span></h2>
+      <p class="lead">Votre inscription est enregistrée. À très bientôt dans votre boîte mail.</p>
+      <div class="cta-row">
+        <a href="/chroniques" class="btn-p">Lire les chroniques</a>
+        <a href="/#vins" class="btn-o">Découvrir les vins</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="/assets/js/newsletter.js"></script>
+
+<!-- ────────────────── FOOTER ────────────────── -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-br">
+      <div class="ft-brand-row">
+        <img src="/assets/images/logo-sans-fond.png" alt="Andivino" width="44" height="44" class="ft-logo-mark">
+        <img src="/assets/images/ecriture-sans-fond.png" alt="Andivino Vin des Andes" width="120" height="26" class="ft-logo-text">
+      </div>
+      <p>Importateur de vins argentins d'exception. Bodega Poesía — Luján de Cuyo, Mendoza.</p>
+    </div>
+    <div class="ft-col"><h4>Navigation</h4><a href="/#philosophie">Notre histoire</a><a href="/#bodega">La Bodega</a><a href="/#vins">Les vins</a><a href="/#degustations">Dégustations</a><a href="/chroniques">Chroniques</a></div>
+    <div class="ft-col"><h4>Commander</h4><a href="/commande">Particuliers (B2C)</a><a href="mailto:hadrien@andivino.fr">Professionnels (B2B)</a><a href="/legal/cgv">Livraison &amp; CGV</a></div>
+    <div class="ft-col"><h4>Contact</h4><a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a><a href="/newsletter">Newsletter</a><p class="ft-note">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p></div>
+  </div>
+  <div class="ft-btm">
+    <p>© 2025 Andivino — Tous droits réservés</p>
+    <div class="ft-links"><a href="/legal/mentions-legales">Mentions légales</a><a href="/legal/cgv">CGV</a></div>
+  </div>
+</footer>
+
+<script src="/assets/js/legal-banners.js"></script>
+</body>
+</html>

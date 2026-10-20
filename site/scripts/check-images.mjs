@@ -34,6 +34,8 @@ async function collectUses() {
   for (const file of sources) {
     const lines = (await readFile(path.join(siteRoot, file), 'utf8')).split('\n');
     for (const line of lines) {
+      // A <picture>'s <source> is a variant of the <img> that follows it, not a second use.
+      if (/<source\b/.test(line)) continue;
       for (const [, ref] of line.matchAll(REF)) {
         const image = ref.replace(/\.(webp|avif)$/, '.jpg');
         if (CHROME.test(path.basename(image))) continue;

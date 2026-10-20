@@ -234,6 +234,7 @@ app.get(['/vins/cuvee-helene-2016', '/vins/cuvee-helene-2016/'], (req, res) => r
 app.get(['/vins/clos-des-andes-2017', '/vins/clos-des-andes-2017/'], (req, res) => res.redirect(301, '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017'));
 app.get(['/paiement/success', '/paiement/success/'], sendPage('payment-success.html'));
 app.get(['/paiement/cancel', '/paiement/cancel/'], sendPage('payment-cancel.html'));
+app.get(['/newsletter', '/newsletter/'], sendPage('newsletter.html'));
 app.get(['/legal/cgv', '/legal/cgv/'], sendPage('legal-cgv.html'));
 app.get(['/legal/mentions-legales', '/legal/mentions-legales/'], sendPage('legal-mentions-legales.html'));
 
@@ -296,6 +297,51 @@ app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
     });
   } catch (error) {
     return res.status(400).json({ error: error.message || 'Impossible de preparer le paiement.' });
+  }
+});
+
+// Inscription newsletter : le formulaire de /newsletter poste ici, le serveur transmet au CRM
+// Andivino (andivinocrm.vercel.app), qui stocke les inscrits. La clé partagée ne quitte jamais le serveur.
+const crmUrl = (process.env.CRM_URL || 'https://andivinocrm.vercel.app').replace(/\/+$/, '');
+const newsletterSecret = process.env.NEWSLETTER_API_SECRET;
+
+const newsletterLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Trop de tentatives. Réessayez dans quelques minutes.' }
+});
+
+app.post('/api/newsletter', newsletterLimiter, async (req, res) => {
+  const body = req.body || {};
+  // Champ piège rempli : un robot. On répond comme si tout allait bien, sans rien enregistrer.
+  if (cleanText(body.site, 200)) return res.json({ ok: true });
+
+  const firstName = cleanText(body.prenom, 80);
+  const lastName = cleanText(body.nom, 80);
+  const email = cleanText(body.email, 160).toLowerCase();
+  if (!firstName || !lastName) return res.status(400).json({ error: 'Indiquez votre prénom et votre nom.' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'Indiquez une adresse email valide.' });
+  if (body.consent !== true) return res.status(400).json({ error: 'Cochez la case pour accepter de recevoir la newsletter.' });
+
+  if (!newsletterSecret) {
+    console.error('[newsletter] NEWSLETTER_API_SECRET manquant');
+    return res.status(503).json({ error: 'Inscription indisponible pour le moment. Écrivez-nous à contact@andivino.fr.' });
+  }
+
+  try {
+    const crmResponse = await fetch(`${crmUrl}/api/newsletter`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${newsletterSecret}` },
+      body: JSON.stringify({ email, firstName, lastName, source: 'site' }),
+      signal: AbortSignal.timeout(8000)
+    });
+    if (!crmResponse.ok) throw new Error(`CRM ${crmResponse.status}`);
+    return res.json({ ok: true });
+  } catch (error) {
+    console.error('[newsletter] envoi au CRM impossible :', error.message);
+    return res.status(502).json({ error: 'Inscription impossible pour le moment. Réessayez dans quelques minutes.' });
   }
 });
 
