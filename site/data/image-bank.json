@@ -1,0 +1,185 @@
+{
+  "_doc": "Banque d'images éditoriales. Voir docs/IMAGES.md. Chaque image vit dans assets/images/banque/<id>.jpg (+ .webp). Renseigner 'reservee' dès qu'une image est posée sur une page, puis lancer `node scripts/check-images.mjs`.",
+  "images": [
+    {
+      "id": "vignes-andes-roses-crepuscule",
+      "w": 2000, "h": 1281, "orientation": "paysage",
+      "alt": "Rangs de vigne au premier plan, cordillère des Andes teintée de rose au crépuscule",
+      "tags": ["vignoble", "andes", "crepuscule", "terroir", "altitude"],
+      "marque": null,
+      "serie": "andes-roses",
+      "usage": "Hero de chronique terroir / altitude, bandeau large",
+      "reservee": null
+    },
+    {
+      "id": "cheval-alezan-corral-pierre",
+      "w": 2000, "h": 1333, "orientation": "paysage",
+      "alt": "Cheval alezan au galop dans un corral aux murs de pierre, sous un ciel bleu",
+      "tags": ["cheval", "culture", "finca", "vie-locale"],
+      "marque": null,
+      "serie": null,
+      "usage": "Illustration culture argentine / vie à la finca",
+      "reservee": null
+    },
+    {
+      "id": "gauchos-cavaliers-manege-peupliers",
+      "w": 2000, "h": 1132, "orientation": "paysage",
+      "alt": "Trois gauchos à cheval soulevant la poussière dans un manège bordé de peupliers",
+      "tags": ["gauchos", "cheval", "culture", "tradition"],
+      "marque": null,
+      "serie": null,
+      "usage": "Chronique culture / traditions argentines, bandeau large",
+      "reservee": null
+    },
+    {
+      "id": "vendangeur-cagette-raisins",
+      "w": 1258, "h": 2000, "orientation": "portrait",
+      "alt": "Vendangeur de dos portant sur l'épaule une cagette verte remplie de raisins noirs",
+      "tags": ["vendanges", "humain", "raisin", "travail"],
+      "marque": null,
+      "serie": null,
+      "usage": "Figure portrait pour un récit de vendanges",
+      "reservee": null
+    },
+    {
+      "id": "vignes-encadrees-feuillage",
+      "w": 2000, "h": 1234, "orientation": "paysage",
+      "alt": "Rangs de vigne vus à travers un cadre de feuillage, arbres et peupliers au fond",
+      "tags": ["vignoble", "vegetation", "ete"],
+      "marque": null,
+      "serie": null,
+      "usage": "Figure d'article, transition douce entre sections",
+      "reservee": null
+    },
+    {
+      "id": "entree-gualtallary-wines-volcan-tupungato",
+      "w": 2000, "h": 1333, "orientation": "paysage",
+      "alt": "Panneau en acier corten Gualtallary Wines à l'entrée du domaine, sommet enneigé des Andes au fond",
+      "tags": ["domaine", "andes", "neige", "entree"],
+      "marque": "Gualtallary Wines",
+      "serie": null,
+      "usage": "Uniquement dans un contenu qui parle de Gualtallary Wines",
+      "reservee": null
+    },
+    {
+      "id": "poteaux-vigne-sommet-enneige-aube",
+      "w": 2000, "h": 1178, "orientation": "paysage",
+      "alt": "Poteaux de palissage dans les vignes, sommet enneigé rosi par la lumière de l'aube",
+      "tags": ["vignoble", "andes", "aube", "palissage", "altitude"],
+      "marque": null,
+      "serie": "andes-roses",
+      "usage": "Hero ou figure terroir / altitude (même série que vignes-andes-roses-crepuscule)",
+      "reservee": null
+    },
+    {
+      "id": "altus-reserva-chardonnay-debouchage-feu",
+      "w": 1257, "h": 2000, "orientation": "portrait",
+      "alt": "Ouverture d'une bouteille d'Altus Reserva Chardonnay, fromage bleu et feu de cheminée en arrière-plan",
+      "tags": ["degustation", "chardonnay", "fromage", "soiree", "service"],
+      "marque": "Gualtallary Altus",
+      "serie": null,
+      "usage": "Uniquement si le vin Altus est cité ou vendu",
+      "reservee": null
+    },
+    {
+      "id": "allee-vignes-aube-claire",
+      "w": 2000, "h": 1316, "orientation": "paysage",
+      "alt": "Allée de terre entre deux rangs de vigne, ciel clair au lever du jour",
+      "tags": ["vignoble", "aube", "perspective", "sol"],
+      "marque": null,
+      "serie": "allee-vignes",
+      "usage": "Hero d'article, espace libre en haut pour un titre",
+      "reservee": null
+    },
+    {
+      "id": "maison-finca-neige-eolienne",
+      "w": 2000, "h": 1333, "orientation": "paysage",
+      "alt": "Maison de finca sous la neige, éolienne en fer et peupliers dénudés, ciel bleu",
+      "tags": ["finca", "hiver", "neige", "architecture"],
+      "marque": null,
+      "serie": null,
+      "usage": "Chronique saisons / hiver dans le vignoble",
+      "reservee": null
+    },
+    {
+      "id": "andes-enneigees-nuages-vignoble",
+      "w": 2000, "h": 1115, "orientation": "paysage",
+      "alt": "Cordillère des Andes enneigée prise dans les nuages, vignoble et clôture en bois au premier plan",
+      "tags": ["andes", "neige", "nuages", "vignoble", "climat"],
+      "marque": null,
+      "serie": null,
+      "usage": "Chronique climat / terroir andin, bandeau large",
+      "reservee": null
+    },
+    {
+      "id": "gualtallary-de-altus-blend-feu-de-bois",
+      "w": 1158, "h": 2000, "orientation": "portrait",
+      "alt": "Bouteille Gualtallary de Altus 2012, assemblage merlot et cabernet sauvignon, verre et plat de viande devant un feu de bois",
+      "tags": ["accord-mets-vins", "assemblage", "cabernet", "merlot", "feu"],
+      "marque": "Gualtallary de Altus",
+      "serie": null,
+      "usage": "Uniquement si le vin est cité ou vendu",
+      "reservee": null
+    },
+    {
+      "id": "marmite-fonte-feu-de-bois",
+      "w": 1333, "h": 2000, "orientation": "portrait",
+      "alt": "Marmite en fonte à trois pieds suspendue au-dessus d'un feu de bois",
+      "tags": ["cuisine", "feu", "tradition", "accord-mets-vins"],
+      "marque": null,
+      "serie": null,
+      "usage": "Chronique gastronomie / cuisine argentine au feu de bois",
+      "reservee": null
+    },
+    {
+      "id": "allee-vignes-panoramique-peupliers",
+      "w": 2000, "h": 1003, "orientation": "panoramique",
+      "alt": "Allée entre deux rangs de vigne à l'aube, rideau de peupliers et montagnes à l'horizon",
+      "tags": ["vignoble", "aube", "perspective", "peupliers"],
+      "marque": null,
+      "serie": "allee-vignes",
+      "usage": "Bandeau très large (même série que allee-vignes-aube-claire)",
+      "reservee": null
+    },
+    {
+      "id": "gamme-gualtallary-de-altus-quatre-bouteilles",
+      "w": 2000, "h": 1333, "orientation": "paysage",
+      "alt": "Quatre bouteilles de la gamme Gualtallary de Altus (malbec, assemblage, cabernet sauvignon, merlot) sur des pierres, devant un drapé de lin",
+      "tags": ["bouteilles", "gamme", "studio", "malbec", "cabernet", "merlot"],
+      "marque": "Gualtallary de Altus",
+      "serie": "bouteilles-altus",
+      "usage": "Fiche domaine ou boutique, uniquement si la gamme est vendue",
+      "reservee": null
+    },
+    {
+      "id": "sarment-vigne-contre-jour-soleil",
+      "w": 2000, "h": 1336, "orientation": "paysage",
+      "alt": "Sarment de vigne à contre-jour devant le soleil couchant, au-dessus des rangs",
+      "tags": ["vignoble", "coucher-de-soleil", "detail", "poesie"],
+      "marque": null,
+      "serie": null,
+      "usage": "Image d'ambiance, fin d'article, newsletter",
+      "reservee": null
+    },
+    {
+      "id": "altus-chardonnay-cosecha-tardia-2024",
+      "w": 1171, "h": 2000, "orientation": "portrait",
+      "alt": "Main posée sur une bouteille d'Altus Chardonnay Cosecha Tardía 2024, sur une table dressée en extérieur",
+      "tags": ["chardonnay", "vendange-tardive", "service", "table"],
+      "marque": "Gualtallary Altus",
+      "serie": "bouteilles-altus",
+      "usage": "Uniquement si le vin est cité ou vendu",
+      "reservee": null
+    },
+    {
+      "id": "trio-altus-grand-vin-chardonnay-cabernet-franc",
+      "w": 2000, "h": 1333, "orientation": "paysage",
+      "alt": "Trois bouteilles Gualtallary Altus 2023 (Grand Vin, Chardonnay et Cabernet Franc Gran Reserva) sur un muret de galets, Andes au fond",
+      "tags": ["bouteilles", "gamme", "chardonnay", "cabernet-franc", "andes"],
+      "marque": "Gualtallary Altus",
+      "serie": "bouteilles-altus",
+      "usage": "Fiche domaine ou boutique, uniquement si la gamme est vendue",
+      "reservee": null
+    }
+  ]
+}
