@@ -108,7 +108,7 @@ Andivino s'habille comme une belle étiquette de grand vin : un papier crème, u
 
 Le ton est raffiné et retenu. Les pages respirent : sections hautes (7.5rem), larges marges, colonnes de texte étroites. On lit un récit, celui de trois amis et d'une bodega de Luján de Cuyo, avant d'acheter une bouteille. L'interface s'efface derrière le vin, le terroir et le lien humain.
 
-La surface alterne trois papiers (crème clair, crème, crème ombré) et deux nuits (charbon pour les dégustations et l'en-tête de commande, terre de chai pour le pied de page), ponctués d'un seul aplat bordeaux pleine largeur pour l'appel aux professionnels.
+La surface alterne trois papiers (crème clair, crème, crème ombré) et une nuit (charbon pour les dégustations et l'en-tête de commande), ponctués d'aplats bordeaux pleine largeur : l'appel aux professionnels et le pied de page.
 
 **Key Characteristics:**
 - Serif italique Cormorant Garamond pour les voix nobles (titres, noms de cuvée, prix, citations) ; DM Sans pour le texte courant et les libellés.
@@ -122,7 +122,7 @@ La surface alterne trois papiers (crème clair, crème, crème ombré) et deux n
 Une palette de cave : papiers crème chauds, encre bordeaux, filet d'or, fonds sombres de chai.
 
 ### Primary
-- **Bordeaux Malbec** (#6E1828) : la couleur de l'action et de l'accent. Boutons principaux, CTA « Commander », pastilles « Bientôt Sold Out », onglet actif, mots en italique dans les titres, liens dans le texte. Aplat pleine largeur une seule fois par page (bandeau professionnels).
+- **Bordeaux Malbec** (#6E1828) : la couleur de l'action et de l'accent. Boutons principaux, CTA « Commander », pastilles « Bientôt Sold Out », onglet actif, mots en italique dans les titres, liens dans le texte. Aplat pleine largeur réservé au bandeau professionnels et au pied de page.
 - **Bordeaux Malbec profond** (#521220) : uniquement l'état survol et appuyé des éléments bordeaux.
 
 ### Secondary
@@ -138,7 +138,7 @@ Une palette de cave : papiers crème chauds, encre bordeaux, filet d'or, fonds s
 - **Crème ombré** (#E6DDD0) : bandeau citation, réseaux sociaux, filets de séparation, bordures de champs, fond des visuels en attente.
 - **Charbon** (#3C3835) : couleur des titres et du texte important ; fond de la section Dégustations et de l'en-tête Commande.
 - **Encre** (#14100C) : couleur de base du `body` et teinte de toutes les ombres et voiles photo.
-- **Terre de chai** (#2A2420) : fond du pied de page et du bandeau cookies.
+- **Terre de chai** (#2A2420) : fond du bandeau cookies.
 - **Gris sarment** (#655D54) : texte courant, descriptions, libellés secondaires, dates. Calibré pour ≥ 4.5:1 sur les trois crèmes.
 - **Gris cendre** (#C0BBB5) : prix barrés, bordures neutres. Jamais pour du texte qu'on doit lire.
 
