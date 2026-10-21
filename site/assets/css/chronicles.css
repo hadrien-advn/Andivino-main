@@ -3,7 +3,7 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--fb);background:var(--cream-l);color:var(--noir);line-height:1.7}
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1rem 4rem;background:rgba(250,246,241,.97);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(196,164,74,.2)}
-.nl{display:flex;align-items:center;gap:.9rem;text-decoration:none}
+.nl{display:flex;align-items:center;gap:1.25rem;text-decoration:none}
 .nl-name{font-family:var(--fd);font-size:1.1rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--or);display:block}
 .nl-sub{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bdx);display:block;margin-top:.1rem}
 .nlinks{display:flex;align-items:center;gap:2.5rem;list-style:none}
@@ -86,7 +86,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 /* ── NAV LOGO IMAGES ── */
 .nav-logo-img{height:42px;width:auto;display:block;flex-shrink:0}
-.nav-text-img{height:26px;width:auto;display:block}
+.nav-text-img{height:20px;width:auto;display:block}
+@media(max-width:600px){.nl{gap:.9rem}.nav-logo-img{height:34px}.nav-text-img{height:16px}}
 
 /* ── STANDALONE ARTICLE PAGE ── */
 .breadcrumb{max-width:760px;margin:7rem auto 0;padding:0 1.5rem;font-size:.7rem;letter-spacing:.08em;color:var(--gris)}

@@ -12,9 +12,9 @@
 }
 body{font-family:var(--fb);background:var(--cream-l);color:var(--noir);line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
 nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 4rem;background:rgba(250,246,241,.97);box-shadow:0 1px 0 rgba(196,164,74,.2);position:relative;z-index:2}
-.nl{display:flex;align-items:center;gap:.9rem;text-decoration:none}
-.nav-logo-mark{height:50px;width:auto}
-.nav-logo-text{height:32px;width:auto}
+.nl{display:flex;align-items:center;gap:1.25rem;text-decoration:none}
+.nav-logo-mark{height:42px;width:auto;display:block}
+.nav-logo-text{height:20px;width:auto;display:block}
 .back-link{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-decoration:none}
 .back-link:hover{color:var(--charbon)}
 

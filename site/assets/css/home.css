@@ -15,9 +15,9 @@ body{font-family:var(--fb);background:var(--cream-l);color:var(--noir);overflow-
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 4rem;background:rgba(250,246,241,.97);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(196,164,74,.15);transition:padding var(--e),box-shadow var(--e)}
 nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
-.nl{display:flex;align-items:center;gap:.9rem;text-decoration:none}
-.nav-logo-mark{height:50px;width:auto}
-.nav-logo-text{height:32px;width:auto}
+.nl{display:flex;align-items:center;gap:1.25rem;text-decoration:none}
+.nav-logo-mark{height:42px;width:auto;display:block}
+.nav-logo-text{height:20px;width:auto;display:block}
 .nl-name{font-family:var(--fd);font-size:1.1rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--or);display:block}
 .nl-sub{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bdx);display:block;margin-top:.1rem}
 .nlinks{display:flex;align-items:center;gap:2.5rem;list-style:none}
@@ -271,10 +271,13 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 @media(max-width:600px){
   /* NAV */
   .burger{display:flex}
-  nav,nav.scrolled{padding:1rem 1.2rem}
-  .nav-logo-mark{height:38px}
-  .nav-logo-text{height:24px}
-  .nav-cta{font-size:.7rem;padding:.6rem 1rem}
+  nav,nav.scrolled{padding:1rem}
+  .nl{gap:.75rem}
+  .nav-logo-mark{height:34px}
+  .nav-logo-text{height:16px}
+  .nright{gap:.7rem}
+  .burger{margin-left:.3rem}
+  .nav-cta{font-size:.7rem;padding:.6rem .85rem;letter-spacing:.12em}
 
   /* HERO */
   .hero{padding:0 1.2rem 3.5rem;min-height:520px}
@@ -315,3 +318,4 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .b2b-in{gap:1.5rem;padding:0 1.2rem}
   .b2b-t h2{font-size:1.6rem}
 }
+@media(max-width:370px){.nav-logo-text{height:14px}.nav-cta{padding:.55rem .7rem;letter-spacing:.08em}}

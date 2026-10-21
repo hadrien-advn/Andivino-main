@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const siteRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 // Brand/UI images that legitimately appear on every page.
-const CHROME = /^(favicon-|logo-|ecriture-sans-fond|bout-|cuvee-h)/;
+const CHROME = /^(favicon-|logo-|logotype-|ecriture-sans-fond|bout-|cuvee-h)/;
 
 const REF = /(?:\/assets\/images\/|\.\.\/images\/)([A-Za-z0-9_./-]+\.(?:jpe?g|png|webp|avif))/g;
 
