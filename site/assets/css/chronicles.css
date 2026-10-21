@@ -102,6 +102,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .article-cta .btn-p:hover{background:var(--bdx-d)}
 .article-cta .btn-o{border:1px solid var(--cream-d);color:var(--charbon)}
 .article-cta .btn-o:hover{border-color:var(--bdx);color:var(--bdx)}
+.art-body .art-figure:not(:first-child){margin-top:2.4rem}
+
+/* ── FIN D'ARTICLE : CTA VINS ── */
+.art-next{width:calc(100% - 3rem);max-width:712px;margin:1.5rem auto 0;padding:3.5rem 2.5rem 3rem;background:var(--cream);border-top:1px solid var(--or);text-align:center}
+.art-next-ey{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);margin-bottom:.8rem}
+.art-next h2{font-family:var(--fd);font-weight:300;font-size:clamp(1.9rem,4vw,2.6rem);line-height:1.15;color:var(--charbon);margin-bottom:.9rem;text-wrap:balance}
+.art-next h2 em{font-style:italic;color:var(--bdx)}
+.art-next-txt{font-size:.92rem;line-height:1.8;color:var(--gris);max-width:52ch;margin:0 auto 2.2rem;text-wrap:pretty}
+.art-next-wines{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:560px;margin:0 auto 2.4rem}
+.art-next-wines a{display:flex;flex-direction:column;align-items:center;padding:1rem .5rem 1.1rem;text-decoration:none;transition:background var(--e)}
+.art-next-wines a:hover{background:var(--cream-l)}
+.art-next-wines img{display:block;width:100%;height:170px;object-fit:contain;margin-bottom:1rem;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.art-next-wines a:hover img{transform:translateY(-4px)}
+.art-next-n{font-family:var(--fd);font-size:1.15rem;line-height:1.2;color:var(--charbon)}
+.art-next-c{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-top:.35rem}
+.art-next-ctas{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.art-next-ctas a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:.95rem 1.9rem;transition:background var(--e),color var(--e),border-color var(--e)}
+.art-next-ctas .btn-p{background:var(--bdx);color:var(--cream-l)}
+.art-next-ctas .btn-p:hover{background:var(--bdx-d)}
+.art-next-ctas .btn-o{border:1px solid rgba(60,56,53,.4);color:var(--charbon)}
+.art-next-ctas .btn-o:hover{border-color:var(--bdx);color:var(--bdx)}
+.article-more{max-width:760px;margin:0 auto;padding:2rem 1.5rem 6rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.article-more a{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-decoration:none;transition:color var(--e)}
+.article-more a:hover{color:var(--bdx)}
+@media(max-width:600px){
+  .art-next{width:calc(100% - 2.4rem);padding:2.8rem 1.2rem 2.4rem}
+  .art-next-wines{gap:.4rem}
+  .art-next-wines img{height:120px}
+  .art-next-n{font-size:1rem}
+  .art-next-c{font-size:.62rem;letter-spacing:.08em}
+  .art-next-ctas a{width:100%;text-align:center}
+  .article-more{flex-direction:column;padding:1.8rem 1.2rem 4.5rem}
+}
 
 /* ── WINE PAGE ── */
 .wine-bottle{text-align:center;padding:1rem 0 2rem}
