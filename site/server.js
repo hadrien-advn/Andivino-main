@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 const Stripe = require('stripe');
 require('dotenv').config();
 
-const { buildOrder } = require('./data/catalog');
+const { PRODUCTS, buildOrder } = require('./data/catalog');
 
 const app = express();
 const port = Number(process.env.PORT || 4242);
@@ -20,6 +20,11 @@ const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
 const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const stripe = stripeSecretKey ? new Stripe(stripeSecretKey) : null;
+
+// CRM Andivino (andivinocrm.vercel.app) : reçoit les inscriptions newsletter et les commandes payées,
+// de serveur à serveur. Les clés partagées ne quittent jamais le serveur.
+const crmUrl = (process.env.CRM_URL || 'https://andivinocrm.vercel.app').replace(/\/+$/, '');
+const ordersSecret = process.env.ORDERS_API_SECRET;
 
 app.disable('x-powered-by');
 // Dev-only allowance so impeccable live mode can load. Never active on Railway or in production.
@@ -82,13 +87,18 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json', limit: '
       return res.json({ received: true, duplicate: true });
     }
 
+    // La commande part au CRM ; tant qu'il ne l'a pas acceptée, l'événement n'est pas marqué traité
+    // et Stripe le renvoie (le CRM ignore une commande qu'il a déjà).
     if (event.type === 'payment_intent.succeeded') {
-      await recordPaymentIntentEvent(event);
+      const order = orderFromPaymentIntent(event);
+      await recordPaymentIntentEvent(event, order);
+      await sendOrderToCrm(order);
     }
 
     await markProcessedEvent(event.id);
     return res.json({ received: true });
   } catch (error) {
+    console.error(`[stripe] ${event.type} ${event.id} non traité :`, error.message);
     return res.status(500).json({ error: 'Webhook recu mais non traite.' });
   }
 });
@@ -188,31 +198,74 @@ function parseMetadataCart(cart) {
   }
 }
 
-async function recordPaymentIntentEvent(event) {
+// La commande telle que le CRM la reçoit, reconstruite depuis le PaymentIntent : les lignes et leurs
+// prix viennent du catalogue serveur, le port est ce qui reste du montant encaissé.
+function orderFromPaymentIntent(event) {
   const paymentIntent = event.data.object;
-  await fs.mkdir(storageDir, { recursive: true });
+  const metadata = paymentIntent.metadata || {};
+  const amountPaid = paymentIntent.amount_received || paymentIntent.amount;
+  const lines = parseMetadataCart(metadata.cart).map((item) => {
+    const product = PRODUCTS[item.id];
+    return {
+      productId: String(item.id || ''),
+      name: product ? product.name : String(item.id || ''),
+      quantity: Number(item.qty) || 0,
+      unitAmount: product ? product.unitAmount : null
+    };
+  });
+  const wineAmount = lines.reduce((sum, line) => sum + (line.unitAmount || 0) * line.quantity, 0);
+  const fullName = cleanText(metadata.customer_name || paymentIntent.shipping?.name, 160);
+  // Commandes antérieures aux champs prénom / nom séparés : on coupe au premier espace.
+  const firstName = metadata.customer_first_name ?? fullName.split(' ')[0];
+  const lastName = metadata.customer_last_name ?? fullName.split(' ').slice(1).join(' ');
+  const address = paymentIntent.shipping?.address || {};
 
-  const record = {
-    receivedAt: new Date().toISOString(),
-    eventId: event.id,
-    eventType: event.type,
+  return {
     paymentIntentId: paymentIntent.id,
-    status: paymentIntent.status,
-    amount: paymentIntent.amount_received || paymentIntent.amount,
+    paidAt: new Date((event.created || Date.now() / 1000) * 1000).toISOString(),
+    amountPaid,
     currency: paymentIntent.currency,
-    customerEmail: paymentIntent.receipt_email || paymentIntent.metadata?.customer_email || null,
-    customerName: paymentIntent.shipping?.name || paymentIntent.metadata?.customer_name || null,
-    shippingMode: paymentIntent.metadata?.shipping_mode || null,
-    bottleCount: Number(paymentIntent.metadata?.bottle_count || 0),
-    cart: parseMetadataCart(paymentIntent.metadata?.cart),
-    shipping: paymentIntent.shipping ? {
-      name: paymentIntent.shipping.name || null,
-      phone: paymentIntent.shipping.phone || null,
-      address: paymentIntent.shipping.address || null
-    } : null
+    customer: {
+      firstName,
+      lastName,
+      email: paymentIntent.receipt_email || metadata.customer_email || null,
+      phone: paymentIntent.shipping?.phone || null,
+      message: metadata.customer_message || null
+    },
+    shipping: {
+      mode: metadata.shipping_mode || null,
+      amount: lines.every((line) => line.unitAmount !== null) && amountPaid >= wineAmount ? amountPaid - wineAmount : null,
+      address: {
+        line1: address.line1 || null,
+        postalCode: address.postal_code || null,
+        city: address.city || null,
+        country: address.country || null
+      }
+    },
+    lines
   };
+}
 
-  await fs.appendFile(orderEventsFile, `${JSON.stringify(record)}\n`);
+// Journal local de secours (perdu au redéploiement Railway) : une ligne par réception, retries compris.
+async function recordPaymentIntentEvent(event, order) {
+  try {
+    await fs.mkdir(storageDir, { recursive: true });
+    const record = { receivedAt: new Date().toISOString(), eventId: event.id, status: event.data.object.status, order };
+    await fs.appendFile(orderEventsFile, `${JSON.stringify(record)}\n`);
+  } catch (error) {
+    console.error('[stripe] journal local des commandes impossible :', error.message);
+  }
+}
+
+async function sendOrderToCrm(order) {
+  if (!ordersSecret) throw new Error('ORDERS_API_SECRET manquant');
+  const crmResponse = await fetch(`${crmUrl}/api/orders`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${ordersSecret}` },
+    body: JSON.stringify(order),
+    signal: AbortSignal.timeout(10000)
+  });
+  if (!crmResponse.ok) throw new Error(`CRM ${crmResponse.status}`);
 }
 
 app.get('/', sendPage('home.html'));
@@ -277,7 +330,10 @@ app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
       },
       metadata: {
         customer_name: `${customer.prenom} ${customer.nom}`,
+        customer_first_name: customer.prenom,
+        customer_last_name: customer.nom,
         customer_email: customer.email,
+        ...(customer.message ? { customer_message: customer.message.slice(0, 500) } : {}),
         shipping_mode: order.shippingMode,
         bottle_count: String(order.bottleCount),
         order_total_cents: String(order.amount),
@@ -300,9 +356,8 @@ app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
   }
 });
 
-// Inscription newsletter : le formulaire de /newsletter poste ici, le serveur transmet au CRM
-// Andivino (andivinocrm.vercel.app), qui stocke les inscrits. La clé partagée ne quitte jamais le serveur.
-const crmUrl = (process.env.CRM_URL || 'https://andivinocrm.vercel.app').replace(/\/+$/, '');
+// Inscription newsletter : le formulaire de /newsletter poste ici, le serveur transmet au CRM, qui
+// stocke les inscrits.
 const newsletterSecret = process.env.NEWSLETTER_API_SECRET;
 
 const newsletterLimiter = rateLimit({

@@ -104,19 +104,22 @@ Date : une date future. CVC : 3 chiffres quelconques.
 
 ## Ou sont les commandes ?
 
-En local, les paiements confirmes sont journalises dans :
+Chaque paiement confirme (webhook `payment_intent.succeeded`) est transmis au CRM Andivino
+(`POST ${CRM_URL}/api/orders`, cle partagee `ORDERS_API_SECRET`, meme valeur sur Railway et Vercel).
+Le CRM cree la fiche client (ou retrouve celle du meme email), une vente B2C payee « A livrer »,
+sort les bouteilles du stock et ajoute une tache « Preparer la commande ».
+
+Tant que le CRM n'a pas accepte la commande, le webhook repond 500 et Stripe le renvoie
+(pendant 3 jours) ; le CRM ignore une commande deja enregistree.
+
+En secours, chaque reception est aussi journalisee dans :
 
 ```text
 storage/stripe-order-events.jsonl
 ```
 
-Ce dossier est ignore par Git, car il peut contenir des donnees client.
-
-Avant production, il faut remplacer ce journal local par :
-
-- une base de donnees,
-- un outil interne securise,
-- ou un back-office.
+Ce dossier est ignore par Git, car il peut contenir des donnees client. Sur Railway il est efface
+a chaque redeploiement : la reference reste le CRM (et le Dashboard Stripe).
 
 ## Modifier les produits et prix
 
@@ -157,7 +160,7 @@ Avant production, il faudra :
 2. passer de `pk_test_` / `sk_test_` a `pk_live_` / `sk_live_`,
 3. creer un webhook Stripe production vers l'URL publique,
 4. renseigner `STRIPE_WEBHOOK_SECRET` production,
-5. remplacer `storage/` par une vraie persistance,
+5. renseigner `ORDERS_API_SECRET` (Railway et Vercel) pour que les commandes arrivent au CRM,
 6. activer HTTPS,
 7. verifier les pages legales,
 8. refaire un test de paiement complet.
