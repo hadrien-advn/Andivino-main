@@ -23,9 +23,16 @@ const SHIPPING_MODES = Object.freeze({
   'mondial-relay': 'Mondial Relay'
 });
 
+// Livraison par transporteur suspendue tant que son cout reel n'est pas chiffre. Pour la rouvrir,
+// vider cette liste et celle de assets/js/checkout.js.
+const SUSPENDED_SHIPPING_MODES = Object.freeze(['colissimo', 'mondial-relay']);
+
 function shippingAmount(mode, bottleCount, postalCode = '') {
   if (!Object.prototype.hasOwnProperty.call(SHIPPING_MODES, mode)) {
     throw new Error('Mode de livraison invalide.');
+  }
+  if (SUSPENDED_SHIPPING_MODES.includes(mode)) {
+    throw new Error('La livraison par Colissimo et Mondial Relay est momentanément suspendue. Choisissez le retrait en dégustation ou la remise en main propre (Paris et petite couronne).');
   }
 
   if (mode === 'degustation') return 0;

@@ -129,6 +129,8 @@ function updateCart(){
 
 // ── LIVRAISON ──
 var selectedLiv = null;
+// Livraison par transporteur suspendue (meme liste que SUSPENDED_SHIPPING_MODES dans data/catalog.js).
+var SUSPENDED_SHIPPING = ['colissimo', 'mondial-relay'];
 
 // Tarifs livraison selon nb bouteilles total
 function shippingCost(mode, nbBottles) {
@@ -153,6 +155,7 @@ function nbBottlesInCart() {
 function updateShippingPrices() {
   var nb = nbBottlesInCart();
   ['colissimo','mondial-relay'].forEach(function(mode) {
+    if (SUSPENDED_SHIPPING.indexOf(mode) !== -1) return;
     var cost = shippingCost(mode, nb);
     var id = mode === 'colissimo' ? 'priceColissimo' : 'priceMondialRelay';
     var el = document.getElementById(id);
@@ -169,6 +172,17 @@ function selectLiv(el) {
   updateGrandTotal();
   resetPaymentElement();
 }
+SUSPENDED_SHIPPING.forEach(function(mode) {
+  var el = document.querySelector('.liv-opt[data-mode="' + mode + '"]');
+  if (!el) return;
+  el.classList.add('disabled');
+  el.setAttribute('aria-disabled', 'true');
+  el.tabIndex = -1;
+  var badge = el.querySelector('.liv-badge');
+  if (badge) badge.textContent = 'Indisponible';
+  var desc = el.querySelector('.liv-desc');
+  if (desc) desc.textContent = 'Momentanément suspendu : choisissez le retrait en dégustation ou la remise en main propre.';
+});
 document.querySelectorAll('.liv-opt').forEach(function(el){
   el.addEventListener('click', function(){ selectLiv(el); });
   el.addEventListener('keydown', function(e){
