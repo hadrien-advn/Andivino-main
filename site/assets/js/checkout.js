@@ -179,7 +179,10 @@ SUSPENDED_SHIPPING.forEach(function(mode) {
   el.setAttribute('aria-disabled', 'true');
   el.tabIndex = -1;
   var badge = el.querySelector('.liv-badge');
-  if (badge) badge.textContent = 'Indisponible';
+  if (badge) {
+    badge.classList.add('contact');
+    badge.innerHTML = 'Merci de contacter <a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a>';
+  }
   var desc = el.querySelector('.liv-desc');
   if (desc) desc.textContent = 'Momentanément suspendu : choisissez le retrait en dégustation ou la remise en main propre.';
 });

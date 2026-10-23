@@ -94,12 +94,13 @@ a.back-link:hover{color:var(--charbon)}
 /* LIVRAISON */
 .livraison-section{margin-bottom:3rem}
 .livraison-section h2{font-family:var(--fd);font-size:1.6rem;font-weight:300;font-style:italic;color:var(--charbon);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--cream-d)}
-.liv-options{display:flex;flex-direction:column;gap:.6rem}
+.liv-options{display:flex;flex-direction:column;gap:.6rem;container-type:inline-size}
 .liv-opt{display:flex;align-items:flex-start;gap:1.2rem;padding:1.2rem 1.4rem;border:1.5px solid var(--cream-d);cursor:pointer;transition:border-color var(--e),background var(--e);position:relative}
 .liv-opt:hover{border-color:var(--gris-l);background:var(--cream)}
 .liv-opt.selected{border-color:var(--bdx);background:rgba(110,24,40,.04)}
 .liv-opt:focus-visible{outline:2px solid var(--bdx);outline-offset:2px}
-.liv-opt.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}
+.liv-opt.disabled{cursor:not-allowed;pointer-events:none}
+.liv-opt.disabled .liv-radio,.liv-opt.disabled .liv-body{opacity:.5}
 .liv-radio{width:18px;height:18px;border:2px solid var(--gris-l);border-radius:50%;flex-shrink:0;margin-top:.15rem;display:flex;align-items:center;justify-content:center;transition:border-color var(--e)}
 .liv-opt.selected .liv-radio{border-color:var(--bdx)}
 .liv-radio-dot{width:8px;height:8px;border-radius:50%;background:var(--bdx);display:none}
@@ -109,6 +110,13 @@ a.back-link:hover{color:var(--charbon)}
 .liv-desc{font-size:.75rem;color:var(--gris);line-height:1.55}
 .liv-badge{position:absolute;top:.9rem;right:1rem;font-family:var(--fd);font-size:1rem;font-weight:400;color:var(--charbon)}
 .liv-badge.free{color:var(--green);font-size:.76rem;letter-spacing:.06em;font-family:var(--fb);font-weight:600}
+.liv-badge.contact{color:var(--gris)}
+.liv-badge.contact a{color:var(--bdx);text-decoration:underline;text-underline-offset:2px;pointer-events:auto;cursor:pointer}
+/* Carte trop etroite pour le message a cote du titre : il passe sous la description. */
+@container (max-width:600px){
+  .liv-opt.disabled{flex-wrap:wrap;padding-right:1rem}
+  .liv-opt.disabled .liv-badge{position:static;flex-basis:100%;padding-left:calc(18px + 1.2rem);margin-top:-.4rem}
+}
 .liv-idf-note{font-size:.74rem;color:var(--gris);margin-top:.9rem;padding:.7rem 1rem;background:var(--cream-d);display:none}
 .liv-idf-note.visible{display:block}
 
