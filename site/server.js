@@ -60,6 +60,12 @@ app.use('/assets/images', express.static(path.join(rootDir, 'assets/images'), {
   maxAge: '7d'
 }));
 
+// Polices : fichiers immuables (renommer le fichier pour en changer)
+app.use('/assets/fonts', express.static(path.join(rootDir, 'assets/fonts'), {
+  maxAge: '365d',
+  immutable: true
+}));
+
 // CSS et JS : cache 1h, invalidé par ?v= dans les URLs HTML
 app.use('/assets', express.static(path.join(rootDir, 'assets'), {
   maxAge: '1h'

@@ -7,9 +7,11 @@
 <meta name="description" content="Andivino sélectionne des vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía. Découvrez les cuvées, les dégustations et les chroniques.">
 <meta name="robots" content="index,follow">
 <meta name="google-site-verification" content="hcO3SRHH_l4kVJ5bs1RYlSJIkYc5wCcJ-yWLJHXi7A0" />
+<meta name="theme-color" content="#1F1B18">
 <link rel="canonical" href="https://andivino.fr/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Andivino">
+<meta property="og:locale" content="fr_FR">
 <meta property="og:title" content="Andivino — Importateur de vins argentins d'exception, Mendoza">
 <meta property="og:description" content="Vins des Andes, Bodega Poesía, cuvées de Mendoza et dégustations en France.">
 <meta property="og:url" content="https://andivino.fr/">
@@ -19,13 +21,14 @@
 <meta name="twitter:description" content="Découvrez les cuvées argentines sélectionnées par Andivino.">
 <meta name="twitter:image" content="https://andivino.fr/assets/images/vignes-hero.jpeg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
+<!-- Police de titre préchargée : elle porte le H1 du hero. Les deux autres arrivent avec le CSS. -->
+<link rel="preload" href="/assets/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/home.css">
-<link rel="stylesheet" href="/assets/css/footer.css">
 <link rel="stylesheet" href="/assets/css/legal-banners.css">
+<script src="/assets/js/accueil.js" defer></script>
+<script src="/assets/js/legal-banners.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,7 +36,8 @@
   "name": "Andivino",
   "url": "https://andivino.fr/",
   "logo": "https://andivino.fr/assets/images/logo-sans-fond.png",
-  "description": "Selection de vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesia.",
+  "email": "hadrien@andivino.fr",
+  "description": "Sélection de vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía.",
   "founder": [
     { "@type": "Person", "name": "Gaspard Cordeau" },
     { "@type": "Person", "name": "Esteban" },
@@ -52,269 +56,398 @@
   "name": "Andivino",
   "url": "https://andivino.fr/",
   "inLanguage": "fr-FR",
-  "description": "Andivino selectionne des vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesia."
+  "description": "Andivino sélectionne des vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía."
+}
+</script>
+<!-- Les trois cuvées : prix identiques à data/catalog.js et aux fiches produit. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Les vins Andivino",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Product",
+        "name": "Clos des Andes 2017",
+        "description": "100 % Malbec, vignes plantées en 1935 en franc de pied. Luján de Cuyo, Mendoza.",
+        "image": "https://andivino.fr/assets/images/accueil/bouteille-clos-des-andes-2017.webp",
+        "brand": { "@type": "Brand", "name": "Bodega Poesía" },
+        "category": "Vin rouge argentin",
+        "url": "https://andivino.fr/products/mendoza/lujan-de-cuyo/clos-des-andes-2017",
+        "offers": { "@type": "Offer", "price": "21.99", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://andivino.fr/products/mendoza/lujan-de-cuyo/clos-des-andes-2017" }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Product",
+        "name": "Poesía — Cuvée Hélène 2016",
+        "description": "60 % Malbec, 40 % Cabernet Sauvignon. Luján de Cuyo, Mendoza.",
+        "image": "https://andivino.fr/assets/images/accueil/bouteille-poesia-cuvee-helene-2016.webp",
+        "brand": { "@type": "Brand", "name": "Bodega Poesía" },
+        "category": "Vin rouge argentin",
+        "url": "https://andivino.fr/products/mendoza/lujan-de-cuyo/cuvee-helene-2016",
+        "offers": { "@type": "Offer", "price": "35.99", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://andivino.fr/products/mendoza/lujan-de-cuyo/cuvee-helene-2016" }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Product",
+        "name": "Poesía 2014",
+        "description": "60 % Malbec, 40 % Cabernet Sauvignon. Luján de Cuyo, Mendoza.",
+        "image": "https://andivino.fr/assets/images/accueil/bouteille-poesia-2014.webp",
+        "brand": { "@type": "Brand", "name": "Bodega Poesía" },
+        "category": "Vin rouge argentin",
+        "url": "https://andivino.fr/products/mendoza/lujan-de-cuyo/poesia-2014",
+        "offers": { "@type": "Offer", "price": "44.99", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://andivino.fr/products/mendoza/lujan-de-cuyo/poesia-2014" }
+      }
+    }
+  ]
 }
 </script>
 </head>
 <body>
 
-<!-- ────────────────── NAV ────────────────── -->
-<nav id="nav">
-  <a href="/" class="nl">
-    <img src="/assets/images/logo-ecusson.png" alt="Andivino" width="116" height="150" class="nav-logo-mark">
-    <img src="/assets/images/logotype-andivino.png" alt="" width="530" height="80" class="nav-logo-text">
-  </a>
-  <ul class="nlinks">
-    <li><a href="#philosophie">Notre histoire</a></li>
-    <li><a href="#bodega">La Bodega</a></li>
-    <li><a href="#vins">Les vins</a></li>
-    <li><a href="#degustations">Dégustations</a></li>
-    <li><a href="#chroniques">Chroniques</a></li>
-  </ul>
-  <div class="nright">
-    <button class="btn-cart" id="cartBtn" title="Panier" aria-label="Voir le panier">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      <span class="cbadge" id="cartBadge">0</span>
-    </button>
-    <a href="/commande" class="nav-cta">Commander</a>
-    <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
-<!-- ────────────────── HERO ────────────────── -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-c">
-    <div class="hero-ey"><div class="hero-ey-line"></div><span>Bodega Poesía — Luján de Cuyo, Mendoza</span></div>
-    <h1><em>Du terroir argentin,</em><strong>à votre table.</strong></h1>
-    <p class="hero-sub">Des vins de caractère — Malbec argentin et grands assemblages de Mendoza — importés par trois passionnés qui ont vécu en Argentine. Le lien humain au service du terroir.</p>
-    <div class="hero-ctas">
-      <a href="#vins" class="btn-p">Découvrir nos vins</a>
-      <a href="/commande" class="btn-o">Commander</a>
+<!-- ─────────────── NAVIGATION ───────────────
+     Transparente sur le hero, ivoire dès qu'on défile (classe .is-solid posée par accueil.js).
+     Le logo est un masque CSS : une seule image, recolorée en ivoire ou en bordeaux. -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a href="/" class="brand" aria-label="Andivino, accueil">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-type" aria-hidden="true"></span>
+    </a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#philosophie">Notre histoire</a>
+      <a href="#vins">Les vins</a>
+      <a href="#degustations">Dégustations</a>
+      <a href="#chroniques">Chroniques</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#professionnels" class="nav-pro">Espace professionnels</a>
+      <a href="/commande" class="btn btn-nav">Commander</a>
+      <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
     </div>
   </div>
-  <div class="hero-ind"><div class="hero-ind-l"></div><span>Défiler</span></div>
+</header>
+
+<!-- Menu mobile plein écran -->
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Menu mobile">
+    <a href="#philosophie">Notre histoire</a>
+    <a href="#vins">Les vins</a>
+    <a href="#degustations">Dégustations</a>
+    <a href="#chroniques">Chroniques</a>
+  </nav>
+  <div class="menu-ft">
+    <a href="/commande" class="btn btn-solid">Commander</a>
+    <a href="#professionnels" class="menu-pro">Espace professionnels</a>
+  </div>
+</div>
+
+<main id="contenu">
+
+<!-- ─────────────── HERO ───────────────
+     Seule image chargée en priorité (LCP) : pas de lazy, fetchpriority haut. -->
+<section class="hero">
+  <img class="hero-img"
+       src="/assets/images/accueil/vignoble-mendoza-andes-aube-1280.webp"
+       srcset="/assets/images/accueil/vignoble-mendoza-andes-aube-768.webp 768w,
+               /assets/images/accueil/vignoble-mendoza-andes-aube-1280.webp 1280w,
+               /assets/images/accueil/vignoble-mendoza-andes-aube-1920.webp 1920w"
+       sizes="100vw" width="1920" height="1131"
+       alt="Rangs de vigne et piquets de bois à Mendoza, face à un sommet enneigé des Andes à l'aube"
+       fetchpriority="high" decoding="async">
+  <div class="hero-c wrap">
+    <h1>Du terroir argentin, <em>à votre table.</em></h1>
+    <p>Des vins de caractère, Malbec argentin et grands assemblages de Mendoza, importés par trois passionnés qui ont vécu en Argentine.</p>
+    <div class="hero-ctas">
+      <a href="#vins" class="btn btn-light">Découvrir nos vins</a>
+      <a href="/commande" class="btn btn-ghost">Commander</a>
+    </div>
+  </div>
 </section>
 
-<!-- ────────────────── NOTRE HISTOIRE (histoire + équipe fusionnées) ────────────────── -->
-<section class="s-philo" id="philosophie">
-  <div class="si">
-    <div class="philo-g">
-      <div class="philo-t fi">
-        <div class="sl">Notre histoire</div>
-        <h2>Trois passionnés.<br>Un terroir <em>à transmettre.</em></h2>
-        <p>Andivino est né d'un échange universitaire à Buenos Aires. Amoureux d'œnologie, nous — <strong>Gaspard, Esteban et Hadrien</strong> — y avons marché dans les vignes de Mendoza, rencontré les vignerons et découvert un vignoble bien plus riche que ce que le marché français laisse entrevoir.</p>
-        <p>De retour en France, la conviction s'est imposée : importer des vins de terroir capables d'incarner cette Argentine authentique, entre tradition et esprit pionnier.</p>
-        <ul class="philo-team">
-          <li><img class="philo-av" src="/assets/images/fondateur-gaspard.png" alt="Gaspard, co-fondateur Andivino" width="104" height="104" loading="lazy"><span class="philo-nm">Gaspard</span></li>
-          <li><img class="philo-av" src="/assets/images/fondateur-esteban.png" alt="Esteban, co-fondateur Andivino" width="104" height="104" loading="lazy"><span class="philo-nm">Esteban</span></li>
-          <li><img class="philo-av" src="/assets/images/fondateur-hadrien.png" alt="Hadrien, co-fondateur Andivino" width="104" height="104" loading="lazy"><span class="philo-nm">Hadrien</span></li>
-        </ul>
-      </div>
-      <div class="philo-img fi d1">
-        <img src="/assets/images/photo-cofondateurs-1600.jpg" alt="Gaspard, Esteban et Hadrien — co-fondateurs Andivino" width="1600" height="1066" loading="lazy" decoding="async">
-        <div class="philo-cap">Une dégustation Andivino — l'univers argentin, ici.</div>
-      </div>
+<!-- ─────────────── NOTRE HISTOIRE ─────────────── -->
+<section class="sec" id="philosophie" aria-labelledby="h-histoire">
+  <div class="wrap histoire">
+    <div class="histoire-t reveal">
+      <h2 id="h-histoire">Trois passionnés, un terroir <em>à transmettre.</em></h2>
+      <p>Andivino est né d'un échange universitaire à Buenos Aires. Amoureux d'œnologie, nous, Gaspard, Esteban et Hadrien, y avons marché dans les vignes de Mendoza, rencontré les vignerons et découvert un vignoble bien plus riche que ce que le marché français laisse entrevoir.</p>
+      <p>De retour en France, la conviction s'est imposée : importer des vins de terroir capables d'incarner cette Argentine authentique, entre tradition et esprit pionnier.</p>
+      <ul class="team" aria-label="Les fondateurs">
+        <li><img src="/assets/images/accueil/portrait-gaspard-160.webp" alt="Portrait de Gaspard" width="64" height="64" loading="lazy" decoding="async"><span>Gaspard</span></li>
+        <li><img src="/assets/images/accueil/portrait-esteban-160.webp" alt="Portrait d'Esteban" width="64" height="64" loading="lazy" decoding="async"><span>Esteban</span></li>
+        <li><img src="/assets/images/accueil/portrait-hadrien-160.webp" alt="Portrait d'Hadrien" width="64" height="64" loading="lazy" decoding="async"><span>Hadrien</span></li>
+      </ul>
     </div>
-    <div class="philo-pillars">
-      <div class="fi">
-        <h3>Comment nous choisissons nos vins&nbsp;?</h3>
+    <figure class="histoire-img reveal">
+      <img src="/assets/images/accueil/fondateurs-gaspard-esteban-hadrien-1024.webp"
+           srcset="/assets/images/accueil/fondateurs-gaspard-esteban-hadrien-640.webp 640w,
+                   /assets/images/accueil/fondateurs-gaspard-esteban-hadrien-1024.webp 1024w,
+                   /assets/images/accueil/fondateurs-gaspard-esteban-hadrien-1600.webp 1600w"
+           sizes="(min-width: 960px) 52vw, 100vw" width="1600" height="1066"
+           alt="Gaspard, Esteban et Hadrien, cofondateurs d'Andivino, chacun une bouteille de la Bodega Poesía à la main"
+           loading="lazy" decoding="async">
+    </figure>
+    <div class="piliers">
+      <div class="reveal">
+        <h3>Comment nous choisissons nos vins</h3>
         <p>Nous ne travaillons qu'avec des domaines familiaux, traditionnels et historiques, qui cultivent avec rigueur un terroir singulier : vendanges manuelles, viticulture respectueuse des sols et de l'environnement. Chaque cuvée est dégustée sur place, en Argentine, pour nous imprégner du terroir et du travail du vigneron.</p>
       </div>
-      <div class="fi d1">
-        <h3>Comment nous travaillons&nbsp;?</h3>
+      <div class="reveal">
+        <h3>Comment nous travaillons</h3>
         <p>Cette exigence, nous l'appliquons aussi à nos clients. Nous avons l'exclusivité de chaque domaine et de chaque cuvée de notre sélection, et nous choisissons nos partenaires avec la même rigueur : cavistes indépendants, bars à vins, restaurants, commerces de proximité. Aucune de nos références ne se trouve en grande distribution ni dans les chaînes de cavistes.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ────────────────── BODEGA ────────────────── -->
-<section class="s-bodega" id="bodega">
-  <div class="si">
-    <div class="bodega-g">
-      <div class="bodega-map fi">
-        <div class="sl">Notre premier partenaire</div>
-        <img src="/assets/images/map-mendoza.png" alt="Carte Mendoza — Bodega Poesía" loading="lazy">
-      </div>
-      <div class="bodega-c fi d1">
-        <h2>Bodega Poesía</h2>
-        <div class="bodega-loc">Luján de Cuyo, Mendoza — 900 m d'altitude</div>
-        <p>Née en 2000 d'une rencontre entre passion bordelaise et terroir argentin, la Bodega Poesía est établie au cœur de la <em>Primera Zona</em> de Luján de Cuyo — première appellation d'origine officiellement reconnue en Amérique du Sud.</p>
-        <p>Les vignes, plantées en 1935 en franc de pied, produisent des raisins d'une concentration exceptionnelle, façonnés par un sol sablo-argileux unique et les contrastes thermiques du piedmont andin. Zéro traitement chimique. Vendanges entièrement manuelles, avec une sélection rigoureuse parcelle par parcelle.</p>
-        <p>Les barriques, foudres et cuves en inox furent importés d'Europe par les fondateurs, guidés par la même exigence qu'en Bordeaux. La philosophie est simple : laisser le terroir parler.</p>
-        <div class="bodega-facts">
-          <div class="fact"><div class="fl">Appellation</div><div class="fv">Luján de Cuyo</div></div>
-          <div class="fact"><div class="fl">Altitude</div><div class="fv">900 mètres</div></div>
-          <div class="fact"><div class="fl">Superficie</div><div class="fv">13 hectares</div></div>
-          <div class="fact"><div class="fl">Plantation</div><div class="fv">1935 — franc de pied</div></div>
-          <div class="fact"><div class="fl">Culture</div><div class="fv">Biologique &amp; durable</div></div>
-          <div class="fact"><div class="fl">Vendanges</div><div class="fv">Manuelles</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ────────────────── CAROUSEL ────────────────── -->
-<div class="carousel" id="carousel">
-  <div class="carousel-track" id="carouselTrack">
-    <div class="carousel-slide"><img src="/assets/images/finca.jpg"          alt="La finca de la Bodega Poesía à Luján de Cuyo, Mendoza" loading="lazy"></div>
-    <div class="carousel-slide"><img src="/assets/images/poarg3.jpg"         alt="Vignes de Malbec dans le vignoble argentin de Mendoza" loading="lazy"></div>
-    <div class="carousel-slide"><img src="/assets/images/poarg1.jpg"         alt="Chai et installations de la Bodega Poesía, Mendoza" loading="lazy"></div>
-    <div class="carousel-slide"><img src="/assets/images/vignes-bandeau.jpg" alt="Vignoble de Mendoza au pied des Andes" loading="lazy"></div>
-    <div class="carousel-slide"><img src="/assets/images/bandera.jpg"        alt="Drapeau argentin sur les vignes de Mendoza" loading="lazy"></div>
-  </div>
-  <button class="carousel-btn prev" id="carPrev" aria-label="Précédent">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--charbon)" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-  </button>
-  <button class="carousel-btn next" id="carNext" aria-label="Suivant">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--charbon)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-  </button>
-  <div class="carousel-dots" id="carDots"></div>
-</div>
-
-<script src="/assets/js/home-carousel.js"></script>
-
-<!-- ────────────────── VINS ────────────────── -->
-<section class="s-vins" id="vins">
-  <div class="si">
-    <div class="vins-hd fi">
-      <div class="sl centered"><span>Notre sélection</span></div>
-      <h2>Trois cuvées, <em>un terroir.</em></h2>
-    </div>
-    <div class="vins-g" id="vinsGrid"></div>
-  </div>
-</section>
-
-<!-- ────────────────── DÉGUSTATIONS ────────────────── -->
-<section class="s-deg" id="degustations">
-  <div class="deg-in">
-    <div class="deg-hd fi">
-      <div class="sl or">Nos événements</div>
-      <h2>Dégustations</h2>
-    </div>
-    <div class="deg-grid">
+<!-- ─────────────── LA BODEGA ─────────────── -->
+<section class="sec sec-tight-top" id="bodega" aria-labelledby="h-bodega">
+  <div class="wrap">
+    <div class="bodega-hd reveal">
       <div>
-        <div class="deg-photo fi">
-          <img src="/assets/images/photo-quali-degustation.jpeg" alt="Dégustation de vins argentins Andivino, verres et bouteille Poésía" loading="lazy">
+        <h2 id="h-bodega">Bodega <em>Poesía</em></h2>
+        <p class="bodega-loc">Luján de Cuyo, Mendoza</p>
+      </div>
+      <div class="bodega-txt">
+        <p>Née en 2000 d'une rencontre entre passion bordelaise et terroir argentin, la Bodega Poesía est établie au cœur de la Primera Zona de Luján de Cuyo, première appellation d'origine officiellement reconnue en Amérique du Sud.</p>
+        <p>Les vignes, plantées en 1935 en franc de pied, produisent des raisins d'une concentration exceptionnelle, façonnés par un sol sablo-argileux et les contrastes thermiques du piémont andin. Zéro traitement chimique, vendanges entièrement manuelles, sélection parcelle par parcelle.</p>
+        <p>Les barriques, foudres et cuves en inox furent importés d'Europe par les fondateurs, guidés par la même exigence qu'à Bordeaux. La philosophie est simple : laisser le terroir parler.</p>
+      </div>
+    </div>
+
+    <div class="bodega-imgs">
+      <img class="bodega-a reveal"
+           src="/assets/images/accueil/bodega-poesia-panneau-vignes-1200.webp"
+           srcset="/assets/images/accueil/bodega-poesia-panneau-vignes-800.webp 800w,
+                   /assets/images/accueil/bodega-poesia-panneau-vignes-1200.webp 1200w,
+                   /assets/images/accueil/bodega-poesia-panneau-vignes-1600.webp 1600w"
+           sizes="(min-width: 960px) 62vw, 100vw" width="1600" height="1200"
+           alt="Panneau de bois gravé « Poesía » planté au bout d'un rang de vigne de la bodega"
+           loading="lazy" decoding="async">
+      <img class="bodega-b reveal"
+           src="/assets/images/accueil/bodega-poesia-allee-vignes-800.webp"
+           srcset="/assets/images/accueil/bodega-poesia-allee-vignes-480.webp 480w,
+                   /assets/images/accueil/bodega-poesia-allee-vignes-800.webp 800w"
+           sizes="(min-width: 960px) 26vw, 60vw" width="800" height="1000"
+           alt="Un vigneron marche dans une allée ombragée entre les vignes de la Bodega Poesía"
+           loading="lazy" decoding="async">
+    </div>
+
+    <dl class="stats reveal">
+      <div><dt>Altitude</dt><dd>900 m</dd></div>
+      <div><dt>Superficie</dt><dd>13 ha</dd></div>
+      <div><dt>Vignes plantées en franc de pied</dt><dd>1935</dd></div>
+      <div><dt>Vendanges</dt><dd>À la main</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ─────────────── LES VINS ───────────────
+     Rendu côté serveur (HTML statique) : visible dans la source, indexable, sans JavaScript.
+     Prix : source de vérité dans data/catalog.js. -->
+<section class="sec sec-tint" id="vins" aria-labelledby="h-vins">
+  <div class="wrap">
+    <div class="sec-hd reveal">
+      <h2 id="h-vins">Trois cuvées, <em>un terroir.</em></h2>
+      <a href="/commande" class="link-arrow">Commander en ligne</a>
+    </div>
+    <ul class="vins">
+      <li class="vin reveal">
+        <div class="vin-img">
+          <img src="/assets/images/accueil/bouteille-clos-des-andes-2017.webp" alt="Bouteille de Clos des Andes 2017, Bodega Poesía" width="141" height="600" loading="lazy" decoding="async">
         </div>
-        <p class="deg-intro spaced">Le terroir et la passion sont des choses qui se partagent — par la rencontre, par la convivialité, par le verre tendu à quelqu'un qui ne connaît pas encore. Venez nous rencontrer et déguster nos vins lors des événements que nous organisons régulièrement à Paris, Lyon et Marseille.</p>
-      </div>
-      <div>
-        <div class="deg-tabs" role="group" aria-label="Filtrer les dégustations">
-          <button class="dtab active" data-tab="upcoming" aria-pressed="true">À venir</button>
-          <button class="dtab" data-tab="past" aria-pressed="false">Passées</button>
+        <div class="vin-t">
+          <h3>Clos des Andes <span class="vin-mil">2017</span></h3>
+          <p class="vin-acc">Avec une bavette saisie à la braise</p>
+          <div class="vin-ft">
+            <p class="vin-px">21,99&nbsp;€ <span>TTC</span></p>
+            <a class="btn btn-line vin-link" href="/products/mendoza/lujan-de-cuyo/clos-des-andes-2017" aria-label="Voir Clos des Andes 2017">Voir</a>
+          </div>
         </div>
-        <div class="deg-list" id="degList"></div>
+      </li>
+      <li class="vin reveal">
+        <div class="vin-img">
+          <img src="/assets/images/accueil/bouteille-poesia-cuvee-helene-2016.webp" alt="Bouteille de Poesía Cuvée Hélène 2016, Bodega Poesía" width="163" height="600" loading="lazy" decoding="async">
+        </div>
+        <div class="vin-t">
+          <h3>Cuvée Hélène <span class="vin-mil">2016</span></h3>
+          <p class="vin-acc">Avec une viande mijotée, en cuisson longue</p>
+          <div class="vin-ft">
+            <p class="vin-px">35,99&nbsp;€ <span>TTC</span></p>
+            <a class="btn btn-line vin-link" href="/products/mendoza/lujan-de-cuyo/cuvee-helene-2016" aria-label="Voir la Cuvée Hélène 2016">Voir</a>
+          </div>
+        </div>
+      </li>
+      <li class="vin reveal">
+        <div class="vin-img">
+          <img src="/assets/images/accueil/bouteille-poesia-2014.webp" alt="Bouteille de Poesía 2014, Bodega Poesía" width="147" height="600" loading="lazy" decoding="async">
+        </div>
+        <div class="vin-t">
+          <h3>Poesía <span class="vin-mil">2014</span></h3>
+          <!-- À COMPLÉTER : aucun accord mets publié pour Poesía 2014 (ni fiche, ni chronique). -->
+          <p class="vin-acc"><span class="todo">[À compléter : accord mets]</span></p>
+          <div class="vin-ft">
+            <p class="vin-px">44,99&nbsp;€ <span>TTC</span></p>
+            <a class="btn btn-line vin-link" href="/products/mendoza/lujan-de-cuyo/poesia-2014" aria-label="Voir Poesía 2014">Voir</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────── DÉGUSTATIONS ───────────────
+     Listes rendues dans le HTML ; accueil.js ne fait que basculer les onglets.
+     Pour annoncer une date, ajouter un <li> dans le panneau « À venir » sur le modèle commenté. -->
+<section class="sec" id="degustations" aria-labelledby="h-deg">
+  <div class="wrap deg">
+    <div class="deg-t reveal">
+      <h2 id="h-deg">Dégustations</h2>
+      <p>Le terroir se partage par la rencontre, autour d'un verre tendu à quelqu'un qui ne connaît pas encore. Venez nous rencontrer lors des dégustations que nous organisons à Paris, Lyon et Marseille.</p>
+    </div>
+    <div class="deg-l reveal">
+      <div class="tabs" role="tablist" aria-label="Dégustations">
+        <button type="button" role="tab" id="tab-avenir" aria-controls="panel-avenir" aria-selected="true">À venir</button>
+        <button type="button" role="tab" id="tab-passees" aria-controls="panel-passees" aria-selected="false" tabindex="-1">Passées</button>
+      </div>
+
+      <div class="panel" id="panel-avenir" role="tabpanel" aria-labelledby="tab-avenir" tabindex="0">
+        <!-- Modèle d'une date à venir :
+        <ul class="dates">
+          <li>
+            <span class="d-ville">[Ville]</span>
+            <time class="d-date" datetime="AAAA-MM-JJ">[JJ mois AAAA]</time>
+            <a class="d-lien" href="[lien d'inscription]">S'inscrire</a>
+          </li>
+        </ul>
+        -->
+        <div class="empty">
+          <p class="empty-t">Aucune date annoncée pour le moment.</p>
+          <p>Les prochaines dégustations sont annoncées sur Instagram et dans notre lettre d'information.</p>
+          <p class="empty-links">
+            <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer" class="link-arrow">Suivre sur Instagram</a>
+            <a href="/newsletter" class="link-arrow">Recevoir la lettre</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="panel" id="panel-passees" role="tabpanel" aria-labelledby="tab-passees" tabindex="0">
+        <ul class="dates">
+          <li><span class="d-ville">Paris 7<sup>e</sup></span><time class="d-date" datetime="2026-05-19">19 mai 2026</time><span class="d-titre">Vino Sapiens</span></li>
+          <li><span class="d-ville">HEC Paris</span><time class="d-date" datetime="2026-04-28">28 avril 2026</time><span class="d-titre">Dégustation HEC</span></li>
+          <li><span class="d-ville">HEC Paris</span><time class="d-date" datetime="2026-04-21">21 avril 2026</time><span class="d-titre">Asado argentin</span></li>
+          <li><span class="d-ville">Marseille</span><time class="d-date" datetime="2026-02-09">9 février 2026</time><span class="d-titre">Dégustation Poesía</span></li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ────────────────── CHRONIQUES ────────────────── -->
-<section class="s-chron" id="chroniques">
-  <div class="chron-in">
-    <div class="chron-hd fi">
-      <div><div class="sl">Éducation &amp; récits</div><h2>Les chroniques</h2></div>
-      <a href="/chroniques" class="lall">Toutes les chroniques →</a>
+<!-- ─────────────── CHRONIQUES ─────────────── -->
+<section class="sec sec-tight-top" id="chroniques" aria-labelledby="h-chron">
+  <div class="wrap">
+    <div class="sec-hd reveal">
+      <h2 id="h-chron">Chroniques</h2>
+      <a href="/chroniques" class="link-arrow">Toutes les chroniques</a>
     </div>
-    <div class="chron-g">
-      <a class="ccard" href="/chroniques/malbec-argentin-histoire-terroirs">
-        <div class="cimg"><img class="cimg-inner" src="/assets/images/banque/vignes-andes-roses-crepuscule.webp" alt="" loading="lazy"></div>
-        <div class="ccat">Terroir</div>
-        <div class="ctit">Le Malbec argentin : histoire et terroirs d'un cépage venu de Cahors</div>
-        <p class="cres">De Cahors à Mendoza, l'histoire du Malbec et les terroirs argentins qui en ont fait une légende.</p>
-        <div class="cdat">20 octobre 2026</div>
-      </a>
-      <a class="ccard" href="/chroniques/accords-mets-vins-malbec-argentin">
-        <div class="cimg"><img class="cimg-inner focus-low" src="/assets/images/banque/marmite-fonte-feu-de-bois.webp" alt="" loading="lazy"></div>
-        <div class="ccat">Gastronomie</div>
-        <div class="ctit">Accords mets-vins avec un Malbec argentin</div>
-        <p class="cres">Asado, empanadas, viandes mijotées, fromages : nos accords préférés.</p>
-        <div class="cdat">20 octobre 2026</div>
-      </a>
+    <ul class="chron">
+      <li class="reveal">
+        <a class="chron-card" href="/chroniques/malbec-argentin-histoire-terroirs">
+          <img src="/assets/images/accueil/chronique-malbec-vignes-andes-800.webp"
+               srcset="/assets/images/accueil/chronique-malbec-vignes-andes-480.webp 480w,
+                       /assets/images/accueil/chronique-malbec-vignes-andes-800.webp 800w"
+               sizes="(min-width: 960px) 44vw, 100vw" width="800" height="533"
+               alt="" loading="lazy" decoding="async">
+          <p class="chron-meta"><span>Terroir</span><time datetime="2026-10-20">20 octobre 2026</time></p>
+          <h3>Le Malbec argentin : histoire et terroirs d'un cépage venu de Cahors</h3>
+        </a>
+      </li>
+      <li class="reveal">
+        <a class="chron-card" href="/chroniques/accords-mets-vins-malbec-argentin">
+          <img src="/assets/images/accueil/chronique-accords-marmite-feu-800.webp"
+               srcset="/assets/images/accueil/chronique-accords-marmite-feu-480.webp 480w,
+                       /assets/images/accueil/chronique-accords-marmite-feu-800.webp 800w"
+               sizes="(min-width: 960px) 44vw, 100vw" width="800" height="533"
+               alt="" loading="lazy" decoding="async">
+          <p class="chron-meta"><span>Gastronomie</span><time datetime="2026-10-20">20 octobre 2026</time></p>
+          <h3>Accords mets-vins avec un Malbec argentin</h3>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────── PROFESSIONNELS ─────────────── -->
+<section class="pro" id="professionnels" aria-labelledby="h-pro">
+  <div class="wrap">
+    <div class="pro-in reveal">
+      <h2 id="h-pro">Restaurateurs et cavistes, <em>travaillons ensemble.</em></h2>
+      <div class="pro-t">
+        <p>Tarifs dédiés et accompagnement personnalisé pour référencer nos cuvées argentines dans votre établissement.</p>
+        <a href="mailto:hadrien@andivino.fr?subject=Andivino%20%E2%80%94%20demande%20professionnelle" class="btn btn-solid">Nous contacter</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ────────────────── B2B ────────────────── -->
-<section class="s-b2b" id="professionnels">
-  <div class="b2b-in">
-    <div class="b2b-t fi">
-      <h2>Restaurateurs &amp; cavistes,<br>travaillons ensemble.</h2>
-      <p>Vous êtes CHR, caviste ou professionnel des vins ? Andivino propose des tarifs dédiés et un accompagnement personnalisé pour référencer nos cuvées argentines dans votre établissement.</p>
+</main>
+
+<!-- ─────────────── PIED DE PAGE ─────────────── -->
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-cols">
+      <div class="ft-brand">
+        <a href="/" class="brand" aria-label="Andivino, accueil">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-type" aria-hidden="true"></span>
+        </a>
+        <p>Importateur de vins argentins de Mendoza, en direct de la Bodega Poesía, Luján de Cuyo.</p>
+      </div>
+      <div class="ft-col">
+        <h2>Explorer</h2>
+        <ul>
+          <li><a href="#philosophie">Notre histoire</a></li>
+          <li><a href="#bodega">La Bodega</a></li>
+          <li><a href="#vins">Les vins</a></li>
+          <li><a href="#degustations">Dégustations</a></li>
+          <li><a href="/chroniques">Chroniques</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h2>Commander et contact</h2>
+        <ul>
+          <li><a href="/commande">Commander en ligne</a></li>
+          <li><a href="mailto:hadrien@andivino.fr?subject=Andivino%20%E2%80%94%20demande%20professionnelle">Professionnels (B2B)</a></li>
+          <li><a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a></li>
+          <li><a href="/newsletter">Lettre d'information</a></li>
+          <li><a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/company/andivino/posts/?feedView=all" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
     </div>
-    <a href="mailto:hadrien@andivino.fr" class="btn-b2b">Nous contacter</a>
-  </div>
-</section>
-
-<!-- ────────────────── RÉSEAUX SOCIAUX ────────────────── -->
-<section class="s-social">
-  <h2>Rejoignez l'aventure</h2>
-  <p>Suivez-nous sur les réseaux ou recevez nos nouvelles par email</p>
-  <div class="social-links">
-
-    <a href="/newsletter" class="social-link">
-      <div class="social-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2.5" y="5" width="19" height="14" rx="1.5"/>
-          <path d="M3 6.5l9 6.5 9-6.5"/>
-        </svg>
-      </div>
-      <span class="social-name">Newsletter</span>
-    </a>
-
-    <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer" class="social-link">
-      <div class="social-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4.5"/>
-          <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/>
-        </svg>
-      </div>
-      <span class="social-name">Instagram</span>
-    </a>
-
-    <a href="https://www.linkedin.com/company/andivino/posts/?feedView=all" target="_blank" rel="noopener noreferrer" class="social-link">
-      <div class="social-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
-          <rect x="2" y="9" width="4" height="12"/>
-          <circle cx="4" cy="4" r="2"/>
-        </svg>
-      </div>
-      <span class="social-name">LinkedIn</span>
-    </a>
-
-  </div>
-</section>
-
-<!-- ────────────────── FOOTER ────────────────── -->
-<footer>
-  <div class="ft-in">
-    <div class="ft-br">
-      <div class="ft-brand-row">
-        <img src="/assets/images/logo-ecusson.png" alt="Andivino" width="116" height="150" class="ft-logo-mark">
-        <img src="/assets/images/logotype-andivino.png" alt="" width="530" height="80" class="ft-logo-text">
-      </div>
-      <p>Importateur de vins argentins d'exception. Bodega Poesía — Luján de Cuyo, Mendoza.</p>
+    <p class="ft-alcool">L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+    <div class="ft-btm">
+      <p>© <span data-year>2026</span> Andivino</p>
+      <ul>
+        <li><a href="/legal/mentions-legales">Mentions légales</a></li>
+        <li><a href="/legal/cgv">CGV et livraison</a></li>
+      </ul>
     </div>
-    <div class="ft-col"><h4>Navigation</h4><a href="/#philosophie">Notre histoire</a><a href="/#bodega">La Bodega</a><a href="/#vins">Les vins</a><a href="/#degustations">Dégustations</a><a href="/chroniques">Chroniques</a></div>
-    <div class="ft-col"><h4>Commander</h4><a href="/commande">Particuliers (B2C)</a><a href="mailto:hadrien@andivino.fr">Professionnels (B2B)</a><a href="/legal/cgv">Livraison &amp; CGV</a></div>
-    <div class="ft-col"><h4>Contact</h4><a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a><a href="/newsletter">Newsletter</a><p class="ft-note">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p></div>
-  </div>
-  <div class="ft-btm">
-    <p>© 2025 Andivino — Tous droits réservés</p>
-    <div class="ft-links"><a href="/legal/mentions-legales">Mentions légales</a><a href="/legal/cgv">CGV</a></div>
   </div>
 </footer>
 
-<div id="toast" role="status" aria-live="polite"></div>
-
-<script src="/assets/js/home.js"></script>
-<script src="/assets/js/legal-banners.js"></script>
 </body>
 </html>
