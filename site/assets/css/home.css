@@ -39,7 +39,8 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 
 /* ── HERO ── */
 .hero{height:100vh;min-height:600px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 4rem 5.5rem}
-.hero-bg{position:absolute;inset:0;background-image:url('../images/vignes-hero.jpeg');background-size:cover;background-position:center 55%}
+.hero-bg{position:absolute;inset:0;background-image:url('../images/andes-vignes-hero.jpg');background-size:cover;background-position:center 45%}
+@media(max-width:700px){.hero-bg{background-image:url('../images/andes-vignes-hero-1000.jpg');background-position:62% 50%}}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(20,16,12,.58) 0%,rgba(20,16,12,.28) 58%,rgba(20,16,12,.04) 100%),linear-gradient(to top,rgba(20,16,12,.68) 0%,transparent 55%)}
 .hero-c{position:relative;z-index:2;max-width:680px}
 .hero-ey{display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem}
