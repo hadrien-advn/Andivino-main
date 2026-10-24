@@ -84,7 +84,7 @@ function renderWines(){
         <p class="cuvee-desc">${firstSentence(w.description)}</p>
         <div class="cuvee-buy">
           <p class="cuvee-px">${hr?`<s>${fmtPrix(w.prix)} €</s> `:''}${fmtPrix(p)}&nbsp;€<span>la bouteille</span></p>
-          <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">Ajouter au panier</button>
+          <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">Ajouter</button>
         </div>
       </div>
     </article>`;
