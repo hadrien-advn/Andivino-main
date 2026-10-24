@@ -66,8 +66,8 @@
   </a>
   <ul class="nlinks">
     <li><a href="#philosophie">Notre histoire</a></li>
-    <li><a href="#bodega">La Bodega</a></li>
     <li><a href="#vins">Les vins</a></li>
+    <li><a href="#bodega">La Bodega</a></li>
     <li><a href="#degustations">Dégustations</a></li>
     <li><a href="#chroniques">Chroniques</a></li>
   </ul>
@@ -131,6 +131,18 @@
   </div>
 </section>
 
+<!-- ────────────────── VINS ────────────────── -->
+<section class="s-vins" id="vins">
+  <div class="si">
+    <div class="vins-hd fi">
+      <div class="sl centered"><span>Notre sélection</span></div>
+      <h2>Trois cuvées, <em>un terroir.</em></h2>
+      <p class="vins-note" data-delivery-note>Remise en main propre à Paris et petite couronne. Expédition hors Île-de-France suspendue pour l'instant : <a href="mailto:hadrien@andivino.fr">écrivez-nous</a>.</p>
+    </div>
+    <div class="vins-g" id="vinsGrid"></div>
+  </div>
+</section>
+
 <!-- ────────────────── BODEGA ────────────────── -->
 <section class="s-bodega" id="bodega">
   <div class="si">
@@ -159,7 +171,7 @@
 </section>
 
 <!-- ────────────────── CAROUSEL ────────────────── -->
-<div class="carousel" id="carousel">
+<div class="carousel" id="carousel" role="region" aria-roledescription="carrousel" aria-label="Photos de la Bodega Poesía et de Mendoza">
   <div class="carousel-track" id="carouselTrack">
     <div class="carousel-slide"><img src="/assets/images/finca.jpg"          alt="La finca de la Bodega Poesía à Luján de Cuyo, Mendoza" loading="lazy"></div>
     <div class="carousel-slide"><img src="/assets/images/poarg3.jpg"         alt="Vignes de Malbec dans le vignoble argentin de Mendoza" loading="lazy"></div>
@@ -167,28 +179,22 @@
     <div class="carousel-slide"><img src="/assets/images/vignes-bandeau.jpg" alt="Vignoble de Mendoza au pied des Andes" loading="lazy"></div>
     <div class="carousel-slide"><img src="/assets/images/bandera.jpg"        alt="Drapeau argentin sur les vignes de Mendoza" loading="lazy"></div>
   </div>
-  <button class="carousel-btn prev" id="carPrev" aria-label="Précédent">
+  <button class="carousel-btn prev" id="carPrev" aria-label="Photo précédente">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--charbon)" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
-  <button class="carousel-btn next" id="carNext" aria-label="Suivant">
+  <button class="carousel-btn next" id="carNext" aria-label="Photo suivante">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--charbon)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
   </button>
-  <div class="carousel-dots" id="carDots"></div>
+  <div class="carousel-ctrl">
+    <button type="button" class="carousel-pause" id="carPause" aria-pressed="false" aria-label="Mettre en pause le défilement des photos">
+      <svg class="ic-pause" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="8" y1="5" x2="8" y2="19"/><line x1="16" y1="5" x2="16" y2="19"/></svg>
+      <svg class="ic-play" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="7 4 19 12 7 20 7 4"/></svg>
+    </button>
+    <div class="carousel-dots" id="carDots"></div>
+  </div>
 </div>
 
 <script src="/assets/js/home-carousel.js"></script>
-
-<!-- ────────────────── VINS ────────────────── -->
-<section class="s-vins" id="vins">
-  <div class="si">
-    <div class="vins-hd fi">
-      <div class="sl centered"><span>Notre sélection</span></div>
-      <h2>Trois cuvées, <em>un terroir.</em></h2>
-      <p class="vins-note" data-delivery-note>Remise en main propre à Paris et petite couronne. Expédition hors Île-de-France suspendue pour l'instant : <a href="mailto:hadrien@andivino.fr">écrivez-nous</a>.</p>
-    </div>
-    <div class="vins-g" id="vinsGrid"></div>
-  </div>
-</section>
 
 <!-- ────────────────── DÉGUSTATIONS ────────────────── -->
 <section class="s-deg" id="degustations">

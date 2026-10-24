@@ -4,6 +4,8 @@ const ICON_TIME='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" str
 const ICON_PIN='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 const MN=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
 const WINE_PAGES={'clos-2017':{slug:'mendoza/lujan-de-cuyo/clos-des-andes-2017',label:'Découvrir Clos des Andes 2017'},'helene-2016':{slug:'mendoza/lujan-de-cuyo/cuvee-helene-2016',label:'Découvrir la Cuvée Hélène 2016'},'poesia-2014':{slug:'mendoza/lujan-de-cuyo/poesia-2014',label:'Découvrir Poésía 2014'}};
+// Notes critiques publiées (voir les fiches) : seules les vraies, jamais inventées.
+const SCORES={'poesia-2014':{pts:94,source:'Wine Advocate'}};
 const DEF={wines:[
   {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:21.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'100% Malbec — Vendanges manuelles',superficie:'2 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre s'étirent vers une finale douce et veloutée, gagnant en finesse à l'aération."},
   {id:'helene-2016',nom:'Poésía — Cuvée Hélène',millesime:2016,prix:35.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60% Malbec — 40% Cabernet Sauvignon',superficie:'1 ha planté en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'16 à 18 mois',garde:'25 ans',dispo:true,description:"D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La finale, longue et persistante, repose sur des tanins nobles et harmonieux — un vin d'une grande élégance et profondeur."},
@@ -73,6 +75,7 @@ function renderWines(){
       <div class="wc-vin">${w.millesime}</div>
       <h3 class="wc-nm"><a class="wc-link" href="/products/${WINE_PAGES[w.id].slug}/">${w.nom}</a></h3>
       <div class="wc-bod">${w.bodega}</div>
+      <div class="wc-score">${SCORES[w.id]?`<span class="wc-score-n">${SCORES[w.id].pts}</span> pts · ${SCORES[w.id].source}`:''}</div>
       <div class="wc-bot">${bottleSVG(w.id)}</div>
       <p class="wc-desc">${w.description}</p>
       <div class="wc-ft">

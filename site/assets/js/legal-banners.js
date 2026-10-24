@@ -59,22 +59,39 @@
     var el = document.createElement('div');
     el.className = 'age-gate';
     el.id = 'ageGate';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-modal', 'true');
+    el.setAttribute('aria-labelledby', 'ageTitle');
+    el.setAttribute('aria-describedby', 'ageDesc');
     el.innerHTML =
       '<div class="age-box">' +
-        '<img src="/assets/images/logo-sans-fond.png" alt="Andivino" class="age-logo">' +
-        '<h2>Vérification de votre âge</h2>' +
-        '<p>Andivino commercialise des boissons alcoolisées. Conformément à l\'article L.3342-1 du Code de la santé publique, la vente d\'alcool est interdite aux mineurs. L\'accès à ce site est réservé aux personnes majeures.</p>' +
+        '<img src="/assets/images/logo-sans-fond.png" alt="" class="age-logo">' +
+        '<h2 id="ageTitle">Vérification de votre âge</h2>' +
+        '<p id="ageDesc">Andivino commercialise des boissons alcoolisées. Conformément à l\'article L.3342-1 du Code de la santé publique, la vente d\'alcool est interdite aux mineurs. L\'accès à ce site est réservé aux personnes majeures.</p>' +
         '<p class="age-warning">L\'abus d\'alcool est dangereux pour la santé, à consommer avec modération.</p>' +
         '<div class="age-actions">' +
           '<button type="button" class="age-btn-yes" id="ageYes">J\'ai 18 ans ou plus</button>' +
           '<button type="button" class="age-btn-no" id="ageNo">J\'ai moins de 18 ans</button>' +
         '</div>' +
       '</div>';
+    // Le reste de la page est inerte tant que la question est posée : le clavier et les lecteurs
+    // d'écran restent dans la fenêtre.
+    var others = Array.prototype.filter.call(document.body.children, function (c) { return c.tagName !== 'SCRIPT'; });
+    others.forEach(function (c) { c.inert = true; });
     document.body.appendChild(el);
     document.body.style.overflow = 'hidden';
-    document.getElementById('ageYes').addEventListener('click', function () {
+    var yes = document.getElementById('ageYes');
+    var no = document.getElementById('ageNo');
+    yes.focus();
+    el.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey && document.activeElement === yes) { e.preventDefault(); no.focus(); }
+      else if (!e.shiftKey && document.activeElement === no) { e.preventDefault(); yes.focus(); }
+    });
+    yes.addEventListener('click', function () {
       setAgeVerified();
       el.remove();
+      others.forEach(function (c) { c.inert = false; });
       document.body.style.overflow = '';
       maybeShowCookieBanner();
     });

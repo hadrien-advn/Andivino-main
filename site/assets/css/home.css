@@ -95,13 +95,20 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .carousel-track{display:flex;height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1)}
 .carousel-slide{flex-shrink:0;width:100%;height:100%}
 .carousel-slide img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(250,246,241,.85);border:none;cursor:pointer;width:40px;height:40px;display:flex;align-items:center;justify-content:center;transition:background var(--e)}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(250,246,241,.85);border:none;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;transition:background var(--e)}
 .carousel-btn:hover{background:rgba(250,246,241,1)}
 .carousel-btn.prev{left:1.2rem}
 .carousel-btn.next{right:1.2rem}
-.carousel-dots{position:absolute;bottom:.9rem;left:50%;transform:translateX(-50%);display:flex;gap:.4rem;z-index:10}
-.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(250,246,241,.5);cursor:pointer;border:none;transition:background var(--e)}
-.carousel-dot.active{background:rgba(250,246,241,.95)}
+.carousel-ctrl{position:absolute;bottom:.9rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;z-index:10;background:rgba(20,16,12,.38);padding:0 .25rem}
+.carousel-dots{display:flex}
+/* Point visible de 8px dans une cible de 44px. */
+.carousel-dot{width:28px;height:44px;padding:0;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.carousel-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:rgba(250,246,241,.55);box-shadow:0 1px 3px rgba(20,16,12,.35);transition:background var(--e)}
+.carousel-dot.active::before{background:rgba(250,246,241,.95)}
+.carousel-dot:focus-visible,.carousel-pause:focus-visible{outline:2px solid var(--or-l,#D9BC74);outline-offset:-6px}
+.carousel-pause{width:44px;height:44px;padding:0;background:none;border:none;cursor:pointer;color:rgba(250,246,241,.95);display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 1px 2px rgba(20,16,12,.5))}
+.carousel-pause .ic-play,.carousel-pause.is-paused .ic-pause{display:none}
+.carousel-pause.is-paused .ic-play{display:block}
 
 /* ── CO-FONDATEURS ── */
 
@@ -136,7 +143,10 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .wcard:focus-within{box-shadow:0 16px 48px rgba(20,16,12,.1)}
 .wc-link:focus-visible{outline:none}
 .wcard:has(.wc-link:focus-visible){outline:2px solid var(--bdx);outline-offset:-2px}
-.wc-bod{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:1.8rem}
+.wc-bod{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:.5rem}
+/* Note critique : la ligne existe sur chaque carte pour garder les bouteilles alignées. */
+.wc-score{min-height:1.5rem;margin-bottom:1.3rem;font-size:.7rem;letter-spacing:.08em;white-space:nowrap;text-transform:uppercase;color:var(--gris);display:flex;align-items:baseline;gap:.35rem}
+.wc-score-n{font-family:var(--fd);font-size:1.3rem;font-weight:400;letter-spacing:0;color:var(--charbon);font-variant-numeric:lining-nums}
 .wc-bot{flex:1;display:flex;align-items:center;justify-content:center;padding:1rem 0;min-height:160px}
 .bottle-img{width:auto;object-fit:contain;display:block}
 .wc-desc{font-size:.78rem;line-height:1.75;color:var(--gris);border-top:1px solid var(--cream-d);padding-top:1.2rem;margin-top:1.2rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -148,7 +158,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .wc-px-lbl{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);font-family:var(--fb);white-space:nowrap}
 .wcard{container-type:inline-size}
 @container (max-width:255px){.wc-ft{flex-direction:column;align-items:stretch;gap:1.1rem}.wc-ft .btn-add{padding:.75rem 1.1rem}}
-.btn-add{position:relative;z-index:2;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);border:none;padding:.6rem 1.1rem;cursor:pointer;transition:background var(--e);flex-shrink:0}
+.btn-add{position:relative;z-index:2;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);border:none;min-height:44px;padding:.6rem 1.1rem;cursor:pointer;transition:background var(--e);flex-shrink:0}
 .btn-add:hover{background:var(--bdx-d)}
 .wsoon{background:var(--cream-d);border:1px dashed rgba(139,130,120,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;min-height:420px}
 .soon-b{background:var(--or);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--noir);padding:.32rem .85rem;display:inline-block;margin-bottom:1.5rem}
@@ -233,7 +243,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 #toast{position:fixed;bottom:2rem;right:2rem;background:var(--bdx);color:var(--cream-l);padding:.75rem 1.5rem;font-size:.74rem;box-shadow:0 8px 24px rgba(20,16,12,.18);letter-spacing:.06em;z-index:2000;opacity:0;transition:opacity .3s;pointer-events:none}
 
 /* ── BURGER + MENU MOBILE ── */
-.burger{display:none;flex-direction:column;justify-content:space-between;width:22px;height:15px;background:none;border:none;cursor:pointer;padding:0;margin-left:.8rem}
+.burger{display:none;flex-direction:column;justify-content:space-between;width:44px;height:44px;box-sizing:border-box;background:none;border:none;cursor:pointer;padding:14.5px 11px;margin:0 -11px 0 .1rem}
 .burger span{display:block;width:100%;height:1.5px;background:var(--charbon);transition:all .3s ease;transform-origin:center}
 .burger.open span:nth-child(1){transform:translateY(6.75px) rotate(45deg)}
 .burger.open span:nth-child(2){opacity:0}
@@ -278,7 +288,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .nav-logo-mark{height:34px}
   .nav-logo-text{height:16px}
   .nright{gap:.7rem}
-  .burger{margin-left:.3rem}
+  .burger{margin-left:0}
   .btn-cart{display:none}
   .nav-cta{font-size:.7rem;padding:.6rem 1rem}
 
