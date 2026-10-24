@@ -129,41 +129,55 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .vins-hd h2 em{font-style:italic}
 .vins-note{font-size:.85rem;color:var(--gris);line-height:1.7;max-width:56ch;margin:1.2rem auto 0;text-wrap:pretty}
 .vins-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
-.vins-g{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:1200px;margin:0 auto}
-.wc-badge-slot{height:28px;margin-bottom:.5rem;display:flex;align-items:center}
-.wc-soldout{display:inline-block;background:var(--bdx);color:var(--cream-l);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding:.3rem .85rem}
-.wcard{position:relative;background:var(--cream-l);padding:2.5rem 2rem;display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;transition:box-shadow var(--e),transform var(--e)}
-.wcard:hover{box-shadow:0 16px 48px rgba(20,16,12,.1);z-index:2;transform:translateY(-3px)}
-.wc-vin{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bdx);margin-bottom:.4rem}
-.wc-nm{font-family:var(--fd);font-size:1.5rem;font-weight:300;font-style:italic;color:var(--charbon);line-height:1.1;margin-bottom:.25rem;text-wrap:balance}
-.wc-link{color:inherit;text-decoration:none}
-.wc-link::after{content:'';position:absolute;inset:0;z-index:1}
-.wcard:focus-within{box-shadow:0 16px 48px rgba(20,16,12,.1)}
-.wc-link:focus-visible{outline:none}
-.wcard:has(.wc-link:focus-visible){outline:2px solid var(--bdx);outline-offset:-2px}
-.wc-bod{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:.5rem}
-/* Note critique : la ligne existe sur chaque carte pour garder les bouteilles alignées. */
-.wc-score{min-height:1.5rem;margin-bottom:1.3rem;font-size:.7rem;letter-spacing:.08em;white-space:nowrap;text-transform:uppercase;color:var(--gris);display:flex;align-items:baseline;gap:.35rem}
-.wc-score-n{font-family:var(--fd);font-size:1.3rem;font-weight:400;letter-spacing:0;color:var(--charbon);font-variant-numeric:lining-nums}
-.wc-bot{flex:1;display:flex;align-items:center;justify-content:center;padding:1rem 0;min-height:160px}
-.bottle-img{width:auto;object-fit:contain;display:block}
-.wc-desc{font-size:.78rem;line-height:1.75;color:var(--gris);border-top:1px solid var(--cream-d);padding-top:1.2rem;margin-top:1.2rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.wc-ft{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.6rem}
-.wc-px{font-family:var(--fd);font-weight:400;color:var(--charbon);line-height:1;display:flex;flex-direction:column;gap:.45rem;min-width:0}
-.wc-px-amt{font-size:2rem;letter-spacing:-.01em;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
-.wc-px-eur{font-size:.55em;vertical-align:.55em;color:var(--gris)}
-.wc-px-old{font-size:.95rem;text-decoration:line-through;color:var(--gris);font-variant-numeric:lining-nums}
-.wc-px-lbl{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);font-family:var(--fb);white-space:nowrap}
-.wcard{container-type:inline-size}
-@container (max-width:255px){.wc-ft{flex-direction:column;align-items:stretch;gap:1.1rem}.wc-ft .btn-add{padding:.75rem 1.1rem}}
-.btn-add{position:relative;z-index:2;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);border:none;min-height:44px;padding:.6rem 1.1rem;cursor:pointer;transition:background var(--e);flex-shrink:0}
-.btn-add:hover{background:var(--bdx-d)}
-.wsoon{background:var(--cream-d);border:1px dashed rgba(139,130,120,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;min-height:420px}
-.soon-b{background:var(--or);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--noir);padding:.32rem .85rem;display:inline-block;margin-bottom:1.5rem}
-.wsoon h3{font-family:var(--fd);font-size:1.4rem;font-weight:300;font-style:italic;color:var(--charbon);margin-bottom:.3rem}
-.wsoon .sr{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:1.2rem}
-.soon-icon{margin:1.2rem 0;opacity:.2}
-.wsoon p{font-size:.78rem;line-height:1.7;color:var(--gris);max-width:190px;margin:0 auto}
+/* La cave : les bouteilles posées sur une même étagère (filet d'or), le texte dessous, sans cartes. */
+.vins-g{display:grid;grid-template-columns:repeat(3,1fr) .7fr;grid-template-rows:auto auto;column-gap:0;row-gap:0;max-width:1240px;margin:0 auto;padding:0 2rem}
+.cuvee{display:grid;grid-row:span 2;grid-template-rows:subgrid}
+.cuvee-shelf{position:relative;display:flex;align-items:flex-end;justify-content:center;height:320px;padding-bottom:0;border-bottom:1px solid var(--or)}
+.cuvee-shelf::after{content:'';position:absolute;bottom:-1px;left:50%;width:96px;height:10px;transform:translate(-50%,40%);background:radial-gradient(ellipse at center,rgba(20,16,12,.22),rgba(20,16,12,0) 70%);pointer-events:none}
+.cuvee-shelf .bottle-img{height:280px;width:auto;position:relative;z-index:1;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.cuvee:hover .cuvee-shelf .bottle-img{transform:translateY(-6px)}
+.cuvee-txt{display:flex;flex-direction:column;padding:2.2rem 1.6rem 0;text-align:center;align-items:center}
+.cuvee-mill{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);margin-bottom:.6rem;display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.cuvee-flag{font-family:var(--fd);font-size:1rem;font-style:italic;letter-spacing:0;text-transform:none;color:var(--bdx)}
+.cuvee-nm{font-family:var(--fd);font-size:clamp(1.6rem,2.2vw,2rem);font-weight:300;font-style:italic;color:var(--charbon);line-height:1.1;text-wrap:balance;margin-bottom:.5rem}
+.cuvee-nm a{color:inherit;text-decoration:none;background:linear-gradient(var(--bdx),var(--bdx)) 0 100%/0 1px no-repeat;transition:background-size .4s ease,color var(--e)}
+.cuvee-nm a:hover{color:var(--bdx);background-size:100% 1px}
+.cuvee-score{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-bottom:.5rem}
+.cuvee-score span{font-family:var(--fd);font-size:1.25rem;letter-spacing:0;color:var(--charbon);font-variant-numeric:lining-nums}
+.cuvee-cep{font-size:.8rem;color:var(--gris);margin-bottom:1rem}
+.cuvee-desc{font-size:.9rem;line-height:1.75;color:var(--gris);max-width:32ch;text-wrap:pretty;margin-bottom:1.6rem}
+.cuvee-buy{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:.9rem}
+.cuvee-px{font-family:var(--fd);font-size:1.7rem;color:var(--charbon);font-variant-numeric:lining-nums;line-height:1}
+.cuvee-px s{font-size:.6em;color:var(--gris)}
+.cuvee-px span{display:block;margin-top:.35rem;font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.btn-add{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bdx);background:transparent;border:1px solid rgba(110,24,40,.4);min-height:44px;padding:.6rem 1.4rem;cursor:pointer;transition:background var(--e),color var(--e),border-color var(--e)}
+.btn-add:hover{background:var(--bdx);border-color:var(--bdx);color:var(--cream-l)}
+.cuvee-soon .cuvee-shelf{opacity:.9}
+.cuvee-soon .cuvee-shelf::after{display:none}
+.cuvee-soon .cuvee-nm{color:var(--gris)}
+
+/* Étroit : une cuvée par ligne, la bouteille à gauche sur son bout d'étagère. */
+@media(max-width:860px){
+  .vins-g{grid-template-columns:1fr;max-width:560px;padding:0 1.2rem;row-gap:3.5rem}
+  .cuvee{grid-row:auto;grid-template-rows:none;grid-template-columns:110px 1fr;column-gap:1.4rem;align-items:start}
+  .cuvee-shelf{height:230px}
+  .cuvee-shelf .bottle-img{height:200px}
+  .cuvee-soon svg{height:200px;width:52px}
+  .cuvee-txt{padding:0;text-align:left;align-items:flex-start}
+  .cuvee-mill{justify-content:flex-start}
+  .cuvee-desc{max-width:none;margin-bottom:1.2rem}
+  .cuvee-buy{flex-direction:row;align-items:center;gap:1.2rem;flex-wrap:wrap}
+}
+/* Téléphone : la bouteille au-dessus, le texte centré dessous. */
+@media(max-width:600px){
+  .cuvee{grid-template-columns:1fr}
+  .cuvee-shelf{height:250px;width:100%;max-width:280px;margin:0 auto}
+  .cuvee-shelf .bottle-img{height:220px}
+  .cuvee-soon svg{height:220px;width:58px}
+  .cuvee-txt{padding-top:1.6rem;text-align:center;align-items:center}
+  .cuvee-mill{justify-content:center}
+  .cuvee-buy{flex-direction:column;gap:.9rem}
+}
 
 /* ── DÉGUSTATIONS ── */
 .s-deg{padding:7.5rem 0;background:var(--cream)}
@@ -273,7 +287,6 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .si,.deg-in,.chron-in,.b2b-in{padding:0 1.5rem}
   .philo-g,.bodega-g{grid-template-columns:1fr}
   .bodega-map{position:static}
-  .vins-g{grid-template-columns:1fr 1fr;max-width:640px;margin:0 auto}
   .chron-g{grid-template-columns:1fr}
   .chron-hd{flex-direction:column;align-items:flex-start;gap:1rem}
   .ditem{grid-template-columns:60px 1fr;row-gap:1rem}
@@ -314,7 +327,6 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .bodega-facts{grid-template-columns:1fr 1fr}
 
   /* VINS */
-  .vins-g{grid-template-columns:1fr}
 
   /* DÉGUSTATIONS */
   .deg-grid{grid-template-columns:1fr}

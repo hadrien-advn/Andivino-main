@@ -34,7 +34,7 @@ function bottleSVG(id,h){
   // ── Images réelles ──
   var imgs={
     'clos-2017': IMAGE_BASE_URL + 'bout-cda.png',
-    'helene-2016': IMAGE_BASE_URL + 'cuvee-h.png',
+    'helene-2016': IMAGE_BASE_URL + 'cuvee-h-bouteille.png',
     'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.png'
   };
   if(imgs[id]){
@@ -64,43 +64,45 @@ function observeFade(){
 }
 
 /* ── WINES ── */
+// Première phrase de la description : une note de dégustation complète plutôt qu'un texte coupé.
+function firstSentence(t){const m=t.match(/^.*?[.!?](\s|$)/);return m?m[0].trim():t;}
 function renderWines(){
   const {wines}=getData();const g=document.getElementById('vinsGrid');if(!g)return;
   let h='';
   wines.forEach((w,i)=>{
     const p=calcPrix(w);const hr=w.reduction>0;
     const soldOutSoon=['helene-2016','poesia-2014'].includes(w.id);
-    h+=`<article class="wcard fi${i?' d'+i:''}" data-wine-id="${w.id}">
-      <div class="wc-badge-slot">${soldOutSoon?'<div class="wc-soldout">Bientôt Sold Out</div>':''}</div>
-      <div class="wc-vin">${w.millesime}</div>
-      <h3 class="wc-nm"><a class="wc-link" href="/products/${WINE_PAGES[w.id].slug}/">${w.nom}</a></h3>
-      <div class="wc-bod">${w.bodega}</div>
-      <div class="wc-score">${SCORES[w.id]?`<span class="wc-score-n">${SCORES[w.id].pts}</span> pts · ${SCORES[w.id].source}`:''}</div>
-      <div class="wc-bot">${bottleSVG(w.id)}</div>
-      <p class="wc-desc">${w.description}</p>
-      <div class="wc-ft">
-        <div class="wc-px">
-          ${hr?`<span class="wc-px-old">${fmtPrix(w.prix)} €</span>`:''}<span class="wc-px-amt">${fmtPrix(p)}<span class="wc-px-eur">&nbsp;€</span></span>
-          <span class="wc-px-lbl">TTC · la bouteille</span>
+    const href=`/products/${WINE_PAGES[w.id].slug}/`;
+    const sc=SCORES[w.id];
+    h+=`<article class="cuvee fi${i?' d'+i:''}" data-wine-id="${w.id}">
+      <a class="cuvee-shelf" href="${href}" tabindex="-1" aria-hidden="true">${bottleSVG(w.id,280)}</a>
+      <div class="cuvee-txt">
+        <p class="cuvee-mill">${w.millesime}${soldOutSoon?'<span class="cuvee-flag">Bientôt sold out</span>':''}</p>
+        <h3 class="cuvee-nm"><a href="${href}">${w.nom}</a></h3>
+        ${sc?`<p class="cuvee-score"><span>${sc.pts}</span> pts · ${sc.source}</p>`:''}
+        <p class="cuvee-cep">${w.cepages.split(' — ').map((x,j)=>j&&/^[A-Z]/.test(x)&&!/^[A-Z][a-z]+ [A-Z]/.test(x)?x.charAt(0).toLowerCase()+x.slice(1):x).join(', ')}</p>
+        <p class="cuvee-desc">${firstSentence(w.description)}</p>
+        <div class="cuvee-buy">
+          <p class="cuvee-px">${hr?`<s>${fmtPrix(w.prix)} €</s> `:''}${fmtPrix(p)}&nbsp;€<span>la bouteille</span></p>
+          <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">Ajouter au panier</button>
         </div>
-        <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">+ Ajouter</button>
       </div>
     </article>`;
   });
-  h+=`<div class="wsoon fi d3">
-    <span class="soon-b">Prochainement</span>
-    <h3>Nouvelle cuvée...</h3>
-    <div class="sr">En route vers la France</div>
-    <svg viewBox="0 0 80 50" width="55" height="35" fill="none" class="soon-icon">
-      <path d="M40 5 L10 43 L70 43 Z" stroke="var(--charbon)" stroke-width="1.5"/>
-    </svg>
-    <p>Notre prochaine sélection est faite&nbsp;: les bouteilles arrivent très bientôt.</p>
-  </div>`;
+  h+=`<article class="cuvee cuvee-soon fi d3">
+    <div class="cuvee-shelf" aria-hidden="true">
+      <svg viewBox="0 0 60 230" width="72" height="276" fill="none"><path d="M24 4h12v58c0 10 14 18 14 40v116c0 5-4 8-8 8H18c-4 0-8-3-8-8V102c0-22 14-30 14-40z" stroke="var(--gris-l)" stroke-width="1.2" stroke-dasharray="4 4"/></svg>
+    </div>
+    <div class="cuvee-txt">
+      <p class="cuvee-mill">Prochainement</p>
+      <h3 class="cuvee-nm">Nouvelle cuvée</h3>
+      <p class="cuvee-desc">Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
+    </div>
+  </article>`;
   g.innerHTML=h;
   g.querySelectorAll('[data-add-id]').forEach(btn=>{
     btn.addEventListener('click',(event)=>{
       event.preventDefault();
-      event.stopPropagation();
       const w=wines.find(x=>x.id===btn.dataset.addId);
       addToCart(btn.dataset.addId);
       if(w)showToast(`${w.nom} ${w.millesime} ajouté au panier`);
