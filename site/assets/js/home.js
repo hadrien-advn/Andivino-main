@@ -75,11 +75,13 @@ function renderWines(){
     const href=`/products/${WINE_PAGES[w.id].slug}/`;
     const sc=SCORES[w.id];
     h+=`<article class="cuvee fi${i?' d'+i:''}" data-wine-id="${w.id}">
-      <a class="cuvee-shelf" href="${href}" tabindex="-1" aria-hidden="true">${bottleSVG(w.id,280)}</a>
-      <p class="cuvee-mill">${w.millesime}${soldOutSoon?'<span class="cuvee-flag">Bientôt sold out</span>':''}</p>
-      <h3 class="cuvee-nm"><a href="${href}">${w.nom}</a></h3>
-      <p class="cuvee-score">${sc?`<span>${sc.pts}</span> pts · ${sc.source}`:''}</p>
-      <p class="cuvee-cep">${w.cepages.split(' — ').map((x,j)=>j&&/^[A-Z]/.test(x)&&!/^[A-Z][a-z]+ [A-Z]/.test(x)?x.charAt(0).toLowerCase()+x.slice(1):x).join(', ')}</p>
+      <a class="cuvee-shelf" href="${href}" tabindex="-1" aria-hidden="true">${bottleSVG(w.id,260)}</a>
+      <div class="cuvee-label">
+        <p class="cuvee-mill">${w.millesime}${soldOutSoon?'<span class="cuvee-flag">Bientôt sold out</span>':''}</p>
+        <h3 class="cuvee-nm"><a href="${href}">${w.nom}</a></h3>
+        ${sc?`<p class="cuvee-score"><span>${sc.pts}</span> pts · ${sc.source}</p>`:''}
+        <p class="cuvee-cep">${w.cepages.split(' — ').map((x,j)=>j&&/^[A-Z]/.test(x)&&!/^[A-Z][a-z]+ [A-Z]/.test(x)?x.charAt(0).toLowerCase()+x.slice(1):x).join(', ')}</p>
+      </div>
       <p class="cuvee-desc">${firstSentence(w.description)}</p>
       <div class="cuvee-buy">
         <p class="cuvee-px">${hr?`<s>${fmtPrix(w.prix)} €</s> `:''}${fmtPrix(p)}&nbsp;€<span>la bouteille</span></p>
@@ -87,18 +89,11 @@ function renderWines(){
       </div>
     </article>`;
   });
-  // Mêmes rangées que les cuvées (rangées vides comprises) pour rester aligné sur l'étagère.
-  h+=`<article class="cuvee cuvee-soon fi d3">
-    <div class="cuvee-shelf" aria-hidden="true">
-      <svg viewBox="0 0 60 230" width="72" height="276" fill="none"><path d="M24 4h12v58c0 10 14 18 14 40v116c0 5-4 8-8 8H18c-4 0-8-3-8-8V102c0-22 14-30 14-40z" stroke="var(--gris-l)" stroke-width="1.2" stroke-dasharray="4 4"/></svg>
-    </div>
-    <p class="cuvee-mill">Prochainement</p>
-    <h3 class="cuvee-nm">Nouvelle cuvée</h3>
-    <p class="cuvee-score"></p>
-    <p class="cuvee-cep"></p>
-    <p class="cuvee-desc">Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
-    <div class="cuvee-buy"></div>
-  </article>`;
+  // La prochaine cuvée tient sur une ligne sous l'étagère plutôt que dans une 4e colonne.
+  h+=`<div class="cuvee-soon fi d3">
+    <svg aria-hidden="true" viewBox="0 0 60 230" width="24" height="92" fill="none"><path d="M24 4h12v58c0 10 14 18 14 40v116c0 5-4 8-8 8H18c-4 0-8-3-8-8V102c0-22 14-30 14-40z" stroke="var(--gris-l)" stroke-width="2" stroke-dasharray="5 5"/></svg>
+    <p><span class="cuvee-mill">Prochainement</span><span class="cuvee-soon-nm">Nouvelle cuvée</span>Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
+  </div>`;
   g.innerHTML=h;
   g.querySelectorAll('[data-add-id]').forEach(btn=>{
     btn.addEventListener('click',(event)=>{
