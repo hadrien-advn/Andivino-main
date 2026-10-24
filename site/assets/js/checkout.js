@@ -221,6 +221,12 @@ function updateGrandTotal() {
   if (shipEl) shipEl.textContent = ship === null ? '—' : (ship === 0 ? 'Gratuit' : ship.toFixed(2).replace('.',',') + ' €');
   if (grandEl) grandEl.textContent = (ship !== null ? grandTotal : sub).toFixed(2).replace('.',',') + ' €';
   if (noteEl)  noteEl.textContent  = ship === null ? 'Sélectionnez un mode de livraison.' : '';
+
+  // Résumé affiché au-dessus du bouton sur mobile, où le récapitulatif passe en bas de page.
+  var sumEl = document.getElementById('paySummaryDetail');
+  var sumTotal = document.getElementById('paySummaryTotal');
+  if (sumEl) sumEl.textContent = nb + (nb > 1 ? ' bouteilles' : ' bouteille') + ' · Livraison ' + (ship === null ? 'à choisir' : (ship === 0 ? 'gratuite' : ship.toFixed(2).replace('.',',') + ' €'));
+  if (sumTotal) sumTotal.textContent = (ship !== null ? grandTotal : sub).toFixed(2).replace('.',',') + ' €';
 }
 
 // ── COORDONNÉES ──
@@ -262,6 +268,26 @@ function updateCpError() {
 document.getElementById('f-cp').addEventListener('input', updateCpError);
 function checkForm(){
   document.getElementById('btnCheckout').disabled=!isCheckoutReady();
+  updateCheckoutHint();
+}
+var FIELD_LABELS={'f-prenom':'votre prénom','f-nom':'votre nom','f-email':'votre email','f-adresse':'votre adresse','f-cp':'votre code postal','f-ville':'votre ville'};
+// Ce qui manque pour payer, dit sous le bouton plutôt qu'un bouton grisé muet.
+function missingForCheckout(){
+  const missing=[];
+  if(!getCart().length)missing.push('au moins une bouteille');
+  if(selectedLiv===null)missing.push('un mode de livraison');
+  requiredFieldIds().forEach(id=>{
+    if(!document.getElementById(id).value.trim())missing.push(FIELD_LABELS[id]);
+  });
+  const cp=document.getElementById('f-cp').value.trim();
+  if(needsAddress()&&cp&&(!/^\d{5}$/.test(cp)||cpProblem()))missing.push('un code postal valide');
+  return missing;
+}
+function updateCheckoutHint(){
+  const el=document.getElementById('checkoutHint');
+  const missing=missingForCheckout();
+  el.textContent=missing.length?'Il manque encore : '+missing.join(', ')+'.':'';
+  el.hidden=!missing.length;
 }
 function isCheckoutReady(){
   const ok=requiredFieldIds().every(id=>{
@@ -280,6 +306,8 @@ var stripeElements = null;
 var paymentElement = null;
 var clientSecret = null;
 var paymentReady = false;
+// Coordonnées envoyées à Stripe lors de la préparation, pour savoir s'il faut les mettre à jour.
+var preparedCustomer = null;
 
 function apiUrl(path) {
   return API_BASE_URL + path;
@@ -301,7 +329,9 @@ function resetPaymentElement() {
   stripeElements = null;
   var wrap = document.getElementById('paymentWrap');
   if (wrap) wrap.hidden = true;
+  preparedCustomer = null;
   setCheckoutButton('Préparer le paiement sécurisé', !isCheckoutReady());
+  updateCheckoutHint();
 }
 
 function collectCustomer() {
@@ -356,6 +386,7 @@ async function preparePayment() {
   }
 
   clientSecret = data.clientSecret;
+  preparedCustomer = JSON.stringify(customer);
   stripeElements = stripe.elements({
     clientSecret: clientSecret,
     appearance: {
@@ -378,7 +409,28 @@ async function preparePayment() {
   setCheckoutButton('Payer maintenant', false);
 }
 
+// Une correction de coordonnées après la saisie de la carte met à jour le paiement existant,
+// sans effacer la carte.
+async function syncCustomer() {
+  var customer = collectCustomer();
+  var snapshot = JSON.stringify(customer);
+  if (snapshot === preparedCustomer) return;
+  var res = await fetch(apiUrl('/api/update-payment-intent'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ clientSecret: clientSecret, cart: getCart(), shipping: selectedLiv, customer: customer })
+  });
+  var data = await res.json();
+  if (res.status === 409) {
+    resetPaymentElement();
+    throw new Error(data.error || 'Votre commande a changé. Préparez à nouveau le paiement.');
+  }
+  if (!res.ok) throw new Error(data.error || 'Impossible de mettre à jour vos coordonnées.');
+  preparedCustomer = snapshot;
+}
+
 async function confirmEmbeddedPayment() {
+  await syncCustomer();
   var stripe = await ensureStripe();
   var result = await stripe.confirmPayment({
     elements: stripeElements,
@@ -430,7 +482,3 @@ document.getElementById('btnCheckout').addEventListener('click', async function(
   }
 });
 
-['f-prenom','f-nom','f-email','f-tel','f-adresse','f-cp','f-ville','f-message'].forEach(id=>{
-  const el=document.getElementById(id);if(!el)return;
-  el.addEventListener('input', resetPaymentElement);
-});

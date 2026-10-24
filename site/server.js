@@ -303,6 +303,40 @@ app.get('/api/stripe-config', (req, res) => {
   return res.json({ publishableKey: stripePublishableKey });
 });
 
+// Coordonnees portees par le PaymentIntent : a la creation, puis si le client corrige un champ apres
+// avoir saisi sa carte (sans remonter le formulaire Stripe).
+function paymentIntentCustomerFields(order, customer) {
+  return {
+    receipt_email: customer.email,
+    // Stripe exige une adresse dans shipping : rien a envoyer pour un retrait.
+    ...(customer.adresse ? {
+      shipping: {
+        name: `${customer.prenom} ${customer.nom}`,
+        phone: customer.tel || undefined,
+        address: {
+          line1: customer.adresse,
+          postal_code: customer.cp,
+          city: customer.ville,
+          country: 'FR'
+        }
+      }
+    } : {}),
+    metadata: {
+      customer_name: `${customer.prenom} ${customer.nom}`,
+      customer_first_name: customer.prenom,
+      customer_last_name: customer.nom,
+      customer_email: customer.email,
+      // Chaine vide = cle effacee par Stripe, si le client vide le champ entre deux mises a jour.
+      customer_phone: customer.tel,
+      customer_message: customer.message.slice(0, 500),
+      shipping_mode: order.shippingMode,
+      bottle_count: String(order.bottleCount),
+      order_total_cents: String(order.amount),
+      cart: JSON.stringify(order.lineItems.map((item) => ({ id: item.id, qty: item.qty }))).slice(0, 450)
+    }
+  };
+}
+
 app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
   try {
     if (!stripe || !stripePublishableKey) {
@@ -315,36 +349,11 @@ app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: order.amount,
       currency: order.currency,
-      receipt_email: customer.email,
       automatic_payment_methods: {
         enabled: true,
         allow_redirects: 'never'
       },
-      // Stripe exige une adresse dans shipping : rien a envoyer pour un retrait.
-      ...(customer.adresse ? {
-        shipping: {
-          name: `${customer.prenom} ${customer.nom}`,
-          phone: customer.tel || undefined,
-          address: {
-            line1: customer.adresse,
-            postal_code: customer.cp,
-            city: customer.ville,
-            country: 'FR'
-          }
-        }
-      } : {}),
-      metadata: {
-        customer_name: `${customer.prenom} ${customer.nom}`,
-        customer_first_name: customer.prenom,
-        customer_last_name: customer.nom,
-        customer_email: customer.email,
-        ...(customer.tel ? { customer_phone: customer.tel } : {}),
-        ...(customer.message ? { customer_message: customer.message.slice(0, 500) } : {}),
-        shipping_mode: order.shippingMode,
-        bottle_count: String(order.bottleCount),
-        order_total_cents: String(order.amount),
-        cart: JSON.stringify(order.lineItems.map((item) => ({ id: item.id, qty: item.qty }))).slice(0, 450)
-      }
+      ...paymentIntentCustomerFields(order, customer)
     });
 
     return res.json({
@@ -359,6 +368,37 @@ app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
     });
   } catch (error) {
     return res.status(400).json({ error: error.message || 'Impossible de preparer le paiement.' });
+  }
+});
+
+// Le client a modifie ses coordonnees apres la preparation du paiement : on met a jour le
+// PaymentIntent existant. Le panier et le mode de livraison, eux, imposent un nouveau paiement.
+app.post('/api/update-payment-intent', paymentLimiter, async (req, res) => {
+  try {
+    if (!stripe) {
+      return res.status(503).json({ error: 'Configuration Stripe serveur manquante.' });
+    }
+
+    const clientSecret = cleanText(req.body.clientSecret, 300);
+    const paymentIntentId = clientSecret.split('_secret_')[0];
+    const paymentIntent = paymentIntentId ? await stripe.paymentIntents.retrieve(paymentIntentId) : null;
+    if (!paymentIntent || paymentIntent.client_secret !== clientSecret) {
+      return res.status(400).json({ error: 'Paiement introuvable. Rechargez la page.' });
+    }
+    if (!['requires_payment_method', 'requires_confirmation'].includes(paymentIntent.status)) {
+      return res.status(409).json({ error: 'Ce paiement ne peut plus être modifié.' });
+    }
+
+    const customer = normalizeCustomer(req.body.customer, req.body.shipping);
+    const order = buildOrder(req.body.cart, req.body.shipping, customer);
+    if (order.amount !== paymentIntent.amount || order.shippingMode !== paymentIntent.metadata.shipping_mode) {
+      return res.status(409).json({ error: 'Votre commande a changé. Préparez à nouveau le paiement.' });
+    }
+
+    await stripe.paymentIntents.update(paymentIntentId, paymentIntentCustomerFields(order, customer));
+    return res.json({ ok: true });
+  } catch (error) {
+    return res.status(400).json({ error: error.message || 'Impossible de mettre à jour le paiement.' });
   }
 });
 
