@@ -2,7 +2,7 @@
 ::selection{background:rgba(110,24,40,.16);color:inherit}
 html{accent-color:#6E1828;caret-color:#6E1828}
 :focus-visible{outline:2px solid #6E1828;outline-offset:3px}
-.s-deg :focus-visible,.s-b2b :focus-visible,footer :focus-visible,.page-header :focus-visible{outline-color:#D9BC74}
+.s-b2b :focus-visible,footer :focus-visible{outline-color:#D9BC74}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto!important}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}

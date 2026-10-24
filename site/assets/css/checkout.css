@@ -25,10 +25,10 @@ a.back-link{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:
 a.back-link:hover{color:var(--charbon)}
 
 /* PAGE HEADER */
-.page-header{background:var(--charbon);padding:9rem 4rem 4.5rem;text-align:center}
-.page-header h1{font-family:var(--fd);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;color:var(--cream-l);margin-bottom:.8rem}
-.page-header h1 em{font-style:italic;color:var(--or)}
-.page-header p{font-size:.9rem;color:rgba(250,246,241,.74);max-width:500px;margin:0 auto}
+.page-header{background:var(--cream);padding:9rem 4rem 4.5rem;text-align:center}
+.page-header h1{font-family:var(--fd);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;color:var(--charbon);margin-bottom:.8rem}
+.page-header h1 em{font-style:italic;color:var(--bdx)}
+.page-header p{font-size:.9rem;color:var(--gris);max-width:500px;margin:0 auto}
 
 /* LAYOUT */
 .page-body{max-width:1200px;margin:0 auto;padding:4rem;display:grid;grid-template-columns:1fr 380px;gap:3.5rem;align-items:start}
