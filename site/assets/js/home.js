@@ -76,28 +76,28 @@ function renderWines(){
     const sc=SCORES[w.id];
     h+=`<article class="cuvee fi${i?' d'+i:''}" data-wine-id="${w.id}">
       <a class="cuvee-shelf" href="${href}" tabindex="-1" aria-hidden="true">${bottleSVG(w.id,280)}</a>
-      <div class="cuvee-txt">
-        <p class="cuvee-mill">${w.millesime}${soldOutSoon?'<span class="cuvee-flag">Bientôt sold out</span>':''}</p>
-        <h3 class="cuvee-nm"><a href="${href}">${w.nom}</a></h3>
-        ${sc?`<p class="cuvee-score"><span>${sc.pts}</span> pts · ${sc.source}</p>`:''}
-        <p class="cuvee-cep">${w.cepages.split(' — ').map((x,j)=>j&&/^[A-Z]/.test(x)&&!/^[A-Z][a-z]+ [A-Z]/.test(x)?x.charAt(0).toLowerCase()+x.slice(1):x).join(', ')}</p>
-        <p class="cuvee-desc">${firstSentence(w.description)}</p>
-        <div class="cuvee-buy">
-          <p class="cuvee-px">${hr?`<s>${fmtPrix(w.prix)} €</s> `:''}${fmtPrix(p)}&nbsp;€<span>la bouteille</span></p>
-          <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">Ajouter</button>
-        </div>
+      <p class="cuvee-mill">${w.millesime}${soldOutSoon?'<span class="cuvee-flag">Bientôt sold out</span>':''}</p>
+      <h3 class="cuvee-nm"><a href="${href}">${w.nom}</a></h3>
+      <p class="cuvee-score">${sc?`<span>${sc.pts}</span> pts · ${sc.source}`:''}</p>
+      <p class="cuvee-cep">${w.cepages.split(' — ').map((x,j)=>j&&/^[A-Z]/.test(x)&&!/^[A-Z][a-z]+ [A-Z]/.test(x)?x.charAt(0).toLowerCase()+x.slice(1):x).join(', ')}</p>
+      <p class="cuvee-desc">${firstSentence(w.description)}</p>
+      <div class="cuvee-buy">
+        <p class="cuvee-px">${hr?`<s>${fmtPrix(w.prix)} €</s> `:''}${fmtPrix(p)}&nbsp;€<span>la bouteille</span></p>
+        <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">Ajouter</button>
       </div>
     </article>`;
   });
+  // Mêmes rangées que les cuvées (rangées vides comprises) pour rester aligné sur l'étagère.
   h+=`<article class="cuvee cuvee-soon fi d3">
     <div class="cuvee-shelf" aria-hidden="true">
       <svg viewBox="0 0 60 230" width="72" height="276" fill="none"><path d="M24 4h12v58c0 10 14 18 14 40v116c0 5-4 8-8 8H18c-4 0-8-3-8-8V102c0-22 14-30 14-40z" stroke="var(--gris-l)" stroke-width="1.2" stroke-dasharray="4 4"/></svg>
     </div>
-    <div class="cuvee-txt">
-      <p class="cuvee-mill">Prochainement</p>
-      <h3 class="cuvee-nm">Nouvelle cuvée</h3>
-      <p class="cuvee-desc">Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
-    </div>
+    <p class="cuvee-mill">Prochainement</p>
+    <h3 class="cuvee-nm">Nouvelle cuvée</h3>
+    <p class="cuvee-score"></p>
+    <p class="cuvee-cep"></p>
+    <p class="cuvee-desc">Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
+    <div class="cuvee-buy"></div>
   </article>`;
   g.innerHTML=h;
   g.querySelectorAll('[data-add-id]').forEach(btn=>{

@@ -129,55 +129,54 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .vins-hd h2 em{font-style:italic}
 .vins-note{font-size:.85rem;color:var(--gris);line-height:1.7;max-width:56ch;margin:1.2rem auto 0;text-wrap:pretty}
 .vins-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
-/* La cave : les bouteilles posées sur une même étagère (filet d'or), le texte dessous, sans cartes. */
-.vins-g{display:grid;grid-template-columns:repeat(3,1fr) .7fr;grid-template-rows:auto auto;column-gap:0;row-gap:0;max-width:1240px;margin:0 auto;padding:0 2rem}
-.cuvee{display:grid;grid-row:span 2;grid-template-rows:subgrid}
-.cuvee-shelf{position:relative;display:flex;align-items:flex-end;justify-content:center;height:320px;padding-bottom:0;border-bottom:1px solid var(--or)}
-.cuvee-shelf::after{content:'';position:absolute;bottom:-1px;left:50%;width:96px;height:10px;transform:translate(-50%,40%);background:radial-gradient(ellipse at center,rgba(20,16,12,.22),rgba(20,16,12,0) 70%);pointer-events:none}
-.cuvee-shelf .bottle-img{height:280px;width:auto;position:relative;z-index:1;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+/* La cave : les bouteilles posées sur une même étagère (filet d'or), sans cartes.
+   Chaque cuvée occupe 7 rangées partagées (subgrid) : millésime, nom, note, cépages, texte et prix
+   tombent à la même hauteur d'une colonne à l'autre. Texte et bouteilles alignés à gauche. */
+.vins-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.75fr);grid-template-rows:repeat(7,auto);column-gap:3rem;max-width:1180px;margin:0 auto;padding:0 2rem;position:relative}
+.vins-g::before{content:'';position:absolute;left:2rem;right:2rem;top:320px;height:1px;background:var(--or)}
+.cuvee{display:grid;grid-row:span 7;grid-template-rows:subgrid}
+.cuvee-shelf{position:relative;display:flex;align-items:flex-end;justify-content:flex-start;height:320px;padding-left:.4rem}
+.cuvee-shelf .bottle-img{height:280px;width:auto;position:relative;z-index:1;filter:drop-shadow(0 6px 4px rgba(20,16,12,.16));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .cuvee:hover .cuvee-shelf .bottle-img{transform:translateY(-6px)}
-.cuvee-txt{display:flex;flex-direction:column;padding:2.2rem 1.6rem 0;text-align:center;align-items:center}
-.cuvee-mill{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);margin-bottom:.6rem;display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.cuvee-mill{padding-top:2rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}
 .cuvee-flag{font-family:var(--fd);font-size:1rem;font-style:italic;letter-spacing:0;text-transform:none;color:var(--bdx)}
-.cuvee-nm{font-family:var(--fd);font-size:clamp(1.6rem,2.2vw,2rem);font-weight:300;font-style:italic;color:var(--charbon);line-height:1.1;text-wrap:balance;margin-bottom:.5rem}
+.cuvee-nm{padding-top:.5rem;font-family:var(--fd);font-size:clamp(1.55rem,2.1vw,1.95rem);font-weight:300;font-style:italic;color:var(--charbon);line-height:1.12;text-wrap:balance}
 .cuvee-nm a{color:inherit;text-decoration:none;background:linear-gradient(var(--bdx),var(--bdx)) 0 100%/0 1px no-repeat;transition:background-size .4s ease,color var(--e)}
 .cuvee-nm a:hover{color:var(--bdx);background-size:100% 1px}
-.cuvee-score{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-bottom:.5rem}
-.cuvee-score span{font-family:var(--fd);font-size:1.25rem;letter-spacing:0;color:var(--charbon);font-variant-numeric:lining-nums}
-.cuvee-cep{font-size:.8rem;color:var(--gris);margin-bottom:1rem}
-.cuvee-desc{font-size:.9rem;line-height:1.75;color:var(--gris);max-width:32ch;text-wrap:pretty;margin-bottom:1.6rem}
-/* Prix et action sur une même ligne, comme une étiquette de cave posée sous la bouteille. */
-.cuvee-buy{margin-top:auto;width:100%;max-width:22rem;display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding-top:1.2rem;border-top:1px solid var(--cream-d)}
-.cuvee-px{font-family:var(--fd);font-size:1.6rem;color:var(--charbon);font-variant-numeric:lining-nums;line-height:1;text-align:left;white-space:nowrap}
+.cuvee-score{padding-top:.5rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.cuvee-score span{font-family:var(--fd);font-size:1.2rem;letter-spacing:0;color:var(--charbon);font-variant-numeric:lining-nums}
+.cuvee-cep{padding-top:.4rem;font-size:.8rem;line-height:1.5;color:var(--gris)}
+.cuvee-desc{padding-top:1.1rem;font-size:.9rem;line-height:1.7;color:var(--gris);text-wrap:pretty}
+/* Prix et action sur une même ligne, sous un filet, alignés en bas de toutes les colonnes. */
+.cuvee-buy{align-self:end;margin-top:1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:1.1rem;border-top:1px solid var(--cream-d)}
+.cuvee-soon .cuvee-buy{border-top-color:transparent}
+.cuvee-px{font-family:var(--fd);font-size:1.6rem;color:var(--charbon);font-variant-numeric:lining-nums;line-height:1;white-space:nowrap}
 .cuvee-px s{font-size:.6em;color:var(--gris)}
 .cuvee-px span{display:block;margin-top:.3rem;font-family:var(--fb);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
 .btn-add{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bdx);background:transparent;border:1px solid rgba(110,24,40,.4);min-height:44px;padding:.6rem 1.3rem;white-space:nowrap;flex-shrink:0;cursor:pointer;transition:background var(--e),color var(--e),border-color var(--e)}
 .btn-add:hover{background:var(--bdx);border-color:var(--bdx);color:var(--cream-l)}
-.cuvee-soon .cuvee-shelf{opacity:.9}
-.cuvee-soon .cuvee-shelf::after{display:none}
 .cuvee-soon .cuvee-nm{color:var(--gris)}
 
-/* Étroit : une cuvée par ligne, la bouteille à gauche sur son bout d'étagère. */
-@media(max-width:860px){
-  .vins-g{grid-template-columns:1fr;max-width:560px;padding:0 1.2rem;row-gap:3.5rem}
-  .cuvee{grid-row:auto;grid-template-rows:none;grid-template-columns:110px 1fr;column-gap:1.4rem;align-items:start}
-  .cuvee-shelf{height:230px}
-  .cuvee-shelf .bottle-img{height:200px}
-  .cuvee-soon svg{height:200px;width:52px}
-  .cuvee-txt{padding:0;text-align:left;align-items:flex-start}
-  .cuvee-mill{justify-content:flex-start}
-  .cuvee-desc{max-width:none;margin-bottom:1.2rem}
-  .cuvee-buy{max-width:none}
+/* Tablette : une cuvée par ligne, la bouteille à gauche sur son bout d'étagère, les infos à droite. */
+@media(max-width:960px){
+  .vins-g{grid-template-columns:minmax(0,1fr);grid-template-rows:none;max-width:620px;padding:0 1.5rem;row-gap:3.5rem}
+  .vins-g::before{display:none}
+  .cuvee{grid-row:auto;grid-template-rows:none;grid-template-columns:120px minmax(0,1fr);column-gap:1.8rem;align-items:start}
+  .cuvee>*:not(.cuvee-shelf){grid-column:2}
+  .cuvee-shelf{grid-column:1;grid-row:1 / span 7;height:240px;padding-left:0;justify-content:center;border-bottom:1px solid var(--or)}
+  .cuvee-shelf .bottle-img{height:210px}
+  .cuvee-soon svg{height:210px;width:54px}
+  .cuvee-mill{padding-top:0}
+  .cuvee-score:empty,.cuvee-cep:empty,.cuvee-soon .cuvee-buy{display:none}
 }
-/* Téléphone : la bouteille au-dessus, le texte centré dessous. */
+/* Téléphone : la bouteille au-dessus, les infos dessous, alignées à gauche. */
 @media(max-width:600px){
-  .cuvee{grid-template-columns:1fr}
-  .cuvee-shelf{height:250px;width:100%;max-width:280px;margin:0 auto}
+  .cuvee{grid-template-columns:minmax(0,1fr)}
+  .cuvee>*:not(.cuvee-shelf){grid-column:1}
+  .cuvee-shelf{grid-row:auto;height:250px}
   .cuvee-shelf .bottle-img{height:220px}
   .cuvee-soon svg{height:220px;width:58px}
-  .cuvee-txt{padding-top:1.6rem;text-align:center;align-items:center}
-  .cuvee-mill{justify-content:center}
-  .cuvee-buy{max-width:20rem}
+  .cuvee-mill{padding-top:1.6rem}
 }
 
 /* ── DÉGUSTATIONS ── */
