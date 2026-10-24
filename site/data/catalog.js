@@ -1,3 +1,5 @@
+const { upcomingDegustations } = require('../assets/js/degustations.js');
+
 const PRODUCTS = Object.freeze({
   'clos-2017': Object.freeze({
     id: 'clos-2017',
@@ -24,7 +26,7 @@ const SHIPPING_MODES = Object.freeze({
 });
 
 // Livraison par transporteur suspendue tant que son cout reel n'est pas chiffre. Pour la rouvrir,
-// vider cette liste et celle de assets/js/checkout.js.
+// vider cette liste et celle de assets/js/checkout.js, et revoir le texte de assets/js/degustations.js.
 const SUSPENDED_SHIPPING_MODES = Object.freeze(['colissimo', 'mondial-relay']);
 
 function shippingAmount(mode, bottleCount, postalCode = '') {
@@ -32,13 +34,18 @@ function shippingAmount(mode, bottleCount, postalCode = '') {
     throw new Error('Mode de livraison invalide.');
   }
   if (SUSPENDED_SHIPPING_MODES.includes(mode)) {
-    throw new Error('La livraison par Colissimo et Mondial Relay est momentanément suspendue. Choisissez le retrait en dégustation ou la remise en main propre (Paris et petite couronne).');
+    throw new Error('La livraison par Colissimo et Mondial Relay est momentanément suspendue. Choisissez la remise en main propre (Paris et petite couronne) ou écrivez-nous à hadrien@andivino.fr.');
   }
 
-  if (mode === 'degustation') return 0;
+  if (mode === 'degustation') {
+    if (!upcomingDegustations().length) {
+      throw new Error("Aucune degustation n'est programmee : le retrait n'est pas disponible pour l'instant.");
+    }
+    return 0;
+  }
 
   if (mode === 'main-propre') {
-    if (!/^(75|92|93|94)/.test(String(postalCode).trim())) {
+    if (!/^(75|92|93|94)\d{3}$/.test(String(postalCode).trim())) {
       throw new Error('La remise en main propre est limitee a Paris et petite couronne.');
     }
     return 500;

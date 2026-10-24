@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Commander des vins argentins — Andivino</title>
-<meta name="description" content="Commandez les cuvées Andivino de Mendoza : Clos des Andes, Cuvée Hélène et Poesía. Paiement sécurisé via Stripe et livraison en France.">
+<meta name="description" content="Commandez les cuvées Andivino de Mendoza : Clos des Andes, Cuvée Hélène et Poesía. Paiement sécurisé via Stripe.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://andivino.fr/commande">
 <meta property="og:type" content="website">
@@ -39,7 +39,7 @@
 
 <div class="page-header">
   <h1>Commander <em>nos vins</em></h1>
-  <p>Sélectionnez vos bouteilles, remplissez vos coordonnées. Paiement sécurisé via Stripe — confirmation immédiate par email.</p>
+  <p>Choisissez vos bouteilles et votre mode de livraison, puis vos coordonnées. Paiement sécurisé via Stripe, confirmation immédiate par email.</p>
 </div>
 
 <div class="page-body">
@@ -50,46 +50,21 @@
       <div class="prod-list" id="prodList"></div>
     </div>
 
-    <div class="form-section" id="formSection">
-      <h2>Vos coordonnées</h2>
-      <div class="form-row">
-        <div class="form-group"><label for="f-prenom">Prénom *</label><input type="text" id="f-prenom" name="prenom" autocomplete="given-name" required placeholder="Gaspard"></div>
-        <div class="form-group"><label for="f-nom">Nom *</label><input type="text" id="f-nom" name="nom" autocomplete="family-name" required placeholder="Dupont"></div>
-      </div>
-      <div class="form-row full">
-        <div class="form-group"><label for="f-email">Email *</label><input type="email" id="f-email" name="email" autocomplete="email" required placeholder="vous@exemple.fr"></div>
-      </div>
-      <div class="form-row full">
-        <div class="form-group"><label for="f-tel">Téléphone</label><input type="tel" id="f-tel" name="tel" autocomplete="tel" placeholder="+33 6 00 00 00 00"></div>
-      </div>
-      <div class="form-row full">
-        <div class="form-group"><label for="f-adresse">Adresse de livraison *</label><input type="text" id="f-adresse" name="adresse" autocomplete="street-address" required placeholder="12 rue de la Paix"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label for="f-cp">Code postal *</label><input type="text" id="f-cp" name="cp" autocomplete="postal-code" inputmode="numeric" maxlength="5" required placeholder="75001"></div>
-        <div class="form-group"><label for="f-ville">Ville *</label><input type="text" id="f-ville" name="ville" autocomplete="address-level2" required placeholder="Paris"></div>
-      </div>
-      <div class="form-row full">
-        <div class="form-group"><label for="f-message">Message (optionnel)</label><textarea id="f-message" name="message" placeholder="Occasion spéciale, questions sur les vins..."></textarea></div>
-      </div>
-      <p class="form-note">* Champs obligatoires. En validant, vous acceptez nos <a href="/legal/cgv">conditions générales de vente</a>. L'abus d'alcool est dangereux pour la santé — vous attestez avoir 18 ans ou plus.</p>
-    </div>
-
     <!-- MODE DE LIVRAISON -->
     <div class="livraison-section">
       <h2>Mode de livraison</h2>
       <div class="liv-options" id="livOptions" role="radiogroup" aria-label="Mode de livraison">
 
-        <div class="liv-opt" data-mode="degustation" role="radio" aria-checked="false" tabindex="0">
+        <div class="liv-opt" id="livDegustation" data-mode="degustation" role="radio" aria-checked="false" tabindex="0">
           <div class="liv-radio"><div class="liv-radio-dot"></div></div>
           <div class="liv-body">
             <div class="liv-title">Retrait lors d'une dégustation</div>
-            <div class="liv-desc">Récupérez vos bouteilles à l'occasion d'une de nos prochaines dégustations. Nous vous confirmons la date par email.</div>
+            <div class="liv-desc" id="livDegustationDesc">Récupérez vos bouteilles sur place, lors de notre prochaine dégustation.</div>
           </div>
           <div class="liv-badge free">Gratuit</div>
         </div>
 
-        <div class="liv-opt disabled" id="livIDF" data-mode="main-propre" role="radio" aria-checked="false" tabindex="-1" aria-disabled="true">
+        <div class="liv-opt" id="livIDF" data-mode="main-propre" role="radio" aria-checked="false" tabindex="0">
           <div class="liv-radio"><div class="liv-radio-dot"></div></div>
           <div class="liv-body">
             <div class="liv-title">Remise en main propre — Paris & Petite couronne</div>
@@ -117,7 +92,35 @@
         </div>
 
       </div>
-      <div class="liv-idf-note" id="idfNote" aria-live="polite">Renseignez votre code postal pour vérifier l'éligibilité à la remise en main propre (Paris 75 et petite couronne : 92, 93, 94).</div>
+      <p class="liv-note" id="shipSuspendedNote" hidden>L'expédition par Colissimo et Mondial Relay est suspendue pour l'instant. Hors Île-de-France, écrivez-nous à <a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a>.</p>
+    </div>
+
+    <div class="form-section" id="formSection">
+      <h2>Vos coordonnées</h2>
+      <div class="form-row">
+        <div class="form-group"><label for="f-prenom">Prénom *</label><input type="text" id="f-prenom" name="prenom" autocomplete="given-name" required placeholder="Gaspard"></div>
+        <div class="form-group"><label for="f-nom">Nom *</label><input type="text" id="f-nom" name="nom" autocomplete="family-name" required placeholder="Dupont"></div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group"><label for="f-email">Email *</label><input type="email" id="f-email" name="email" autocomplete="email" required placeholder="vous@exemple.fr"></div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group"><label for="f-tel">Téléphone</label><input type="tel" id="f-tel" name="tel" autocomplete="tel" placeholder="+33 6 00 00 00 00"></div>
+      </div>
+      <div id="addrFields">
+        <div class="form-row full">
+          <div class="form-group"><label for="f-adresse">Adresse de livraison *</label><input type="text" id="f-adresse" name="adresse" autocomplete="street-address" required placeholder="12 rue de la Paix"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="f-cp">Code postal *</label><input type="text" id="f-cp" name="cp" autocomplete="postal-code" inputmode="numeric" maxlength="5" required placeholder="75001" aria-describedby="cpError"></div>
+          <div class="form-group"><label for="f-ville">Ville *</label><input type="text" id="f-ville" name="ville" autocomplete="address-level2" required placeholder="Paris"></div>
+        </div>
+        <p class="field-error" id="cpError" aria-live="polite" hidden></p>
+      </div>
+      <div class="form-row full">
+        <div class="form-group"><label for="f-message">Message (optionnel)</label><textarea id="f-message" name="message" placeholder="Occasion spéciale, questions sur les vins..."></textarea></div>
+      </div>
+      <p class="form-note">* Champs obligatoires. En validant, vous acceptez nos <a href="/legal/cgv">conditions générales de vente</a>. L'abus d'alcool est dangereux pour la santé — vous attestez avoir 18 ans ou plus.</p>
     </div>
 
     <!-- STRIPE SECTION -->
@@ -175,6 +178,7 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script src="/assets/js/config.js"></script>
+<script src="/assets/js/degustations.js"></script>
 <script src="/assets/js/checkout.js"></script>
 
 <!-- ────────────────── FOOTER ────────────────── -->

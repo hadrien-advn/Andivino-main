@@ -110,15 +110,12 @@ a.back-link:hover{color:var(--charbon)}
 .liv-desc{font-size:.75rem;color:var(--gris);line-height:1.55}
 .liv-badge{position:absolute;top:.9rem;right:1rem;font-family:var(--fd);font-size:1rem;font-weight:400;color:var(--charbon)}
 .liv-badge.free{color:var(--green);font-size:.76rem;letter-spacing:.06em;font-family:var(--fb);font-weight:600}
-.liv-badge.contact{color:var(--gris)}
-.liv-badge.contact a{color:var(--bdx);text-decoration:underline;text-underline-offset:2px;pointer-events:auto;cursor:pointer}
-/* Carte trop etroite pour le message a cote du titre : il passe sous la description. */
-@container (max-width:600px){
-  .liv-opt.disabled{flex-wrap:wrap;padding-right:1rem}
-  .liv-opt.disabled .liv-badge{position:static;flex-basis:100%;padding-left:calc(18px + 1.2rem);margin-top:-.4rem}
-}
-.liv-idf-note{font-size:.74rem;color:var(--gris);margin-top:.9rem;padding:.7rem 1rem;background:var(--cream-d);display:none}
-.liv-idf-note.visible{display:block}
+.liv-opt[hidden]{display:none}
+.liv-opt.disabled .liv-badge{opacity:.5}
+.liv-note{font-size:.78rem;color:var(--gris);line-height:1.6;margin-top:.9rem;padding:.8rem 1rem;background:var(--cream)}
+.liv-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:2px}
+.field-error{font-size:.78rem;color:#A8261A;line-height:1.5;margin:-.6rem 0 1.2rem}
+.field-error a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 
 /* STRIPE */
 .stripe-block{background:var(--cream-l);border:1px solid var(--cream-d);padding:1.5rem 2rem;margin-bottom:2rem}

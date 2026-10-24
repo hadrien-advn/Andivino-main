@@ -144,7 +144,8 @@ function cleanText(value, maxLength = 120) {
   return String(value || '').trim().slice(0, maxLength);
 }
 
-function normalizeCustomer(raw = {}) {
+// Pas d'adresse pour un retrait en degustation.
+function normalizeCustomer(raw = {}, shippingMode) {
   const customer = {
     prenom: cleanText(raw.prenom, 80),
     nom: cleanText(raw.nom, 80),
@@ -156,7 +157,8 @@ function normalizeCustomer(raw = {}) {
     message: cleanText(raw.message, 600)
   };
 
-  if (!customer.prenom || !customer.nom || !customer.email || !customer.adresse || !customer.cp || !customer.ville) {
+  const needsAddress = shippingMode !== 'degustation';
+  if (!customer.prenom || !customer.nom || !customer.email || (needsAddress && (!customer.adresse || !customer.cp || !customer.ville))) {
     throw new Error('Coordonnees incompletes.');
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customer.email)) {
@@ -229,7 +231,7 @@ function orderFromPaymentIntent(event) {
       firstName,
       lastName,
       email: paymentIntent.receipt_email || metadata.customer_email || null,
-      phone: paymentIntent.shipping?.phone || null,
+      phone: paymentIntent.shipping?.phone || metadata.customer_phone || null,
       message: metadata.customer_message || null
     },
     shipping: {
@@ -307,7 +309,7 @@ app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
       return res.status(503).json({ error: 'Configuration Stripe serveur manquante.' });
     }
 
-    const customer = normalizeCustomer(req.body.customer);
+    const customer = normalizeCustomer(req.body.customer, req.body.shipping);
     const order = buildOrder(req.body.cart, req.body.shipping, customer);
 
     const paymentIntent = await stripe.paymentIntents.create({
@@ -318,21 +320,25 @@ app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
         enabled: true,
         allow_redirects: 'never'
       },
-      shipping: {
-        name: `${customer.prenom} ${customer.nom}`,
-        phone: customer.tel || undefined,
-        address: {
-          line1: customer.adresse,
-          postal_code: customer.cp,
-          city: customer.ville,
-          country: 'FR'
+      // Stripe exige une adresse dans shipping : rien a envoyer pour un retrait.
+      ...(customer.adresse ? {
+        shipping: {
+          name: `${customer.prenom} ${customer.nom}`,
+          phone: customer.tel || undefined,
+          address: {
+            line1: customer.adresse,
+            postal_code: customer.cp,
+            city: customer.ville,
+            country: 'FR'
+          }
         }
-      },
+      } : {}),
       metadata: {
         customer_name: `${customer.prenom} ${customer.nom}`,
         customer_first_name: customer.prenom,
         customer_last_name: customer.nom,
         customer_email: customer.email,
+        ...(customer.tel ? { customer_phone: customer.tel } : {}),
         ...(customer.message ? { customer_message: customer.message.slice(0, 500) } : {}),
         shipping_mode: order.shippingMode,
         bottle_count: String(order.bottleCount),

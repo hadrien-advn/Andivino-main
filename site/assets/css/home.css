@@ -122,6 +122,8 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .vins-hd{text-align:center;margin-bottom:4rem}
 .vins-hd h2{font-family:var(--fd);font-size:clamp(2.3rem,4.5vw,4rem);font-weight:300;color:var(--charbon)}
 .vins-hd h2 em{font-style:italic}
+.vins-note{font-size:.85rem;color:var(--gris);line-height:1.7;max-width:56ch;margin:1.2rem auto 0;text-wrap:pretty}
+.vins-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
 .vins-g{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:1200px;margin:0 auto}
 .wc-badge-slot{height:28px;margin-bottom:.5rem;display:flex;align-items:center}
 .wc-soldout{display:inline-block;background:var(--bdx);color:var(--cream-l);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding:.3rem .85rem}

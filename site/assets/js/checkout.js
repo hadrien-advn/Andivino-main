@@ -124,7 +124,7 @@ function updateCart(){
   if(totalEl)totalEl.textContent=fmtPrix(total)+' €';
   updateShippingPrices();
   updateGrandTotal();
-  document.getElementById('btnCheckout').disabled=false;
+  checkForm();
 }
 
 // ── LIVRAISON ──
@@ -169,23 +169,33 @@ function selectLiv(el) {
   el.classList.add('selected');
   el.setAttribute('aria-checked','true');
   selectedLiv = el.getAttribute('data-mode');
+  updateAddressFields();
   updateGrandTotal();
   resetPaymentElement();
 }
-SUSPENDED_SHIPPING.forEach(function(mode) {
-  var el = document.querySelector('.liv-opt[data-mode="' + mode + '"]');
-  if (!el) return;
+function disableLiv(el) {
   el.classList.add('disabled');
   el.setAttribute('aria-disabled', 'true');
   el.tabIndex = -1;
-  var badge = el.querySelector('.liv-badge');
-  if (badge) {
-    badge.classList.add('contact');
-    badge.innerHTML = 'Merci de contacter <a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a>';
-  }
-  var desc = el.querySelector('.liv-desc');
-  if (desc) desc.textContent = 'Momentanément suspendu : choisissez le retrait en dégustation ou la remise en main propre.';
+}
+// Modes suspendus : retirés de la liste, une seule ligne renvoie vers l'email.
+SUSPENDED_SHIPPING.forEach(function(mode) {
+  var el = document.querySelector('.liv-opt[data-mode="' + mode + '"]');
+  if (el) el.hidden = true;
 });
+if (SUSPENDED_SHIPPING.length) document.getElementById('shipSuspendedNote').hidden = false;
+// Retrait : seulement s'il existe une vraie dégustation à venir, dont on affiche la date.
+(function() {
+  var el = document.getElementById('livDegustation');
+  var desc = document.getElementById('livDegustationDesc');
+  var next = (window.andivinoUpcomingDegustations ? window.andivinoUpcomingDegustations() : [])[0];
+  if (next) {
+    desc.textContent = 'Prochaine dégustation : ' + window.andivinoFmtDateLong(next.date) + ', ' + next.lieu + '. Vous récupérez vos bouteilles sur place.';
+  } else {
+    disableLiv(el);
+    desc.textContent = "Aucune dégustation n'est programmée pour l'instant. Les dates sont annoncées sur la page d'accueil et sur Instagram.";
+  }
+})();
 document.querySelectorAll('.liv-opt').forEach(function(el){
   el.addEventListener('click', function(){ selectLiv(el); });
   el.addEventListener('keydown', function(e){
@@ -213,49 +223,54 @@ function updateGrandTotal() {
   if (noteEl)  noteEl.textContent  = ship === null ? 'Sélectionnez un mode de livraison.' : '';
 }
 
-// IDF detection on postal code change
-document.addEventListener('DOMContentLoaded', function() {
-  var cpInput = document.getElementById('f-cp');
-  if (cpInput) {
-    cpInput.addEventListener('input', function() {
-      var cp = this.value.trim();
-      var idfDepts = ['75','92','93','94'];
-      var isIDF = idfDepts.some(function(d){ return cp.startsWith(d); });
-      var livIDF  = document.getElementById('livIDF');
-      var idfNote = document.getElementById('idfNote');
-      if (livIDF) {
-        livIDF.classList.toggle('disabled', !isIDF);
-        livIDF.setAttribute('aria-disabled', String(!isIDF));
-        livIDF.tabIndex = isIDF ? 0 : -1;
-      }
-      if (idfNote) idfNote.classList.toggle('visible', cp.length >= 2 && !isIDF);
-      // Si IDF désactivé et c'est le mode sélectionné, deselect
-      if (!isIDF && selectedLiv === 'main-propre') {
-        document.querySelectorAll('.liv-opt').forEach(function(o){ o.classList.remove('selected'); o.setAttribute('aria-checked','false'); });
-        selectedLiv = null;
-        updateGrandTotal();
-        checkForm();
-      }
-    });
+// ── COORDONNÉES ──
+var IDF_CP = /^(75|92|93|94)\d{3}$/;
+function needsAddress() { return selectedLiv !== 'degustation'; }
+function requiredFieldIds() {
+  return ['f-prenom','f-nom','f-email'].concat(needsAddress() ? ['f-adresse','f-cp','f-ville'] : []);
+}
+// Pas d'adresse pour un retrait en dégustation.
+function updateAddressFields() {
+  var wrap = document.getElementById('addrFields');
+  wrap.hidden = !needsAddress();
+  ['f-adresse','f-cp','f-ville'].forEach(function(id){ document.getElementById(id).required = needsAddress(); });
+  updateCpError();
+}
+function cpProblem() {
+  if (!needsAddress()) return '';
+  var cp = document.getElementById('f-cp').value.trim();
+  if (cp.length < 5) return '';
+  if (!/^\d{5}$/.test(cp)) return 'Le code postal compte 5 chiffres.';
+  if (selectedLiv === 'main-propre' && !IDF_CP.test(cp)) {
+    return 'La remise en main propre est réservée à Paris (75) et à la petite couronne (92, 93, 94). Hors Île-de-France, écrivez-nous à <a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a>.';
   }
-  updateShippingPrices();
-});
+  return '';
+}
+function updateCpError() {
+  var el = document.getElementById('cpError');
+  var msg = cpProblem();
+  el.innerHTML = msg;
+  el.hidden = !msg;
+  document.getElementById('f-cp').setAttribute('aria-invalid', String(!!msg));
+}
 
 // ── FORM VALIDATION ──
 ['f-prenom','f-nom','f-email','f-adresse','f-cp','f-ville'].forEach(id=>{
   const el=document.getElementById(id);if(!el)return;
   el.addEventListener('input',checkForm);
 });
+document.getElementById('f-cp').addEventListener('input', updateCpError);
 function checkForm(){
   document.getElementById('btnCheckout').disabled=!isCheckoutReady();
 }
 function isCheckoutReady(){
-  const ok=['f-prenom','f-nom','f-email','f-adresse','f-cp','f-ville'].every(id=>{
+  const ok=requiredFieldIds().every(id=>{
     const el=document.getElementById(id);return el&&el.value.trim().length>0;
   });
   const hasItems=getCart().length>0;
   const hasLiv=selectedLiv!==null;
-  return ok&&hasItems&&hasLiv;
+  const cpOk=!needsAddress()||(/^\d{5}$/.test(document.getElementById('f-cp').value.trim())&&!cpProblem());
+  return ok&&hasItems&&hasLiv&&cpOk;
 }
 
 // ── STRIPE PAYMENT ELEMENT ──
@@ -290,14 +305,15 @@ function resetPaymentElement() {
 }
 
 function collectCustomer() {
+  var withAddress = needsAddress();
   return {
     prenom:  document.getElementById('f-prenom').value.trim(),
     nom:     document.getElementById('f-nom').value.trim(),
     email:   document.getElementById('f-email').value.trim(),
     tel:     document.getElementById('f-tel').value.trim(),
-    adresse: document.getElementById('f-adresse').value.trim(),
-    cp:      document.getElementById('f-cp').value.trim(),
-    ville:   document.getElementById('f-ville').value.trim(),
+    adresse: withAddress ? document.getElementById('f-adresse').value.trim() : '',
+    cp:      withAddress ? document.getElementById('f-cp').value.trim() : '',
+    ville:   withAddress ? document.getElementById('f-ville').value.trim() : '',
     message: document.getElementById('f-message').value.trim()
   };
 }
@@ -320,7 +336,7 @@ async function preparePayment() {
   var customer = collectCustomer();
   if (!cart.length) throw new Error('Panier vide.');
   if (!selectedLiv) throw new Error('Choisissez un mode de livraison.');
-  if (!customer.prenom || !customer.nom || !customer.email || !customer.adresse || !customer.cp || !customer.ville) {
+  if (!isCheckoutReady()) {
     throw new Error('Remplissez les champs obligatoires.');
   }
 
@@ -392,6 +408,7 @@ async function confirmEmbeddedPayment() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  updateShippingPrices();
   renderProducts();
   checkForm();
 });
