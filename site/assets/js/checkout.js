@@ -59,7 +59,9 @@ function renderProducts(){
     history.replaceState(null,'',location.pathname);
   }
   const list=document.getElementById('prodList');if(!list)return;
-  list.innerHTML=wines.map(w=>{
+  // Les cuvées déjà choisies (depuis une fiche vin, par exemple) passent en tête.
+  const ordered=wines.slice().sort((a,b)=>(QTY[b.id]>0)-(QTY[a.id]>0));
+  list.innerHTML=ordered.map(w=>{
     const p=calcPrix(w);const hr=w.reduction>0;const qty=QTY[w.id]||0;
     return `<div class="prod-item" id="pi-${w.id}">
       <div class="prod-bottle">${bottleSVG(w.id,100)}</div>
@@ -231,6 +233,8 @@ function updateGrandTotal() {
 
 // ── COORDONNÉES ──
 var IDF_CP = /^(75|92|93|94)\d{3}$/;
+// Même règle que le serveur (normalizeCustomer).
+var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 function needsAddress() { return selectedLiv !== 'degustation'; }
 function requiredFieldIds() {
   return ['f-prenom','f-nom','f-email'].concat(needsAddress() ? ['f-adresse','f-cp','f-ville'] : []);
@@ -248,7 +252,7 @@ function cpProblem() {
   if (cp.length < 5) return '';
   if (!/^\d{5}$/.test(cp)) return 'Le code postal compte 5 chiffres.';
   if (selectedLiv === 'main-propre' && !IDF_CP.test(cp)) {
-    return 'La remise en main propre est réservée à Paris (75) et à la petite couronne (92, 93, 94). Hors Île-de-France, écrivez-nous à <a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a>.';
+    return 'La remise en main propre est réservée à Paris (75) et à la petite couronne (92, 93, 94). Ailleurs, écrivez-nous à <a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a>.';
   }
   return '';
 }
@@ -279,8 +283,11 @@ function missingForCheckout(){
   requiredFieldIds().forEach(id=>{
     if(!document.getElementById(id).value.trim())missing.push(FIELD_LABELS[id]);
   });
+  const email=document.getElementById('f-email').value.trim();
+  if(email&&!EMAIL_RE.test(email))missing.push('un email complet (exemple : prenom@domaine.fr)');
   const cp=document.getElementById('f-cp').value.trim();
-  if(needsAddress()&&cp&&(!/^\d{5}$/.test(cp)||cpProblem()))missing.push('un code postal valide');
+  if(needsAddress()&&cp&&!/^\d{5}$/.test(cp))missing.push('un code postal à 5 chiffres');
+  else if(needsAddress()&&cpProblem())missing.push('un code postal desservi (75, 92, 93, 94)');
   return missing;
 }
 function updateCheckoutHint(){
@@ -296,8 +303,31 @@ function isCheckoutReady(){
   const hasItems=getCart().length>0;
   const hasLiv=selectedLiv!==null;
   const cpOk=!needsAddress()||(/^\d{5}$/.test(document.getElementById('f-cp').value.trim())&&!cpProblem());
-  return ok&&hasItems&&hasLiv&&cpOk;
+  const emailOk=EMAIL_RE.test(document.getElementById('f-email').value.trim());
+  return ok&&hasItems&&hasLiv&&cpOk&&emailOk;
 }
+
+// ── BROUILLON DU FORMULAIRE ──
+// Un rechargement ne doit pas tout effacer : coordonnées et livraison restent le temps de l'onglet.
+var DRAFT_KEY = 'andivino_commande_brouillon';
+var DRAFT_FIELDS = ['f-prenom','f-nom','f-email','f-tel','f-adresse','f-cp','f-ville','f-message'];
+function saveDraft() {
+  var draft = { liv: selectedLiv };
+  DRAFT_FIELDS.forEach(function(id){ draft[id] = document.getElementById(id).value; });
+  try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); } catch (e) {}
+}
+function restoreDraft() {
+  var draft;
+  try { draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null'); } catch (e) { draft = null; }
+  if (!draft) return;
+  DRAFT_FIELDS.forEach(function(id){ if (draft[id]) document.getElementById(id).value = draft[id]; });
+  var opt = draft.liv && document.querySelector('.liv-opt[data-mode="' + draft.liv + '"]');
+  if (opt && !opt.hidden && !opt.classList.contains('disabled')) selectLiv(opt);
+  updateCpError();
+}
+DRAFT_FIELDS.forEach(function(id){ document.getElementById(id).addEventListener('input', saveDraft); });
+document.getElementById('livOptions').addEventListener('click', saveDraft);
+document.getElementById('livOptions').addEventListener('keydown', function(){ setTimeout(saveDraft, 0); });
 
 // ── STRIPE PAYMENT ELEMENT ──
 var API_BASE_URL = ((window.ANDIVINO_CONFIG || {}).apiBaseUrl || '').replace(/\/+$/, '');
@@ -446,12 +476,14 @@ async function confirmEmbeddedPayment() {
 
   if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
     saveCart([]);
+    try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {}
     window.location.href = '/paiement/success?payment_intent=' + encodeURIComponent(result.paymentIntent.id);
     return;
   }
 
   if (result.paymentIntent && result.paymentIntent.status === 'processing') {
     saveCart([]);
+    try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {}
     window.location.href = '/paiement/success?payment_intent=' + encodeURIComponent(result.paymentIntent.id);
     return;
   }
@@ -461,6 +493,7 @@ async function confirmEmbeddedPayment() {
 
 document.addEventListener('DOMContentLoaded', function() {
   updateShippingPrices();
+  restoreDraft();
   renderProducts();
   checkForm();
 });

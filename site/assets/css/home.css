@@ -43,9 +43,6 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 @media(max-width:700px){.hero-bg{background-image:url('../images/andes-vignes-hero-1000.jpg');background-position:62% 50%}}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(20,16,12,.58) 0%,rgba(20,16,12,.28) 58%,rgba(20,16,12,.04) 100%),linear-gradient(to top,rgba(20,16,12,.68) 0%,transparent 55%)}
 .hero-c{position:relative;z-index:2;max-width:680px}
-.hero-ey{display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem}
-.hero-ey-line{width:28px;height:1px;background:var(--or)}
-.hero-ey span{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--or)}
 .hero h1{font-family:var(--fd);font-size:clamp(3rem,6vw,5.5rem);font-weight:300;color:var(--cream-l);line-height:1.04;margin-bottom:1.4rem}
 .hero h1 em{font-style:italic;display:block}
 .hero h1 strong{font-weight:500;display:block}
@@ -194,6 +191,8 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .btn-or:hover{background:var(--or);color:var(--charbon)}
 .btn-or.disabled{opacity:.4;cursor:default}
 .btn-or.disabled:hover{background:none;color:var(--or)}
+.deg-note{font-size:.85rem;line-height:1.7;color:rgba(250,246,241,.75);margin:0 0 1.2rem}
+.deg-note a{color:var(--or-l);text-decoration:underline;text-underline-offset:3px}
 .deg-empty{text-align:center;padding:3rem 1.5rem;border:1px solid rgba(250,246,241,.12);font-family:var(--fd);font-style:italic;color:rgba(250,246,241,.72);font-size:1.15rem;line-height:1.5}
 .deg-empty small{display:block;margin-top:.7rem;font-family:var(--fb);font-style:normal;font-size:.78rem;color:rgba(250,246,241,.6)}
 .deg-empty a{color:var(--or-l);text-underline-offset:3px}

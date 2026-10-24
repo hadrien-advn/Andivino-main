@@ -54,7 +54,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .art-title{font-family:var(--fd);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;font-style:italic;color:var(--charbon);line-height:1.2;margin-bottom:.8rem}
 .art-meta{font-size:.72rem;color:var(--gris);margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--cream-d)}
 .art-body{font-size:1rem;line-height:1.85;color:var(--gris)}
-.art-body p,.art-body ul{max-width:66ch;text-wrap:pretty}
+.art-body p,.art-body ul{max-width:min(66ch,36em);text-wrap:pretty}
 .art-body p{margin-bottom:1.2rem}
 .art-body strong{color:var(--charbon);font-weight:500}
 .art-body em{font-style:italic;color:var(--bdx)}
@@ -155,7 +155,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .wine-buy .scores-row{margin-bottom:1.6rem}
 .art-body .wine-buy .btn-buy{border:0;display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--cream-l);background:var(--bdx);padding:1rem 1.8rem;transition:background var(--e)}
 .art-body .wine-buy .btn-buy:hover{background:var(--bdx-d);color:var(--cream-l)}
-.wine-buy-note{font-size:.72rem;color:var(--gris);margin-top:.8rem;line-height:1.6}
+.wine-buy-note{font-size:.8rem;color:var(--gris);margin-top:.8rem;line-height:1.6}
 .wine-buy-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:2px}
 @media(max-width:600px){
   .m-specs{grid-template-columns:1fr 1fr}

@@ -75,7 +75,7 @@ a.back-link:hover{color:var(--charbon)}
 .cart-shipping-val{font-family:var(--fd);font-size:1.1rem;color:var(--gris)}
 .cart-grand-row{border-top:1px solid var(--cream-d);padding-top:1rem;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.5rem}
 .cart-grand-lbl{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--charbon);font-weight:500}
-.cart-sub{font-size:.72rem;color:var(--gris);margin-bottom:1.5rem;line-height:1.6}
+.cart-sub{font-size:.8rem;color:var(--gris);margin-bottom:1.5rem;line-height:1.6}
 
 /* FORM */
 .form-section{margin-bottom:3rem}
@@ -88,7 +88,7 @@ a.back-link:hover{color:var(--charbon)}
 .form-group input::placeholder,.form-group textarea::placeholder{color:#736B62}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--bdx);box-shadow:0 0 0 3px rgba(110,24,40,.12)}
 .form-group textarea{resize:vertical;min-height:80px}
-.form-note{font-size:.72rem;color:var(--gris);line-height:1.6;margin-top:.5rem}
+.form-note{font-size:.8rem;color:var(--gris);line-height:1.6;margin-top:.5rem}
 .form-note a,.text-link{color:var(--bdx)}
 
 /* LIVRAISON */
@@ -122,7 +122,7 @@ a.back-link:hover{color:var(--charbon)}
 .stripe-block .stripe-hd{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
 .stripe-block .stripe-hd::after{content:'Sécurisé';font-size:.7rem;background:#2D6A4F;color:#fff;padding:.18rem .55rem;border-radius:2px}
 .stripe-copy{font-size:.84rem;color:var(--charbon);line-height:1.65;margin-bottom:.7rem}
-.stripe-note{font-size:.72rem;color:var(--gris);line-height:1.55}
+.stripe-note{font-size:.8rem;color:var(--gris);line-height:1.55}
 .payment-element-wrap{border-top:1px solid var(--cream-d);margin-top:1.2rem;padding-top:1.2rem}
 #card-errors{color:#A8261A;font-size:.8rem;margin-top:.5rem;min-height:1.2em}
 

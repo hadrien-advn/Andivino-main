@@ -116,7 +116,7 @@ function renderDeg(tab='upcoming'){
   const items=degustations.filter(d=>{
     const dt=new Date(d.date);
     return tab==='upcoming'?(dt>=now&&!d.passee):(dt<now||d.passee);
-  }).sort((a,b)=>new Date(a.date)-new Date(b.date));
+  }).sort((a,b)=>tab==='upcoming'?new Date(a.date)-new Date(b.date):new Date(b.date)-new Date(a.date));
   if(!items.length){list.innerHTML=tab==='upcoming'
     ?`<div class="deg-empty">Aucune dégustation programmée pour le moment.<small>Les prochaines dates sont annoncées sur <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer">Instagram</a>.</small></div>`
     :`<div class="deg-empty">Aucun événement passé.</div>`;return;}
@@ -128,6 +128,14 @@ function renderDeg(tab='upcoming'){
       ${tab==='upcoming'?(d.url?`<a href="${d.url}" class="btn-or">S'inscrire</a>`:`<span class="btn-or disabled">Sur invitation</span>`):''}
     </div>`;
   }).join('');
+}
+// Sans date à venir, on montre les dernières dégustations plutôt qu'un onglet vide.
+function initDeg(){
+  const hasUpcoming=(window.andivinoUpcomingDegustations?window.andivinoUpcomingDegustations():[]).length>0;
+  const tab=hasUpcoming?'upcoming':'past';
+  document.querySelectorAll('.dtab').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));});
+  const note=document.getElementById('degNote');if(note)note.hidden=hasUpcoming;
+  renderDeg(tab);
 }
 document.querySelectorAll('.dtab').forEach(b=>{
   b.addEventListener('click', function(){
@@ -171,46 +179,65 @@ function createMobileMenu(){
   const div=document.createElement('div');
   div.className='nav-mobile';
   div.id='navMobile';
-  div.style.display='none';
+  div.setAttribute('role','dialog');
+  div.setAttribute('aria-modal','true');
+  div.setAttribute('aria-label','Menu');
   div.innerHTML=`<ul>
     <li><a href="#philosophie">Notre histoire</a></li>
-    <li><a href="#bodega">La Bodega</a></li>
     <li><a href="#vins">Les vins</a></li>
+    <li><a href="#bodega">La Bodega</a></li>
     <li><a href="#degustations">Dégustations</a></li>
     <li><a href="#chroniques">Chroniques</a></li>
     <li><a href="/commande" class="nav-mobile-cta">Commander</a></li>
   </ul>`;
   document.body.appendChild(div);
   navMobile=div;
-  div.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileMenu));
+  burgerBtn.setAttribute('aria-controls','navMobile');
+  // Le défilement vers l'ancre est fait à la main : le navigateur l'ignore quand le menu se ferme
+  // pendant le clic.
+  div.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
+    closeMobileMenu(false);
+    const id=a.getAttribute('href');
+    if(!id.startsWith('#'))return;
+    const target=document.querySelector(id);if(!target)return;
+    e.preventDefault();
+    history.pushState(null,'',id);
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+  }));
 }
 
-function closeMobileMenu(){
-  if(!navMobile||!burgerBtn)return;
-  navMobile.style.display='none';
+function isMobileMenuOpen(){return !!navMobile&&navMobile.classList.contains('open');}
+
+// La feuille de style masque le menu en !important : seule la classe .open l'affiche.
+function closeMobileMenu(returnFocus){
+  if(!isMobileMenuOpen())return;
+  navMobile.classList.remove('open');
   burgerBtn.classList.remove('open');
   burgerBtn.setAttribute('aria-expanded','false');
+  burgerBtn.setAttribute('aria-label','Menu');
   document.body.style.overflow='';
+  if(returnFocus)burgerBtn.focus();
+}
+
+function openMobileMenu(){
+  if(!navMobile)createMobileMenu();
+  navMobile.classList.add('open');
+  burgerBtn.classList.add('open');
+  burgerBtn.setAttribute('aria-expanded','true');
+  burgerBtn.setAttribute('aria-label','Fermer le menu');
+  document.body.style.overflow='hidden';
+  navMobile.querySelector('a').focus();
 }
 
 if(burgerBtn){
-  burgerBtn.addEventListener('click',()=>{
-    if(!navMobile)createMobileMenu();
-    const isOpen=navMobile.style.display==='flex';
-    if(isOpen){closeMobileMenu();}
-    else{
-      navMobile.style.display='flex';
-      burgerBtn.classList.add('open');
-      burgerBtn.setAttribute('aria-expanded','true');
-      document.body.style.overflow='hidden';
-    }
-  });
-  window.addEventListener('resize',()=>{if(window.innerWidth>600)closeMobileMenu();});
+  burgerBtn.addEventListener('click',()=>{isMobileMenuOpen()?closeMobileMenu(false):openMobileMenu();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileMenu(true);});
+  window.addEventListener('resize',()=>{if(window.innerWidth>600)closeMobileMenu(false);});
 }
 
 /* ── INIT ── */
 renderWines();
-renderDeg('upcoming');
+initDeg();
 observeFade();
 
 /* ── MORE LISTENERS ── */

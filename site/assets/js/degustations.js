@@ -25,9 +25,9 @@
     var next = upcomingDegustations()[0];
     var contact = '<a href="mailto:hadrien@andivino.fr">écrivez-nous</a>';
     if (next) {
-      return 'Retrait gratuit à notre dégustation du ' + fmtDateLong(next.date) + ' (' + next.lieu + ') ou remise en main propre à Paris et petite couronne. Expédition hors Île-de-France suspendue pour l\'instant : ' + contact + '.';
+      return 'Retrait gratuit à notre dégustation du ' + fmtDateLong(next.date) + ' (' + next.lieu + ') ou remise en main propre à Paris et petite couronne. Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
     }
-    return 'Remise en main propre à Paris et petite couronne. Expédition hors Île-de-France suspendue pour l\'instant : ' + contact + '.';
+    return 'Remise en main propre à Paris et petite couronne. Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
   }
 
   if (typeof module === 'object' && module.exports) {
