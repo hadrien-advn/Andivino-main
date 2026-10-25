@@ -357,3 +357,12 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .b2b-in{gap:1.5rem;padding:0 1.2rem}
   .b2b-t h2{font-size:1.6rem}
 }
+/* NAV — petits téléphones */
+@media(max-width:380px){
+  .nl{gap:.55rem}
+  .nav-logo-mark{height:30px}
+  .nav-logo-text{height:14px}
+  .nright{gap:.45rem}
+  .nav-cta{padding:.6rem .8rem;letter-spacing:.12em}
+}
+@media(max-width:340px){.nav-logo-text{display:none}}
