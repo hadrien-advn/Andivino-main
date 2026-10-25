@@ -2,6 +2,10 @@
 ::selection{background:rgba(110,24,40,.16);color:inherit}
 html{accent-color:#6E1828;caret-color:#6E1828}
 :focus-visible{outline:2px solid #6E1828;outline-offset:3px}
+/* Défilement amorti (smooth-scroll.js) : Lenis pilote seul le glissé */
+html.lenis{scroll-behavior:auto!important}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth iframe{pointer-events:none}
 .s-b2b :focus-visible,footer :focus-visible{outline-color:#D9BC74}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto!important}

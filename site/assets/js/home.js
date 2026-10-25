@@ -200,7 +200,9 @@ function createMobileMenu(){
     const target=document.querySelector(id);if(!target)return;
     e.preventDefault();
     history.pushState(null,'',id);
-    target.scrollIntoView({behavior:'smooth',block:'start'});
+    // Une frame plus tard : Lenis redémarre à la fermeture du menu et annulerait un glissé lancé avant
+    if(window.lenis)requestAnimationFrame(()=>window.lenis.scrollTo(target));
+    else target.scrollIntoView({behavior:'smooth',block:'start'});
   }));
 }
 
