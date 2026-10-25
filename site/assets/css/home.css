@@ -77,10 +77,6 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .philo-img{position:relative;overflow:hidden;aspect-ratio:4/5;border-radius:2px}
 .philo-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
 .philo-img:hover img{transform:scale(1.03)}
-.philo-team{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:1.4rem 2.6rem;margin-top:2.2rem;padding-top:1.8rem;border-top:1px solid var(--cream-d)}
-.philo-team li{display:flex;flex-direction:column;align-items:center;gap:.7rem}
-.philo-av{width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--cream-d);flex-shrink:0}
-.philo-nm{font-family:var(--fd);font-style:italic;font-size:1.3rem;line-height:1.1;color:var(--charbon)}
 .philo-pillars{display:grid;grid-template-columns:1fr 1fr;gap:6rem;margin-top:5rem;padding-top:3.5rem;border-top:1px solid var(--cream-d)}
 .philo-pillars h3{font-family:var(--fd);font-size:1.5rem;font-weight:300;line-height:1.15;color:var(--charbon);margin-bottom:1rem}
 .philo-pillars p{font-size:.9rem;line-height:1.9;color:var(--gris)}
@@ -329,10 +325,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 
   /* PHILOSOPHIE */
   .philo-img{aspect-ratio:3/2}
-  .philo-team{gap:1.2rem 1rem;justify-content:space-between}
-  .philo-av{width:88px;height:88px}
   .philo-pillars{grid-template-columns:1fr;gap:2.5rem;margin-top:3.5rem;padding-top:2.5rem}
-
 
   /* BODEGA */
   .bodega-facts{grid-template-columns:1fr 1fr}
