@@ -23,12 +23,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 4
 
 /* ── Mise en page : le message à gauche, le bon de commande à droite ── */
 .conf{
-  flex:1;width:100%;max-width:1160px;margin:0 auto;padding:6.5rem 4rem 7.5rem;
-  display:grid;grid-template-columns:minmax(0,1fr);row-gap:3.5rem;align-content:start;
+  flex:1;width:100%;max-width:1160px;margin:0 auto;padding:3rem 4rem 5rem;
+  display:grid;grid-template-columns:minmax(0,1fr);row-gap:1.8rem;align-content:start;
 }
 .conf>*{max-width:36rem}
 .conf.has-bon{
-  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:6rem;
+  grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);column-gap:4.5rem;
   grid-template-areas:"head bon" "suite bon" "actions bon";grid-template-rows:auto auto 1fr;
 }
 .has-bon .conf-head{grid-area:head}
@@ -36,17 +36,17 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 4
 .has-bon .conf-actions{grid-area:actions;align-self:start}
 .has-bon .bon{grid-area:bon;align-self:start}
 
-h1{font-family:var(--fd);font-size:clamp(2.6rem,5vw,4.2rem);font-weight:300;color:var(--charbon);line-height:1.06;letter-spacing:-.01em;margin-bottom:1.6rem;text-wrap:balance}
+h1{font-family:var(--fd);font-size:clamp(2.6rem,4.4vw,3.8rem);font-weight:300;color:var(--charbon);line-height:1.06;letter-spacing:-.01em;margin-bottom:.9rem;text-wrap:balance}
 h1 em{font-style:italic;color:var(--bdx)}
-.lead{font-size:1rem;font-weight:300;color:var(--charbon);line-height:1.85;max-width:34rem}
+.lead{font-size:1rem;font-weight:300;color:var(--charbon);line-height:1.75;max-width:38rem}
 .lead strong{font-weight:500;overflow-wrap:anywhere}
 .text-link{color:var(--bdx);text-underline-offset:.2em;text-decoration-thickness:1px}
 .text-link:hover{color:var(--bdx-d)}
 
 /* ── La suite ── */
-.suite h2{font-family:var(--fd);font-size:1.6rem;font-weight:400;color:var(--charbon);line-height:1.1;margin-bottom:1.6rem}
+.suite h2{font-family:var(--fd);font-size:1.6rem;font-weight:400;color:var(--charbon);line-height:1.1;margin-bottom:1.2rem}
 .suite-steps{list-style:none;position:relative}
-.suite-steps li{position:relative;display:grid;grid-template-columns:1.5rem 1fr;column-gap:1.1rem;padding-bottom:1.5rem}
+.suite-steps li{position:relative;display:grid;grid-template-columns:1.5rem 1fr;column-gap:1.1rem;padding-bottom:.85rem}
 .suite-steps li:last-child{padding-bottom:0}
 /* Filet d'or qui relie les étapes */
 .suite-steps li:not(:last-child)::before{content:'';position:absolute;left:calc(.75rem - .5px);top:1.55rem;bottom:.1rem;width:1px;background:rgba(196,164,74,.55)}
@@ -54,50 +54,50 @@ h1 em{font-style:italic;color:var(--bdx)}
 .is-done .suite-mark{background:var(--green);border-color:var(--green)}
 .suite-mark svg{width:.75rem;height:.75rem;fill:none;stroke:var(--cream-l);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .suite-steps strong{display:block;font-size:.88rem;font-weight:500;color:var(--charbon);line-height:1.6}
-.suite-steps p{font-size:.88rem;color:var(--gris);line-height:1.75;margin-top:.15rem}
-.suite-help{font-size:.85rem;color:var(--gris);margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid var(--cream-d)}
+.suite-steps p{font-size:.88rem;color:var(--gris);line-height:1.65;margin-top:.1rem}
+.suite-help{font-size:.85rem;color:var(--gris);margin-top:1.2rem}
 
 /* ── Actions ── */
-.conf-actions{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-p{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);padding:.95rem 2rem;text-decoration:none;display:inline-block;transition:background var(--e)}
+.conf-actions{display:flex;align-items:center;gap:.8rem 1.6rem;flex-wrap:wrap}
+.btn-p{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);padding:.95rem 1.6rem;text-decoration:none;display:inline-block;transition:background var(--e)}
 .btn-p:hover{background:var(--bdx-d)}
-.btn-o{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--charbon);background:transparent;border:1px solid var(--gris-l);padding:calc(.95rem - 1px) 2rem;text-decoration:none;display:inline-block;transition:border-color var(--e),color var(--e)}
-.btn-o:hover{border-color:var(--bdx);color:var(--bdx)}
+.btn-l{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--charbon);padding:.95rem .4rem;text-decoration:underline;text-decoration-color:var(--gris-l);text-underline-offset:.5em;display:inline-block;transition:color var(--e),text-decoration-color var(--e)}
+.btn-l:hover{color:var(--bdx);text-decoration-color:var(--bdx)}
 
 /* ── Bon de commande : une étiquette, papier crème et filet d'or ── */
 .bon{
   position:relative;max-width:none;background:var(--cream-l);border:1px solid var(--cream-d);
-  padding:2.8rem 2.6rem 2.4rem;font-variant-numeric:lining-nums tabular-nums;
+  padding:1.8rem 2.4rem 1.5rem;font-variant-numeric:lining-nums tabular-nums;
 }
 .bon::before{content:'';position:absolute;inset:9px;border:1px solid rgba(196,164,74,.5);pointer-events:none}
-.bon-head{text-align:center;padding-bottom:1.8rem;margin-bottom:.4rem;border-bottom:1px solid var(--cream-d)}
-.bon-mark{height:44px;width:auto;display:block;margin:0 auto 1.1rem}
+.bon-head{text-align:center;padding-bottom:1rem;margin-bottom:.2rem;border-bottom:1px solid var(--cream-d)}
+.bon-mark{height:30px;width:auto;display:block;margin:0 auto .6rem}
 .bon h2{font-family:var(--fb);font-size:.75rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--charbon)}
 .bon-ref{font-size:.7rem;letter-spacing:.06em;color:var(--gris);margin-top:.55rem;overflow-wrap:anywhere}
 .bon-ref span{color:var(--charbon)}
 .bon-lines{list-style:none}
-.bon-line{display:grid;grid-template-columns:2.4rem 1fr auto;column-gap:1.1rem;align-items:center;padding:1.1rem 0;border-bottom:1px solid var(--cream-d)}
-.bon-bottle{height:4.6rem;display:flex;align-items:flex-end;justify-content:center}
+.bon-line{display:grid;grid-template-columns:2.4rem 1fr auto;column-gap:1.1rem;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--cream-d)}
+.bon-bottle{height:3.2rem;display:flex;align-items:flex-end;justify-content:center}
 .bon-bottle img{height:100%;width:auto;display:block}
 .bon-wine{display:flex;flex-direction:column;min-width:0}
 .bon-name{font-family:var(--fd);font-style:italic;font-size:1.3rem;font-weight:400;color:var(--charbon);line-height:1.15}
 .bon-meta{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-top:.35rem}
 .bon-amount{font-family:var(--fd);font-size:1.3rem;color:var(--charbon);white-space:nowrap}
-.bon-totals{padding-top:1.2rem}
-.bon-totals div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.3rem 0}
+.bon-totals{padding-top:.8rem}
+.bon-totals div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.2rem 0}
 .bon-totals dt{font-size:.85rem;color:var(--gris)}
 .bon-totals dd{font-family:var(--fd);font-size:1.2rem;color:var(--charbon);white-space:nowrap}
 .bon-totals dd.is-free{font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
-.bon-totals .bon-total{margin-top:.8rem;padding-top:1rem;border-top:1px solid var(--cream-d)}
+.bon-totals .bon-total{margin-top:.6rem;padding-top:.8rem;border-top:1px solid var(--cream-d)}
 .bon-total dt{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--charbon)}
 .bon-total dd{font-size:2rem;line-height:1}
-.bon-foot{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-align:center;margin-top:1.8rem}
+.bon-foot{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-align:center;margin-top:1rem}
 
 /* Le bon se déroule comme une étiquette qu'on imprime ; son en-tête est visible d'emblée */
 @media (prefers-reduced-motion:no-preference){
   .bon:not([hidden]){animation:bon-print 1.2s var(--out) .1s both}
   @keyframes bon-print{
-    from{clip-path:inset(0 0 calc(100% - 9.5rem) 0)}
+    from{clip-path:inset(0 0 calc(100% - 6.5rem) 0)}
     to{clip-path:inset(0 0 0 0)}
   }
 }
@@ -111,12 +111,12 @@ h1 em{font-style:italic;color:var(--bdx)}
   nav{padding:1rem 1.2rem}
   .conf{padding:3rem 1.2rem 4.5rem;row-gap:2.6rem}
   h1{margin-bottom:1.2rem}
-  .bon{padding:2.2rem 1.5rem 1.9rem}
+  .bon{padding:1.9rem 1.5rem 1.6rem}
   .bon::before{inset:6px}
   .bon-line{grid-template-columns:2rem 1fr auto;column-gap:.9rem}
-  .bon-bottle{height:4rem}
+  .bon-bottle{height:3.4rem}
   .bon-name{font-size:1.15rem}
   .bon-amount{font-size:1.15rem}
-  .conf-actions{flex-direction:column}
-  .btn-p,.btn-o{text-align:center}
+  .conf-actions{flex-direction:column;align-items:stretch}
+  .btn-p,.btn-l{text-align:center}
 }
