@@ -7,9 +7,9 @@ const WINE_PAGES={'clos-2017':{slug:'mendoza/lujan-de-cuyo/clos-des-andes-2017',
 // Notes critiques publiées (voir les fiches) : seules les vraies, jamais inventées.
 const SCORES={'poesia-2014':{pts:94,source:'Wine Advocate'}};
 const DEF={wines:[
-  {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:21.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'100% Malbec — Vendanges manuelles',superficie:'2 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre s'étirent vers une finale douce et veloutée, gagnant en finesse à l'aération."},
-  {id:'helene-2016',nom:'Poésía — Cuvée Hélène',millesime:2016,prix:35.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60% Malbec — 40% Cabernet Sauvignon',superficie:'1 ha planté en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'16 à 18 mois',garde:'25 ans',dispo:true,description:"D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La finale, longue et persistante, repose sur des tanins nobles et harmonieux — un vin d'une grande élégance et profondeur."},
-  {id:'poesia-2014',nom:'Poésía',millesime:2014,prix:44.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60% Malbec — 40% Cabernet Sauvignon',superficie:'13 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'18 à 24 mois',garde:'25 ans',dispo:true,description:"Poésía s'exprime avec distinction et profondeur à travers une robe rouge rubis intense. Le nez mêle fruits rouges et noirs mûrs à de subtiles notes de pain grillé, café, moka et cèdre. La bouche offre une texture soyeuse et une fraîcheur élégante, avant une finale longue, nette et raffinée."}
+  {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:21.99,reduction:0,bodega:'Bodega Poesía',origine:'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine',appellation:'Luján de Cuyo, Mendoza',cepages:'100\u00a0% Malbec',vendanges:'vendanges manuelles',superficie:'2 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre, généreuses et arrondies, s'étirent avec élégance vers une finale douce et veloutée, gagnant en finesse et en complexité à l'aération."},
+  {id:'helene-2016',nom:'Poésía — Cuvée Hélène',millesime:2016,prix:35.99,reduction:0,bodega:'Bodega Poesía',origine:'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine',appellation:'Luján de Cuyo, Mendoza',cepages:'60\u00a0% Malbec, 40\u00a0% Cabernet Sauvignon',vendanges:'vendanges manuelles',superficie:'1 ha planté en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'16 à 18 mois',garde:'25 ans',dispo:true,description:"D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La bouche séduit par la pureté et la maturité du fruit, sans excès de torréfaction, enrichie de baies noires, d'épices fines et d'un boisé fumé de grande qualité. La finale, longue et persistante, repose sur des tanins nobles et harmonieux. Un vin déjà remarquable, d'une grande élégance et profondeur."},
+  {id:'poesia-2014',nom:'Poésía',millesime:2014,prix:44.99,reduction:0,bodega:'Bodega Poesía',origine:'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine',appellation:'Luján de Cuyo, Mendoza',cepages:'60\u00a0% Malbec, 40\u00a0% Cabernet Sauvignon',vendanges:'vendanges manuelles',superficie:'13 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'18 à 24 mois',garde:'25 ans',dispo:true,description:"Poésía s'exprime avec distinction et profondeur à travers une robe rouge rubis intense. Le nez, raffiné et complexe, mêle fruits rouges et noirs mûrs (framboise, cerise noire, mûre) à de subtiles notes de pain grillé, café, moka et cèdre, complétées par des touches de minéralité, d'épices fines et florales. La bouche offre une texture soyeuse, un équilibre précis et une fraîcheur élégante. Le fruit s'étire sur une trame minérale et des tanins fins et enveloppants, avant une finale longue, nette et raffinée."}
 ],degustations:window.ANDIVINO_DEGUSTATIONS||[],chroniques:[
   {id:'c1',titre:'Mendoza vue de l\'intérieur : comprendre le terroir andin',categorie:'Terroir',date:'2025-01-10',resume:'À 900 mètres d\'altitude, entre sol sablo-argileux et sous-sol de graviers, la Bodega Poesía produit des vins d\'une minéralité rare.',contenu:'<p>Le terroir de Mendoza est singulier. À l\'ouest, la Cordillère des Andes agit comme un mur climatique naturel. L\'air y est rare, le ciel intense.</p>'},
   {id:'c2',titre:'Malbec &amp; Cabernet : le grand assemblage argentin',categorie:'Éducation',date:'2025-02-14',resume:'Pourquoi associer le Malbec local au Cabernet bordelais ? La Bodega Poesía révèle sa philosophie d\'assemblage.',contenu:'<p>L\'assemblage Malbec-Cabernet Sauvignon est au cœur de l\'identité de Bodega Poesía.</p>'},
@@ -74,15 +74,28 @@ function renderWines(){
     const soldOutSoon=['helene-2016','poesia-2014'].includes(w.id);
     const href=`/products/${WINE_PAGES[w.id].slug}/`;
     const sc=SCORES[w.id];
+    const lead=firstSentence(w.description);const rest=w.description.slice(lead.length).trim();
     h+=`<article class="cuvee fi${i?' d'+i:''}" data-wine-id="${w.id}">
       <a class="cuvee-shelf" href="${href}" tabindex="-1" aria-hidden="true">${bottleSVG(w.id,260)}</a>
       <div class="cuvee-label">
         <p class="cuvee-mill">${w.millesime}${soldOutSoon?'<span class="cuvee-flag">Bientôt sold out</span>':''}</p>
         <h3 class="cuvee-nm"><a href="${href}">${w.nom}</a></h3>
         ${sc?`<p class="cuvee-score"><span>${sc.pts}</span> pts · ${sc.source}</p>`:''}
-        <p class="cuvee-cep">${w.cepages.split(' — ').map((x,j)=>j&&/^[A-Z]/.test(x)&&!/^[A-Z][a-z]+ [A-Z]/.test(x)?x.charAt(0).toLowerCase()+x.slice(1):x).join(', ')}</p>
+        <p class="cuvee-cep">${w.cepages}, ${w.vendanges}</p>
       </div>
-      <p class="cuvee-desc">${firstSentence(w.description)}</p>
+      <p class="cuvee-desc">${lead}</p>
+      <details class="cuvee-more">
+        <summary>Dégustation et fiche technique</summary>
+        <dl class="cuvee-specs">
+          <div class="wide"><dt>Origine</dt><dd>${w.origine}</dd></div>
+          <div class="wide"><dt>Superficie</dt><dd>${w.superficie}</dd></div>
+          <div><dt>Sol</dt><dd>${w.sol}</dd></div>
+          <div><dt>Cuves</dt><dd>${w.fermentation}</dd></div>
+          <div><dt>Élevage</dt><dd>${w.elevage}</dd></div>
+          <div><dt>Garde</dt><dd>${w.garde}</dd></div>
+        </dl>
+        ${rest?`<p>${rest}</p>`:''}
+      </details>
       <div class="cuvee-buy">
         <p class="cuvee-px">${hr?`<s>${fmtPrix(w.prix)} €</s> `:''}${fmtPrix(p)}&nbsp;€<span>la bouteille</span></p>
         <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">Ajouter</button>
@@ -95,6 +108,11 @@ function renderWines(){
     <p><span class="cuvee-mill">Prochainement</span><span class="cuvee-soon-nm">Nouvelle cuvée</span>Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
   </div>`;
   g.innerHTML=h;
+  // Sur trois colonnes les rangées sont partagées : les fiches s'ouvrent ensemble pour rester alignées.
+  const fiches=[...g.querySelectorAll('.cuvee-more')];
+  fiches.forEach(d=>d.addEventListener('toggle',()=>{
+    if(matchMedia('(min-width:961px)').matches)fiches.forEach(x=>{if(x.open!==d.open)x.open=d.open;});
+  }));
   g.querySelectorAll('[data-add-id]').forEach(btn=>{
     btn.addEventListener('click',(event)=>{
       event.preventDefault();
