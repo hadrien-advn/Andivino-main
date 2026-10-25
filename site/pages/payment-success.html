@@ -26,31 +26,40 @@
   <a href="/" class="back-link">← Retour au site</a>
 </nav>
 
-<main>
-  <div class="card">
-    <div class="icon-wrap">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7"/></svg>
-    </div>
-    <div class="eyebrow">Confirmation</div>
-    <h1>Merci pour <em>votre commande</em></h1>
-    <p class="lead">
-      Votre paiement est confirmé. Un email de confirmation vient de vous être envoyé avec le récapitulatif et la facture.
-    </p>
-    <div class="session" id="sessionRef">Référence : —</div>
+<main class="conf" id="conf">
+  <div class="conf-head">
+    <h1 id="confTitle">Merci pour <em>votre commande</em></h1>
+    <p class="lead" id="confLead">Votre paiement est confirmé. Un email de confirmation vient de vous être envoyé avec le récapitulatif et la facture.</p>
+  </div>
 
-    <div class="steps">
-      <div class="steps-title">Et maintenant ?</div>
-      <ul class="steps-list">
-        <li>Nous préparons soigneusement votre commande dans les 48h ouvrées</li>
-        <li>Vous recevez l'email de suivi dès que le colis est expédié (Colissimo / Mondial Relay) ou la date de retrait pour les autres modes</li>
-        <li>Pour toute question, écrivez-nous à <a href="mailto:contact@andivino.fr" class="text-link">contact@andivino.fr</a></li>
-      </ul>
+  <aside class="bon" id="bon" aria-labelledby="bonTitle" hidden>
+    <div class="bon-head">
+      <img src="/assets/images/logo-ecusson.png" alt="" width="116" height="150" class="bon-mark">
+      <h2 id="bonTitle">Bon de commande</h2>
+      <p class="bon-ref">Référence <span id="bonRef"></span></p>
     </div>
+    <ul class="bon-lines" id="bonLines"></ul>
+    <dl class="bon-totals">
+      <div><dt>Vins</dt><dd id="bonSubtotal"></dd></div>
+      <div><dt id="bonShipLabel">Livraison</dt><dd id="bonShipping"></dd></div>
+      <div class="bon-total"><dt>Total réglé</dt><dd id="bonTotal"></dd></div>
+    </dl>
+    <p class="bon-foot" id="bonDate"></p>
+  </aside>
 
-    <div class="cta-row">
-      <a href="/" class="btn-p">Retour à l'accueil</a>
-      <a href="/chroniques" class="btn-o">Lire les chroniques</a>
-    </div>
+  <section class="suite" aria-labelledby="suiteTitle">
+    <h2 id="suiteTitle">Et maintenant&nbsp;?</h2>
+    <ol class="suite-steps" id="suiteSteps">
+      <li class="is-done"><span class="suite-mark" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><div><strong>Paiement reçu</strong><p>Votre commande est enregistrée.</p></div></li>
+      <li><span class="suite-mark" aria-hidden="true"></span><div><strong>Préparation</strong><p>Nous préparons soigneusement vos bouteilles dans les 48&nbsp;h ouvrées.</p></div></li>
+      <li><span class="suite-mark" aria-hidden="true"></span><div><strong>Expédition ou remise</strong><p>Vous recevez l'email de suivi dès que le colis part (Colissimo, Mondial Relay), ou la date de retrait pour les autres modes.</p></div></li>
+    </ol>
+    <p class="suite-help">Une question sur votre commande&nbsp;? Écrivez-nous à <a href="mailto:contact@andivino.fr" class="text-link">contact@andivino.fr</a>.</p>
+  </section>
+
+  <div class="conf-actions">
+    <a href="/chroniques/accords-mets-vins-malbec-argentin" class="btn-p">Lire nos accords mets-vins</a>
+    <a href="/#degustations" class="btn-o">Les prochaines dégustations</a>
   </div>
 </main>
 

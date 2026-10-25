@@ -331,6 +331,8 @@ var clientSecret = null;
 var paymentReady = false;
 // Coordonnées envoyées à Stripe lors de la préparation, pour savoir s'il faut les mettre à jour.
 var preparedCustomer = null;
+// Montants calculés par le serveur (centimes), repris sur la page de confirmation.
+var preparedOrder = null;
 
 function apiUrl(path) {
   return API_BASE_URL + path;
@@ -350,6 +352,7 @@ function resetPaymentElement() {
     paymentElement = null;
   }
   stripeElements = null;
+  preparedOrder = null;
   var wrap = document.getElementById('paymentWrap');
   if (wrap) wrap.hidden = true;
   preparedCustomer = null;
@@ -410,6 +413,7 @@ async function preparePayment() {
 
   clientSecret = data.clientSecret;
   preparedCustomer = JSON.stringify(customer);
+  preparedOrder = data.order || null;
   stripeElements = stripe.elements({
     clientSecret: clientSecret,
     appearance: {
@@ -452,6 +456,31 @@ async function syncCustomer() {
   preparedCustomer = snapshot;
 }
 
+// Le panier est vidé avant la redirection : la page de confirmation relit la commande ici,
+// le temps de l'onglet, sans rien redemander au serveur.
+var RECEIPT_KEY = 'andivino_derniere_commande';
+function saveReceipt(paymentIntent) {
+  var wines = getData().wines;
+  var customer = collectCustomer();
+  var receipt = {
+    ref: paymentIntent.id,
+    status: paymentIntent.status,
+    paidAt: Date.now(),
+    liv: selectedLiv,
+    prenom: customer.prenom,
+    email: customer.email,
+    ville: customer.ville,
+    lines: getCart().map(function(item) {
+      var w = wines.find(function(x) { return x.id === item.id; }) || {};
+      return { id: item.id, nom: w.nom || item.id, millesime: w.millesime || '', qty: item.qty, amount: Math.round(calcPrix(w) * 100) * item.qty };
+    }),
+    subtotal: preparedOrder ? preparedOrder.subtotal : null,
+    shipping: preparedOrder ? preparedOrder.shippingAmount : null,
+    total: preparedOrder ? preparedOrder.amount : paymentIntent.amount
+  };
+  try { sessionStorage.setItem(RECEIPT_KEY, JSON.stringify(receipt)); } catch (e) {}
+}
+
 async function confirmEmbeddedPayment() {
   await syncCustomer();
   var stripe = await ensureStripe();
@@ -467,14 +496,8 @@ async function confirmEmbeddedPayment() {
     throw new Error(result.error.message || 'Le paiement a echoue.');
   }
 
-  if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
-    saveCart([]);
-    try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {}
-    window.location.href = '/paiement/success?payment_intent=' + encodeURIComponent(result.paymentIntent.id);
-    return;
-  }
-
-  if (result.paymentIntent && result.paymentIntent.status === 'processing') {
+  if (result.paymentIntent && ['succeeded', 'processing'].includes(result.paymentIntent.status)) {
+    saveReceipt(result.paymentIntent);
     saveCart([]);
     try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {}
     window.location.href = '/paiement/success?payment_intent=' + encodeURIComponent(result.paymentIntent.id);
