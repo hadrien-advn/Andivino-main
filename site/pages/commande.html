@@ -45,14 +45,14 @@
 <div class="page-body">
   <!-- LEFT: products + form -->
   <div>
-    <div class="form-section">
-      <h2>Sélection</h2>
+    <div class="form-section" id="stepVins">
+      <h2><span class="sn">1</span>Vos bouteilles</h2>
       <div class="prod-list" id="prodList"></div>
     </div>
 
     <!-- MODE DE LIVRAISON -->
-    <div class="livraison-section">
-      <h2>Mode de livraison</h2>
+    <div class="livraison-section" id="stepLivraison">
+      <h2><span class="sn">2</span>Livraison</h2>
       <div class="liv-options" id="livOptions" role="radiogroup" aria-label="Mode de livraison">
 
         <div class="liv-opt" id="livDegustation" data-mode="degustation" role="radio" aria-checked="false" tabindex="0">
@@ -96,24 +96,22 @@
     </div>
 
     <div class="form-section" id="formSection">
-      <h2>Vos coordonnées</h2>
+      <h2><span class="sn">3</span>Vos coordonnées</h2>
       <div class="form-row">
-        <div class="form-group"><label for="f-prenom">Prénom *</label><input type="text" id="f-prenom" name="prenom" autocomplete="given-name" required placeholder="Gaspard"></div>
-        <div class="form-group"><label for="f-nom">Nom *</label><input type="text" id="f-nom" name="nom" autocomplete="family-name" required placeholder="Dupont"></div>
+        <div class="form-group"><label for="f-prenom">Prénom *</label><input type="text" id="f-prenom" name="prenom" autocomplete="given-name" required></div>
+        <div class="form-group"><label for="f-nom">Nom *</label><input type="text" id="f-nom" name="nom" autocomplete="family-name" required></div>
       </div>
-      <div class="form-row full">
+      <div class="form-row">
         <div class="form-group"><label for="f-email">Email *</label><input type="email" id="f-email" name="email" autocomplete="email" required placeholder="vous@exemple.fr"></div>
-      </div>
-      <div class="form-row full">
-        <div class="form-group"><label for="f-tel">Téléphone</label><input type="tel" id="f-tel" name="tel" autocomplete="tel" placeholder="+33 6 00 00 00 00"></div>
+        <div class="form-group"><label for="f-tel">Téléphone</label><input type="tel" id="f-tel" name="tel" autocomplete="tel" placeholder="06 12 34 56 78"></div>
       </div>
       <div id="addrFields">
         <div class="form-row full">
-          <div class="form-group"><label for="f-adresse">Adresse de livraison *</label><input type="text" id="f-adresse" name="adresse" autocomplete="street-address" required placeholder="12 rue de la Paix"></div>
+          <div class="form-group"><label for="f-adresse">Adresse de livraison *</label><input type="text" id="f-adresse" name="adresse" autocomplete="street-address" required></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label for="f-cp">Code postal *</label><input type="text" id="f-cp" name="cp" autocomplete="postal-code" inputmode="numeric" maxlength="5" required placeholder="75001" aria-describedby="cpError"></div>
-          <div class="form-group"><label for="f-ville">Ville *</label><input type="text" id="f-ville" name="ville" autocomplete="address-level2" required placeholder="Paris"></div>
+          <div class="form-group"><label for="f-cp">Code postal *</label><input type="text" id="f-cp" name="cp" autocomplete="postal-code" inputmode="numeric" maxlength="5" required aria-describedby="cpError"></div>
+          <div class="form-group"><label for="f-ville">Ville *</label><input type="text" id="f-ville" name="ville" autocomplete="address-level2" required></div>
         </div>
         <p class="field-error" id="cpError" aria-live="polite" hidden></p>
       </div>
@@ -124,16 +122,15 @@
     </div>
 
     <!-- STRIPE SECTION -->
-    <div class="form-section">
-      <h2>Paiement</h2>
+    <div class="form-section" id="stepPaiement">
+      <h2><span class="sn">4</span>Paiement</h2>
       <div class="stripe-block">
-        <div class="stripe-hd">Paiement sécurisé par Stripe</div>
-        <p class="stripe-copy">
-          Le paiement s'effectue directement ici via Stripe. Les coordonnées bancaires sont saisies dans un formulaire sécurisé hébergé par Stripe.
-        </p>
-        <p class="stripe-note">
-          Cartes acceptées : Visa, Mastercard, American Express, CB. Vos données bancaires ne transitent jamais par nos serveurs.
-        </p>
+        <div class="stripe-hd">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="1"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+          Paiement sécurisé par Stripe
+        </div>
+        <p class="stripe-copy">Vous saisissez votre carte ici, dans le formulaire sécurisé de Stripe : vos données bancaires ne transitent jamais par nos serveurs.</p>
+        <p class="stripe-note">Visa, Mastercard, American Express, CB.</p>
         <div class="payment-element-wrap" id="paymentWrap" hidden>
           <div id="payment-element"></div>
         </div>
@@ -149,16 +146,13 @@
         Préparer le paiement sécurisé
       </button>
       <p class="checkout-hint" id="checkoutHint" aria-live="polite" hidden></p>
-      <div class="checkout-secure">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        Paiement 100% sécurisé — données chiffrées SSL
-      </div>
     </div>
   </div>
 
   <!-- RIGHT: cart summary -->
-  <div class="cart-box">
-    <h2>Récapitulatif</h2>
+  <aside class="cart-box" aria-labelledby="cartTitle">
+    <img src="/assets/images/logo-ecusson.png" alt="" width="116" height="150" class="cart-mark">
+    <h2 id="cartTitle">Votre commande</h2>
     <div class="cart-lines" id="cartLines">
       <div class="cart-empty-msg">Votre panier est vide</div>
     </div>
@@ -176,7 +170,8 @@
       <span class="cart-total-val" id="cartGrandTotal">0 €</span>
     </div>
     <div class="cart-sub" id="cartSubNote">Sélectionnez un mode de livraison.<br>Minimum de commande : 1 bouteille.</div>
-  </div>
+    <button type="button" class="btn-next" id="btnNext">Continuer</button>
+  </aside>
 </div>
 
 <div id="toast" role="status" aria-live="polite"></div>

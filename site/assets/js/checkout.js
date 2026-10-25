@@ -19,7 +19,7 @@ function showToast(msg){const t=document.getElementById('toast');t.textContent=m
 
 var BOTTLE_IMGS={
   'clos-2017': IMAGE_BASE_URL + 'bout-cda.png',
-  'helene-2016': IMAGE_BASE_URL + 'cuvee-h.png',
+  'helene-2016': IMAGE_BASE_URL + 'cuvee-h-bouteille.png',
   'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.png'
 };
 function bottleSVG(id,h){
@@ -27,7 +27,7 @@ function bottleSVG(id,h){
   // ── Images réelles ──
   var imgs=BOTTLE_IMGS;
   if(imgs[id]){
-    return '<img src="'+imgs[id]+'" alt="'+id+'" height="'+h+'" class="bottle-img">';
+    return '<img src="'+imgs[id]+'" alt="" height="'+h+'" class="bottle-img">';
   }
   var caps={clos2017:'#2A2016',helene2016:'#6E1828',poesia2014:'#C4A44A'};
   var labs={clos2017:'#B89A55',helene2016:'#D4BC7A',poesia2014:'#C4A44A'};
@@ -63,14 +63,14 @@ function renderProducts(){
   const ordered=wines.slice().sort((a,b)=>(QTY[b.id]>0)-(QTY[a.id]>0));
   list.innerHTML=ordered.map(w=>{
     const p=calcPrix(w);const hr=w.reduction>0;const qty=QTY[w.id]||0;
-    return `<div class="prod-item" id="pi-${w.id}">
+    return `<div class="prod-item${qty>0?' is-chosen':''}" id="pi-${w.id}">
       <div class="prod-bottle">${bottleSVG(w.id,100)}</div>
       <div class="prod-info">
         <div class="pv">${w.millesime}${hr?`<span class="badge-promo">-${w.reduction}%</span>`:''}</div>
         <div class="pn">${w.nom}</div>
         <div class="pb">${w.bodega}</div>
         <div class="pd">${w.description}</div>
-        <a class="pf-link" href="/products/${WINE_PAGES[w.id]}/" target="_blank" rel="noopener">Fiche produit détaillée →</a>
+        <a class="pf-link" href="/products/${WINE_PAGES[w.id]}/" target="_blank" rel="noopener">Fiche du vin<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="visually-hidden"> (nouvel onglet)</span></a>
       </div>
       <div class="prod-right">
         <div class="prod-px">
@@ -96,6 +96,7 @@ function changeQty(id,delta){
   QTY[id]=(QTY[id]||0)+delta;
   if(QTY[id]<0)QTY[id]=0;
   document.getElementById('qv-'+id).textContent=QTY[id];
+  document.getElementById('pi-'+id).classList.toggle('is-chosen',QTY[id]>0);
   // save to cart
   const c=[];
   const {wines}=getData();
@@ -121,7 +122,7 @@ function updateCart(){
   lines.innerHTML=c.map(ci=>{
     const w=wines.find(x=>x.id===ci.id);if(!w)return'';
     const p=calcPrix(w);const sub=parseFloat((p*ci.qty).toFixed(2));total+=sub;
-    return `<div class="cart-line"><span>${ci.qty}× <span class="cn">${w.nom}</span></span><span class="cpx">${fmtPrix(sub)} €</span></div>`;
+    return `<div class="cart-line"><span class="cb">${bottleSVG(w.id,52)}</span><span class="ci"><span class="cn">${w.nom}</span><span class="cm">${w.millesime} · ${ci.qty} ${ci.qty>1?'bouteilles':'bouteille'}</span></span><span class="cpx">${fmtPrix(sub)} €</span></div>`;
   }).join('');
   if(totalEl)totalEl.textContent=fmtPrix(total)+' €';
   updateShippingPrices();
@@ -526,8 +527,22 @@ document.getElementById('btnCheckout').addEventListener('click', async function(
     await confirmEmbeddedPayment();
   } catch (err) {
     document.getElementById('card-errors').textContent = err.message;
-    showToast('⚠ ' + err.message);
+    showToast(err.message);
     setCheckoutButton(paymentReady ? 'Payer maintenant' : 'Préparer le paiement sécurisé', false);
   }
 });
 
+
+// Le récapitulatif mène à l'étape suivante : ce qui manque d'abord, sinon le paiement.
+document.getElementById('btnNext').addEventListener('click', function() {
+  var target = null, focus = null;
+  if (!getCart().length) target = document.getElementById('stepVins');
+  else if (selectedLiv === null) { target = document.getElementById('stepLivraison'); focus = document.querySelector('.liv-opt:not([hidden])'); }
+  else {
+    var empty = requiredFieldIds().find(function(id) { return !document.getElementById(id).value.trim(); });
+    if (empty) { focus = document.getElementById(empty); target = focus.closest('.form-group'); }
+    else { target = document.getElementById('stepPaiement'); focus = document.getElementById('btnCheckout'); }
+  }
+  target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+  if (focus) focus.focus({ preventScroll: true });
+});
