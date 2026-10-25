@@ -80,7 +80,6 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .philo-pillars{display:grid;grid-template-columns:1fr 1fr;gap:6rem;margin-top:5rem;padding-top:3.5rem;border-top:1px solid var(--cream-d)}
 .philo-pillars h3{font-family:var(--fd);font-size:1.5rem;font-weight:300;line-height:1.15;color:var(--charbon);margin-bottom:1rem}
 .philo-pillars p{font-size:.9rem;line-height:1.9;color:var(--gris)}
-.philo-cap{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.2rem;background:rgba(250,246,241,.93);font-size:.7rem;font-style:italic;color:var(--charbon);letter-spacing:.03em}
 
 /* ── QUOTE BAND ── */
 
