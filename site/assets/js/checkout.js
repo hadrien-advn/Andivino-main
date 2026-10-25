@@ -246,7 +246,7 @@ function cpProblem() {
   if (cp.length < 5) return '';
   if (!/^\d{5}$/.test(cp)) return 'Le code postal compte 5 chiffres.';
   if (selectedLiv === 'main-propre' && !IDF_CP.test(cp)) {
-    return 'La remise en main propre est réservée à Paris (75) et à la petite couronne (92, 93, 94). Ailleurs, écrivez-nous à <a href="mailto:hadrien@andivino.fr">hadrien@andivino.fr</a>.';
+    return 'La remise en main propre est réservée à Paris (75) et à la petite couronne (92, 93, 94). Ailleurs, écrivez-nous à <a href="mailto:contact@andivino.fr">contact@andivino.fr</a>.';
   }
   return '';
 }

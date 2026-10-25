@@ -31,7 +31,7 @@ Ce qu'un autre importateur ne peut pas copier :
 
 - Parcours type : découverte (dégustation, réseau, recherche) → lecture du récit et des fiches vins → commande sur `/commande` → paiement Stripe intégré → confirmation par email.
 - Modes de livraison : retrait lors d'une dégustation (gratuit), remise en main propre à Paris et petite couronne (75, 92, 93, 94), Colissimo, Mondial Relay.
-- Les professionnels passent par email (hadrien@andivino.fr), hors du tunnel en ligne.
+- Les professionnels passent par email (contact@andivino.fr), hors du tunnel en ligne.
 - Les dégustations sont annoncées sur Instagram ; le site liste les dates à venir et passées.
 - Les chroniques (terroir, éducation, reportage) servent la compréhension et le référencement ; elles sont rédigées par les fondateurs.
 - Un CRM interne séparé (andivino-crm) gère le suivi commercial ; il ne fait pas partie de ce site.

@@ -32,7 +32,7 @@ function shippingAmount(mode, bottleCount, postalCode = '') {
     throw new Error('Mode de livraison invalide.');
   }
   if (SUSPENDED_SHIPPING_MODES.includes(mode)) {
-    throw new Error('La livraison par Colissimo et Mondial Relay est momentanément suspendue. Choisissez la remise en main propre (Paris et petite couronne) ou écrivez-nous à hadrien@andivino.fr.');
+    throw new Error('La livraison par Colissimo et Mondial Relay est momentanément suspendue. Choisissez la remise en main propre (Paris et petite couronne) ou écrivez-nous à contact@andivino.fr.');
   }
 
   if (mode === 'degustation') {
