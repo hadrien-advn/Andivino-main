@@ -1,5 +1,5 @@
 // Dégustations : source unique pour l'accueil, le retrait en dégustation de la commande et le serveur
-// (data/catalog.js). Une dégustation à venir rouvre automatiquement l'option de retrait.
+// (data/catalog.js). La date de la prochaine dégustation s'affiche sur l'option de retrait.
 (function (root) {
   var DEGUSTATIONS = [
     {id:'d1',titre:'Dégustation Poesía — VINO SAPIENS',date:'2026-05-19',heure:'19h00',lieu:'Paris 7e',adresse:'Adresse sur inscription',description:'Dégustation verticale des trois cuvées Bodega Poesía avec Gaspard, Esteban et Hadrien.',passee:true,url:null},
@@ -27,7 +27,7 @@
     if (next) {
       return 'Retrait gratuit à notre dégustation du ' + fmtDateLong(next.date) + ' (' + next.lieu + ') ou remise en main propre à Paris et petite couronne. Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
     }
-    return 'Remise en main propre à Paris et petite couronne. Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
+    return 'Retrait gratuit lors de notre prochaine dégustation ou remise en main propre à Paris et petite couronne. Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
   }
 
   if (typeof module === 'object' && module.exports) {

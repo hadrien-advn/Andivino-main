@@ -1,5 +1,3 @@
-const { upcomingDegustations } = require('../assets/js/degustations.js');
-
 const PRODUCTS = Object.freeze({
   'clos-2017': Object.freeze({
     id: 'clos-2017',
@@ -38,9 +36,6 @@ function shippingAmount(mode, bottleCount, postalCode = '') {
   }
 
   if (mode === 'degustation') {
-    if (!upcomingDegustations().length) {
-      throw new Error("Aucune degustation n'est programmee : le retrait n'est pas disponible pour l'instant.");
-    }
     return 0;
   }
 

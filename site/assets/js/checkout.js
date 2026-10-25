@@ -175,27 +175,20 @@ function selectLiv(el) {
   updateGrandTotal();
   resetPaymentElement();
 }
-function disableLiv(el) {
-  el.classList.add('disabled');
-  el.setAttribute('aria-disabled', 'true');
-  el.tabIndex = -1;
-}
 // Modes suspendus : retirés de la liste, une seule ligne renvoie vers l'email.
 SUSPENDED_SHIPPING.forEach(function(mode) {
   var el = document.querySelector('.liv-opt[data-mode="' + mode + '"]');
   if (el) el.hidden = true;
 });
 if (SUSPENDED_SHIPPING.length) document.getElementById('shipSuspendedNote').hidden = false;
-// Retrait : seulement s'il existe une vraie dégustation à venir, dont on affiche la date.
+// Retrait : toujours proposé ; la date s'affiche dès qu'une dégustation est programmée.
 (function() {
-  var el = document.getElementById('livDegustation');
   var desc = document.getElementById('livDegustationDesc');
   var next = (window.andivinoUpcomingDegustations ? window.andivinoUpcomingDegustations() : [])[0];
   if (next) {
     desc.textContent = 'Prochaine dégustation : ' + window.andivinoFmtDateLong(next.date) + ', ' + next.lieu + '. Vous récupérez vos bouteilles sur place.';
   } else {
-    disableLiv(el);
-    desc.textContent = "Aucune dégustation n'est programmée pour l'instant. Les dates sont annoncées sur la page d'accueil et sur Instagram.";
+    desc.textContent = "Vous récupérez vos bouteilles lors de notre prochaine dégustation. Nous vous écrivons pour la date ; elles sont aussi annoncées sur la page d'accueil et sur Instagram.";
   }
 })();
 document.querySelectorAll('.liv-opt').forEach(function(el){
