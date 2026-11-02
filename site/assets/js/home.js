@@ -90,10 +90,15 @@ function renderWines(){
       </div>
     </article>`;
   });
-  // La prochaine cuvée tient sur une ligne sous l'étagère plutôt que dans une 4e colonne.
+  // Les domaines en cours d'importation ferment l'étagère, de part et d'autre du motif de l'étiquette Poesía.
   h+=`<div class="cuvee-soon fi d3">
-    <svg aria-hidden="true" viewBox="0 0 60 230" width="24" height="92" fill="none"><path d="M24 4h12v58c0 10 14 18 14 40v116c0 5-4 8-8 8H18c-4 0-8-3-8-8V102c0-22 14-30 14-40z" stroke="var(--gris-l)" stroke-width="2" stroke-dasharray="5 5"/></svg>
-    <p><span class="cuvee-mill">Prochainement</span><span class="cuvee-soon-nm">Nouvelle cuvée</span>Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
+    <h3 class="soon-hd">Cuvées en importation</h3>
+    <div class="soon-row">
+      <div class="soon-dom"><img class="soon-logo" src="/assets/images/logo-carmelo-patti.png" alt="Blason de la bodega Carmelo Patti" width="273" height="320" loading="lazy" decoding="async"><p class="soon-tx"><span class="soon-nm">Carmelo Patti</span><span class="soon-reg">Luján de Cuyo</span></p></div>
+      <span class="soon-motif" aria-hidden="true"></span>
+      <div class="soon-dom"><p class="soon-tx"><span class="soon-nm">Gualtallary Wines</span><span class="soon-reg">Valle de Uco</span></p><img class="soon-logo" src="/assets/images/logo-gualtallary.png" alt="Emblème de Gualtallary Wines, feuilles de vigne et grappes dorées" width="363" height="320" loading="lazy" decoding="async"></div>
+    </div>
+    <p class="soon-txt">Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
   </div>`;
   g.innerHTML=h;
   g.querySelectorAll('[data-add-id]').forEach(btn=>{

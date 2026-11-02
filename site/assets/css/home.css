@@ -167,11 +167,16 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .cuvee-px span{display:block;margin-top:.3rem;font-family:var(--fb);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
 .btn-add{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bdx);background:transparent;border:1px solid rgba(110,24,40,.4);min-height:44px;padding:.6rem 1.3rem;white-space:nowrap;flex-shrink:0;cursor:pointer;transition:background var(--e),color var(--e),border-color var(--e)}
 .btn-add:hover{background:var(--bdx);border-color:var(--bdx);color:var(--cream-l)}
-.cuvee-soon{grid-column:1 / -1;grid-row:5;display:flex;align-items:center;gap:1.4rem;margin-top:3.5rem;padding-top:2rem;border-top:1px solid var(--cream-d)}
-.cuvee-soon svg{flex-shrink:0}
-.cuvee-soon p{font-size:.88rem;line-height:1.7;color:var(--gris);display:flex;align-items:baseline;flex-wrap:wrap;column-gap:1rem}
-.cuvee-soon .cuvee-mill{margin:0}
-.cuvee-soon-nm{font-family:var(--fd);font-size:1.35rem;font-style:italic;color:var(--charbon)}
+.cuvee-soon{grid-column:1 / -1;grid-row:5;margin-top:3.5rem;padding-top:3rem;border-top:1px solid var(--cream-d);text-align:center}
+.soon-hd{font-family:var(--fd);font-size:clamp(1.5rem,2.3vw,2rem);font-weight:300;font-style:italic;line-height:1.15;color:var(--charbon);margin-bottom:2rem}
+.soon-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:2.5rem;margin:0 auto}
+.soon-dom{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.soon-tx{flex:1;display:flex;flex-direction:column;align-items:center;gap:.45rem;text-align:center}
+.soon-logo{display:block;width:clamp(112px,10.5vw,150px);height:auto;flex:none}
+.soon-nm{white-space:nowrap;font-family:var(--fd);font-size:clamp(1.45rem,2.1vw,1.75rem);font-weight:400;line-height:1.1;color:var(--charbon)}
+.soon-reg{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.soon-motif{display:block;width:64px;height:72px;background:var(--or);-webkit-mask:url('../images/motif-lys.png') center/contain no-repeat;mask:url('../images/motif-lys.png') center/contain no-repeat}
+.soon-txt{font-size:.88rem;line-height:1.7;color:var(--gris);margin-top:2rem}
 
 /* Écran moyen : bouteilles un peu plus petites pour laisser la place aux étiquettes. */
 @media(max-width:1180px){
@@ -379,3 +384,11 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .nav-cta{padding:.6rem .8rem;letter-spacing:.12em}
 }
 @media(max-width:340px){.nav-logo-text{display:none}}
+@media(max-width:960px){
+  .cuvee-soon{padding-top:2.4rem}
+  .soon-hd{margin-bottom:1.5rem}
+  .soon-row{grid-template-columns:1fr;gap:1.8rem}
+  .soon-dom,.soon-dom:first-child,.soon-dom:last-child{flex-direction:column;justify-content:center;text-align:center;gap:.9rem}
+  .soon-dom .soon-logo{order:-1;width:100px}
+  .soon-motif{margin:0 auto;width:40px;height:45px}
+}

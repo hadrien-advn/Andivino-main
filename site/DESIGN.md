@@ -125,7 +125,7 @@ Une palette de cave : papiers crème chauds, encre bordeaux, filet d'or. Aucun f
 - **Bordeaux Malbec profond** (#521220) : uniquement l'état survol et appuyé des éléments bordeaux.
 
 ### Secondary
-- **Or de Cuyo** (#C4A44A) : l'ornement et la lumière. Filets fins sous la navigation, traits devant les libellés, chiffres des dates de dégustation, boutons secondaires sur fond sombre, titres de colonnes du pied de page, badge « Prochainement ». Toujours sur fond sombre ou en filet ; jamais en texte courant sur crème (contraste insuffisant).
+- **Or de Cuyo** (#C4A44A) : l'ornement et la lumière. Filets fins sous la navigation, traits devant les libellés, chiffres des dates de dégustation, boutons secondaires sur fond sombre, titres de colonnes du pied de page, motif « lys à volutes » de l'étiquette Poesía (bloc « Cuvées en importation »). Toujours sur fond sombre ou en filet ; jamais en texte courant sur crème (contraste insuffisant).
 - **Or de Cuyo clair** (#D9BC74) : liens et anneau de focus sur fonds sombres.
 
 ### Tertiary
@@ -232,7 +232,7 @@ Nets et sobres : un aplat, des capitales espacées, aucun arrondi.
 - **Mobile :** burger à trois traits de 1.5px ; menu plein écran crème avec liens en Cormorant italique 2rem séparés par des filets, CTA bordeaux en bas.
 
 ### Wine Card
-La pièce maîtresse. Millésime en capitales bordeaux, nom de cuvée en Title italique, bodega en capitales grises, bouteille détourée centrée (175px), description limitée à 3 lignes au-dessus d'un filet, puis prix Cormorant à gauche et « + Ajouter » à droite. Le nom est un lien étendu à toute la carte ; le bouton reste au-dessus. Une carte « Prochainement » en pointillés sur crème ombré ferme la grille.
+La pièce maîtresse. Millésime en capitales bordeaux, nom de cuvée en Title italique, bodega en capitales grises, bouteille détourée centrée (175px), description limitée à 3 lignes au-dessus d'un filet, puis prix Cormorant à gauche et « + Ajouter » à droite. Le nom est un lien étendu à toute la carte ; le bouton reste au-dessus. Sous l'étagère, le bloc « Cuvées en importation » présente les domaines à venir : logos à largeur égale aux deux bords, noms en Cormorant au centre de chaque moitié, motif doré « lys à volutes » (mask CSS teinté en or) au milieu.
 
 ### Delivery Option
 Rangée cliquable en radio (rôle `radio`, utilisable au clavier) : pastille ronde, titre 0.85rem en graisse 500, description grise, prix en Cormorant aligné en haut à droite. Sélection = filet bordeaux 1.5px et fond bordeaux à 4%. Indisponible = 50% d'opacité.
