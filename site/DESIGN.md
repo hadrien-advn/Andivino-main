@@ -107,7 +107,7 @@ Andivino s'habille comme une belle étiquette de grand vin : un papier crème, u
 
 Le ton est raffiné et retenu. Les pages respirent : sections hautes (7.5rem), larges marges, colonnes de texte étroites. On lit un récit, celui de trois amis et d'une bodega de Luján de Cuyo, avant d'acheter une bouteille. L'interface s'efface derrière le vin, le terroir et le lien humain.
 
-La surface alterne trois papiers (crème clair, crème, crème ombré), sans aucun fond noir ni sombre, ponctués d'aplats bordeaux pleine largeur : l'appel aux professionnels et le pied de page.
+La page d'accueil tient sur un seul papier (crème clair, celui de la navigation), sans aucun fond noir ni sombre ; le seul aplat bordeaux pleine largeur est le pied de page. Le bandeau « Rejoignez l'aventure » réunit l'appel aux professionnels et les réseaux en deux colonnes séparées par un filet.
 
 **Key Characteristics:**
 - Serif italique Cormorant Garamond pour les voix nobles (titres, noms de cuvée, prix, citations) ; DM Sans pour le texte courant et les libellés.
@@ -121,7 +121,7 @@ La surface alterne trois papiers (crème clair, crème, crème ombré), sans auc
 Une palette de cave : papiers crème chauds, encre bordeaux, filet d'or. Aucun fond sombre : depuis octobre 2026, les anciennes « nuits » (charbon, terre de chai) sont passées en crème.
 
 ### Primary
-- **Bordeaux Malbec** (#6E1828) : la couleur de l'action et de l'accent. Boutons principaux, CTA « Commander », pastilles « Bientôt Sold Out », onglet actif, mots en italique dans les titres, liens dans le texte. Aplat pleine largeur réservé au bandeau professionnels et au pied de page.
+- **Bordeaux Malbec** (#6E1828) : la couleur de l'action et de l'accent. Boutons principaux, CTA « Commander », pastilles « Bientôt Sold Out », onglet actif, mots en italique dans les titres, liens dans le texte. Aplat pleine largeur réservé au pied de page.
 - **Bordeaux Malbec profond** (#521220) : uniquement l'état survol et appuyé des éléments bordeaux.
 
 ### Secondary
@@ -134,7 +134,7 @@ Une palette de cave : papiers crème chauds, encre bordeaux, filet d'or. Aucun f
 ### Neutral
 - **Papier crème** (#FAF6F1) : fond de page par défaut, cartes vins, champs de formulaire, barre de navigation.
 - **Crème** (#F2EAE0) : sections alternées (fondateurs, sélection de vins), en-tête des chroniques.
-- **Crème ombré** (#E6DDD0) : bandeau citation, réseaux sociaux, filets de séparation, bordures de champs, fond des visuels en attente.
+- **Crème ombré** (#E6DDD0) : bandeau citation, filets de séparation, bordures de champs, fond des visuels en attente.
 - **Charbon** (#3C3835) : couleur des titres et du texte important. Jamais en fond.
 - **Encre** (#14100C) : couleur de base du `body` et teinte de toutes les ombres et voiles photo.
 - **Gris sarment** (#655D54) : texte courant, descriptions, libellés secondaires, dates. Calibré pour ≥ 4.5:1 sur les trois crèmes.
@@ -143,7 +143,7 @@ Une palette de cave : papiers crème chauds, encre bordeaux, filet d'or. Aucun f
 ### Named Rules
 **La Règle de l'Encre et du Filet.** Le bordeaux agit, l'or orne. Un bouton, un lien ou un état actif est bordeaux ; un trait, un chiffre décoratif ou un titre de colonne est or. Sur crème, l'or ne porte jamais de texte.
 
-**La Règle du Papier.** Pas de blanc pur ni de gris froid : chaque fond est un des trois crèmes (ou l'aplat bordeaux réservé au bandeau professionnels et au pied de page). Pas de fond noir ou sombre ; seules les photographies portent un voile d'encre pour la lisibilité du texte posé dessus.
+**La Règle du Papier.** Pas de blanc pur ni de gris froid : chaque fond est un des trois crèmes (ou l'aplat bordeaux réservé au pied de page). Pas de fond noir ou sombre ; seules les photographies portent un voile d'encre pour la lisibilité du texte posé dessus.
 
 ## Typography
 
