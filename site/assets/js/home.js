@@ -94,9 +94,9 @@ function renderWines(){
   h+=`<div class="cuvee-soon fi d3">
     <h3 class="soon-hd">Cuvées en importation</h3>
     <div class="soon-row">
-      <div class="soon-dom"><img class="soon-logo" src="/assets/images/logo-carmelo-patti.png" alt="Blason de la bodega Carmelo Patti" width="273" height="320" loading="lazy" decoding="async"><p class="soon-tx"><span class="soon-nm">Carmelo Patti</span><span class="soon-reg">Luján de Cuyo</span></p></div>
+      <div class="soon-dom"><img class="soon-logo soon-logo--cp" src="/assets/images/logo-carmelo-patti.png" alt="Blason de la bodega Carmelo Patti" width="273" height="320" loading="lazy" decoding="async"><p class="soon-tx"><span class="soon-nm">Carmelo Patti</span><span class="soon-reg">Luján de Cuyo</span></p></div>
       <span class="soon-motif" aria-hidden="true"></span>
-      <div class="soon-dom"><p class="soon-tx"><span class="soon-nm">Gualtallary Wines</span><span class="soon-reg">Valle de Uco</span></p><img class="soon-logo" src="/assets/images/logo-gualtallary.png" alt="Emblème de Gualtallary Wines, feuilles de vigne et grappes dorées" width="363" height="320" loading="lazy" decoding="async"></div>
+      <div class="soon-dom"><p class="soon-tx"><span class="soon-nm">Gualtallary Wines</span><span class="soon-reg">Valle de Uco</span></p><img class="soon-logo soon-logo--gw" src="/assets/images/logo-gualtallary.png" alt="Emblème de Gualtallary Wines, feuilles de vigne et grappes dorées" width="363" height="320" loading="lazy" decoding="async"></div>
     </div>
     <p class="soon-txt">Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
   </div>`;

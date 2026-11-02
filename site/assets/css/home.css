@@ -172,7 +172,10 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .soon-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:2.5rem;margin:0 auto}
 .soon-dom{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
 .soon-tx{flex:1;display:flex;flex-direction:column;align-items:center;gap:.45rem;text-align:center}
-.soon-logo{display:block;width:clamp(112px,10.5vw,150px);height:auto;flex:none}
+.soon-logo{display:block;height:auto;flex:none}
+/* Le blason est plein, les feuilles sont ajourées : le logo Gualtallary prend plus de largeur pour peser autant. */
+.soon-logo--cp{width:clamp(102px,9.7vw,140px)}
+.soon-logo--gw{width:clamp(128px,12.1vw,175px)}
 .soon-nm{white-space:nowrap;font-family:var(--fd);font-size:clamp(1.45rem,2.1vw,1.75rem);font-weight:400;line-height:1.1;color:var(--charbon)}
 .soon-reg{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
 .soon-motif{display:block;width:64px;height:72px;background:var(--or);-webkit-mask:url('../images/motif-lys.png') center/contain no-repeat;mask:url('../images/motif-lys.png') center/contain no-repeat}
@@ -389,6 +392,8 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .soon-hd{margin-bottom:1.5rem}
   .soon-row{grid-template-columns:1fr;gap:1.8rem}
   .soon-dom,.soon-dom:first-child,.soon-dom:last-child{flex-direction:column;justify-content:center;text-align:center;gap:.9rem}
-  .soon-dom .soon-logo{order:-1;width:100px}
+  .soon-dom .soon-logo{order:-1}
+  .soon-dom .soon-logo--cp{width:92px}
+  .soon-dom .soon-logo--gw{width:118px}
   .soon-motif{margin:0 auto;width:40px;height:45px}
 }
