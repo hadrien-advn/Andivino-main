@@ -70,7 +70,7 @@ function renderProducts(){
         <div class="pn">${w.nom}</div>
         <div class="pb">${w.bodega}</div>
         <div class="pd">${w.description}</div>
-        <a class="pf-link" href="/products/${WINE_PAGES[w.id]}/" target="_blank" rel="noopener">Fiche du vin<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="visually-hidden"> (nouvel onglet)</span></a>
+        <a class="pf-link" href="/products/${WINE_PAGES[w.id]}" target="_blank" rel="noopener">Fiche du vin<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="visually-hidden"> (nouvel onglet)</span></a>
       </div>
       <div class="prod-right">
         <div class="prod-px">

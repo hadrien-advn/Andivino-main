@@ -1,11 +1,7 @@
 const STORE='andivino_v1';
-const IMAGE_BASE_URL = new URL('../images/', document.currentScript.src).href;
 const ICON_TIME='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 const ICON_PIN='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 const MN=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-const WINE_PAGES={'clos-2017':{slug:'mendoza/lujan-de-cuyo/clos-des-andes-2017',label:'Découvrir Clos des Andes 2017'},'helene-2016':{slug:'mendoza/lujan-de-cuyo/cuvee-helene-2016',label:'Découvrir la Cuvée Hélène 2016'},'poesia-2014':{slug:'mendoza/lujan-de-cuyo/poesia-2014',label:'Découvrir Poesía 2014'}};
-// Notes critiques publiées (voir les fiches) : seules les vraies, jamais inventées.
-const SCORES={'poesia-2014':{pts:94,source:'Wine Advocate'}};
 const DEF={wines:[
   {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:21.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'100\u00a0% Malbec',vendanges:'vendanges manuelles',superficie:'2 ha plantés en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre, généreuses et arrondies, s'étirent avec élégance vers une finale douce et veloutée, gagnant en finesse et en complexité à l'aération."},
   {id:'helene-2016',nom:'Poesía — Cuvée Hélène',millesime:2016,prix:35.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60\u00a0% Malbec, 40\u00a0% Cabernet Sauvignon',vendanges:'vendanges manuelles',superficie:'1 ha planté en 1935, franc de pied',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'16 à 18 mois',garde:'25 ans',dispo:true,description:"D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La bouche séduit par la pureté et la maturité du fruit, sans excès de torréfaction, enrichie de baies noires, d'épices fines et d'un boisé fumé de grande qualité. La finale, longue et persistante, repose sur des tanins nobles et harmonieux. Un vin déjà remarquable, d'une grande élégance et profondeur."},
@@ -19,8 +15,6 @@ const DEF={wines:[
 function getData(){try{const r=localStorage.getItem(STORE);const d=r?JSON.parse(r):{};return{wines:DEF.wines,degustations:DEF.degustations,chroniques:DEF.chroniques,cart:d.cart||[]};}catch(e){return JSON.parse(JSON.stringify(DEF));}}
 function saveData(d){try{localStorage.setItem(STORE,JSON.stringify(d));}catch(e){}}
 if(!localStorage.getItem(STORE))saveData(JSON.parse(JSON.stringify(DEF)));
-function calcPrix(w){if(!w.reduction)return w.prix;return parseFloat((w.prix*(1-w.reduction/100)).toFixed(2));}
-function fmtPrix(n){return n.toFixed(2).replace('.',',');}
 function fmtDate(s){return new Date(s).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}
 function getCart(){return getData().cart||[];}
 function saveCart(c){const d=getData();d.cart=c;saveData(d);}
@@ -29,67 +23,17 @@ function addToCart(id,qty=1){const c=getCart();const i=c.findIndex(x=>x.id===id)
 function updateBadge(){const b=document.getElementById('cartBadge');if(!b)return;const n=cartCount();b.textContent=n;b.classList.toggle('on',n>0);}
 function showToast(msg='Ajouté au panier'){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2400);}
 
-function bottleSVG(id,h){
-  if(!h)h=175;
-  // ── Images réelles ──
-  var imgs={
-    'clos-2017': IMAGE_BASE_URL + 'bout-cda.png',
-    'helene-2016': IMAGE_BASE_URL + 'bout-helene-2016.png',
-    'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.png'
-  };
-  if(imgs[id]){
-    return '<img src="'+imgs[id]+'" alt="" height="'+h+'" class="bottle-img">';
-  }
-  var caps={clos2017:'#2A2016',helene2016:'#6E1828',poesia2014:'#C4A44A'};
-  var labs={clos2017:'#B89A55',helene2016:'#D4BC7A',poesia2014:'#C4A44A'};
-  var ki=id.replace(/-/g,'');
-  var cap=caps[ki]||'#2A2016';var lab=labs[ki]||'#C4A44A';
-  var sw=Math.round(h*0.29);
-  return '<svg viewBox="0 0 56 200" width="'+sw+'" height="'+h+'" xmlns="http://www.w3.org/2000/svg">'
-    +'<path d="M19 68 Q15 82 14 102 L14 172 Q14 184 23 184 L33 184 Q42 184 42 172 L42 102 Q41 82 37 68 Z" fill="#14100C"/>'
-    +'<path d="M22 54 Q20 62 19 68 L37 68 Q36 62 34 54 Z" fill="#1E1610"/>'
-    +'<rect x="24" y="19" width="8" height="35" rx="1" fill="#14100C"/>'
-    +'<rect x="23" y="11" width="10" height="14" rx="1.5" fill="'+cap+'"/>'
-    +'<rect x="15.5" y="100" width="25" height="56" rx="1" fill="'+lab+'" opacity=".93"/>'
-    +'<rect x="17" y="101.5" width="22" height="53" rx=".5" fill="none" stroke="rgba(255,255,255,.3)" stroke-width=".6"/>'
-    +'<text x="28" y="119" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="4.5" font-family="Georgia,serif" font-style="italic">Poesía</text>'
-    +'<line x1="20" y1="124" x2="36" y2="124" stroke="rgba(255,255,255,.35)" stroke-width=".7"/>'
-    +'<ellipse cx="28" cy="183" rx="14" ry="3" fill="rgba(0,0,0,.28)"/>'
-    +'</svg>';
-}
-
 function observeFade(){
   const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');obs.unobserve(e.target);}});},{threshold:.1});
   document.querySelectorAll('.fi:not(.show)').forEach(el=>obs.observe(el));
 }
 
 /* ── WINES ── */
-// Résumé de la carte : la première phrase de la description, sauf quand elle ne dit pas l'essentiel (resume).
-function firstSentence(t){const m=t.match(/^.*?[.!?](\s|$)/);return m?m[0].trim():t;}
+// Les cartes des cuvées (texte, prix, liens vers les fiches) sont écrites dans pages/home.html, pour être
+// lisibles sans JavaScript : ici on ne fait qu'ajouter le bloc d'importation et brancher les boutons.
 function renderWines(){
   const {wines}=getData();const g=document.getElementById('vinsGrid');if(!g)return;
   let h='';
-  wines.forEach((w,i)=>{
-    const p=calcPrix(w);const hr=w.reduction>0;
-    const soldOutSoon=['helene-2016','poesia-2014'].includes(w.id);
-    const href=`/products/${WINE_PAGES[w.id].slug}/`;
-    const sc=SCORES[w.id];
-    h+=`<article class="cuvee fi${i?' d'+i:''}" data-wine-id="${w.id}">
-      <a class="cuvee-shelf" href="${href}" tabindex="-1" aria-hidden="true">${bottleSVG(w.id,260)}</a>
-      <div class="cuvee-label">
-        <p class="cuvee-mill">${w.millesime}${soldOutSoon?'<span class="cuvee-flag">Bientôt sold out</span>':''}</p>
-        <h3 class="cuvee-nm"><a href="${href}">${w.nom}</a></h3>
-        ${sc?`<p class="cuvee-score"><span>${sc.pts}</span> pts · ${sc.source}</p>`:''}
-        <p class="cuvee-cep">${w.cepages}, ${w.vendanges}</p>
-      </div>
-      <p class="cuvee-desc">${w.resume||firstSentence(w.description)}</p>
-      <a class="cuvee-more" href="${href}" aria-label="${WINE_PAGES[w.id].label}">Voir la fiche complète</a>
-      <div class="cuvee-buy">
-        <p class="cuvee-px">${hr?`<s>${fmtPrix(w.prix)} €</s> `:''}${fmtPrix(p)}&nbsp;€<span>la bouteille</span></p>
-        <button type="button" class="btn-add" data-add-id="${w.id}" aria-label="Ajouter ${w.nom} ${w.millesime} au panier">Ajouter</button>
-      </div>
-    </article>`;
-  });
   // Les domaines en cours d'importation ferment l'étagère, de part et d'autre du motif de l'étiquette Poesía.
   h+=`<div class="cuvee-soon fi d3">
     <h3 class="soon-hd">Cuvées en importation</h3>
@@ -100,7 +44,7 @@ function renderWines(){
     </div>
     <p class="soon-txt">Notre prochaine sélection est faite&nbsp;: les bouteilles sont en route vers la France.</p>
   </div>`;
-  g.innerHTML=h;
+  g.insertAdjacentHTML('beforeend',h);
   g.querySelectorAll('[data-add-id]').forEach(btn=>{
     btn.addEventListener('click',(event)=>{
       event.preventDefault();

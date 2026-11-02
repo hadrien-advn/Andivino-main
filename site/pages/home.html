@@ -33,7 +33,7 @@
   "name": "Andivino",
   "url": "https://andivino.fr/",
   "logo": "https://andivino.fr/assets/images/logo-sans-fond.png",
-  "description": "Selection de vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesia.",
+  "description": "Sélection de vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía.",
   "founder": [
     { "@type": "Person", "name": "Gaspard Cordeau" },
     { "@type": "Person", "name": "Esteban" },
@@ -41,7 +41,7 @@
   ],
   "sameAs": [
     "https://www.instagram.com/andivino.fr/",
-    "https://www.linkedin.com/company/andivino/posts/?feedView=all"
+    "https://www.linkedin.com/company/andivino/"
   ]
 }
 </script>
@@ -52,7 +52,7 @@
   "name": "Andivino",
   "url": "https://andivino.fr/",
   "inLanguage": "fr-FR",
-  "description": "Andivino selectionne des vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesia."
+  "description": "Andivino sélectionne des vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía."
 }
 </script>
 </head>
@@ -122,7 +122,52 @@
       <h2>Trois cuvées, <em>un terroir.</em></h2>
       <p class="vins-note" data-delivery-note>Remise en main propre à Paris et petite couronne. Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</p>
     </div>
-    <div class="vins-g" id="vinsGrid"></div>
+    <!-- Cartes des cuvées écrites dans le HTML (lisibles sans JavaScript par les moteurs) ; home.js branche les boutons « Ajouter » et ajoute le bloc « Cuvées en importation ». -->
+    <div class="vins-g" id="vinsGrid">
+      <article class="cuvee fi" data-wine-id="clos-2017">
+        <a class="cuvee-shelf" href="/products/mendoza/lujan-de-cuyo/clos-des-andes-2017" tabindex="-1" aria-hidden="true"><img src="/assets/images/bout-cda.png" alt="" width="61" height="260" class="bottle-img" loading="lazy" decoding="async"></a>
+        <div class="cuvee-label">
+          <p class="cuvee-mill">2017</p>
+          <h3 class="cuvee-nm"><a href="/products/mendoza/lujan-de-cuyo/clos-des-andes-2017">Clos des Andes</a></h3>
+          <p class="cuvee-cep">100&nbsp;% Malbec, vendanges manuelles</p>
+        </div>
+        <p class="cuvee-desc">Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir.</p>
+        <a class="cuvee-more" href="/products/mendoza/lujan-de-cuyo/clos-des-andes-2017" aria-label="Découvrir Clos des Andes 2017">Voir la fiche complète</a>
+        <div class="cuvee-buy">
+          <p class="cuvee-px">21,99&nbsp;€<span>la bouteille</span></p>
+          <button type="button" class="btn-add" data-add-id="clos-2017" aria-label="Ajouter Clos des Andes 2017 au panier">Ajouter</button>
+        </div>
+      </article>
+      <article class="cuvee fi d1" data-wine-id="helene-2016">
+        <a class="cuvee-shelf" href="/products/mendoza/lujan-de-cuyo/cuvee-helene-2016" tabindex="-1" aria-hidden="true"><img src="/assets/images/bout-helene-2016.png" alt="" width="68" height="260" class="bottle-img" loading="lazy" decoding="async"></a>
+        <div class="cuvee-label">
+          <p class="cuvee-mill">2016<span class="cuvee-flag">Bientôt épuisé</span></p>
+          <h3 class="cuvee-nm"><a href="/products/mendoza/lujan-de-cuyo/cuvee-helene-2016">Poesía — Cuvée Hélène</a></h3>
+          <p class="cuvee-cep">60&nbsp;% Malbec, 40&nbsp;% Cabernet Sauvignon, vendanges manuelles</p>
+        </div>
+        <p class="cuvee-desc">D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale.</p>
+        <a class="cuvee-more" href="/products/mendoza/lujan-de-cuyo/cuvee-helene-2016" aria-label="Découvrir la Cuvée Hélène 2016">Voir la fiche complète</a>
+        <div class="cuvee-buy">
+          <p class="cuvee-px">35,99&nbsp;€<span>la bouteille</span></p>
+          <button type="button" class="btn-add" data-add-id="helene-2016" aria-label="Ajouter Poesía — Cuvée Hélène 2016 au panier">Ajouter</button>
+        </div>
+      </article>
+      <article class="cuvee fi d2" data-wine-id="poesia-2014">
+        <a class="cuvee-shelf" href="/products/mendoza/lujan-de-cuyo/poesia-2014" tabindex="-1" aria-hidden="true"><img src="/assets/images/bout-poesia.png" alt="" width="64" height="260" class="bottle-img" loading="lazy" decoding="async"></a>
+        <div class="cuvee-label">
+          <p class="cuvee-mill">2014<span class="cuvee-flag">Bientôt épuisé</span></p>
+          <h3 class="cuvee-nm"><a href="/products/mendoza/lujan-de-cuyo/poesia-2014">Poesía</a></h3>
+          <p class="cuvee-score"><span>94</span> pts · Wine Advocate</p>
+          <p class="cuvee-cep">60&nbsp;% Malbec, 40&nbsp;% Cabernet Sauvignon, vendanges manuelles</p>
+        </div>
+        <p class="cuvee-desc">Un nez raffiné de framboise, cerise noire et mûre, relevé de notes de pain grillé, de moka et de cèdre. La bouche, soyeuse et fraîche, s'étire sur des tanins fins jusqu'à une finale longue et raffinée.</p>
+        <a class="cuvee-more" href="/products/mendoza/lujan-de-cuyo/poesia-2014" aria-label="Découvrir Poesía 2014">Voir la fiche complète</a>
+        <div class="cuvee-buy">
+          <p class="cuvee-px">44,99&nbsp;€<span>la bouteille</span></p>
+          <button type="button" class="btn-add" data-add-id="poesia-2014" aria-label="Ajouter Poesía 2014 au panier">Ajouter</button>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -170,7 +215,7 @@
         <div class="bodega-loc">Luján de Cuyo, Mendoza — 900 m d'altitude</div>
         <p>Née en 2000 d'une rencontre entre passion bordelaise et terroir argentin, la Bodega Poesía est établie au cœur de la <em>Primera Zona</em> de Luján de Cuyo — première appellation d'origine officiellement reconnue en Amérique du Sud.</p>
         <p>Les vignes, plantées en 1935 en franc de pied, produisent des raisins d'une concentration exceptionnelle, façonnés par un sol sablo-argileux unique et les contrastes thermiques du piedmont andin. Zéro traitement chimique. Vendanges entièrement manuelles, avec une sélection rigoureuse parcelle par parcelle.</p>
-        <p>Les barriques, foudres et cuves en inox furent importés d'Europe par les fondateurs, guidés par la même exigence qu'en Bordeaux. La philosophie est simple : laisser le terroir parler.</p>
+        <p>Les barriques, foudres et cuves en inox furent importés d'Europe par les fondateurs, guidés par la même exigence qu'à Bordeaux. La philosophie est simple : laisser le terroir parler.</p>
         <div class="bodega-facts">
           <div class="fact"><div class="fl">Appellation</div><div class="fv">Luján de Cuyo</div></div>
           <div class="fact"><div class="fl">Altitude</div><div class="fv">900 mètres</div></div>
@@ -327,11 +372,11 @@
       <p>Importateur de vins argentins d'exception. Bodega Poesía — Luján de Cuyo, Mendoza.</p>
     </div>
     <div class="ft-col"><h4>Navigation</h4><a href="/#philosophie">Notre histoire</a><a href="/#bodega">La Bodega</a><a href="/#vins">Les vins</a><a href="/#degustations">Dégustations</a><a href="/chroniques">Chroniques</a></div>
-    <div class="ft-col"><h4>Commander</h4><a href="/commande">Particuliers (B2C)</a><a href="mailto:contact@andivino.fr">Professionnels (B2B)</a><a href="/legal/cgv">Livraison &amp; CGV</a></div>
+    <div class="ft-col"><h4>Commander</h4><a href="/products/mendoza/lujan-de-cuyo/poesia-2014">Poesía 2014</a><a href="/products/mendoza/lujan-de-cuyo/cuvee-helene-2016">Cuvée Hélène 2016</a><a href="/products/mendoza/lujan-de-cuyo/clos-des-andes-2017">Clos des Andes 2017</a><a href="/commande">Particuliers (B2C)</a><a href="mailto:contact@andivino.fr">Professionnels (B2B)</a><a href="/legal/cgv">Livraison &amp; CGV</a></div>
     <div class="ft-col"><h4>Contact</h4><a href="mailto:contact@andivino.fr">contact@andivino.fr</a><a href="/newsletter">Newsletter</a><p class="ft-note">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p></div>
   </div>
   <div class="ft-btm">
-    <p>© 2025 Andivino — Tous droits réservés</p>
+    <p>© 2026 Andivino — Tous droits réservés</p>
     <div class="ft-links"><a href="/legal/mentions-legales">Mentions légales</a><a href="/legal/cgv">CGV</a></div>
   </div>
 </footer>

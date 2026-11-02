@@ -52,6 +52,20 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false
 }));
 
+// Une seule URL par page : www.andivino.fr -> andivino.fr, /page/ -> /page (redirection permanente).
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  const host = (req.headers.host || '').toLowerCase();
+  const isWww = host === 'www.andivino.fr';
+  const hasTrailingSlash = req.path.length > 1 && req.path.endsWith('/');
+  if (!isWww && !hasTrailingSlash) return next();
+  const query = req.originalUrl.slice(req.path.length);
+  // Les barres en tête sont réduites à une seule : « //site.com/ » ne doit pas devenir une redirection externe.
+  const pathname = '/' + (hasTrailingSlash ? req.path.replace(/\/+$/, '') : req.path).replace(/^\/+/, '');
+  const target = isWww ? `https://andivino.fr${pathname}${query}` : `${pathname}${query}`;
+  return res.redirect(301, target);
+});
+
 // Version générée au démarrage — change à chaque redéploiement Railway
 const BUILD_VERSION = Date.now().toString(36);
 
