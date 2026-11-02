@@ -34,7 +34,7 @@ function bottleSVG(id,h){
   // ── Images réelles ──
   var imgs={
     'clos-2017': IMAGE_BASE_URL + 'bout-cda.png',
-    'helene-2016': IMAGE_BASE_URL + 'bout-helene.png',
+    'helene-2016': IMAGE_BASE_URL + 'bout-helene-2016.png',
     'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.png'
   };
   if(imgs[id]){

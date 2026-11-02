@@ -19,7 +19,7 @@ function showToast(msg){const t=document.getElementById('toast');t.textContent=m
 
 var BOTTLE_IMGS={
   'clos-2017': IMAGE_BASE_URL + 'bout-cda.png',
-  'helene-2016': IMAGE_BASE_URL + 'bout-helene.png',
+  'helene-2016': IMAGE_BASE_URL + 'bout-helene-2016.png',
   'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.png'
 };
 function bottleSVG(id,h){

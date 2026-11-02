@@ -20,7 +20,7 @@ try {
 
   var BOTTLES = {
     'clos-2017': '/assets/images/bout-cda.png',
-    'helene-2016': '/assets/images/bout-helene.png',
+    'helene-2016': '/assets/images/bout-helene-2016.png',
     'poesia-2014': '/assets/images/bout-poesia.png'
   };
   var SHIPPING = {
