@@ -44,7 +44,7 @@ Ce qu'un autre importateur ne peut pas copier :
 - **Français uniquement :** aucune version anglaise ou espagnole prévue.
 - **Livraison en France métropolitaine uniquement.**
 - **Consentement cookies :** seuls les stockages strictement nécessaires (panier, paiement) ; toute mesure d'audience attend un consentement explicite.
-- **Cuvées actuelles :** Clos des Andes 2017 (100% Malbec), Poésía Cuvée Hélène 2016 et Poésía 2014 (60% Malbec / 40% Cabernet Sauvignon). Les prix font foi dans `assets/js/home.js`, `assets/js/checkout.js` et le JSON-LD des fiches.
+- **Cuvées actuelles :** Clos des Andes 2017 (100% Malbec), Poesía Cuvée Hélène 2016 et Poesía 2014 (60% Malbec / 40% Cabernet Sauvignon). Les prix font foi dans `assets/js/home.js`, `assets/js/checkout.js` et le JSON-LD des fiches.
 
 ## Brand Commitments
 
@@ -54,7 +54,7 @@ Ce qu'un autre importateur ne peut pas copier :
 
 ## Evidence on Hand
 
-- **Notes critiques réelles** (Poésía 2014 uniquement) : Wine Advocate 94, Vinous 91, James Suckling 92. Aucune note pour Clos des Andes 2017 ni Cuvée Hélène 2016 : ne pas en inventer.
+- **Notes critiques réelles** (Poesía 2014 uniquement) : Wine Advocate 94, Vinous 91, James Suckling 92. Aucune note pour Clos des Andes 2017 ni Cuvée Hélène 2016 : ne pas en inventer.
 - **Photos maison** : vignes, Andes, finca, chai, drapeau, dégustations, portraits des fondateurs (`assets/images/`).
 - **Fiches techniques** des trois cuvées (cépages, superficie, sol, élevage, garde).
 - **Trois chroniques** publiées (`pages/chronique-*.html`).
