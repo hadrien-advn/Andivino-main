@@ -68,7 +68,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .fi.show{opacity:1;transform:none}
 
 /* ── PHILOSOPHIE ── */
-.s-philo{padding:7.5rem 0 6.5rem;background:var(--cream)}
+.s-philo{padding:7.5rem 0 6.5rem;background:var(--cream-l)}
 .philo-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:4rem;align-items:center}
 .philo-t h2{font-family:var(--fd);font-size:clamp(2rem,3.8vw,3.2rem);font-weight:300;line-height:1.12;margin-bottom:1.8rem;color:var(--charbon)}
 .philo-t h2 em{font-style:italic;color:var(--bdx)}
@@ -123,7 +123,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .fact .fv{font-size:.85rem;color:var(--charbon);font-weight:500}
 
 /* ── VINS ── */
-.s-vins{padding:7.5rem 0;background:var(--cream)}
+.s-vins{padding:7.5rem 0;background:var(--cream-l)}
 .vins-hd{text-align:center;margin-bottom:4rem}
 .vins-hd h2{font-family:var(--fd);font-size:clamp(2.3rem,4.5vw,4rem);font-weight:300;color:var(--charbon)}
 .vins-hd h2 em{font-style:italic}
@@ -196,7 +196,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 }
 
 /* ── DÉGUSTATIONS ── */
-.s-deg{padding:7.5rem 0;background:var(--cream)}
+.s-deg{padding:7.5rem 0;background:var(--cream-l)}
 .deg-in{max-width:1100px;margin:0 auto;padding:0 4rem}
 .deg-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:4.5rem;align-items:start}
 .deg-photo{border-radius:2px;overflow:hidden;aspect-ratio:4/3}
@@ -208,7 +208,7 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .dtab{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;padding:.65rem 1.4rem;cursor:pointer;background:none;border:none;color:var(--gris);transition:all var(--e)}
 .dtab.active{background:var(--bdx);color:var(--cream-l)}
 .deg-list{display:flex;flex-direction:column;gap:2px}
-.ditem{background:var(--cream-l);box-shadow:inset 0 0 0 transparent;padding:1.8rem 2rem;display:grid;grid-template-columns:72px 1fr auto;gap:2rem;align-items:center;transition:all var(--e)}
+.ditem{background:var(--cream-l);border:1px solid var(--cream-d);box-shadow:inset 0 0 0 transparent;padding:1.8rem 2rem;display:grid;grid-template-columns:72px 1fr auto;gap:2rem;align-items:center;transition:all var(--e)}
 .ditem:hover{box-shadow:inset 1px 0 0 var(--or),0 6px 20px rgba(20,16,12,.06)}
 .ddate{text-align:center;flex-shrink:0}
 .dday{font-family:var(--fd);font-size:2.4rem;font-weight:300;color:var(--charbon);line-height:1}
@@ -259,13 +259,13 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .btn-b2b:hover{background:var(--cream)}
 
 /* ── RÉSEAUX SOCIAUX ── */
-.s-social{padding:5rem 1.5rem;background:var(--cream-d);text-align:center}
+.s-social{padding:5rem 1.5rem;background:var(--cream-l);text-align:center}
 .s-social h2{font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;font-style:italic;color:var(--charbon);margin-bottom:.5rem}
 .s-social p{font-size:.85rem;letter-spacing:.02em;color:var(--gris);margin-bottom:2.5rem}
 .social-links{display:flex;justify-content:center;align-items:center;gap:2rem;flex-wrap:wrap}
 .social-link{display:flex;flex-direction:column;align-items:center;gap:.7rem;text-decoration:none;color:var(--charbon);transition:color var(--e)}
 .social-link:hover{color:var(--bdx)}
-.social-icon{width:52px;height:52px;border:1px solid var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color var(--e),background var(--e)}
+.social-icon{width:52px;height:52px;border:1px solid var(--cream-d);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color var(--e),background var(--e)}
 .social-link:hover .social-icon{border-color:var(--bdx);background:rgba(110,24,40,.06)}
 .social-name{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:inherit}
 
