@@ -52,17 +52,30 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false
 }));
 
-// Une seule URL par page : www.andivino.fr -> andivino.fr, /page/ -> /page (redirection permanente).
+// Anciennes URLs (indexées avant restructuration) -> page qui les remplace.
+const LEGACY_REDIRECTS = {
+  '/vins/poesia-2014': '/products/mendoza/lujan-de-cuyo/poesia-2014',
+  '/vins/cuvee-helene-2016': '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016',
+  '/vins/clos-des-andes-2017': '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017',
+  '/chroniques/mendoza-terroir-andin': '/chroniques/malbec-argentin-histoire-terroirs',
+  '/chroniques/malbec-cabernet-assemblage-argentin': '/chroniques/malbec-argentin-histoire-terroirs',
+  '/chroniques/vendanges-bodega-poesia-recit': '/chroniques'
+};
+
+// Une seule URL par page : www.andivino.fr -> andivino.fr, /page/ -> /page, ancienne URL -> nouvelle,
+// le tout en une seule redirection permanente.
 app.use((req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next();
   const host = (req.headers.host || '').toLowerCase();
   const isWww = host === 'www.andivino.fr';
   const hasTrailingSlash = req.path.length > 1 && req.path.endsWith('/');
-  if (!isWww && !hasTrailingSlash) return next();
-  const query = req.originalUrl.slice(req.path.length);
   // Les barres en tête sont réduites à une seule : « //site.com/ » ne doit pas devenir une redirection externe.
   const pathname = '/' + (hasTrailingSlash ? req.path.replace(/\/+$/, '') : req.path).replace(/^\/+/, '');
-  const target = isWww ? `https://andivino.fr${pathname}${query}` : `${pathname}${query}`;
+  const legacyTarget = Object.prototype.hasOwnProperty.call(LEGACY_REDIRECTS, pathname) ? LEGACY_REDIRECTS[pathname] : null;
+  if (!isWww && !hasTrailingSlash && !legacyTarget) return next();
+  const query = req.originalUrl.slice(req.path.length);
+  const finalPath = legacyTarget || pathname;
+  const target = isWww ? `https://andivino.fr${finalPath}${query}` : `${finalPath}${query}`;
   return res.redirect(301, target);
 });
 
@@ -154,7 +167,8 @@ function sendPage(fileName) {
   return async (req, res) => {
     try {
       const html = await getHtmlWithVersion(fileName);
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      // no-cache (revalidation via ETag) plutôt que no-store, qui empêche le retour arrière instantané du navigateur.
+      res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.send(html);
     } catch (e) {
@@ -298,20 +312,12 @@ app.get(['/commande', '/commande/'], sendPage('commande.html'));
 app.get('/vins-argentins', sendPage('vins-argentins.html'));
 app.get('/professionnels', sendPage('professionnels.html'));
 app.get(['/chroniques', '/chroniques/'], sendPage('chroniques.html'));
-// Anciennes chroniques supprimées -> redirection permanente
-app.get(['/chroniques/mendoza-terroir-andin', '/chroniques/mendoza-terroir-andin/'], (req, res) => res.redirect(301, '/chroniques/malbec-argentin-histoire-terroirs'));
-app.get(['/chroniques/malbec-cabernet-assemblage-argentin', '/chroniques/malbec-cabernet-assemblage-argentin/'], (req, res) => res.redirect(301, '/chroniques/malbec-argentin-histoire-terroirs'));
-app.get(['/chroniques/vendanges-bodega-poesia-recit', '/chroniques/vendanges-bodega-poesia-recit/'], (req, res) => res.redirect(301, '/chroniques'));
 app.get(['/chroniques/malbec-argentin-histoire-terroirs', '/chroniques/malbec-argentin-histoire-terroirs/'], sendPage('chronique-malbec-argentin-histoire-terroirs.html'));
 app.get(['/chroniques/accords-mets-vins-malbec-argentin', '/chroniques/accords-mets-vins-malbec-argentin/'], sendPage('chronique-accords-mets-vins-malbec-argentin.html'));
 app.get(['/products/mendoza/lujan-de-cuyo/poesia-2014', '/products/mendoza/lujan-de-cuyo/poesia-2014/'], sendPage('vin-poesia-2014.html'));
 app.get(['/products/mendoza/lujan-de-cuyo/cuvee-helene-2016', '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016/'], sendPage('vin-cuvee-helene-2016.html'));
 app.get(['/products/mendoza/lujan-de-cuyo/clos-des-andes-2017', '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017/'], sendPage('vin-clos-des-andes-2017.html'));
 
-// Anciennes URLs /vins/xxx (indexées avant restructuration) -> redirection permanente
-app.get(['/vins/poesia-2014', '/vins/poesia-2014/'], (req, res) => res.redirect(301, '/products/mendoza/lujan-de-cuyo/poesia-2014'));
-app.get(['/vins/cuvee-helene-2016', '/vins/cuvee-helene-2016/'], (req, res) => res.redirect(301, '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016'));
-app.get(['/vins/clos-des-andes-2017', '/vins/clos-des-andes-2017/'], (req, res) => res.redirect(301, '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017'));
 app.get(['/paiement/success', '/paiement/success/'], sendPage('payment-success.html'));
 app.get(['/paiement/cancel', '/paiement/cancel/'], sendPage('payment-cancel.html'));
 app.get(['/newsletter', '/newsletter/'], sendPage('newsletter.html'));

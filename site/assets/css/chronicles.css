@@ -178,3 +178,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   .wine-buy .scores-row{justify-content:center}
   .art-body .wine-buy .btn-buy{display:block}
 }
+/* Mention de stock limité (cohérente avec LimitedAvailability dans les données structurées) */
+.wine-price .wine-stock{display:inline-block;font-family:var(--fd);font-style:italic;font-size:1.15rem;letter-spacing:0;color:var(--bdx);margin-left:.9rem}
+.art-next-flag{font-family:var(--fd);font-style:italic;font-size:.95rem;color:var(--bdx);margin-top:.3rem}

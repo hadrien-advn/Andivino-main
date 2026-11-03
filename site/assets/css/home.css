@@ -134,6 +134,9 @@ nav.scrolled{padding:1rem 4rem;box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .vins-hd h2 em{font-style:italic}
 .vins-note{font-size:.85rem;color:var(--gris);line-height:1.7;max-width:56ch;margin:1.2rem auto 0;text-wrap:pretty}
 .vins-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
+.vins-compare{margin-top:1rem;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase}
+.vins-compare a{color:var(--bdx);text-decoration:none;border-bottom:1px solid rgba(110,24,40,.35);padding-bottom:.2rem;transition:border-color var(--e)}
+.vins-compare a:hover{border-color:var(--bdx)}
 /* La cave : les bouteilles posées sur une même étagère (filet d'or), sans cartes. L'étiquette
    (millésime, nom, note, cépages) se tient à droite de chaque bouteille, posée sur l'étagère ;
    texte et prix dessous. Les rangées sont partagées (subgrid) pour rester alignées. */
