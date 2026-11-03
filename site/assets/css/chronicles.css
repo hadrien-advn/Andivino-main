@@ -123,14 +123,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .art-next-n{font-family:var(--fd);font-size:1.15rem;line-height:1.2;color:var(--charbon)}
 .art-next-c{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-top:.35rem}
 /* Page « Nos vins argentins » : étagère des bouteilles et tableau comparatif */
-.art-body .vins-shelf{margin:2.4rem auto 1rem}
+.art-body .vins-shelf{margin:2.4rem auto 3.2rem}
 .art-body .vins-shelf a{border-bottom:0}
 .vins-table-wrap{overflow-x:auto;margin:1.2rem 0 1.6rem}
-.vins-table{width:100%;min-width:560px;border-collapse:collapse;font-size:.82rem;line-height:1.5}
+.vins-table{width:100%;min-width:560px;border-collapse:collapse;font-size:.82rem;line-height:1.5;font-variant-numeric:tabular-nums}
 .vins-table th,.vins-table td{text-align:left;padding:.75rem .9rem .75rem 0;border-bottom:1px solid var(--cream-d);vertical-align:top}
-.vins-table thead th{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--gris)}
+.vins-table thead th{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--gris)}
 .vins-table tbody th{font-family:var(--fd);font-size:1.05rem;font-weight:400}
-.vins-table td:last-child{white-space:nowrap}
+.vins-table td:last-child{white-space:nowrap;font-family:var(--fd);font-size:1.05rem;color:var(--charbon);font-variant-numeric:tabular-nums lining-nums}
 .art-next-ctas{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
 .art-next-ctas a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:.95rem 1.9rem;transition:background var(--e),color var(--e),border-color var(--e)}
 .art-next-ctas .btn-p{background:var(--bdx);color:var(--cream-l)}
@@ -188,14 +188,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .wine-price .wine-stock{display:inline-block;font-family:var(--fd);font-style:italic;font-size:1.15rem;letter-spacing:0;color:var(--bdx);margin-left:.9rem}
 .art-next-flag{font-family:var(--fd);font-style:italic;font-size:.95rem;color:var(--bdx);margin-top:.3rem}
 /* Catalogue : un bouton « Commander » sous chaque bouteille de l'étagère */
-.vins-shelf .shelf-item{display:flex;flex-direction:column;align-items:center}
+.vins-shelf .shelf-item{display:flex;flex-direction:column;align-items:center;text-align:center}
 .vins-shelf .shelf-item>a:first-child{flex:1;width:100%}
-.art-body .vins-shelf a.shelf-buy{display:inline-block;padding:.65rem 1.1rem;margin-top:.1rem;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);text-decoration:none;transition:background var(--e)}
+.art-body .vins-shelf a.shelf-buy{display:inline-block;padding:.65rem 1.1rem;margin-top:.1rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);text-decoration:none;transition:background var(--e)}
 .art-body .vins-shelf a.shelf-buy:hover{background:var(--bdx-d);color:var(--cream-l)}
+.shelf-price{font-family:var(--fd);font-size:1.25rem;line-height:1;color:var(--charbon);font-variant-numeric:tabular-nums lining-nums;margin-top:.6rem}
 @media(max-width:600px){
-  .art-body .vins-shelf{margin-top:.4rem}
-  .vins-shelf img{height:130px}
-  .art-body .vins-shelf a.shelf-buy{padding:.65rem .7rem;letter-spacing:.1em}
+  /* Catalogue mobile : une bouteille par ligne, prix et bouton alignés, plutôt que trois colonnes étroites qui cassent « Malbec-Cabernet ». */
+  .art-body .vins-shelf{display:block;max-width:none;margin:.4rem 0 2.6rem;border-top:1px solid var(--cream-d)}
+  .vins-shelf .shelf-item{flex-direction:row;gap:.8rem;padding:.9rem 0;border-bottom:1px solid var(--cream-d);text-align:left}
+  .vins-shelf .shelf-item>a:first-child{display:grid;grid-template-columns:40px 1fr;column-gap:.9rem;align-content:center;justify-items:start;padding:0;min-width:0}
+  .vins-shelf .shelf-item>a:first-child img{grid-row:1/span 4;width:40px;height:112px;margin:0}
+  .vins-shelf .shelf-item>a:first-child>span{grid-column:2}
+  .vins-shelf .art-next-c{letter-spacing:.06em}
+  .vins-shelf .shelf-price{margin-top:.45rem}
+  .art-body .vins-shelf a.shelf-buy{display:inline-flex;align-items:center;min-height:44px;flex:none;padding:0 .9rem;margin:0;letter-spacing:.12em}
   /* Tableau comparatif en fiches empilées : la colonne Prix reste visible sans défilement horizontal. */
   .vins-table{min-width:0}
   .vins-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -203,6 +210,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   .vins-table th,.vins-table td{display:flex;justify-content:space-between;gap:1rem;padding:.15rem 0;border:0}
   .vins-table tbody th{font-size:1.15rem;padding-bottom:.4rem}
   .vins-table td{text-align:right}
-  .vins-table td::before{content:attr(data-label);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-align:left;padding-top:.15rem}
+  .vins-table td::before{content:attr(data-label);font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-align:left;padding-top:.15rem}
 }
 .wine-lead{font-size:1.02rem}
