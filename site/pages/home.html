@@ -248,10 +248,10 @@
   <div class="si">
     <div class="bodega-g">
       <div class="bodega-map fi">
-        <div class="sl">Notre premier partenaire</div>
         <img src="/assets/images/map-mendoza.webp" alt="Carte Mendoza — Bodega Poesía" width="866" height="1000" loading="lazy" decoding="async">
       </div>
       <div class="bodega-c fi d1">
+        <div class="sl">Notre premier partenaire</div>
         <h2>Bodega Poesía</h2>
         <div class="bodega-loc">Luján de Cuyo, Mendoza — 900 m d'altitude</div>
         <p>Née en 2000 d'une rencontre entre passion bordelaise et terroir argentin, la Bodega Poesía est établie au cœur de la <em>Primera Zona</em> de Luján de Cuyo — première appellation d'origine officiellement reconnue en Amérique du Sud.</p>
@@ -276,7 +276,6 @@
     <div class="carousel-slide"><img src="/assets/images/banque/gauchos-cavaliers-manege-peupliers.webp" srcset="/assets/images/banque/gauchos-cavaliers-manege-peupliers-800.webp 800w, /assets/images/banque/gauchos-cavaliers-manege-peupliers-1200.webp 1200w, /assets/images/banque/gauchos-cavaliers-manege-peupliers.webp 2000w" sizes="100vw" width="2000" height="1132" alt="Gauchos à cheval dans un manège bordé de peupliers, Mendoza" loading="lazy"></div>
     <div class="carousel-slide"><img src="/assets/images/poarg3.webp" width="1800" height="1200" alt="Vignes de Malbec dans le vignoble argentin de Mendoza" loading="lazy"></div>
     <div class="carousel-slide"><img src="/assets/images/poarg1.webp" width="1800" height="1200" alt="Chai et installations de la Bodega Poesía, Mendoza" loading="lazy"></div>
-    <div class="carousel-slide"><img src="/assets/images/vignes-bandeau.webp" width="1800" height="1200" alt="Vignoble de Mendoza au pied des Andes" loading="lazy"></div>
     <div class="carousel-slide"><img src="/assets/images/banque/maison-finca-neige-eolienne.webp" srcset="/assets/images/banque/maison-finca-neige-eolienne-800.webp 800w, /assets/images/banque/maison-finca-neige-eolienne-1200.webp 1200w, /assets/images/banque/maison-finca-neige-eolienne.webp 2000w" sizes="100vw" width="2000" height="1333" alt="Maison de finca et éolienne sous la neige, Mendoza" loading="lazy"></div>
   </div>
   <button class="carousel-btn prev" id="carPrev" aria-label="Photo précédente">
@@ -297,28 +296,27 @@
 <script src="/assets/js/home-carousel.js" defer></script>
 
 <!-- ────────────────── DÉGUSTATIONS ────────────────── -->
-<section class="s-deg" id="degustations">
-  <div class="deg-in">
-    <div class="deg-hd fi">
-      <div class="sl">Nos événements</div>
-      <h2>Dégustations</h2>
+<section class="s-deg" id="degustations" aria-labelledby="deg-title">
+  <div class="deg-hero fi">
+    <img class="deg-hero-img" src="/assets/images/photo-quali-degustation.webp" alt="Table de dégustation Andivino : verres alignés, bouteille de Clos des Andes 2017 et planche de charcuteries et fromages" width="1050" height="1400" loading="lazy" decoding="async">
+    <div class="deg-hero-in">
+      <div class="sl deg-sl">Nos événements</div>
+      <h2 id="deg-title">Dégustations</h2>
+      <p class="deg-quote">Le terroir et la passion sont des choses qui se partagent&nbsp;: par la rencontre, par la convivialité, par le verre tendu à quelqu'un qui ne connaît pas encore.</p>
+      <p class="deg-sub">Venez nous rencontrer et déguster nos vins lors des événements que nous organisons, à Paris comme à Marseille.</p>
+      <a href="/newsletter" class="btn-o">Être prévenu de la prochaine dégustation</a>
     </div>
-    <div class="deg-grid">
-      <div>
-        <div class="deg-photo fi">
-          <img src="/assets/images/photo-quali-degustation.webp" alt="Dégustation de vins argentins Andivino, verres et bouteille Poesía" width="1050" height="1400" loading="lazy" decoding="async">
-        </div>
-        <p class="deg-intro spaced">Le terroir et la passion sont des choses qui se partagent — par la rencontre, par la convivialité, par le verre tendu à quelqu'un qui ne connaît pas encore. Venez nous rencontrer et déguster nos vins lors des événements que nous organisons, à Paris comme à Marseille.</p>
-      </div>
-      <div>
-        <div class="deg-tabs" role="group" aria-label="Filtrer les dégustations">
-          <button class="dtab active" data-tab="upcoming" aria-pressed="true">À venir</button>
-          <button class="dtab" data-tab="past" aria-pressed="false">Passées</button>
-        </div>
-        <p class="deg-note" id="degNote" hidden>Pas de nouvelle date pour l'instant. <a href="/newsletter">Être prévenu de la prochaine dégustation</a> ou suivez-nous sur <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p>
-        <div class="deg-list" id="degList"></div>
+  </div>
+  <div class="deg-in deg-book">
+    <div class="deg-book-hd fi">
+      <h3>Le carnet</h3>
+      <div class="deg-tabs" role="group" aria-label="Filtrer les dégustations">
+        <button class="dtab active" data-tab="upcoming" aria-pressed="true">À venir</button>
+        <button class="dtab" data-tab="past" aria-pressed="false">Passées</button>
       </div>
     </div>
+    <p class="deg-note" id="degNote" hidden>Pas de nouvelle date pour l'instant. Les prochaines soirées sont annoncées sur <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p>
+    <div class="deg-list fi" id="degList"></div>
   </div>
 </section>
 
