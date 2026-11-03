@@ -95,7 +95,7 @@ function fmtDate(s){return new Date(s).toLocaleDateString('fr-FR',{day:'numeric'
 
 /* ── NAV + CART ── */
 const navEl=document.getElementById('nav');
-window.addEventListener('scroll',()=>{navEl.classList.toggle('scrolled',window.scrollY>50);});
+window.addEventListener('scroll',()=>{navEl.classList.toggle('scrolled',window.scrollY>50);},{passive:true});
 updateBadge();
 
 /* ── NAV : lien de la section en cours ── */

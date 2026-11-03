@@ -65,7 +65,7 @@
     el.setAttribute('aria-describedby', 'ageDesc');
     el.innerHTML =
       '<div class="age-box">' +
-        '<img src="/assets/images/logo-sans-fond.png" alt="" class="age-logo">' +
+        '<img src="/assets/images/logo-sans-fond-168.webp" alt="" width="56" height="56" class="age-logo">' +
         '<h2 id="ageTitle">Vérification de votre âge</h2>' +
         '<p id="ageDesc">Andivino commercialise des boissons alcoolisées. Conformément à l\'article L.3342-1 du Code de la santé publique, la vente d\'alcool est interdite aux mineurs. L\'accès à ce site est réservé aux personnes majeures.</p>' +
         '<p class="age-warning">L\'abus d\'alcool est dangereux pour la santé, à consommer avec modération.</p>' +

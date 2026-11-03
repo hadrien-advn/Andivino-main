@@ -147,7 +147,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .m-specs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;border-top:1px solid var(--cream-d);border-bottom:1px solid var(--cream-d);padding:1.5rem 0;margin:1.8rem 0}
 .m-specs .wide{grid-column:1 / -1}
 .msl{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-bottom:.15rem}
-.msv{font-size:.85rem;color:var(--charbon);font-weight:500}
+.msv{font-size:.85rem;color:var(--charbon);font-weight:500;margin:0}
 .wine-price{font-family:var(--fd);font-size:2.2rem;color:var(--charbon);line-height:1;margin-bottom:1.4rem}
 .wine-price span{font-size:.7rem;letter-spacing:.04em;color:var(--gris);font-family:var(--fb);margin-left:.4rem}
 .wine-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:2.5rem;align-items:center;margin-bottom:2.5rem}

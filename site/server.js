@@ -40,8 +40,8 @@ app.use(helmet({
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"],
       scriptSrc: ["'self'", 'https://js.stripe.com', "'sha256-wdcBSdLWsvB7koKbH4Q4rVx7/fjw4vYHJKGw3NnqCC8='", ...__liveSrc],
-      styleSrc: ["'self'", 'https://fonts.googleapis.com', ...(__impeccableLiveDev ? ["'unsafe-inline'"] : [])],
-      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      styleSrc: ["'self'", ...(__impeccableLiveDev ? ["'unsafe-inline'"] : [])],
+      fontSrc: ["'self'"],
       imgSrc: ["'self'", 'data:'],
       connectSrc: ["'self'", 'https://api.stripe.com', ...__liveSrc],
       frameSrc: ['https://js.stripe.com', 'https://hooks.stripe.com'],
@@ -69,14 +69,23 @@ app.use((req, res, next) => {
 // Version générée au démarrage — change à chaque redéploiement Railway
 const BUILD_VERSION = Date.now().toString(36);
 
+// Polices (auto-hébergées) : cache 30 jours, le fichier ne change pas sous le même nom
+app.use('/assets/fonts', express.static(path.join(rootDir, 'assets/fonts'), {
+  maxAge: '30d'
+}));
+
 // Images : cache 7 jours (rarement modifiées)
 app.use('/assets/images', express.static(path.join(rootDir, 'assets/images'), {
   maxAge: '7d'
 }));
 
-// CSS et JS : cache 1h, invalidé par ?v= dans les URLs HTML
+// CSS et JS : avec ?v= (ajouté par getHtmlWithVersion, change à chaque déploiement), l'URL ne
+// resservira jamais un autre contenu : cache d'un an. Sans ?v= : 1h, comme avant.
 app.use('/assets', express.static(path.join(rootDir, 'assets'), {
-  maxAge: '1h'
+  cacheControl: false,
+  setHeaders: (res) => {
+    res.setHeader('Cache-Control', res.req.query.v ? 'public, max-age=31536000, immutable' : 'public, max-age=3600');
+  }
 }));
 
 app.post('/api/stripe/webhook', express.raw({ type: 'application/json', limit: '100kb' }), async (req, res) => {

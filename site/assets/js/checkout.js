@@ -18,9 +18,9 @@ function saveCart(c){const d=getData();d.cart=c;saveData(d);}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2400);}
 
 var BOTTLE_IMGS={
-  'clos-2017': IMAGE_BASE_URL + 'bout-cda.png',
-  'helene-2016': IMAGE_BASE_URL + 'bout-helene-2016.png',
-  'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.png'
+  'clos-2017': IMAGE_BASE_URL + 'bout-cda.webp',
+  'helene-2016': IMAGE_BASE_URL + 'bout-helene-2016.webp',
+  'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.webp'
 };
 function bottleSVG(id,h){
   if(!h)h=100;

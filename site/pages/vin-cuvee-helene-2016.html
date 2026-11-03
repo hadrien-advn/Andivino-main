@@ -17,8 +17,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/dm-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/fonts.css">
 <link rel="stylesheet" href="/assets/css/chronicles.css">
 <link rel="stylesheet" href="/assets/css/footer.css">
 <link rel="stylesheet" href="/assets/css/legal-banners.css">
@@ -91,7 +91,7 @@
 
 <article class="article-wrap art-body">
   <div class="wine-hero">
-    <div class="wine-bottle"><img src="/assets/images/bout-helene-2016.png" width="234" height="900" fetchpriority="high" alt="Bouteille de la Cuvée Hélène 2016, vin argentin de Mendoza"></div>
+    <div class="wine-bottle"><img src="/assets/images/bout-helene-2016.webp" width="234" height="900" fetchpriority="high" alt="Bouteille de la Cuvée Hélène 2016, vin argentin de Mendoza"></div>
     <div class="wine-buy">
       <div class="wine-price">35,99 € <span>TTC / bouteille</span></div>
       <a href="/commande?ajout=helene-2016" class="btn-buy">Commander cette cuvée</a>
@@ -99,23 +99,32 @@
     </div>
   </div>
 
+  <h2>Notes de dégustation</h2>
   <p>D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La bouche séduit par la pureté et la maturité du fruit, sans excès de torréfaction, enrichie de baies noires, d'épices fines et d'un boisé fumé de grande qualité. La finale, longue et persistante, repose sur des tanins nobles et harmonieux. Un vin déjà remarquable, d'une grande élégance et profondeur.</p>
 
-  <div class="m-specs">
-    <div class="wide"><div class="msl">Origine</div><div class="msv">Bodega Poesía, Luján de Cuyo – Mendoza, Argentine</div></div>
-    <div><div class="msl">Cépages</div><div class="msv">60&nbsp;% Malbec, 40&nbsp;% Cabernet Sauvignon</div></div>
-    <div><div class="msl">Vendanges</div><div class="msv">Manuelles</div></div>
-    <div><div class="msl">Superficie</div><div class="msv">1 ha planté en 1935, franc de pied</div></div>
-    <div><div class="msl">Sol</div><div class="msv">Sablo-argileux</div></div>
-    <div><div class="msl">Cuves de fermentation</div><div class="msv">Inox et fûts de chêne</div></div>
-    <div><div class="msl">Élevage</div><div class="msv">16 à 18 mois</div></div>
-    <div><div class="msl">Garde</div><div class="msv">25 ans</div></div>
-  </div>
+  <h2>Fiche technique</h2>
+  <dl class="m-specs">
+    <div class="wide"><dt class="msl">Origine</dt><dd class="msv">Bodega Poesía, Luján de Cuyo – Mendoza, Argentine</dd></div>
+    <div><dt class="msl">Cépages</dt><dd class="msv">60&nbsp;% Malbec, 40&nbsp;% Cabernet Sauvignon</dd></div>
+    <div><dt class="msl">Vendanges</dt><dd class="msv">Manuelles</dd></div>
+    <div><dt class="msl">Superficie</dt><dd class="msv">1 ha planté en 1935, franc de pied</dd></div>
+    <div><dt class="msl">Sol</dt><dd class="msv">Sablo-argileux</dd></div>
+    <div><dt class="msl">Cuves de fermentation</dt><dd class="msv">Inox et fûts de chêne</dd></div>
+    <div><dt class="msl">Élevage</dt><dd class="msv">16 à 18 mois</dd></div>
+    <div><dt class="msl">Garde</dt><dd class="msv">25 ans</dd></div>
+  </dl>
 
+  <h2>Le terroir et la parcelle</h2>
   <p>Issue d'une parcelle d'à peine 1 hectare plantée en 1935 à Luján de Cuyo, la Cuvée Hélène partage l'assemblage et la philosophie de Poesía. Pour en savoir plus sur ce terroir et cet assemblage :</p>
   <ul>
     <li><a href="/chroniques/malbec-argentin-histoire-terroirs">Le Malbec argentin : histoire et terroirs d'un cépage venu de Cahors</a></li>
     <li><a href="/chroniques/accords-mets-vins-malbec-argentin">Accords mets-vins avec un Malbec argentin</a></li>
+  </ul>
+
+  <h2>Les autres cuvées de la Bodega Poesía</h2>
+  <ul>
+    <li><a href="/products/mendoza/lujan-de-cuyo/poesia-2014">Poesía 2014</a> : 60&nbsp;% Malbec, 40&nbsp;% Cabernet Sauvignon, 44,99&nbsp;€ la bouteille</li>
+    <li><a href="/products/mendoza/lujan-de-cuyo/clos-des-andes-2017">Clos des Andes 2017</a> : 100&nbsp;% Malbec, 21,99&nbsp;€ la bouteille</li>
   </ul>
 </article>
 

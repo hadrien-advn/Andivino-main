@@ -19,9 +19,9 @@ try {
   if (!receipt || !ref || receipt.ref !== ref || !Array.isArray(receipt.lines) || !receipt.lines.length) return;
 
   var BOTTLES = {
-    'clos-2017': '/assets/images/bout-cda.png',
-    'helene-2016': '/assets/images/bout-helene-2016.png',
-    'poesia-2014': '/assets/images/bout-poesia.png'
+    'clos-2017': '/assets/images/bout-cda.webp',
+    'helene-2016': '/assets/images/bout-helene-2016.webp',
+    'poesia-2014': '/assets/images/bout-poesia.webp'
   };
   var SHIPPING = {
     degustation: 'Retrait à la dégustation',
