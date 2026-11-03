@@ -12,12 +12,15 @@
 <meta property="og:title" content="Commander des vins argentins — Andivino">
 <meta property="og:description" content="Sélectionnez vos bouteilles Andivino et validez votre commande en ligne.">
 <meta property="og:url" content="https://andivino.fr/commande">
-<meta property="og:image" content="https://andivino.fr/assets/images/vignes-hero.jpeg">
+<meta property="og:image" content="https://andivino.fr/assets/images/og/vignes.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
 <link rel="preload" href="/assets/fonts/dm-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://js.stripe.com">
 <link rel="stylesheet" href="/assets/css/fonts.css">
 <link rel="stylesheet" href="/assets/css/checkout.css">
 <link rel="stylesheet" href="/assets/css/footer.css">
@@ -26,8 +29,8 @@
 <body>
 <nav>
   <a href="/" class="nl">
-    <img src="/assets/images/logo-ecusson.png" alt="Andivino" width="116" height="150" class="nav-logo-mark">
-    <img src="/assets/images/logotype-andivino.png" alt="" width="530" height="80" class="nav-logo-text">
+    <img src="/assets/images/logo-ecusson.webp" alt="Andivino" width="116" height="150" class="nav-logo-mark">
+    <img src="/assets/images/logotype-andivino.webp" alt="" width="530" height="80" class="nav-logo-text">
   </a>
   <ul class="nlinks">
     <li><a href="/vins-argentins">Les vins</a></li>
@@ -151,7 +154,7 @@
 
   <!-- RIGHT: cart summary -->
   <aside class="cart-box" aria-labelledby="cartTitle">
-    <img src="/assets/images/logo-ecusson.png" alt="" width="116" height="150" class="cart-mark">
+    <img src="/assets/images/logo-ecusson.webp" alt="" width="116" height="150" class="cart-mark">
     <h2 id="cartTitle">Votre commande</h2>
     <div class="cart-lines" id="cartLines">
       <div class="cart-empty-msg">Votre panier est vide</div>
@@ -179,17 +182,14 @@
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/degustations.js"></script>
 <script src="/assets/js/checkout.js"></script>
-<!-- Stripe.js après checkout.js : la liste des vins s'affiche sans attendre son téléchargement.
-     Il ne sert qu'au moment du paiement (ensureStripe). -->
-<script src="https://js.stripe.com/v3/"></script>
 
 <!-- ────────────────── FOOTER ────────────────── -->
 <footer>
   <div class="ft-in">
     <div class="ft-br">
       <div class="ft-brand-row">
-        <img src="/assets/images/logo-ecusson.png" alt="Andivino" width="116" height="150" class="ft-logo-mark">
-        <img src="/assets/images/logotype-andivino.png" alt="" width="530" height="80" class="ft-logo-text">
+        <img src="/assets/images/logo-ecusson.webp" alt="Andivino" width="116" height="150" class="ft-logo-mark">
+        <img src="/assets/images/logotype-andivino.webp" alt="" width="530" height="80" class="ft-logo-text">
       </div>
       <p>Importateur de vins argentins d'exception. Bodega Poesía — Luján de Cuyo, Mendoza.</p>
     </div>

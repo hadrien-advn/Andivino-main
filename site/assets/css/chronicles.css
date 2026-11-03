@@ -1,5 +1,5 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--cream:#F2EAE0;--cream-d:#E6DDD0;--cream-l:#FAF6F1;--noir:#14100C;--charbon:#3C3835;--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--gris:#655D54;--gris-l:#C0BBB5;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;--e:.3s ease}
+:root{--cream:#F2EAE0;--cream-d:#E6DDD0;--cream-l:#FAF6F1;--noir:#14100C;--charbon:#3C3835;--bdx:#6E1828;--bdx-d:#521220;--or:#C4A44A;--gris:#655D54;--gris-l:#C0BBB5;--fd:'Cormorant Garamond','Cormorant Fallback',Georgia,serif;--fb:'DM Sans','DM Sans Fallback',system-ui,sans-serif;--e:.3s ease}
 html{scroll-behavior:smooth}
 body{font-family:var(--fb);background:var(--cream-l);color:var(--noir);line-height:1.7}
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1rem 4rem;background:rgba(250,246,241,.97);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(196,164,74,.2)}
@@ -173,11 +173,36 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .wine-buy-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:2px}
 @media(max-width:600px){
   .m-specs{grid-template-columns:1fr 1fr}
-  .wine-hero{grid-template-columns:1fr;gap:1.5rem;text-align:center}
-  .wine-hero .wine-bottle img{height:240px}
+  .wine-hero{grid-template-columns:1fr;gap:1.2rem;text-align:center}
+  .wine-hero .wine-bottle img{height:180px}
   .wine-buy .scores-row{justify-content:center}
   .art-body .wine-buy .btn-buy{display:block}
+  /* Sur mobile, prix et bouton passent avant les notes des critiques pour rester dans le premier écran. */
+  .wine-buy{display:flex;flex-direction:column}
+  .wine-buy .wine-price{order:1}
+  .art-body .wine-buy .btn-buy{order:2}
+  .wine-buy .wine-buy-note{order:3}
+  .wine-buy .scores-row{order:4;margin:1.6rem 0 0}
 }
 /* Mention de stock limité (cohérente avec LimitedAvailability dans les données structurées) */
 .wine-price .wine-stock{display:inline-block;font-family:var(--fd);font-style:italic;font-size:1.15rem;letter-spacing:0;color:var(--bdx);margin-left:.9rem}
 .art-next-flag{font-family:var(--fd);font-style:italic;font-size:.95rem;color:var(--bdx);margin-top:.3rem}
+/* Catalogue : un bouton « Commander » sous chaque bouteille de l'étagère */
+.vins-shelf .shelf-item{display:flex;flex-direction:column;align-items:center}
+.vins-shelf .shelf-item>a:first-child{flex:1;width:100%}
+.art-body .vins-shelf a.shelf-buy{display:inline-block;padding:.65rem 1.1rem;margin-top:.1rem;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);text-decoration:none;transition:background var(--e)}
+.art-body .vins-shelf a.shelf-buy:hover{background:var(--bdx-d);color:var(--cream-l)}
+@media(max-width:600px){
+  .art-body .vins-shelf{margin-top:.4rem}
+  .vins-shelf img{height:130px}
+  .art-body .vins-shelf a.shelf-buy{padding:.65rem .7rem;letter-spacing:.1em}
+  /* Tableau comparatif en fiches empilées : la colonne Prix reste visible sans défilement horizontal. */
+  .vins-table{min-width:0}
+  .vins-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .vins-table tr{display:block;padding:.9rem 0;border-bottom:1px solid var(--cream-d)}
+  .vins-table th,.vins-table td{display:flex;justify-content:space-between;gap:1rem;padding:.15rem 0;border:0}
+  .vins-table tbody th{font-size:1.15rem;padding-bottom:.4rem}
+  .vins-table td{text-align:right}
+  .vins-table td::before{content:attr(data-label);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-align:left;padding-top:.15rem}
+}
+.wine-lead{font-size:1.02rem}

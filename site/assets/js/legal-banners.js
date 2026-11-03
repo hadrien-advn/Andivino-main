@@ -34,7 +34,7 @@
     el.id = 'cookieBanner';
     el.innerHTML =
       '<div class="cookie-in">' +
-        '<p>Nous utilisons uniquement des cookies et stockages strictement nécessaires au fonctionnement du site (panier, paiement sécurisé Stripe). Aucun cookie de mesure d\'audience ou publicitaire n\'est déposé sans votre consentement. <a href="/legal/mentions-legales#cookies">En savoir plus</a></p>' +
+        '<p>Le site n\'utilise que des cookies strictement nécessaires (panier, paiement Stripe). Aucun cookie de mesure d\'audience ou publicitaire sans votre accord. <a href="/legal/mentions-legales#cookies">En savoir plus</a></p>' +
         '<div class="cookie-actions">' +
           '<button type="button" class="cookie-btn-refuse" id="cookieRefuse">Tout refuser</button>' +
           '<button type="button" class="cookie-btn-accept" id="cookieAccept">Tout accepter</button>' +

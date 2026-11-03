@@ -6,8 +6,8 @@
   --or:#C4A44A;
   --gris:#655D54;--gris-l:#C0BBB5;
   --green:#2D6A4F;
-  --fd:'Cormorant Garamond',Georgia,serif;
-  --fb:'DM Sans',system-ui,sans-serif;
+  --fd:'Cormorant Garamond','Cormorant Fallback',Georgia,serif;
+  --fb:'DM Sans','DM Sans Fallback',system-ui,sans-serif;
   --e:.3s ease;
   --out:cubic-bezier(.16,1,.3,1);
 }

@@ -375,8 +375,25 @@ function collectCustomer() {
   };
 }
 
+// Stripe.js n'est chargé qu'à l'approche du paiement : il ne retarde plus l'affichage de la page.
+var stripeJsPromise = null;
+function loadStripeJs() {
+  if (window.Stripe) return Promise.resolve();
+  if (!stripeJsPromise) {
+    stripeJsPromise = new Promise(function(resolve, reject) {
+      var s = document.createElement('script');
+      s.src = 'https://js.stripe.com/v3/';
+      s.onload = resolve;
+      s.onerror = function() { stripeJsPromise = null; reject(new Error('Stripe.js est indisponible.')); };
+      document.head.appendChild(s);
+    });
+  }
+  return stripeJsPromise;
+}
+
 async function ensureStripe() {
   if (stripeInstance) return stripeInstance;
+  await loadStripeJs();
   if (!window.Stripe) throw new Error('Stripe.js est indisponible.');
 
   var res = await fetch(apiUrl('/api/stripe-config'));
@@ -513,6 +530,12 @@ document.addEventListener('DOMContentLoaded', function() {
   restoreDraft();
   renderProducts();
   checkForm();
+});
+
+// Dès que le client commence à remplir le formulaire, Stripe.js se télécharge en arrière-plan.
+document.addEventListener('focusin', function warmStripe() {
+  document.removeEventListener('focusin', warmStripe);
+  loadStripeJs().catch(function() {});
 });
 
 document.getElementById('btnCheckout').addEventListener('click', async function() {

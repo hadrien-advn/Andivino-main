@@ -1,5 +1,5 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--cream:#F2EAE0;--cream-l:#FAF6F1;--charbon:#3C3835;--bdx:#6E1828;--or:#C4A44A;--gris:#655D54;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif}
+:root{--cream:#F2EAE0;--cream-l:#FAF6F1;--charbon:#3C3835;--bdx:#6E1828;--or:#C4A44A;--gris:#655D54;--fd:'Cormorant Garamond','Cormorant Fallback',Georgia,serif;--fb:'DM Sans','DM Sans Fallback',system-ui,sans-serif}
 body{min-height:100vh;font-family:var(--fb);background:var(--cream-l);color:var(--charbon);display:grid;place-items:center;padding:2rem}
 .wrap{text-align:center;max-width:560px}
 .brand{display:inline-flex;align-items:center;gap:1.4rem;margin-bottom:2.5rem;text-decoration:none}

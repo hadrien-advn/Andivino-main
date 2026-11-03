@@ -13,11 +13,13 @@
 <meta property="og:title" content="Andivino — Importateur de vins argentins d'exception, Mendoza">
 <meta property="og:description" content="Vins des Andes, Bodega Poesía, cuvées de Mendoza et dégustations en France.">
 <meta property="og:url" content="https://andivino.fr/">
-<meta property="og:image" content="https://andivino.fr/assets/images/andes-vignes-hero.jpg">
+<meta property="og:image" content="https://andivino.fr/assets/images/og/andivino.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Andivino — Importateur de vins argentins d'exception, Mendoza">
 <meta name="twitter:description" content="Découvrez les cuvées argentines sélectionnées par Andivino.">
-<meta name="twitter:image" content="https://andivino.fr/assets/images/andes-vignes-hero.jpg">
+<meta name="twitter:image" content="https://andivino.fr/assets/images/og/andivino.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
@@ -32,14 +34,46 @@
 {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://andivino.fr/#organization",
   "name": "Andivino",
+  "legalName": "Andivino SASU",
   "url": "https://andivino.fr/",
   "logo": "https://andivino.fr/assets/images/logo-sans-fond.png",
   "description": "Sélection de vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía.",
+  "email": "contact@andivino.fr",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Route de la Treille",
+    "postalCode": "13011",
+    "addressLocality": "Marseille",
+    "addressCountry": "FR"
+  },
+  "vatID": "FR12990387169",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "SIREN",
+    "value": "990387169"
+  },
+  "foundingDate": "2025-08-19",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "contact@andivino.fr",
+    "availableLanguage": "fr"
+  },
   "founder": [
-    { "@type": "Person", "name": "Gaspard Cordeau" },
-    { "@type": "Person", "name": "Esteban" },
-    { "@type": "Person", "name": "Hadrien Dubertret" }
+    {
+      "@type": "Person",
+      "name": "Gaspard Cordeau"
+    },
+    {
+      "@type": "Person",
+      "name": "Esteban"
+    },
+    {
+      "@type": "Person",
+      "name": "Hadrien Dubertret"
+    }
   ],
   "sameAs": [
     "https://www.instagram.com/andivino.fr/",
@@ -51,10 +85,14 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "https://andivino.fr/#website",
   "name": "Andivino",
   "url": "https://andivino.fr/",
   "inLanguage": "fr-FR",
-  "description": "Andivino sélectionne des vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía."
+  "description": "Andivino sélectionne des vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía.",
+  "publisher": {
+    "@id": "https://andivino.fr/#organization"
+  }
 }
 </script>
 </head>
@@ -63,8 +101,8 @@
 <!-- ────────────────── NAV ────────────────── -->
 <nav id="nav">
   <a href="/" class="nl">
-    <img src="/assets/images/logo-ecusson.png" alt="Andivino" width="116" height="150" class="nav-logo-mark">
-    <img src="/assets/images/logotype-andivino.png" alt="" width="530" height="80" class="nav-logo-text">
+    <img src="/assets/images/logo-ecusson.webp" alt="Andivino" width="116" height="150" class="nav-logo-mark">
+    <img src="/assets/images/logotype-andivino.webp" alt="" width="530" height="80" class="nav-logo-text">
   </a>
   <ul class="nlinks">
     <li><a href="#philosophie">Notre histoire</a></li>
@@ -179,7 +217,7 @@
   <div class="si">
     <div class="sel-g">
       <figure class="sel-img fi">
-        <img src="/assets/images/banque/vendangeur-cagette-raisins.webp" alt="Vendangeur de dos dans une allée de la bodega, une cagette de raisins noirs sur l'épaule" width="1258" height="2000" loading="lazy" decoding="async">
+        <img src="/assets/images/banque/vendangeur-cagette-raisins.webp" srcset="/assets/images/banque/vendangeur-cagette-raisins-800.webp 800w, /assets/images/banque/vendangeur-cagette-raisins-1200.webp 1200w, /assets/images/banque/vendangeur-cagette-raisins.webp 1258w" sizes="(max-width: 700px) 100vw, 480px" alt="Vendangeur de dos dans une allée de la bodega, une cagette de raisins noirs sur l'épaule" width="1258" height="2000" loading="lazy" decoding="async">
       </figure>
       <div class="sel-pillars">
         <div class="pillar fi">
@@ -235,11 +273,11 @@
 <!-- ────────────────── CAROUSEL ────────────────── -->
 <div class="carousel" id="carousel" role="region" aria-roledescription="carrousel" aria-label="Photos de la Bodega Poesía et de Mendoza">
   <div class="carousel-track" id="carouselTrack">
-    <div class="carousel-slide"><img src="/assets/images/banque/gauchos-cavaliers-manege-peupliers.webp" alt="Gauchos à cheval dans un manège bordé de peupliers, Mendoza" loading="lazy"></div>
+    <div class="carousel-slide"><img src="/assets/images/banque/gauchos-cavaliers-manege-peupliers.webp" srcset="/assets/images/banque/gauchos-cavaliers-manege-peupliers-800.webp 800w, /assets/images/banque/gauchos-cavaliers-manege-peupliers-1200.webp 1200w, /assets/images/banque/gauchos-cavaliers-manege-peupliers.webp 2000w" sizes="100vw" width="2000" height="1132" alt="Gauchos à cheval dans un manège bordé de peupliers, Mendoza" loading="lazy"></div>
     <div class="carousel-slide"><img src="/assets/images/poarg3.webp" width="1800" height="1200" alt="Vignes de Malbec dans le vignoble argentin de Mendoza" loading="lazy"></div>
     <div class="carousel-slide"><img src="/assets/images/poarg1.webp" width="1800" height="1200" alt="Chai et installations de la Bodega Poesía, Mendoza" loading="lazy"></div>
     <div class="carousel-slide"><img src="/assets/images/vignes-bandeau.webp" width="1800" height="1200" alt="Vignoble de Mendoza au pied des Andes" loading="lazy"></div>
-    <div class="carousel-slide"><img src="/assets/images/banque/maison-finca-neige-eolienne.webp"        alt="Maison de finca et éolienne sous la neige, Mendoza" loading="lazy"></div>
+    <div class="carousel-slide"><img src="/assets/images/banque/maison-finca-neige-eolienne.webp" srcset="/assets/images/banque/maison-finca-neige-eolienne-800.webp 800w, /assets/images/banque/maison-finca-neige-eolienne-1200.webp 1200w, /assets/images/banque/maison-finca-neige-eolienne.webp 2000w" sizes="100vw" width="2000" height="1333" alt="Maison de finca et éolienne sous la neige, Mendoza" loading="lazy"></div>
   </div>
   <button class="carousel-btn prev" id="carPrev" aria-label="Photo précédente">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--charbon)" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -293,14 +331,14 @@
     </div>
     <div class="chron-g">
       <a class="ccard" href="/chroniques/malbec-argentin-histoire-terroirs">
-        <div class="cimg"><img class="cimg-inner" src="/assets/images/banque/vignes-andes-roses-crepuscule.webp" alt="" loading="lazy"></div>
+        <div class="cimg"><img class="cimg-inner" src="/assets/images/banque/vignes-andes-roses-crepuscule.webp" srcset="/assets/images/banque/vignes-andes-roses-crepuscule-800.webp 800w, /assets/images/banque/vignes-andes-roses-crepuscule-1200.webp 1200w, /assets/images/banque/vignes-andes-roses-crepuscule.webp 2000w" sizes="(max-width: 700px) 100vw, 560px" alt="" loading="lazy"></div>
         <div class="ccat">Terroir</div>
         <div class="ctit">Le Malbec argentin : histoire et terroirs d'un cépage venu de Cahors</div>
         <p class="cres">De Cahors à Mendoza, l'histoire du Malbec et les terroirs argentins qui en ont fait une légende.</p>
         <div class="cdat">20 octobre 2026</div>
       </a>
       <a class="ccard" href="/chroniques/accords-mets-vins-malbec-argentin">
-        <div class="cimg"><img class="cimg-inner focus-low" src="/assets/images/banque/marmite-fonte-feu-de-bois.webp" alt="" loading="lazy"></div>
+        <div class="cimg"><img class="cimg-inner focus-low" src="/assets/images/banque/marmite-fonte-feu-de-bois.webp" srcset="/assets/images/banque/marmite-fonte-feu-de-bois-800.webp 800w, /assets/images/banque/marmite-fonte-feu-de-bois-1200.webp 1200w, /assets/images/banque/marmite-fonte-feu-de-bois.webp 1333w" sizes="(max-width: 700px) 100vw, 560px" alt="" loading="lazy"></div>
         <div class="ccat">Gastronomie</div>
         <div class="ctit">Accords mets-vins avec un Malbec argentin</div>
         <p class="cres">Asado, empanadas, viandes mijotées, fromages : nos accords préférés.</p>
@@ -369,8 +407,8 @@
   <div class="ft-in">
     <div class="ft-br">
       <div class="ft-brand-row">
-        <img src="/assets/images/logo-ecusson.png" alt="Andivino" width="116" height="150" class="ft-logo-mark">
-        <img src="/assets/images/logotype-andivino.png" alt="" width="530" height="80" class="ft-logo-text">
+        <img src="/assets/images/logo-ecusson.webp" alt="Andivino" width="116" height="150" class="ft-logo-mark">
+        <img src="/assets/images/logotype-andivino.webp" alt="" width="530" height="80" class="ft-logo-text">
       </div>
       <p>Importateur de vins argentins d'exception. Bodega Poesía — Luján de Cuyo, Mendoza.</p>
     </div>

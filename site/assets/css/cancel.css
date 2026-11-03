@@ -5,8 +5,8 @@
   --bdx:#6E1828;--bdx-d:#521220;
   --or:#C4A44A;
   --gris:#655D54;
-  --fd:'Cormorant Garamond',Georgia,serif;
-  --fb:'DM Sans',system-ui,sans-serif;
+  --fd:'Cormorant Garamond','Cormorant Fallback',Georgia,serif;
+  --fb:'DM Sans','DM Sans Fallback',system-ui,sans-serif;
   --e:.3s ease;
 }
 body{font-family:var(--fb);background:var(--cream);color:var(--noir);line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
