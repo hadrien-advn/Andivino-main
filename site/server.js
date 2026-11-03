@@ -295,6 +295,8 @@ async function sendOrderToCrm(order) {
 
 app.get('/', sendPage('home.html'));
 app.get(['/commande', '/commande/'], sendPage('commande.html'));
+app.get('/vins-argentins', sendPage('vins-argentins.html'));
+app.get('/professionnels', sendPage('professionnels.html'));
 app.get(['/chroniques', '/chroniques/'], sendPage('chroniques.html'));
 // Anciennes chroniques supprimées -> redirection permanente
 app.get(['/chroniques/mendoza-terroir-andin', '/chroniques/mendoza-terroir-andin/'], (req, res) => res.redirect(301, '/chroniques/malbec-argentin-histoire-terroirs'));
