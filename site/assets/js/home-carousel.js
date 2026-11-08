@@ -5,14 +5,14 @@
   var n      = slides.length;
   var cur    = 0;
   var timer;
-  // Pas de défilement automatique si le visiteur a demandé moins d'animations ; sinon il peut le mettre en pause.
+  // Pas de défilement automatique si le visiteur a demandé moins d'animations ; sinon le survol ou le focus le suspend.
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var paused = reduceMotion;
   var hovering = false;
 
   var dotsEl = document.getElementById('carDots');
   var dots   = [];
-  for (var i = 0; i < n; i++) {
+  for (var i = 0; dotsEl && i < n; i++) {
     var d = document.createElement('button');
     d.type = 'button';
     d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
@@ -46,8 +46,10 @@
     pauseBtn.setAttribute('aria-label', paused ? 'Reprendre le défilement des photos' : 'Mettre en pause le défilement des photos');
     pauseBtn.classList.toggle('is-paused', paused);
   }
-  pauseBtn.addEventListener('click', function(){ paused = !paused; renderPause(); resetTimer(); });
-  renderPause();
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', function(){ paused = !paused; renderPause(); resetTimer(); });
+    renderPause();
+  }
 
   // Le survol ou le focus clavier dans le carrousel suspend le défilement le temps de regarder.
   root.addEventListener('mouseenter', function(){ hovering = true; resetTimer(); });
