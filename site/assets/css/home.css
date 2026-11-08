@@ -85,14 +85,15 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 /* ── NOTRE DÉMARCHE (sélection) ── */
 /* Même fond crème que le reste de la page ; la photo reste dans les marges pour ne pas couper la section en deux. */
 .s-sel{padding:0 0 7.5rem;background:var(--cream-l)}
-.sel-g{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(3rem,5.5vw,6rem);align-items:center;padding-top:5.5rem;border-top:1px solid rgba(196,164,74,.45)}
-.sel-img{margin:0;max-width:480px}
+.sel-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(3rem,5.5vw,6rem);align-items:center;padding-top:5.5rem;border-top:1px solid rgba(196,164,74,.45)}
+/* Texte à gauche, photo à droite, calée sur la marge droite. */
+.sel-img{margin:0;max-width:540px;order:2;justify-self:end;width:100%}
 .sel-img img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 35%;border-radius:2px}
 .sel-pillars{display:flex;flex-direction:column;gap:3rem;max-width:52rem}
 .sel-pillars .pillar+.pillar{padding-top:3rem;border-top:1px solid rgba(196,164,74,.45)}
 .sel-pillars h3{font-family:var(--fd);font-size:clamp(1.5rem,2.1vw,2.1rem);font-weight:300;line-height:1.15;color:var(--charbon);margin-bottom:1rem;text-wrap:balance}
 .sel-pillars h3 em{font-style:italic;color:var(--bdx)}
-.sel-pillars p{font-size:.9rem;line-height:1.9;color:var(--gris);max-width:56ch;margin-bottom:1.3rem}
+.sel-pillars p{font-size:.9rem;line-height:1.9;color:var(--gris);max-width:62ch;margin-bottom:1.3rem}
 .sel-pillars ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
 .sel-pillars li{display:flex;align-items:baseline;gap:.7rem;font-size:.88rem;line-height:1.5;color:var(--charbon)}
 .sel-pillars li::before{content:"";flex:none;width:14px;height:1px;background:var(--or);transform:translateY(-.3em)}
@@ -349,7 +350,7 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .philo-t{padding:4.5rem 1.5rem 3rem;max-width:none}
   .philo-img{min-height:0;aspect-ratio:3/2}
   .sel-g{grid-template-columns:1fr;gap:3rem}
-  .sel-img{max-width:none}
+  .sel-img{max-width:none;order:0}
   .sel-img img{aspect-ratio:4/3;object-position:50% 45%}
   .sel-pillars{max-width:none}
   .bodega-facts{grid-template-columns:1fr 1fr}
