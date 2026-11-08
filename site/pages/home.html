@@ -297,26 +297,39 @@
 <script src="/assets/js/home-carousel.js" defer></script>
 
 <!-- ────────────────── DÉGUSTATIONS ────────────────── -->
-<section class="s-deg" id="degustations">
+<section class="s-deg" id="degustations" aria-labelledby="deg-title">
   <div class="deg-in">
-    <div class="deg-hd fi">
-      <div class="sl">Nos événements</div>
-      <h2>Dégustations</h2>
-    </div>
-    <div class="deg-grid">
-      <div>
-        <div class="deg-photo fi">
-          <img src="/assets/images/photo-quali-degustation.webp" alt="Dégustation de vins argentins Andivino, verres et bouteille Poesía" width="1050" height="1400" loading="lazy" decoding="async">
+    <div class="deg-menu">
+      <figure class="deg-fig fi">
+        <img src="/assets/images/photo-quali-degustation.webp" alt="Table de dégustation Andivino : verres alignés, bouteille de Clos des Andes 2017 et planche de charcuteries et fromages" width="1050" height="1400" loading="lazy" decoding="async">
+      </figure>
+      <div class="deg-carte">
+        <div class="deg-hd fi">
+          <div class="sl">Nos événements</div>
+          <h2 id="deg-title">Dégustations</h2>
+          <p class="deg-quote">Le terroir et la passion sont des choses qui se partagent&nbsp;: par la rencontre, par la convivialité, par le verre tendu à quelqu'un qui ne connaît pas encore.</p>
         </div>
-        <p class="deg-intro spaced">Le terroir et la passion sont des choses qui se partagent — par la rencontre, par la convivialité, par le verre tendu à quelqu'un qui ne connaît pas encore. Venez nous rencontrer et déguster nos vins lors des événements que nous organisons, à Paris comme à Marseille.</p>
-      </div>
-      <div>
-        <div class="deg-tabs" role="group" aria-label="Filtrer les dégustations">
-          <button class="dtab active" data-tab="upcoming" aria-pressed="true">À venir</button>
-          <button class="dtab" data-tab="past" aria-pressed="false">Passées</button>
+
+        <div class="deg-prog fi">
+          <h3 class="deg-rule">Au programme</h3>
+          <dl class="deg-courses">
+            <div><dt>Les trois cuvées de la Bodega Poesía</dt><dd>Clos des Andes, Cuvée Hélène et Poesía, servies et commentées par Gaspard, Esteban et Hadrien.</dd></div>
+            <div><dt>Une table à partager</dt><dd>Charcuteries, fromages et pain, pour accompagner chaque verre.</dd></div>
+            <div><dt>Le récit de Mendoza</dt><dd>Luján de Cuyo, la bodega et ses vignes de 1935, racontés par ceux qui les ont parcourues.</dd></div>
+          </dl>
         </div>
-        <p class="deg-note" id="degNote" hidden>Pas de nouvelle date pour l'instant. <a href="/newsletter">Être prévenu de la prochaine dégustation</a> ou suivez-nous sur <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p>
-        <div class="deg-list" id="degList"></div>
+
+        <div class="deg-dates fi">
+          <div class="deg-dates-hd">
+            <h3 class="deg-rule">Les soirées</h3>
+            <div class="deg-tabs" role="group" aria-label="Filtrer les dégustations">
+              <button class="dtab active" data-tab="upcoming" aria-pressed="true">À venir</button>
+              <button class="dtab" data-tab="past" aria-pressed="false">Passées</button>
+            </div>
+          </div>
+          <p class="deg-note" id="degNote" hidden>Pas de nouvelle date pour l'instant. <a href="/newsletter">Être prévenu de la prochaine dégustation</a> ou suivez-nous sur <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p>
+          <div class="deg-list" id="degList"></div>
+        </div>
       </div>
     </div>
   </div>

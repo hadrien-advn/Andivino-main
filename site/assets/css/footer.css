@@ -14,8 +14,8 @@ footer :focus-visible{outline-color:#D9BC74}
 }
 
 /* ── FOOTER (shared across all pages) ── */
-footer{background:#6E1828;padding:4.5rem}
-.ft-in{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem}
+footer{background:#6E1828;padding:4.5rem clamp(1.5rem,4.5vw,6rem)}
+.ft-in{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem}
 .ft-br p{font-size:.75rem;line-height:1.75;color:rgba(250,246,241,.66);margin-top:1rem}
 .ft-brand-row{display:flex;align-items:center;gap:1.25rem;margin-bottom:.5rem}
 .ft-logo-mark{height:48px;width:auto;filter:brightness(0) invert(1)}
