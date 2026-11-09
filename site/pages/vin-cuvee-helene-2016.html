@@ -84,6 +84,21 @@
           "93",
           "94"
         ]
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 2,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 5,
+          "unitCode": "DAY"
+        }
       }
     },
     "hasMerchantReturnPolicy": {
@@ -92,6 +107,7 @@
       "returnPolicyCountry": "FR",
       "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
       "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
       "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility",
       "merchantReturnLink": "https://andivino.fr/legal/cgv"
     }

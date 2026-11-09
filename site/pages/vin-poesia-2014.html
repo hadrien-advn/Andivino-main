@@ -84,6 +84,21 @@
           "93",
           "94"
         ]
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 2,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 5,
+          "unitCode": "DAY"
+        }
       }
     },
     "hasMerchantReturnPolicy": {
@@ -92,47 +107,15 @@
       "returnPolicyCountry": "FR",
       "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
       "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
       "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility",
       "merchantReturnLink": "https://andivino.fr/legal/cgv"
     }
   },
-  "review": [
-    {
-      "@type": "Review",
-      "author": {
-        "@type": "Organization",
-        "name": "Wine Advocate"
-      },
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "94",
-        "bestRating": "100"
-      }
-    },
-    {
-      "@type": "Review",
-      "author": {
-        "@type": "Organization",
-        "name": "Vinous"
-      },
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "91",
-        "bestRating": "100"
-      }
-    },
-    {
-      "@type": "Review",
-      "author": {
-        "@type": "Organization",
-        "name": "James Suckling"
-      },
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "92",
-        "bestRating": "100"
-      }
-    }
+  "award": [
+    "Wine Advocate 94/100",
+    "Vinous 91/100",
+    "James Suckling 92/100"
   ]
 }
 </script>
