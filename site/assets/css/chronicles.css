@@ -213,3 +213,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   .vins-table td::before{content:attr(data-label);font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-align:left;padding-top:.15rem}
 }
 .wine-lead{font-size:1.02rem}
+
+/* Encadré « L'essentiel » en tête d'article (réponse directe avant le récit). */
+.art-key{background:var(--cream);border-left:2px solid var(--bdx);padding:1.4rem 1.6rem;margin:0 0 2.2rem}
+.art-key-t{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);margin:0 0 .7rem;font-weight:500}
+.art-key ul{margin:0;padding:0}
+.art-key li{margin:.3rem 0}
+.art-body ol{margin:0 0 1.2rem;padding-left:1.3rem;max-width:min(66ch,36em)}
+.art-body ol li{padding-left:.3rem}
+.art-body ol li::before{content:none}
+.art-body ol li::marker{color:var(--bdx);font-family:var(--fd)}

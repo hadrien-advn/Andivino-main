@@ -25,7 +25,7 @@
     var next = upcomingDegustations()[0];
     var contact = '<a href="mailto:contact@andivino.fr">écrivez-nous</a>';
     var retrait = next ? ', ou retrait gratuit à notre dégustation du ' + fmtDateLong(next.date) + ' (' + next.lieu + ')' : '';
-    return 'Remise en main propre sous 7 jours à Paris et petite couronne' + retrait + '. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
+    return 'Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a>' + retrait + '. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
   }
 
   if (typeof module === 'object' && module.exports) {

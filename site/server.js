@@ -7,6 +7,7 @@ const Stripe = require('stripe');
 require('dotenv').config();
 
 const { PRODUCTS, buildOrder } = require('./data/catalog');
+const { DEGUSTATIONS, upcomingDegustations } = require('./assets/js/degustations.js');
 
 const app = express();
 const port = Number(process.env.PORT || 4242);
@@ -161,9 +162,42 @@ function page(fileName) {
 // Cache HTML en mémoire avec version injectée dans les URLs CSS/JS
 const htmlCache = {};
 
+// Dégustations de l'accueil écrites dans le HTML (lisibles sans JavaScript), avec le même balisage que
+// renderDeg() dans assets/js/home.js, qui reprend la main dans le navigateur. Source : assets/js/degustations.js.
+const DEG_MONTHS = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+const DEG_ICON_TIME = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+const DEG_ICON_PIN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+const escHtml = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function renderHomeDegustations(html) {
+  const now = new Date();
+  const upcoming = upcomingDegustations(now);
+  const tab = upcoming.length ? 'upcoming' : 'past';
+  const items = upcoming.length ? upcoming : DEGUSTATIONS
+    .filter((d) => d.passee || new Date(d.date) < now)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  const list = items.map((d) => {
+    const dt = new Date(d.date);
+    const cta = tab === 'upcoming'
+      ? (d.url ? `<a href="${escHtml(d.url)}" class="btn-or">S'inscrire</a>` : '<span class="btn-or disabled">Sur invitation</span>')
+      : '';
+    return `<div class="ditem">
+      <div class="ddate"><div class="dday">${dt.getDate()}</div><div class="dmon">${DEG_MONTHS[dt.getMonth()]} ${dt.getFullYear()}</div></div>
+      <div class="dinfo"><h3>${escHtml(d.titre)}</h3><div class="dmeta"><span>${DEG_ICON_TIME}${escHtml(d.heure)}</span><span>${DEG_ICON_PIN}${escHtml(d.lieu)}</span></div></div>
+      ${cta}
+    </div>`;
+  }).join('');
+  return html
+    .replace('<div class="deg-list" id="degList"></div>', `<div class="deg-list" id="degList">${list}</div>`)
+    .replace('<p class="deg-note" id="degNote" hidden>', tab === 'past' ? '<p class="deg-note" id="degNote">' : '<p class="deg-note" id="degNote" hidden>')
+    .replace('<button class="dtab active" data-tab="upcoming" aria-pressed="true">', `<button class="dtab${tab === 'upcoming' ? ' active' : ''}" data-tab="upcoming" aria-pressed="${tab === 'upcoming'}">`)
+    .replace('<button class="dtab" data-tab="past" aria-pressed="false">', `<button class="dtab${tab === 'past' ? ' active' : ''}" data-tab="past" aria-pressed="${tab === 'past'}">`);
+}
+
 async function getHtmlWithVersion(fileName) {
   if (htmlCache[fileName]) return htmlCache[fileName];
   let html = await fs.readFile(page(fileName), 'utf8');
+  if (fileName === 'home.html') html = renderHomeDegustations(html);
   html = html.replace(/(href|src)="(\/assets\/[^"]+\.(css|js))"/g, `$1="$2?v=${BUILD_VERSION}"`);
   htmlCache[fileName] = html;
   return html;
@@ -316,6 +350,7 @@ async function sendOrderToCrm(order) {
 app.get('/', sendPage('home.html'));
 app.get(['/commande', '/commande/'], sendPage('commande.html'));
 app.get('/vins-argentins', sendPage('vins-argentins.html'));
+app.get('/vin-argentin-paris', sendPage('vin-argentin-paris.html'));
 app.get('/professionnels', sendPage('professionnels.html'));
 app.get(['/chroniques', '/chroniques/'], sendPage('chroniques.html'));
 app.get(['/chroniques/malbec-argentin-histoire-terroirs', '/chroniques/malbec-argentin-histoire-terroirs/'], sendPage('chronique-malbec-argentin-histoire-terroirs.html'));
