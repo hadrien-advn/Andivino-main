@@ -216,10 +216,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 /* Encadré « L'essentiel » en tête d'article (réponse directe avant le récit). */
 .art-key{background:var(--cream);border-left:2px solid var(--bdx);padding:1.4rem 1.6rem;margin:0 0 2.2rem}
-.art-key-t{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);margin:0 0 .7rem;font-weight:500}
+.art-body .art-key .art-key-t{font-family:var(--fb);font-size:.7rem;line-height:1.7;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);margin:0 0 .7rem;font-weight:500;text-wrap:wrap}
 .art-key ul{margin:0;padding:0}
 .art-key li{margin:.3rem 0}
 .art-body ol{margin:0 0 1.2rem;padding-left:1.3rem;max-width:min(66ch,36em)}
 .art-body ol li{padding-left:.3rem}
 .art-body ol li::before{content:none}
 .art-body ol li::marker{color:var(--bdx);font-family:var(--fd)}
+/* Fiches vins : le paragraphe de présentation vient avant le bloc d'achat dans le HTML (lu en premier par les moteurs), mais s'affiche dessous. */
+.wine-top{display:flex;flex-direction:column}
+.wine-top .wine-hero{order:1}
+.wine-top .wine-lead{order:2;margin-bottom:0}
