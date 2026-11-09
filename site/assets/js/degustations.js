@@ -24,10 +24,8 @@
   function deliveryNoteHtml() {
     var next = upcomingDegustations()[0];
     var contact = '<a href="mailto:contact@andivino.fr">écrivez-nous</a>';
-    if (next) {
-      return 'Retrait gratuit à notre dégustation du ' + fmtDateLong(next.date) + ' (' + next.lieu + ') ou remise en main propre à Paris et petite couronne. Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
-    }
-    return 'Retrait gratuit lors de notre prochaine dégustation ou remise en main propre à Paris et petite couronne. Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
+    var retrait = next ? ', ou retrait gratuit à notre dégustation du ' + fmtDateLong(next.date) + ' (' + next.lieu + ')' : '';
+    return 'Remise en main propre sous 7 jours à Paris et petite couronne' + retrait + '. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d\'expédition ailleurs pour l\'instant : ' + contact + '.';
   }
 
   if (typeof module === 'object' && module.exports) {

@@ -41,14 +41,19 @@
         '</div>' +
       '</div>';
     document.body.appendChild(el);
-    document.getElementById('cookieAccept').addEventListener('click', function () {
-      setCookieConsent('accepted');
+    // Hauteur du bandeau exposée en CSS (--cookie-h) : le hero de l'accueil remonte ses boutons au-dessus.
+    var root = document.documentElement;
+    function syncHeight(){ root.style.setProperty('--cookie-h', el.offsetHeight + 'px'); }
+    syncHeight();
+    window.addEventListener('resize', syncHeight);
+    function close(choice){
+      setCookieConsent(choice);
+      window.removeEventListener('resize', syncHeight);
+      root.style.removeProperty('--cookie-h');
       el.remove();
-    });
-    document.getElementById('cookieRefuse').addEventListener('click', function () {
-      setCookieConsent('refused');
-      el.remove();
-    });
+    }
+    document.getElementById('cookieAccept').addEventListener('click', function () { close('accepted'); });
+    document.getElementById('cookieRefuse').addEventListener('click', function () { close('refused'); });
   }
 
   function maybeShowCookieBanner(){

@@ -36,9 +36,14 @@
   "@type": "Organization",
   "@id": "https://andivino.fr/#organization",
   "name": "Andivino",
-  "legalName": "Andivino SASU",
+  "legalName": "Andivino",
   "url": "https://andivino.fr/",
-  "logo": "https://andivino.fr/assets/images/logo-sans-fond.png",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://andivino.fr/assets/images/logo-sans-fond.png",
+    "width": 600,
+    "height": 416
+  },
   "description": "Sélection de vins argentins de Mendoza issus de vieilles vignes de la Bodega Poesía.",
   "email": "contact@andivino.fr",
   "address": {
@@ -123,12 +128,14 @@
   </div>
 </nav>
 
+
+<main id="contenu">
 <!-- ────────────────── HERO ────────────────── -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-c">
     <h1><em>Du terroir argentin,</em> <strong>à votre table.</strong></h1>
-    <p class="hero-sub">Des vins de caractère — Malbec argentin et grands assemblages de Mendoza — importés par trois passionnés qui ont vécu en Argentine. Le lien humain au service du terroir.</p>
+    <p class="hero-sub">Andivino importe des vins argentins de caractère — Malbec et grands assemblages de Mendoza — choisis par trois passionnés qui ont vécu en Argentine. Le lien humain au service du terroir.</p>
     <div class="hero-ctas">
       <a href="#vins" class="btn-p">Découvrir nos vins</a>
       <a href="/commande" class="btn-o">Commander</a>
@@ -160,12 +167,12 @@
     <div class="vins-hd fi">
       <div class="sl centered"><span>Notre sélection</span></div>
       <h2>Trois cuvées, <em>un terroir.</em></h2>
-      <p class="vins-note" data-delivery-note>Remise en main propre à Paris et petite couronne. Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</p>
+      <p class="vins-note" data-delivery-note>Remise en main propre sous 7 jours à Paris et petite couronne. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</p>
       <p class="vins-compare"><a href="/vins-argentins">Comparer nos trois cuvées →</a></p>
     </div>
     <!-- Cartes des cuvées écrites dans le HTML (lisibles sans JavaScript par les moteurs) ; home.js branche les boutons « Ajouter » et ajoute le bloc « Cuvées en importation ». -->
     <div class="vins-g" id="vinsGrid">
-      <article class="cuvee fi" data-wine-id="clos-2017">
+      <div class="cuvee fi" data-wine-id="clos-2017">
         <a class="cuvee-shelf" href="/products/mendoza/lujan-de-cuyo/clos-des-andes-2017" tabindex="-1" aria-hidden="true"><img src="/assets/images/bout-cda.webp" alt="Bouteille de Clos des Andes 2017, Bodega Poesía" width="61" height="260" class="bottle-img" loading="lazy" decoding="async"></a>
         <div class="cuvee-label">
           <p class="cuvee-mill">2017</p>
@@ -178,8 +185,8 @@
           <p class="cuvee-px">21,99&nbsp;€<span>la bouteille</span></p>
           <button type="button" class="btn-add" data-add-id="clos-2017" aria-label="Ajouter Clos des Andes 2017 au panier">Ajouter</button>
         </div>
-      </article>
-      <article class="cuvee fi d1" data-wine-id="helene-2016">
+      </div>
+      <div class="cuvee fi d1" data-wine-id="helene-2016">
         <a class="cuvee-shelf" href="/products/mendoza/lujan-de-cuyo/cuvee-helene-2016" tabindex="-1" aria-hidden="true"><img src="/assets/images/bout-helene-2016.webp" alt="Bouteille de Poesía — Cuvée Hélène 2016, Bodega Poesía" width="68" height="260" class="bottle-img" loading="lazy" decoding="async"></a>
         <div class="cuvee-label">
           <p class="cuvee-mill">2016<span class="cuvee-flag">Bientôt épuisé</span></p>
@@ -192,8 +199,8 @@
           <p class="cuvee-px">35,99&nbsp;€<span>la bouteille</span></p>
           <button type="button" class="btn-add" data-add-id="helene-2016" aria-label="Ajouter Poesía — Cuvée Hélène 2016 au panier">Ajouter</button>
         </div>
-      </article>
-      <article class="cuvee fi d2" data-wine-id="poesia-2014">
+      </div>
+      <div class="cuvee fi d2" data-wine-id="poesia-2014">
         <a class="cuvee-shelf" href="/products/mendoza/lujan-de-cuyo/poesia-2014" tabindex="-1" aria-hidden="true"><img src="/assets/images/bout-poesia.webp" alt="Bouteille de Poesía 2014, Bodega Poesía" width="64" height="260" class="bottle-img" loading="lazy" decoding="async"></a>
         <div class="cuvee-label">
           <p class="cuvee-mill">2014<span class="cuvee-flag">Bientôt épuisé</span></p>
@@ -207,7 +214,7 @@
           <p class="cuvee-px">44,99&nbsp;€<span>la bouteille</span></p>
           <button type="button" class="btn-add" data-add-id="poesia-2014" aria-label="Ajouter Poesía 2014 au panier">Ajouter</button>
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>
@@ -410,6 +417,8 @@
 </section>
 
 <!-- ────────────────── FOOTER ────────────────── -->
+</main>
+
 <footer>
   <div class="ft-in">
     <div class="ft-br">

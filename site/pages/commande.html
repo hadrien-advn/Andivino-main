@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Commander des vins argentins — Andivino</title>
-<meta name="description" content="Commandez les cuvées Andivino de Mendoza : Clos des Andes, Cuvée Hélène et Poesía. Paiement sécurisé via Stripe.">
+<meta name="description" content="Commandez nos vins argentins de Mendoza : Clos des Andes 2017, Cuvée Hélène 2016 et Poesía 2014. Livraison en main propre à Paris, paiement Stripe.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://andivino.fr/commande">
 <meta property="og:type" content="website">
@@ -40,6 +40,8 @@
   <a href="/" class="back-link">← Retour</a>
 </nav>
 
+
+<main id="contenu">
 <div class="page-header">
   <h1>Commander <em>nos vins</em></h1>
   <p>Choisissez vos bouteilles et votre mode de livraison, puis vos coordonnées. Paiement sécurisé via Stripe, confirmation immédiate par email.</p>
@@ -58,6 +60,15 @@
       <h2><span class="sn">2</span>Livraison</h2>
       <div class="liv-options" id="livOptions" role="radiogroup" aria-label="Mode de livraison">
 
+        <div class="liv-opt" id="livIDF" data-mode="main-propre" role="radio" aria-checked="false" tabindex="0">
+          <div class="liv-radio"><div class="liv-radio-dot"></div></div>
+          <div class="liv-body">
+            <div class="liv-title">Remise en main propre — Paris & Petite couronne</div>
+            <div class="liv-desc">Livraison directe à votre domicile par un membre de l'équipe Andivino, sous 7 jours. Disponible à Paris (75) et en petite couronne (92, 93, 94).</div>
+          </div>
+          <div class="liv-badge">5,00 €</div>
+        </div>
+
         <div class="liv-opt" id="livDegustation" data-mode="degustation" role="radio" aria-checked="false" tabindex="0">
           <div class="liv-radio"><div class="liv-radio-dot"></div></div>
           <div class="liv-body">
@@ -65,15 +76,6 @@
             <div class="liv-desc" id="livDegustationDesc">Récupérez vos bouteilles sur place, lors de notre prochaine dégustation.</div>
           </div>
           <div class="liv-badge free">Gratuit</div>
-        </div>
-
-        <div class="liv-opt" id="livIDF" data-mode="main-propre" role="radio" aria-checked="false" tabindex="0">
-          <div class="liv-radio"><div class="liv-radio-dot"></div></div>
-          <div class="liv-body">
-            <div class="liv-title">Remise en main propre — Paris & Petite couronne</div>
-            <div class="liv-desc">Livraison directe à votre domicile par un membre de l'équipe Andivino. Disponible à Paris (75) et en petite couronne (92, 93, 94).</div>
-          </div>
-          <div class="liv-badge">5,00 €</div>
         </div>
 
         <div class="liv-opt" data-mode="colissimo" role="radio" aria-checked="false" tabindex="0">
@@ -184,6 +186,8 @@
 <script src="/assets/js/checkout.js"></script>
 
 <!-- ────────────────── FOOTER ────────────────── -->
+</main>
+
 <footer>
   <div class="ft-in">
     <div class="ft-br">

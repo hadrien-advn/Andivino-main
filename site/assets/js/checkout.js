@@ -533,8 +533,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Dès que le client commence à remplir le formulaire, Stripe.js se télécharge en arrière-plan.
-document.addEventListener('focusin', function warmStripe() {
-  document.removeEventListener('focusin', warmStripe);
+// Seuls les champs du formulaire comptent : le focus posé par la vérification d'âge ne doit pas le déclencher.
+document.getElementById('formSection').addEventListener('focusin', function warmStripe() {
+  document.getElementById('formSection').removeEventListener('focusin', warmStripe);
   loadStripeJs().catch(function() {});
 });
 

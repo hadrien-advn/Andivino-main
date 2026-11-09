@@ -39,7 +39,7 @@ app.use(helmet({
       baseUri: ["'self'"],
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"],
-      scriptSrc: ["'self'", 'https://js.stripe.com', "'sha256-wdcBSdLWsvB7koKbH4Q4rVx7/fjw4vYHJKGw3NnqCC8='", ...__liveSrc],
+      scriptSrc: ["'self'", 'https://js.stripe.com', ...__liveSrc],
       styleSrc: ["'self'", ...(__impeccableLiveDev ? ["'unsafe-inline'"] : [])],
       fontSrc: ["'self'"],
       imgSrc: ["'self'", 'data:'],
@@ -51,6 +51,12 @@ app.use(helmet({
   },
   crossOriginEmbedderPolicy: false
 }));
+
+// Le site n'utilise ni caméra, ni micro, ni géolocalisation. (payment non restreint : Apple Pay / Google Pay via Stripe.)
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  next();
+});
 
 // Anciennes URLs (indexées avant restructuration) -> page qui les remplace.
 const LEGACY_REDIRECTS = {
