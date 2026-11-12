@@ -7,7 +7,7 @@ const Stripe = require('stripe');
 require('dotenv').config();
 
 const { PRODUCTS, buildOrder } = require('./data/catalog');
-const { DEGUSTATIONS, upcomingDegustations } = require('./assets/js/degustations.js');
+const { DEGUSTATIONS, upcomingDegustations, deliveryNoteHtml } = require('./assets/js/degustations.js');
 
 const app = express();
 const port = Number(process.env.PORT || 4242);
@@ -203,10 +203,35 @@ function renderHomeDegustations(html) {
     .replace('<button class="dtab" data-tab="past" aria-pressed="false">', `<button class="dtab${tab === 'past' ? ' active' : ''}" data-tab="past" aria-pressed="${tab === 'past'}">`);
 }
 
+// Prochaine dégustation ouverte à l'inscription, écrite dans le HTML de toutes les pages : note de livraison
+// (data-delivery-note, que degustations.js réécrit aussi dans le navigateur) et repères de vin-argentin-paris.html
+// (<!--deg:retrait-->, <!--deg:prochaine--> dans le texte, [[deg:retrait-texte]] dans la FAQ JSON-LD).
+function renderSiteDegustations(html) {
+  const next = upcomingDegustations(new Date()).find((d) => d.url);
+  html = html.replace(/<(span|p)([^>]*\sdata-delivery-note[^>]*)>[\s\S]*?<\/\1>/g, (m, tag, attrs) => `<${tag}${attrs}>${deliveryNoteHtml()}</${tag}>`);
+  if (!html.includes('deg:')) return html;
+  const quand = next ? `${tastingDateLabel(next)} à ${next.heure}` : '';
+  const salle = next ? next.adresse.split(',')[0] : '';
+  const lieu = next ? `${salle}, ${next.lieu}` : '';
+  return html
+    .replace(/\[\[deg:retrait-texte\]\]/g, next ? `(prochaine : ${quand}, ${lieu})` : "(pas de nouvelle date pour l'instant)")
+    .replace(/<!--deg:retrait-->/g, next ? `(prochaine&nbsp;: <a href="${escHtml(next.url)}">${escHtml(quand)}, ${escHtml(lieu)}</a>)` : "(pas de nouvelle date pour l'instant)")
+    .replace(/<!--deg:prochaine-->/g, next
+      ? `Prochaine soirée le ${escHtml(quand)} à la ${escHtml(salle)} (${escHtml(next.lieu)})&nbsp;: <a href="${escHtml(next.url)}">réservez votre place à la dégustation</a>. Pour être prévenu des suivantes, <a href="/newsletter">inscrivez-vous à la newsletter</a>.`
+      : 'Pas de nouvelle date pour l\'instant&nbsp;: <a href="/newsletter">inscrivez-vous à la newsletter</a> pour être prévenu de la prochaine.');
+}
+
+// Le cache est vidé chaque jour (heure de Paris) : les dates à venir et passées changent avec le jour.
+let htmlCacheDay = '';
+const parisDay = () => new Date().toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris' });
+
 async function getHtmlWithVersion(fileName) {
+  const today = parisDay();
+  if (today !== htmlCacheDay) { for (const k of Object.keys(htmlCache)) delete htmlCache[k]; htmlCacheDay = today; }
   if (htmlCache[fileName]) return htmlCache[fileName];
   let html = await fs.readFile(page(fileName), 'utf8');
   if (fileName === 'home.html') html = renderHomeDegustations(html);
+  html = renderSiteDegustations(html);
   html = html.replace(/(href|src)="(\/assets\/[^"]+\.(css|js))"/g, `$1="$2?v=${BUILD_VERSION}"`);
   htmlCache[fileName] = html;
   return html;
