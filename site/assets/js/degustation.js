@@ -21,7 +21,11 @@
     closedText: document.getElementById('bookClosedText'),
     pay: document.getElementById('payStep'),
     paySummary: document.getElementById('paySummary'),
-    payEdit: document.getElementById('payEdit')
+    payEdit: document.getElementById('payEdit'),
+    qtyHint: document.getElementById('qtyHint'),
+    newsletter: document.getElementById('bk-newsletter'),
+    bookTitle: document.getElementById('book-title'),
+    legal: document.getElementById('legalNote')
   };
   var checkout = null;
   var clientSecret = null;
@@ -39,7 +43,7 @@
   function personHtml(i) {
     var id = 'p' + i;
     return '<fieldset class="person" data-i="' + i + '">' +
-      '<legend>' + (i === 0 ? 'Vous' : 'Participant ' + (i + 1)) + (i === 0 ? ' <small>Participant 1</small>' : '') + '</legend>' +
+      '<legend>' + (i === 0 ? 'Vous' : 'Participant ' + (i + 1)) + '</legend>' +
       '<div class="form-row">' +
         '<div class="form-group"><label for="' + id + '-prenom">Prénom *</label><input type="text" id="' + id + '-prenom" name="prenom" autocomplete="' + (i === 0 ? 'given-name' : 'off') + '" maxlength="80" required></div>' +
         '<div class="form-group"><label for="' + id + '-nom">Nom *</label><input type="text" id="' + id + '-nom" name="nom" autocomplete="' + (i === 0 ? 'family-name' : 'off') + '" maxlength="80" required></div>' +
@@ -63,6 +67,14 @@
     els.minus.disabled = state.qty <= 1;
     els.plus.disabled = state.qty >= maxQty();
     els.total.textContent = euros(state.price * state.qty);
+    // Dit pourquoi « + » ne va pas plus loin : la limite par réservation ou les dernières places.
+    var atMax = state.qty >= maxQty() && state.qty > 1;
+    els.qtyHint.hidden = !atMax;
+    if (atMax) {
+      els.qtyHint.innerHTML = state.remaining != null && state.remaining < state.max
+        ? 'Il ne reste que ' + plural(state.remaining, 'place') + '.'
+        : state.max + ' places au maximum par réservation. Pour un groupe, <a href="mailto:contact@andivino.fr">écrivez-nous</a>.';
+    }
   }
 
   els.minus.addEventListener('click', function () {
@@ -87,10 +99,10 @@
       form.hidden = true;
       els.pay.hidden = true;
       els.closed.hidden = false;
-      els.closedText.textContent = closed
-        ? 'Les inscriptions sont closes. Merci à tous, et à la prochaine dégustation.'
-        : 'C\'est complet : les ' + state.total + ' places sont parties. Inscrivez-vous à la newsletter pour être prévenu en premier de la prochaine date.';
-      els.placesLine.textContent = closed ? 'Inscriptions closes.' : 'Complet.';
+      els.bookTitle.innerHTML = closed ? 'Inscriptions <em>closes</em>' : 'C\'est <em>complet</em>';
+      els.placesLine.textContent = closed ? 'Merci à tous, et à la prochaine dégustation.' : 'Les ' + state.total + ' places sont parties.';
+      els.closedText.textContent = 'Inscrivez-vous à la newsletter pour connaître en premier la date de la prochaine dégustation.';
+      if (els.legal) els.legal.hidden = true;
       els.heroCta.textContent = closed ? 'Inscriptions closes' : 'Complet : être prévenu';
       els.heroCta.href = closed ? '#reserver' : '/newsletter';
     } else {
@@ -225,7 +237,7 @@
     fetch('/api/degustation/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ participants: participants, site: form.elements.site.value })
+      body: JSON.stringify({ participants: participants, newsletter: els.newsletter.checked, site: form.elements.site.value })
     })
       .then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (data) {

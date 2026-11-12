@@ -622,6 +622,25 @@ async function sendTastingToCrm(session) {
   });
   if (!crmResponse.ok) throw new Error(`CRM ${crmResponse.status}`);
   tastingsSent.add(session.id);
+  if (session.metadata?.newsletter === 'oui') await subscribeTastingBuyer(session);
+}
+
+// L'acheteur a coché la case newsletter : même inscription que /newsletter, notée comme venant de la
+// dégustation. Un échec ici ne remet pas en cause l'inscription à la dégustation.
+async function subscribeTastingBuyer(session) {
+  const buyer = participantsFromSession(session)[0];
+  if (!buyer || !newsletterSecret) return console.error(`[degustation] ${session.id} : newsletter non transmise (acheteur ou secret manquant)`);
+  try {
+    const res = await fetch(`${crmUrl}/api/newsletter`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${newsletterSecret}` },
+      body: JSON.stringify({ email: buyer.email, firstName: buyer.firstName, lastName: buyer.lastName, source: 'degustation' }),
+      signal: AbortSignal.timeout(8000)
+    });
+    if (!res.ok) throw new Error(`CRM ${res.status}`);
+  } catch (error) {
+    console.error(`[degustation] ${session.id} : inscription newsletter impossible :`, error.message);
+  }
 }
 
 // URL de retour après paiement : jamais tirée de l'en-tête Host, sauf en local.
@@ -689,7 +708,9 @@ app.post('/api/degustation/checkout', paymentLimiter, async (req, res) => {
       return res.status(409).json({ error, remaining: Math.max(0, unpaid) });
     }
 
-    const metadata = { kind: 'degustation', event_id: d.id, places: String(participants.length) };
+    // Case newsletter (décochée par défaut) : le consentement de l'acheteur (participant 1) seulement,
+    // gardé dans Stripe comme trace et transmis au CRM une fois le paiement fait.
+    const metadata = { kind: 'degustation', event_id: d.id, places: String(participants.length), newsletter: body.newsletter === true ? 'oui' : 'non' };
     participants.forEach((p, i) => { metadata[`p${i + 1}`] = JSON.stringify([p.firstName, p.lastName, p.email]); });
 
     const session = await stripe.checkout.sessions.create({
@@ -717,7 +738,7 @@ app.post('/api/degustation/checkout', paymentLimiter, async (req, res) => {
         metadata: { kind: 'degustation', event_id: d.id }
       },
       custom_text: {
-        submit: { message: 'Places nominatives. Un événement daté n\'ouvre pas de droit de rétractation (art. L221-28 du Code de la consommation) : en cas d\'empêchement, écrivez-nous à contact@andivino.fr.' }
+        submit: { message: 'Places nominatives. Un empêchement ? Écrivez-nous à contact@andivino.fr, nous trouverons une solution. Événement daté : pas de droit de rétractation (art. L221-28 du Code de la consommation).' }
       }
     });
     placesCache = null;

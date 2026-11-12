@@ -79,6 +79,10 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .monogram{font-family:var(--fd);font-style:italic;font-weight:300;font-size:6.5rem;line-height:.9;color:var(--bdx);width:120px;height:160px;border:1px solid var(--or);display:flex;align-items:center;justify-content:center}
 .seal{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);text-align:center;line-height:1.6}
 
+.pairing{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:baseline;padding:2rem 1.8rem;border:1px solid var(--cream-d);border-top:0;background:var(--cream-l)}
+.pairing h3{font-size:1.5rem;font-style:italic;line-height:1.1;white-space:nowrap}
+.pairing p{font-size:.92rem;color:var(--gris);line-height:1.75;max-width:44rem}
+
 /* ── Hôtes ── */
 .hosts{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1160px;margin:0 auto;padding:7.5rem var(--gut)}
 .hosts-photo img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:2px}
@@ -101,7 +105,12 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .stepper button:disabled{color:var(--gris-l);cursor:not-allowed}
 .stepper output{min-width:44px;text-align:center;font-family:var(--fb);font-size:1.05rem;color:var(--charbon);font-variant-numeric:tabular-nums}
 
+.qty-hint{font-size:.8rem;color:var(--gris);margin:-1.1rem 0 1.6rem;text-align:right}
+.qty-hint a{color:var(--bdx)}
 .person{border:0;margin-bottom:1.6rem}
+.consent{display:flex;gap:.8rem;align-items:flex-start;font-size:.86rem;color:var(--charbon);line-height:1.55;padding:.9rem 0 1.1rem;cursor:pointer}
+.consent input{margin-top:.18rem;width:18px;height:18px;flex-shrink:0;accent-color:var(--bdx);cursor:pointer}
+.consent input:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
 .person legend{font-family:var(--fd);font-size:1.25rem;font-style:italic;color:var(--charbon);margin-bottom:.9rem;display:flex;align-items:baseline;gap:.7rem}
 .person legend small{font-family:var(--fb);font-style:normal;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
@@ -123,7 +132,10 @@ form .btn-p{width:100%}
 .form-note.legal{margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--cream-d);text-align:left}
 
 .pay-summary{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1rem 0;border-top:1px solid var(--cream-d);border-bottom:1px solid var(--cream-d);margin-bottom:1.6rem}
+.pay-summary{flex-wrap:wrap}
 .pay-summary p{font-size:.9rem;color:var(--charbon)}
+.pay-summary #paySummary{flex:1 1 0;min-width:0}
+.pay-summary .pay-hold{order:3;flex-basis:100%;font-size:.8rem;color:var(--gris);margin-top:.15rem}
 .link-btn{background:none;border:0;font-family:var(--fb);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);cursor:pointer;text-decoration:underline;text-underline-offset:3px;flex-shrink:0}
 #checkout{min-height:120px}
 
@@ -176,6 +188,8 @@ form .btn-p{width:100%}
   .ticket dd span{font-size:.8rem}
   .hero-cta .btn-p{width:100%}
   .wine-grid{grid-template-columns:1fr}
+  .pairing{grid-template-columns:1fr;gap:.6rem;padding:1.8rem 1.4rem}
+  .qty-hint{text-align:left;margin-top:-1rem}
   .wine{display:grid;grid-template-columns:84px 1fr;column-gap:1.4rem;padding:1.8rem 1.4rem;align-items:start}
   .wine .num{position:static;grid-column:2;margin-bottom:.2rem}
   .wine-visual{grid-row:1 / span 4;grid-column:1;height:170px;margin:0}

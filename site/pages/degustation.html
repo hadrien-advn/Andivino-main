@@ -4,15 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Dégustation Poesía &amp; Torrontés, 7 décembre — Andivino</title>
-<meta name="description" content="Dégustation Andivino le lundi 7 décembre 2026 à 19h30 à la cave Vino Sapiens (Paris 7e) : les trois cuvées Bodega Poesía et un Torrontés. 25 € par personne, 15 places.">
+<meta name="description" content="Dégustation Andivino le lundi 7 décembre 2026 à 19h30 à la cave Vino Sapiens (Paris 7e) : les trois cuvées Bodega Poesía et un Torrontés, avec planches de charcuterie et de fromages. 25 € par personne, 15 places.">
 <link rel="canonical" href="https://andivino.fr/degustation">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dégustation Poesía & Torrontés — lundi 7 décembre, Paris 7e">
-<meta property="og:description" content="Quatre vins argentins chez Vino Sapiens, présentés par Gaspard, Esteban et Hadrien. 25 € par personne, 15 places.">
+<meta property="og:description" content="Quatre vins argentins et des planches à partager chez Vino Sapiens, avec Gaspard, Esteban et Hadrien. 25 € par personne, 15 places.">
 <meta property="og:url" content="https://andivino.fr/degustation">
-<meta property="og:image" content="https://andivino.fr/assets/images/og/andivino.jpg">
+<meta property="og:image" content="https://andivino.fr/assets/images/og/degustation-poesia.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Table de dégustation Andivino : bouteilles Poesía, verres et planches de charcuterie et de fromages">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
@@ -27,7 +28,7 @@
   "@context": "https://schema.org",
   "@type": "Event",
   "name": "Dégustation Poesía & Torrontés",
-  "description": "Les trois cuvées Bodega Poesía (Clos des Andes 2017, Cuvée Hélène 2016, Poesía 2014) et un Torrontés, présentés par les fondateurs d'Andivino.",
+  "description": "Les trois cuvées Bodega Poesía (Clos des Andes 2017, Cuvée Hélène 2016, Poesía 2014) et un Torrontés, présentés par les fondateurs d'Andivino, avec planches de charcuterie, fromages et bouchées à partager.",
   "startDate": "2026-12-07T19:30:00+01:00",
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
@@ -58,13 +59,13 @@
     <div class="hero-text">
       <div class="eyebrow">Dégustation · Lundi 7 décembre</div>
       <h1>Poesía <em>&amp; Torrontés</em></h1>
-      <p class="lead">Quatre vins d'Argentine, une table chez un caviste ami, et les trois fondateurs d'Andivino pour vous raconter Mendoza, verre en main.</p>
+      <p class="lead">Quatre vins d'Argentine, des planches de charcuterie et de fromages, une table chez un caviste ami, et les trois fondateurs d'Andivino pour vous raconter Mendoza, verre en main.</p>
 
       <dl class="ticket">
         <div><dt>Date</dt><dd>Lundi 7 décembre 2026</dd></div>
         <div><dt>Heure</dt><dd>19h30</dd></div>
         <div><dt>Lieu</dt><dd>Cave Vino Sapiens<span>145 rue Saint-Dominique, Paris 7<sup>e</sup></span></dd></div>
-        <div><dt>Participation</dt><dd class="price">25 €<span>par personne, 4 vins</span></dd></div>
+        <div><dt>Participation</dt><dd class="price">25 €<span>par personne, vins et planches compris</span></dd></div>
       </dl>
 
       <div class="hero-cta">
@@ -113,6 +114,10 @@
         <p>Le grand vin de la bodega, 18 à 24 mois d'élevage. Soyeux, frais, une finale longue.</p>
       </li>
     </ol>
+    <div class="pairing">
+      <h3>Et à table</h3>
+      <p>Des planches de charcuterie et de fromages, et d'autres bouchées à partager pour accompagner les vins. Tout est compris dans les 25 €.</p>
+    </div>
   </section>
 
   <!-- ─────────── HÔTES ─────────── -->
@@ -154,26 +159,34 @@
           </div>
         </div>
 
+        <p class="qty-hint" id="qtyHint" hidden></p>
+
         <div id="participants"></div>
 
         <!-- Champ piège pour les robots : laissé vide par les humains -->
         <div class="hp" aria-hidden="true"><label for="bk-site">Site web</label><input type="text" id="bk-site" name="site" tabindex="-1" autocomplete="off"></div>
 
+        <label class="consent">
+          <input type="checkbox" id="bk-newsletter" name="newsletter">
+          <span>Je souhaite recevoir la newsletter d'Andivino : les prochaines dégustations et les nouvelles cuvées. Facultatif, désinscription possible à tout moment.</span>
+        </label>
+
         <div class="total"><span>Total</span><strong id="totalValue">25 €</strong></div>
         <p class="status" id="bookStatus" role="status" aria-live="polite"></p>
         <button type="submit" class="btn-p" id="bookSubmit">Continuer vers le paiement</button>
-        <p class="form-note">Paiement sécurisé par Stripe : carte, Apple Pay, Google Pay. Vous avez un code d'invitation ? Saisissez-le à l'étape du paiement.</p>
+        <p class="form-note">Paiement sécurisé par Stripe : carte bancaire, ou Apple Pay et Google Pay selon votre appareil. Vous avez un code d'invitation ? Saisissez-le à l'étape du paiement.</p>
       </form>
 
       <div class="pay" id="payStep" hidden>
         <div class="pay-summary">
           <p id="paySummary"></p>
+          <p class="pay-hold">Vos places vous sont réservées 30 minutes, le temps du paiement.</p>
           <button type="button" class="link-btn" id="payEdit">Modifier</button>
         </div>
         <div id="checkout"></div>
       </div>
 
-      <p class="form-note legal">Places nominatives. Les noms et emails servent à vous accueillir et à vous envoyer la confirmation ; ils ne sont jamais cédés à des tiers. Un événement daté n'ouvre pas de droit de rétractation : en cas d'empêchement, <a href="mailto:contact@andivino.fr">écrivez-nous</a>. Voir les <a href="/legal/cgv">CGV</a>.</p>
+      <p class="form-note legal" id="legalNote">Dégustation réservée aux personnes majeures. Places nominatives : les noms et emails servent à vous accueillir et à vous envoyer la confirmation, jamais à autre chose sans votre accord, et ne sont jamais cédés à des tiers. Un empêchement ? <a href="mailto:contact@andivino.fr">Écrivez-nous</a>, nous trouverons une solution. Comme pour tout événement daté, il n'y a pas de droit de rétractation (<a href="/legal/cgv">CGV</a>).</p>
     </div>
   </section>
 </main>
