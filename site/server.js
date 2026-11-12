@@ -43,9 +43,10 @@ app.use(helmet({
       scriptSrc: ["'self'", 'https://js.stripe.com', ...__liveSrc],
       styleSrc: ["'self'", ...(__impeccableLiveDev ? ["'unsafe-inline'"] : [])],
       fontSrc: ["'self'"],
-      imgSrc: ["'self'", 'data:'],
-      connectSrc: ["'self'", 'https://api.stripe.com', ...__liveSrc],
-      frameSrc: ['https://js.stripe.com', 'https://hooks.stripe.com'],
+      // *.stripe.com, checkout.stripe.com : paiement Stripe Checkout intégré à /degustation.
+      imgSrc: ["'self'", 'data:', 'https://*.stripe.com'],
+      connectSrc: ["'self'", 'https://api.stripe.com', 'https://checkout.stripe.com', ...__liveSrc],
+      frameSrc: ['https://js.stripe.com', 'https://hooks.stripe.com', 'https://checkout.stripe.com'],
       formAction: ["'self'"],
       upgradeInsecureRequests: null
     }
@@ -132,7 +133,15 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json', limit: '
 
     // La commande part au CRM ; tant qu'il ne l'a pas acceptée, l'événement n'est pas marqué traité
     // et Stripe le renvoie (le CRM ignore une commande qu'il a déjà).
-    if (event.type === 'payment_intent.succeeded') {
+    // Inscription à une dégustation (Stripe Checkout) : les participants partent au CRM, pas une vente de vin.
+    // checkout.session.completed couvre aussi les invitations à 0 € (code promo 100 %, pas de paiement) ;
+    // la page de confirmation les transmet de toute façon.
+    if (event.type === 'payment_intent.succeeded' && event.data.object.metadata?.kind === 'degustation') {
+      const sessions = await stripe.checkout.sessions.list({ payment_intent: event.data.object.id, limit: 1 });
+      if (sessions.data[0]) await sendTastingToCrm(sessions.data[0]);
+    } else if (event.type === 'checkout.session.completed' && event.data.object.metadata?.kind === 'degustation') {
+      await sendTastingToCrm(event.data.object);
+    } else if (event.type === 'payment_intent.succeeded') {
       const order = orderFromPaymentIntent(event);
       await recordPaymentIntentEvent(event, order);
       await sendOrderToCrm(order);
@@ -174,7 +183,7 @@ function renderHomeDegustations(html) {
   const upcoming = upcomingDegustations(now);
   const tab = upcoming.length ? 'upcoming' : 'past';
   const items = upcoming.length ? upcoming : DEGUSTATIONS
-    .filter((d) => d.passee || new Date(d.date) < now)
+    .filter((d) => !upcoming.includes(d))
     .sort((a, b) => new Date(b.date) - new Date(a.date));
   const list = items.map((d) => {
     const dt = new Date(d.date);
@@ -362,6 +371,8 @@ app.get(['/products/mendoza/lujan-de-cuyo/clos-des-andes-2017', '/products/mendo
 app.get(['/paiement/success', '/paiement/success/'], sendPage('payment-success.html'));
 app.get(['/paiement/cancel', '/paiement/cancel/'], sendPage('payment-cancel.html'));
 app.get(['/newsletter', '/newsletter/'], sendPage('newsletter.html'));
+app.get('/degustation', sendPage('degustation.html'));
+app.get('/degustation/merci', sendPage('degustation-merci.html'));
 app.get(['/legal/cgv', '/legal/cgv/'], sendPage('legal-cgv.html'));
 app.get(['/legal/mentions-legales', '/legal/mentions-legales/'], sendPage('legal-mentions-legales.html'));
 
@@ -515,6 +526,246 @@ app.post('/api/newsletter', newsletterLimiter, async (req, res) => {
   } catch (error) {
     console.error('[newsletter] envoi au CRM impossible :', error.message);
     return res.status(502).json({ error: 'Inscription impossible pour le moment. Réessayez dans quelques minutes.' });
+  }
+});
+
+// ─── Inscription aux dégustations : andivino.fr/degustation ─────────────────────────────────────
+// La dégustation ouverte est la première à venir qui a un champ `inscription` (assets/js/degustations.js).
+// Paiement par Stripe Checkout intégré à la page : Apple Pay / Google Pay / carte, codes promo créés
+// dans le tableau de bord Stripe (un code à 100 % sert d'invitation, la commande passe alors à 0 €).
+// Les places sont comptées dans Stripe : sessions terminées + sessions ouvertes pas encore expirées
+// (une place est tenue 30 minutes pendant le paiement), pour ne jamais dépasser la jauge.
+// Chaque participant (prénom, nom, email) part au CRM, qui le crée s'il n'y est pas encore.
+const TASTING_MAX_PER_ORDER = 6;
+const TASTING_HOLD_SECONDS = 31 * 60; // Stripe exige au moins 30 minutes avant expiration.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function currentTasting(now = new Date()) {
+  return upcomingDegustations(now).find((d) => d.inscription) || null;
+}
+
+// Décalage de Paris (en minutes) à un instant donné : +60 l'hiver, +120 l'été.
+function parisOffsetMinutes(date) {
+  const name = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Paris', timeZoneName: 'longOffset' })
+    .formatToParts(date).find((part) => part.type === 'timeZoneName').value;
+  const match = /GMT([+-])(\d{2}):?(\d{2})?/.exec(name);
+  return match ? (match[1] === '-' ? -1 : 1) * (Number(match[2]) * 60 + Number(match[3] || 0)) : 0;
+}
+
+// Début de la dégustation (« 19h30 », heure de Paris) : les inscriptions ferment à cette heure-là.
+function tastingStartsAt(d) {
+  const [y, mo, day] = d.date.split('-').map(Number);
+  const [h, m] = String(d.heure).split(/h/i).map((v) => Number(v) || 0);
+  const utcGuess = new Date(Date.UTC(y, mo - 1, day, h, m));
+  return new Date(utcGuess.getTime() - parisOffsetMinutes(utcGuess) * 60000);
+}
+
+function tastingDateLabel(d) {
+  return new Date(`${d.date}T12:00:00Z`).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Paris' });
+}
+
+function publicTasting(d) {
+  return { id: d.id, titre: d.titre, date: d.date, dateLabel: tastingDateLabel(d), heure: d.heure, lieu: d.lieu, adresse: d.adresse, prix: d.inscription.prix, places: d.inscription.places };
+}
+
+let placesCache = null;
+async function placesTaken(eventId, fresh = false) {
+  if (!fresh && placesCache && placesCache.eventId === eventId && Date.now() - placesCache.at < 15000) return placesCache.taken;
+  const now = Math.floor(Date.now() / 1000);
+  let taken = 0;
+  let seen = 0;
+  for await (const session of stripe.checkout.sessions.list({ limit: 100 })) {
+    if (++seen > 3000) break;
+    if (session.metadata?.kind !== 'degustation' || session.metadata.event_id !== eventId) continue;
+    if (session.status === 'complete' || (session.status === 'open' && session.expires_at > now)) {
+      taken += Number(session.metadata.places) || 0;
+    }
+  }
+  placesCache = { eventId, taken, at: Date.now() };
+  return taken;
+}
+
+function participantsFromSession(session) {
+  const count = Number(session.metadata?.places) || 0;
+  const list = [];
+  for (let i = 1; i <= count; i++) {
+    try {
+      const [firstName, lastName, email] = JSON.parse(session.metadata[`p${i}`] || '[]');
+      if (firstName || lastName || email) list.push({ firstName, lastName, email });
+    } catch (error) { /* participant illisible : ignoré */ }
+  }
+  return list;
+}
+
+// Une seule fois par session et par processus ; le CRM ignore de toute façon une session déjà reçue.
+const tastingsSent = new Set();
+async function sendTastingToCrm(session) {
+  if (tastingsSent.has(session.id)) return;
+  if (!ordersSecret) throw new Error('ORDERS_API_SECRET manquant');
+  const d = DEGUSTATIONS.find((x) => x.id === session.metadata?.event_id);
+  const crmResponse = await fetch(`${crmUrl}/api/tastings`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${ordersSecret}` },
+    body: JSON.stringify({
+      sessionId: session.id,
+      event: d ? { id: d.id, title: d.titre, date: d.date, time: d.heure, place: d.adresse } : { id: session.metadata?.event_id },
+      amountPaid: session.amount_total,
+      amountDiscount: session.total_details?.amount_discount || 0,
+      currency: session.currency,
+      paidAt: new Date((session.created || Date.now() / 1000) * 1000).toISOString(),
+      buyerEmail: session.customer_details?.email || session.customer_email || null,
+      participants: participantsFromSession(session)
+    }),
+    signal: AbortSignal.timeout(10000)
+  });
+  if (!crmResponse.ok) throw new Error(`CRM ${crmResponse.status}`);
+  tastingsSent.add(session.id);
+}
+
+// URL de retour après paiement : jamais tirée de l'en-tête Host, sauf en local.
+function siteOrigin(req) {
+  const host = String(req.headers.host || '');
+  return /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host) ? `http://${host}` : 'https://andivino.fr';
+}
+
+app.get('/api/degustation', async (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
+  const d = currentTasting();
+  if (!d) return res.json({ event: null });
+  let remaining = null;
+  if (stripe) {
+    try {
+      remaining = Math.max(0, d.inscription.places - await placesTaken(d.id));
+    } catch (error) {
+      console.error('[degustation] comptage des places impossible :', error.message);
+    }
+  }
+  return res.json({
+    event: publicTasting(d),
+    remaining,
+    open: Date.now() < tastingStartsAt(d).getTime(),
+    maxPerOrder: TASTING_MAX_PER_ORDER,
+    publishableKey: stripePublishableKey || null
+  });
+});
+
+app.post('/api/degustation/checkout', paymentLimiter, async (req, res) => {
+  try {
+    if (!stripe || !stripePublishableKey) {
+      return res.status(503).json({ error: 'Paiement indisponible pour le moment. Écrivez-nous à contact@andivino.fr.' });
+    }
+    const body = req.body || {};
+    if (cleanText(body.site, 200)) return res.status(400).json({ error: 'Requête invalide.' });
+
+    const d = currentTasting();
+    if (!d || Date.now() >= tastingStartsAt(d).getTime()) {
+      return res.status(410).json({ error: 'Les inscriptions à cette dégustation sont closes.' });
+    }
+
+    const raw = Array.isArray(body.participants) ? body.participants : [];
+    if (raw.length < 1 || raw.length > TASTING_MAX_PER_ORDER) {
+      return res.status(400).json({ error: `Entre 1 et ${TASTING_MAX_PER_ORDER} places par inscription.` });
+    }
+    const participants = raw.map((p) => ({
+      firstName: cleanText(p && p.prenom, 80),
+      lastName: cleanText(p && p.nom, 80),
+      email: cleanText(p && p.email, 160).toLowerCase()
+    }));
+    const invalid = participants.findIndex((p) => !p.firstName || !p.lastName || !EMAIL_RE.test(p.email));
+    if (invalid !== -1) {
+      return res.status(400).json({ error: `Participant ${invalid + 1} : prénom, nom et email valides requis.`, participant: invalid });
+    }
+
+    const remaining = d.inscription.places - await placesTaken(d.id, true);
+    if (participants.length > remaining) {
+      return res.status(409).json({
+        error: remaining <= 0 ? 'C\'est complet : toutes les places viennent de partir.' : `Il ne reste que ${remaining} place${remaining > 1 ? 's' : ''}.`,
+        remaining: Math.max(0, remaining)
+      });
+    }
+
+    const metadata = { kind: 'degustation', event_id: d.id, places: String(participants.length) };
+    participants.forEach((p, i) => { metadata[`p${i + 1}`] = JSON.stringify([p.firstName, p.lastName, p.email]); });
+
+    const session = await stripe.checkout.sessions.create({
+      ui_mode: 'embedded',
+      mode: 'payment',
+      locale: 'fr',
+      line_items: [{
+        quantity: participants.length,
+        price_data: {
+          currency: 'eur',
+          unit_amount: d.inscription.prix,
+          product_data: {
+            name: `Dégustation Andivino — ${tastingDateLabel(d)}, ${d.heure}`,
+            description: `${participants.map((p) => `${p.firstName} ${p.lastName}`).join(', ')} · ${d.adresse}`.slice(0, 500)
+          }
+        }
+      }],
+      allow_promotion_codes: true,
+      customer_email: participants[0].email,
+      expires_at: Math.floor(Date.now() / 1000) + TASTING_HOLD_SECONDS,
+      return_url: `${siteOrigin(req)}/degustation/merci?session_id={CHECKOUT_SESSION_ID}`,
+      metadata,
+      payment_intent_data: {
+        description: `Dégustation ${d.date} — ${participants.length} place${participants.length > 1 ? 's' : ''}`,
+        metadata: { kind: 'degustation', event_id: d.id }
+      },
+      custom_text: {
+        submit: { message: 'Places nominatives. Un événement daté n\'ouvre pas de droit de rétractation (art. L221-28 du Code de la consommation) : en cas d\'empêchement, écrivez-nous à contact@andivino.fr.' }
+      }
+    });
+    placesCache = null;
+    return res.json({ clientSecret: session.client_secret });
+  } catch (error) {
+    console.error('[degustation] création du paiement impossible :', error.message);
+    return res.status(500).json({ error: 'Impossible de préparer le paiement. Réessayez dans un instant.' });
+  }
+});
+
+// Retour au formulaire avant d'avoir payé : la session est expirée pour rendre ses places tout de suite.
+app.post('/api/degustation/release', paymentLimiter, async (req, res) => {
+  try {
+    if (!stripe) return res.json({ ok: false });
+    const clientSecret = cleanText(req.body && req.body.clientSecret, 300);
+    const id = clientSecret.split('_secret_')[0];
+    if (!/^cs_\w+$/.test(id)) return res.status(400).json({ ok: false });
+    const session = await stripe.checkout.sessions.retrieve(id);
+    if (session.client_secret !== clientSecret || session.metadata?.kind !== 'degustation' || session.status !== 'open') {
+      return res.json({ ok: false });
+    }
+    await stripe.checkout.sessions.expire(id);
+    placesCache = null;
+    return res.json({ ok: true });
+  } catch (error) {
+    return res.json({ ok: false });
+  }
+});
+
+// Page de confirmation : état de la session, et envoi au CRM si le webhook ne l'a pas déjà fait
+// (seule voie pour une invitation à 0 € si le webhook ne reçoit pas checkout.session.completed).
+app.get('/api/degustation/session', async (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
+  try {
+    if (!stripe) return res.status(503).json({ error: 'Paiement indisponible.' });
+    const id = cleanText(req.query.id, 200);
+    if (!/^cs_\w+$/.test(id)) return res.status(400).json({ error: 'Inscription introuvable.' });
+    const session = await stripe.checkout.sessions.retrieve(id);
+    if (session.metadata?.kind !== 'degustation') return res.status(404).json({ error: 'Inscription introuvable.' });
+    if (session.status === 'complete') {
+      placesCache = null;
+      await sendTastingToCrm(session).catch((error) => console.error(`[degustation] ${session.id} non transmis au CRM :`, error.message));
+    }
+    const d = DEGUSTATIONS.find((x) => x.id === session.metadata.event_id);
+    return res.json({
+      status: session.status,
+      event: d && d.inscription ? publicTasting(d) : null,
+      participants: participantsFromSession(session).map((p) => `${p.firstName} ${p.lastName}`),
+      email: session.customer_details?.email || session.customer_email || null,
+      amountTotal: session.amount_total
+    });
+  } catch (error) {
+    return res.status(404).json({ error: 'Inscription introuvable.' });
   }
 });
 

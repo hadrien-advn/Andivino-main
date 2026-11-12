@@ -48,10 +48,9 @@ function renderWines(){
 function renderDeg(tab='upcoming'){
   const {degustations}=getData();const now=new Date();
   const list=document.getElementById('degList');if(!list)return;
-  const items=degustations.filter(d=>{
-    const dt=new Date(d.date);
-    return tab==='upcoming'?(dt>=now&&!d.passee):(dt<now||d.passee);
-  }).sort((a,b)=>tab==='upcoming'?new Date(a.date)-new Date(b.date):new Date(b.date)-new Date(a.date));
+  // Même règle « à venir » que le serveur et la commande (assets/js/degustations.js).
+  const upcoming=window.andivinoUpcomingDegustations?window.andivinoUpcomingDegustations(now):[];
+  const items=degustations.filter(d=>tab==='upcoming'?upcoming.includes(d):!upcoming.includes(d)).sort((a,b)=>tab==='upcoming'?new Date(a.date)-new Date(b.date):new Date(b.date)-new Date(a.date));
   if(!items.length){list.innerHTML=tab==='upcoming'
     ?`<div class="deg-empty">Aucune dégustation programmée pour le moment.<small>Les prochaines dates sont annoncées sur <a href="https://www.instagram.com/andivino.fr/" target="_blank" rel="noopener noreferrer">Instagram</a>.</small></div>`
     :`<div class="deg-empty">Aucun événement passé.</div>`;return;}
