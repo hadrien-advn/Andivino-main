@@ -795,7 +795,11 @@ app.get('/api/degustation/session', async (req, res) => {
       amountTotal: session.amount_total
     });
   } catch (error) {
-    return res.status(404).json({ error: 'Inscription introuvable.' });
+    // Session inconnue chez Stripe : introuvable. Toute autre erreur (réseau, Stripe indisponible) :
+    // la page de confirmation propose de réessayer au lieu d'annoncer une inscription perdue.
+    if (error && error.code === 'resource_missing') return res.status(404).json({ error: 'Inscription introuvable.' });
+    console.error('[degustation] lecture de session impossible :', error && error.message);
+    return res.status(502).json({ error: 'Vérification impossible pour le moment.' });
   }
 });
 

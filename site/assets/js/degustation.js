@@ -40,16 +40,79 @@
   }
 
   // ── Participants ────────────────────────────────────────────────────────────────────────────
+  function field(id, label, type, name, auto, max, placeholder) {
+    return '<div class="form-group"><label for="' + id + '">' + label + ' *</label>' +
+      '<input type="' + type + '" id="' + id + '" name="' + name + '" autocomplete="' + auto + '" maxlength="' + max + '" required' +
+      (placeholder ? ' placeholder="' + placeholder + '"' : '') + (type === 'email' ? ' inputmode="email" autocapitalize="off" spellcheck="false"' : '') + '>' +
+      '<p class="field-error" id="' + id + '-err" hidden></p>' +
+      (type === 'email' ? '<p class="field-hint" id="' + id + '-hint" hidden></p>' : '') +
+      '</div>';
+  }
   function personHtml(i) {
     var id = 'p' + i;
+    var me = i === 0;
     return '<fieldset class="person" data-i="' + i + '">' +
-      '<legend>' + (i === 0 ? 'Vous' : 'Participant ' + (i + 1)) + '</legend>' +
+      '<legend>' + (me ? 'Vous' : 'Participant ' + (i + 1)) + '</legend>' +
       '<div class="form-row">' +
-        '<div class="form-group"><label for="' + id + '-prenom">Prénom *</label><input type="text" id="' + id + '-prenom" name="prenom" autocomplete="' + (i === 0 ? 'given-name' : 'off') + '" maxlength="80" required></div>' +
-        '<div class="form-group"><label for="' + id + '-nom">Nom *</label><input type="text" id="' + id + '-nom" name="nom" autocomplete="' + (i === 0 ? 'family-name' : 'off') + '" maxlength="80" required></div>' +
+        field(id + '-prenom', 'Prénom', 'text', 'prenom', me ? 'given-name' : 'off', 80) +
+        field(id + '-nom', 'Nom', 'text', 'nom', me ? 'family-name' : 'off', 80) +
       '</div>' +
-      '<div class="form-group"><label for="' + id + '-email">Email *</label><input type="email" id="' + id + '-email" name="email" autocomplete="' + (i === 0 ? 'email' : 'off') + '" maxlength="160" required placeholder="' + (i === 0 ? 'vous@exemple.fr' : 'son.email@exemple.fr') + '"></div>' +
+      field(id + '-email', 'Email', 'email', 'email', me ? 'email' : 'off', 160, me ? 'vous@exemple.fr' : 'son.email@exemple.fr') +
     '</fieldset>';
+  }
+
+  // ── Erreurs sous chaque champ ───────────────────────────────────────────────────────────────
+  function setError(input, message) {
+    var err = document.getElementById(input.id + '-err');
+    err.textContent = message;
+    err.hidden = false;
+    input.setAttribute('aria-invalid', 'true');
+    input.setAttribute('aria-describedby', err.id);
+  }
+  function clearError(input) {
+    var err = document.getElementById(input.id + '-err');
+    if (err) { err.textContent = ''; err.hidden = true; }
+    input.removeAttribute('aria-invalid');
+    input.removeAttribute('aria-describedby');
+  }
+
+  // Fautes de frappe fréquentes dans le domaine : on propose la correction, sans bloquer.
+  var DOMAIN_FIX = {
+    'gmial.com': 'gmail.com', 'gmai.com': 'gmail.com', 'gmail.co': 'gmail.com', 'gmail.con': 'gmail.com', 'gmail.cm': 'gmail.com',
+    'gamil.com': 'gmail.com', 'gmal.com': 'gmail.com', 'gnail.com': 'gmail.com', 'gmaill.com': 'gmail.com',
+    'hotmial.com': 'hotmail.com', 'hotmai.com': 'hotmail.com', 'hotmail.con': 'hotmail.com', 'hotmial.fr': 'hotmail.fr', 'hotmal.fr': 'hotmail.fr', 'hotmail.f': 'hotmail.fr',
+    'outlok.com': 'outlook.com', 'outloo.com': 'outlook.com', 'outlook.con': 'outlook.com', 'outlok.fr': 'outlook.fr',
+    'yahoo.con': 'yahoo.com', 'yaho.fr': 'yahoo.fr', 'yahou.fr': 'yahoo.fr', 'yahooo.fr': 'yahoo.fr',
+    'orange.fe': 'orange.fr', 'oragne.fr': 'orange.fr', 'ornage.fr': 'orange.fr', 'wanadoo.fe': 'wanadoo.fr', 'wanado.fr': 'wanadoo.fr',
+    'free.fe': 'free.fr', 'sfr.fe': 'sfr.fr', 'icloud.con': 'icloud.com', 'iclou.com': 'icloud.com', 'icoud.com': 'icloud.com',
+    'laposte.ne': 'laposte.net', 'laposte.nte': 'laposte.net'
+  };
+  function emailSuggestion(value) {
+    var at = value.lastIndexOf('@');
+    if (at < 1) return null;
+    var fix = DOMAIN_FIX[value.slice(at + 1).toLowerCase()];
+    return fix ? value.slice(0, at + 1) + fix : null;
+  }
+  function updateHint(input) {
+    var hint = document.getElementById(input.id + '-hint');
+    if (!hint) return;
+    var s = emailSuggestion(input.value.trim());
+    hint.hidden = !s;
+    hint.innerHTML = '';
+    if (!s) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'link-inline';
+    btn.textContent = s;
+    btn.addEventListener('click', function () {
+      input.value = s;
+      hint.hidden = true;
+      clearError(input);
+      input.focus();
+    });
+    hint.appendChild(document.createTextNode('Vouliez-vous dire '));
+    hint.appendChild(btn);
+    hint.appendChild(document.createTextNode(' ?'));
   }
 
   function renderParticipants() {
@@ -86,7 +149,16 @@
     if (state.qty < maxQty()) { state.qty++; renderParticipants(); }
   });
   form.addEventListener('input', function (e) {
-    if (e.target.removeAttribute) e.target.removeAttribute('aria-invalid');
+    var t = e.target;
+    if (!t.id || !document.getElementById(t.id + '-err')) return;
+    clearError(t);
+    if (statusIsValidation) {
+      var left = form.querySelectorAll('[aria-invalid="true"]').length;
+      setStatus(left > 1 ? left + ' champs sont à compléter ou corriger.' : '', true);
+    }
+  });
+  form.addEventListener('focusout', function (e) {
+    if (e.target.name === 'email') updateHint(e.target);
   });
 
   // ── Places ──────────────────────────────────────────────────────────────────────────────────
@@ -106,7 +178,13 @@
       els.heroCta.textContent = closed ? 'Inscriptions closes' : 'Complet : être prévenu';
       els.heroCta.href = closed ? '#reserver' : '/newsletter';
     } else {
+      // Des places se sont libérées (paiement abandonné) : on rouvre la réservation.
       els.closed.hidden = true;
+      if (els.pay.hidden) form.hidden = false;
+      els.bookTitle.innerHTML = 'Réserver <em>vos places</em>';
+      if (els.legal) els.legal.hidden = false;
+      els.heroCta.textContent = 'Réserver ma place';
+      els.heroCta.href = '#reserver';
     }
 
     updateBar(r, full, closed);
@@ -176,24 +254,36 @@
   }
 
   // ── Paiement ────────────────────────────────────────────────────────────────────────────────
-  function fail(message, input) {
+  var statusIsValidation = false;
+  function setStatus(message, isValidation) {
     els.status.textContent = message;
-    if (input) { input.setAttribute('aria-invalid', 'true'); input.focus(); }
+    statusIsValidation = !!isValidation;
   }
 
+  // Vérifie tous les champs d'un coup ; chaque erreur s'affiche sous son champ.
   function readParticipants() {
     var list = [];
+    var firstInvalid = null;
+    var count = 0;
     var blocks = els.participants.querySelectorAll('.person');
     for (var i = 0; i < blocks.length; i++) {
-      var b = blocks[i];
-      var who = i === 0 ? '' : ' (participant ' + (i + 1) + ')';
-      var p = { prenom: b.querySelector('[name=prenom]').value.trim(), nom: b.querySelector('[name=nom]').value.trim(), email: b.querySelector('[name=email]').value.trim() };
-      if (!p.prenom) { fail('Indiquez le prénom' + who + '.', b.querySelector('[name=prenom]')); return null; }
-      if (!p.nom) { fail('Indiquez le nom' + who + '.', b.querySelector('[name=nom]')); return null; }
-      if (!EMAIL.test(p.email)) { fail('Indiquez une adresse email valide' + who + '.', b.querySelector('[name=email]')); return null; }
+      var inputs = { prenom: blocks[i].querySelector('[name=prenom]'), nom: blocks[i].querySelector('[name=nom]'), email: blocks[i].querySelector('[name=email]') };
+      var p = { prenom: inputs.prenom.value.trim(), nom: inputs.nom.value.trim(), email: inputs.email.value.trim() };
+      var checks = [
+        [inputs.prenom, !p.prenom && 'Indiquez le prénom.'],
+        [inputs.nom, !p.nom && 'Indiquez le nom.'],
+        [inputs.email, !p.email ? 'Indiquez une adresse email.' : !EMAIL.test(p.email) && 'Cette adresse semble incomplète. Exemple : prenom@domaine.fr']
+      ];
+      checks.forEach(function (c) {
+        if (c[1]) { setError(c[0], c[1]); count++; if (!firstInvalid) firstInvalid = c[0]; }
+        else clearError(c[0]);
+      });
       list.push(p);
     }
-    return list;
+    if (!count) return list;
+    setStatus(count > 1 ? count + ' champs sont à compléter ou corriger.' : '', true);
+    firstInvalid.focus();
+    return null;
   }
 
   function loadStripe() {
@@ -202,13 +292,17 @@
       var s = document.createElement('script');
       s.src = 'https://js.stripe.com/v3/';
       s.onload = function () { resolve(window.Stripe); };
-      s.onerror = function () { reject(new Error('Le module de paiement ne se charge pas. Vérifiez votre connexion.')); };
+      s.onerror = function () { s.remove(); reject(new Error('Le module de paiement ne se charge pas. Vérifiez votre connexion, puis réessayez.')); };
       document.head.appendChild(s);
     });
   }
 
   // Libère les places tenues par un paiement abandonné (retour au formulaire).
+  // Volontairement pas au départ de la page : certains moyens de paiement quittent la page
+  // pour revenir ensuite, et libérer à ce moment annulerait un paiement en cours.
+  var payTimer = null;
   function release() {
+    clearTimeout(payTimer);
     if (checkout) { checkout.destroy(); checkout = null; }
     if (clientSecret) {
       var body = JSON.stringify({ clientSecret: clientSecret });
@@ -216,38 +310,66 @@
       fetch('/api/degustation/release', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function () {});
     }
   }
-
-  els.payEdit.addEventListener('click', function () {
+  function backToForm() {
     release();
     els.pay.hidden = true;
     form.hidden = false;
     loadAvailability();
+  }
+
+  els.payEdit.addEventListener('click', function () {
+    backToForm();
     els.submit.focus();
   });
 
+  // Stripe garde les places 31 minutes : passé 30, on revient au formulaire (saisie conservée).
+  var PAY_WINDOW = 30 * 60 * 1000;
+  function onPayTimeout() {
+    backToForm();
+    setStatus('Le délai de paiement de 30 minutes est passé : vos places ont été libérées. Vos informations sont conservées, relancez le paiement quand vous voulez.');
+    document.getElementById('reserver').scrollIntoView({ block: 'start' });
+  }
+
+  function postCheckout(payload) {
+    var ctrl = 'AbortController' in window ? new AbortController() : null;
+    var timer = ctrl && setTimeout(function () { ctrl.abort(); }, 20000);
+    return fetch('/api/degustation/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (res) {
+      clearTimeout(timer);
+      if (res.status === 429) throw new Error('Trop de tentatives en peu de temps. Patientez une minute, puis réessayez.');
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (!res.ok) {
+          if (typeof data.remaining === 'number') { state.remaining = data.remaining; showAvailability(); }
+          throw new Error(data.error || 'Impossible de préparer le paiement. Réessayez dans un instant.');
+        }
+        if (!data.clientSecret) throw new Error('Impossible de préparer le paiement. Réessayez dans un instant.');
+        return data;
+      });
+    }, function (err) {
+      clearTimeout(timer);
+      throw new Error(err && err.name === 'AbortError'
+        ? 'Le serveur met trop de temps à répondre. Vérifiez votre connexion, puis réessayez.'
+        : 'Connexion impossible. Vérifiez votre réseau, puis réessayez.');
+    });
+  }
+
+  var submitting = false;
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    els.status.textContent = '';
+    if (submitting) return;
+    setStatus('');
     var participants = readParticipants();
     if (!participants) return;
 
+    submitting = true;
     els.submit.disabled = true;
     els.submit.textContent = 'Préparation du paiement…';
     var stripeReady = loadStripe();
-    fetch('/api/degustation/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ participants: participants, newsletter: els.newsletter.checked, site: form.elements.site.value })
-    })
-      .then(function (res) {
-        return res.json().catch(function () { return {}; }).then(function (data) {
-          if (!res.ok) {
-            if (typeof data.remaining === 'number') { state.remaining = data.remaining; showAvailability(); }
-            throw new Error(data.error || 'Impossible de préparer le paiement. Réessayez dans un instant.');
-          }
-          return data;
-        });
-      })
+    postCheckout({ participants: participants, newsletter: els.newsletter.checked, site: form.elements.site.value })
       .then(function (data) {
         clientSecret = data.clientSecret;
         return stripeReady.then(function (Stripe) {
@@ -262,17 +384,26 @@
         form.hidden = true;
         els.pay.hidden = false;
         checkout.mount('#checkout');
+        payTimer = setTimeout(onPayTimeout, PAY_WINDOW);
         document.getElementById('reserver').scrollIntoView({ behavior: 'smooth', block: 'start' });
       })
       .catch(function (err) {
         release();
-        fail(err.message === 'Failed to fetch' ? 'Connexion impossible. Vérifiez votre réseau et réessayez.' : err.message);
+        setStatus(err.message);
       })
       .finally(function () {
+        submitting = false;
         els.submit.disabled = false;
         els.submit.textContent = 'Continuer vers le paiement';
       });
   });
+
+  // Compteur à jour pendant la visite : toutes les minutes, et au retour sur l'onglet.
+  function refreshIfIdle() {
+    if (document.visibilityState === 'visible' && els.pay.hidden && !submitting) loadAvailability();
+  }
+  setInterval(refreshIfIdle, 60000);
+  document.addEventListener('visibilitychange', refreshIfIdle);
 
   renderParticipants();
   loadAvailability();

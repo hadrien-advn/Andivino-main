@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Inscription confirmée — Andivino</title>
+<title>Vérification de votre inscription — Andivino</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
@@ -49,8 +49,15 @@
     <div id="thanksOpen" hidden>
       <div class="eyebrow">Réservation</div>
       <h1>Paiement <em>non finalisé</em></h1>
-      <p class="lead">Votre inscription n'est pas encore enregistrée. Vous pouvez reprendre la réservation : vos places ne sont pas débitées.</p>
+      <p class="lead">Votre inscription n'est pas enregistrée et rien n'a été débité. Vous pouvez reprendre la réservation, s'il reste des places.</p>
       <div class="cta-row"><a href="/degustation#reserver" class="btn-p">Reprendre la réservation</a></div>
+    </div>
+
+    <div id="thanksRetry" hidden>
+      <div class="eyebrow">Réservation</div>
+      <h1>Vérification <em>impossible</em></h1>
+      <p class="lead">Nous n'arrivons pas à joindre le service de paiement pour l'instant. Si votre paiement est passé, votre inscription est bien enregistrée : vous la verrez en réessayant dans un moment.</p>
+      <div class="cta-row"><button type="button" class="btn-p" id="thanksRetryBtn">Réessayer</button></div>
     </div>
 
     <div id="thanksError" hidden>
