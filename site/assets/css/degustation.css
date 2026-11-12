@@ -15,6 +15,7 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--fb);background:var(--cream-l);color:var(--noir);line-height:1.7;overflow-x:hidden}
 img{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
 a{color:var(--bdx)}
 sup{font-size:.6em;line-height:0}
 
@@ -54,7 +55,7 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 
 .hero-cta{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap}
 .places{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--charbon);display:flex;align-items:center;gap:.6rem}
-.places::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green)}
+.places::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--or)}
 .places.low::before{background:var(--bdx)}
 .places.full::before{background:var(--gris-l)}
 
@@ -67,7 +68,8 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .sec-head{max-width:1160px;margin:0 auto 3.5rem}
 .wine-grid{list-style:none;max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--cream-d);border:1px solid var(--cream-d)}
 .wine{background:var(--cream-l);padding:2.2rem 1.8rem 2.4rem;position:relative;display:flex;flex-direction:column}
-.num{font-family:var(--fd);font-size:1.1rem;color:var(--or);position:absolute;top:1.2rem;left:1.4rem;font-variant-numeric:tabular-nums}
+.num{font-family:var(--fd);font-size:1.1rem;color:var(--gris);position:absolute;top:1.2rem;left:1.4rem;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:.55rem}
+.num::before{content:'';width:18px;height:1px;background:var(--or)}
 .wine-visual{height:240px;display:flex;align-items:center;justify-content:center;margin-bottom:1.8rem}
 .wine-visual img{height:100%;width:auto;object-fit:contain}
 .wine-meta{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);margin-bottom:.5rem}
@@ -81,7 +83,7 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .seal{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);text-align:center;line-height:1.6}
 
 .pairing{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:baseline;padding:2rem 1.8rem;border:1px solid var(--cream-d);border-top:0;background:var(--cream-l)}
-.pairing h3{font-size:1.5rem;font-style:italic;line-height:1.1;white-space:nowrap}
+.pairing h3{font-size:1.35rem;line-height:1.1;white-space:nowrap}
 .pairing p{font-size:.92rem;color:var(--gris);line-height:1.75;max-width:44rem}
 
 /* ── Hôtes ── */
@@ -219,4 +221,7 @@ form .btn-p{width:100%}
 .thanks .cta-row{margin-top:1.6rem}
 .icon-wrap{width:64px;height:64px;border-radius:50%;background:rgba(45,106,79,.1);display:flex;align-items:center;justify-content:center;margin-bottom:1.6rem}
 .icon-wrap svg{stroke:var(--green);stroke-width:2.5;width:32px;height:32px}
-@media(max-width:600px){.thanks{padding:3rem var(--gut)}}
+.thanks-tools{display:flex;flex-wrap:wrap;gap:.4rem 1.8rem;margin:-.6rem 0 .4rem}
+.tool-link{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);text-decoration:underline;text-underline-offset:4px;min-height:44px;display:inline-flex;align-items:center}
+.tool-link:hover{color:var(--bdx-d)}
+@media(max-width:600px){.thanks{padding:3rem var(--gut)}.thanks-tools{flex-direction:column;gap:0}}

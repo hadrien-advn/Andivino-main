@@ -192,9 +192,13 @@
     els.badge.hidden = false;
     els.badge.classList.toggle('low', r > 0 && r <= 5);
     els.badge.classList.toggle('full', full);
-    els.badge.textContent = full ? 'Complet' : r <= 5 ? 'Plus que ' + plural(r, 'place') : plural(r, 'place') + ' restante' + (r > 1 ? 's' : '');
+    // Tant que personne n'a réservé, « 15 places » plutôt que « 15 places restantes sur 15 ».
+    var untouched = r >= state.total;
+    els.badge.textContent = full ? 'Complet' : r <= 5 ? 'Plus que ' + plural(r, 'place') : untouched ? plural(r, 'place') : plural(r, 'place') + ' restante' + (r > 1 ? 's' : '');
     if (!full && !closed) {
-      els.placesLine.innerHTML = '<strong>' + plural(r, 'place') + ' restante' + (r > 1 ? 's' : '') + '</strong> sur ' + state.total + ', ' + euros(state.price) + ' par personne.';
+      els.placesLine.innerHTML = untouched
+        ? '<strong>' + plural(r, 'place') + '</strong>, ' + euros(state.price) + ' par personne.'
+        : '<strong>' + plural(r, 'place') + ' restante' + (r > 1 ? 's' : '') + '</strong> sur ' + state.total + ', ' + euros(state.price) + ' par personne.';
     }
     if (state.qty > maxQty()) { state.qty = maxQty(); }
     renderParticipants();

@@ -28,17 +28,19 @@
 <main class="thanks">
   <div class="book-card" id="thanksCard">
     <div id="thanksLoading">
-      <div class="eyebrow">Réservation</div>
       <h1>Un instant…</h1>
       <p class="lead">Nous vérifions votre inscription.</p>
     </div>
 
     <div id="thanksDone" hidden>
       <div class="icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7"/></svg></div>
-      <div class="eyebrow">Inscription confirmée</div>
       <h1>À très vite, <em id="thanksName"></em></h1>
       <p class="lead" id="thanksLead"></p>
       <dl class="ticket" id="thanksTicket"></dl>
+      <div class="thanks-tools">
+        <a href="#" id="thanksIcs" class="tool-link" download="degustation-andivino.ics">Ajouter à mon agenda</a>
+        <a href="#" id="thanksMap" class="tool-link" target="_blank" rel="noopener noreferrer">Voir le lieu sur la carte</a>
+      </div>
       <p class="form-note">Une question, un empêchement ? <a href="mailto:contact@andivino.fr">contact@andivino.fr</a></p>
       <div class="cta-row">
         <a href="/vins-argentins" class="btn-p">Découvrir les vins</a>
@@ -47,21 +49,18 @@
     </div>
 
     <div id="thanksOpen" hidden>
-      <div class="eyebrow">Réservation</div>
       <h1>Paiement <em>non finalisé</em></h1>
       <p class="lead">Votre inscription n'est pas enregistrée et rien n'a été débité. Vous pouvez reprendre la réservation, s'il reste des places.</p>
       <div class="cta-row"><a href="/degustation#reserver" class="btn-p">Reprendre la réservation</a></div>
     </div>
 
     <div id="thanksRetry" hidden>
-      <div class="eyebrow">Réservation</div>
       <h1>Vérification <em>impossible</em></h1>
       <p class="lead">Nous n'arrivons pas à joindre le service de paiement pour l'instant. Si votre paiement est passé, votre inscription est bien enregistrée : vous la verrez en réessayant dans un moment.</p>
       <div class="cta-row"><button type="button" class="btn-p" id="thanksRetryBtn">Réessayer</button></div>
     </div>
 
     <div id="thanksError" hidden>
-      <div class="eyebrow">Réservation</div>
       <h1>Inscription <em>introuvable</em></h1>
       <p class="lead">Nous ne retrouvons pas cette inscription. Si vous avez été débité, écrivez-nous à <a href="mailto:contact@andivino.fr">contact@andivino.fr</a> : on règle ça tout de suite.</p>
       <div class="cta-row"><a href="/degustation" class="btn-p">Retour à la dégustation</a></div>

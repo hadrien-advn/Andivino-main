@@ -774,6 +774,32 @@ app.post('/api/degustation/release', paymentLimiter, async (req, res) => {
 
 // Page de confirmation : état de la session, et envoi au CRM si le webhook ne l'a pas déjà fait
 // (seule voie pour une invitation à 0 € si le webhook ne reçoit pas checkout.session.completed).
+// Fichier agenda de la dégustation (lien « Ajouter à mon agenda » de la page de confirmation).
+// Pas d'heure de fin connue : l'événement est posé à l'heure de début.
+app.get('/degustation/agenda.ics', (req, res) => {
+  const id = cleanText(req.query.id, 40);
+  const d = (id && DEGUSTATIONS.find((x) => x.id === id)) || currentTasting();
+  if (!d) return res.status(404).send('Aucune dégustation à venir.');
+  const stamp = (date) => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const esc = (v) => String(v).replace(/([\\;,])/g, '\\$1');
+  const ics = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Andivino//Degustation//FR', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:degustation-${d.id}@andivino.fr`,
+    `DTSTAMP:${stamp(new Date())}`,
+    `DTSTART:${stamp(tastingStartsAt(d))}`,
+    `SUMMARY:${esc(`Dégustation Andivino — ${d.titre.split(' — ')[0].replace(/^Dégustation /, '')}`)}`,
+    `LOCATION:${esc(d.adresse)}`,
+    `DESCRIPTION:${esc(`${d.description ? `${d.description} ` : ''}Une question : contact@andivino.fr`)}`,
+    'URL:https://andivino.fr/degustation',
+    'END:VEVENT', 'END:VCALENDAR', ''
+  ].join('\r\n');
+  res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+  res.setHeader('Content-Disposition', 'attachment; filename="degustation-andivino.ics"');
+  res.setHeader('Cache-Control', 'no-store');
+  return res.send(ics);
+});
+
 app.get('/api/degustation/session', async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   try {

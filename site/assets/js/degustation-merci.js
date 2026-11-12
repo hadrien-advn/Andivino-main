@@ -36,6 +36,10 @@
         '<div><dt>Heure</dt><dd>' + esc(ev.heure) + '</dd></div>' +
         '<div><dt>Lieu</dt><dd>' + esc(ev.adresse) + '</dd></div>' +
         '<div><dt>' + (n > 1 ? 'Participants' : 'Participant') + '</dt><dd>' + names.map(esc).join('<br>') + '</dd></div>';
+      document.getElementById('thanksIcs').href = '/degustation/agenda.ics?id=' + encodeURIComponent(ev.id);
+      document.getElementById('thanksMap').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(ev.adresse);
+    } else {
+      document.querySelector('.thanks-tools').hidden = true;
     }
     show('thanksDone');
   }
