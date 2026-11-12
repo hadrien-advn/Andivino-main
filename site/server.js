@@ -568,21 +568,23 @@ function publicTasting(d) {
   return { id: d.id, titre: d.titre, date: d.date, dateLabel: tastingDateLabel(d), heure: d.heure, lieu: d.lieu, adresse: d.adresse, prix: d.inscription.prix, places: d.inscription.places };
 }
 
+// paid : places réservées (session terminée) ; held : places tenues par un paiement en cours.
+// La page affiche total - paid ; une nouvelle réservation n'est acceptée que dans total - paid - held.
 let placesCache = null;
 async function placesTaken(eventId, fresh = false) {
-  if (!fresh && placesCache && placesCache.eventId === eventId && Date.now() - placesCache.at < 15000) return placesCache.taken;
+  if (!fresh && placesCache && placesCache.eventId === eventId && Date.now() - placesCache.at < 15000) return placesCache.counts;
   const now = Math.floor(Date.now() / 1000);
-  let taken = 0;
+  const counts = { paid: 0, held: 0 };
   let seen = 0;
   for await (const session of stripe.checkout.sessions.list({ limit: 100 })) {
     if (++seen > 3000) break;
     if (session.metadata?.kind !== 'degustation' || session.metadata.event_id !== eventId) continue;
-    if (session.status === 'complete' || (session.status === 'open' && session.expires_at > now)) {
-      taken += Number(session.metadata.places) || 0;
-    }
+    const places = Number(session.metadata.places) || 0;
+    if (session.status === 'complete') counts.paid += places;
+    else if (session.status === 'open' && session.expires_at > now) counts.held += places;
   }
-  placesCache = { eventId, taken, at: Date.now() };
-  return taken;
+  placesCache = { eventId, counts, at: Date.now() };
+  return counts;
 }
 
 function participantsFromSession(session) {
@@ -635,7 +637,7 @@ app.get('/api/degustation', async (req, res) => {
   let remaining = null;
   if (stripe) {
     try {
-      remaining = Math.max(0, d.inscription.places - await placesTaken(d.id));
+      remaining = Math.max(0, d.inscription.places - (await placesTaken(d.id)).paid);
     } catch (error) {
       console.error('[degustation] comptage des places impossible :', error.message);
     }
@@ -676,12 +678,15 @@ app.post('/api/degustation/checkout', paymentLimiter, async (req, res) => {
       return res.status(400).json({ error: `Participant ${invalid + 1} : prénom, nom et email valides requis.`, participant: invalid });
     }
 
-    const remaining = d.inscription.places - await placesTaken(d.id, true);
-    if (participants.length > remaining) {
-      return res.status(409).json({
-        error: remaining <= 0 ? 'C\'est complet : toutes les places viennent de partir.' : `Il ne reste que ${remaining} place${remaining > 1 ? 's' : ''}.`,
-        remaining: Math.max(0, remaining)
-      });
+    const { paid, held } = await placesTaken(d.id, true);
+    const unpaid = d.inscription.places - paid;
+    const available = unpaid - held;
+    if (participants.length > available) {
+      let error;
+      if (unpaid <= 0) error = 'C\'est complet : toutes les places viennent de partir.';
+      else if (participants.length <= unpaid) error = `${available > 0 ? `Il ne reste que ${available} place${available > 1 ? 's' : ''} libre${available > 1 ? 's' : ''} : ` : ''}d'autres personnes sont en train de payer les dernières places. Réessayez dans une demi-heure : elles se libèrent si le paiement n'aboutit pas.`;
+      else error = `Il ne reste que ${unpaid} place${unpaid > 1 ? 's' : ''}.`;
+      return res.status(409).json({ error, remaining: Math.max(0, unpaid) });
     }
 
     const metadata = { kind: 'degustation', event_id: d.id, places: String(participants.length) };
