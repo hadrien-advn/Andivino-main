@@ -716,6 +716,7 @@ app.post('/api/degustation/checkout', paymentLimiter, async (req, res) => {
       }
     });
     placesCache = null;
+    issuedSecrets.set(session.id, session.client_secret);
     return res.json({ clientSecret: session.client_secret });
   } catch (error) {
     console.error('[degustation] création du paiement impossible :', error.message);
@@ -724,16 +725,19 @@ app.post('/api/degustation/checkout', paymentLimiter, async (req, res) => {
 });
 
 // Retour au formulaire avant d'avoir payé : la session est expirée pour rendre ses places tout de suite.
+// Stripe ne renvoie pas le client_secret à la lecture d'une session : on garde ceux qu'on a émis (en
+// mémoire ; après un redéploiement, la session expire seule au bout de 31 minutes).
+const issuedSecrets = new Map();
 app.post('/api/degustation/release', paymentLimiter, async (req, res) => {
   try {
     if (!stripe) return res.json({ ok: false });
     const clientSecret = cleanText(req.body && req.body.clientSecret, 300);
     const id = clientSecret.split('_secret_')[0];
     if (!/^cs_\w+$/.test(id)) return res.status(400).json({ ok: false });
+    if (issuedSecrets.get(id) !== clientSecret) return res.json({ ok: false });
+    issuedSecrets.delete(id);
     const session = await stripe.checkout.sessions.retrieve(id);
-    if (session.client_secret !== clientSecret || session.metadata?.kind !== 'degustation' || session.status !== 'open') {
-      return res.json({ ok: false });
-    }
+    if (session.metadata?.kind !== 'degustation' || session.status !== 'open') return res.json({ ok: false });
     await stripe.checkout.sessions.expire(id);
     placesCache = null;
     return res.json({ ok: true });
