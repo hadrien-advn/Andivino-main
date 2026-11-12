@@ -57,6 +57,33 @@
   root.addEventListener('focusin', function(){ hovering = true; resetTimer(); });
   root.addEventListener('focusout', function(){ hovering = false; resetTimer(); });
 
+  // Balayage au doigt : la photo suit le doigt, au-delà de 50 px on change de photo. Le défilement
+  // vertical de la page reste au navigateur (touch-action: pan-y), qui annule alors le geste.
+  var startX = 0, dragging = false, pointerId = null;
+  function endDrag(dx) {
+    dragging = false;
+    pointerId = null;
+    track.style.transition = '';
+    hovering = false;
+    goTo(Math.abs(dx) > 50 ? cur + (dx < 0 ? 1 : -1) : cur);
+  }
+  track.addEventListener('pointerdown', function(e){
+    if (e.pointerType === 'mouse' || dragging) return;
+    dragging = true;
+    pointerId = e.pointerId;
+    startX = e.clientX;
+    track.style.transition = 'none';
+    hovering = true;
+    resetTimer();
+  });
+  track.addEventListener('pointermove', function(e){
+    if (!dragging || e.pointerId !== pointerId) return;
+    track.style.transform = 'translateX(calc(-' + (cur * 100) + '% + ' + (e.clientX - startX) + 'px))';
+  });
+  track.addEventListener('pointerup', function(e){ if (dragging && e.pointerId === pointerId) endDrag(e.clientX - startX); });
+  track.addEventListener('pointercancel', function(e){ if (dragging && e.pointerId === pointerId) endDrag(0); });
+  window.addEventListener('blur', function(){ if (dragging) endDrag(0); });
+
   document.getElementById('carPrev').addEventListener('click', function(){ goTo(cur - 1); });
   document.getElementById('carNext').addEventListener('click', function(){ goTo(cur + 1); });
   resetTimer();

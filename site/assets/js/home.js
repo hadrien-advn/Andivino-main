@@ -20,7 +20,17 @@ function getCart(){return getData().cart||[];}
 function saveCart(c){const d=getData();d.cart=c;saveData(d);}
 function cartCount(){return getCart().reduce((s,i)=>s+i.qty,0);}
 function addToCart(id,qty=1){const c=getCart();const i=c.findIndex(x=>x.id===id);if(i>-1)c[i].qty+=qty;else c.push({id,qty});saveCart(c);updateBadge();}
-function updateBadge(){const b=document.getElementById('cartBadge');if(!b)return;const n=cartCount();b.textContent=n;b.classList.toggle('on',n>0);}
+function updateBadge(){
+  const n=cartCount();
+  const b=document.getElementById('cartBadge');
+  if(b){b.textContent=n;b.classList.toggle('on',n>0);}
+  // Sur téléphone l'icône panier est masquée : le bouton « Commander » porte le nombre de bouteilles.
+  const cta=document.querySelector('nav .nav-cta');
+  if(cta){
+    if(n>0){cta.dataset.count=n;cta.setAttribute('aria-label','Commander, '+n+' bouteille'+(n>1?'s':'')+' dans le panier');}
+    else{delete cta.dataset.count;cta.removeAttribute('aria-label');}
+  }
+}
 function showToast(msg='Ajouté au panier'){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2400);}
 
 function observeFade(){

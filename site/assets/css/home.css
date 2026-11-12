@@ -41,6 +41,8 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 
 /* ── HERO ── */
 .hero{height:100vh;min-height:600px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 var(--gut) calc(5.5rem + var(--cookie-h,0px))}
+/* Sur téléphone, 100vh passe sous la barre du navigateur : 100svh garde titre et boutons visibles. */
+@supports(height:100svh){.hero{height:100svh}}
 .hero-bg{position:absolute;inset:0;background-image:url('../images/andes-vignes-hero.webp');background-size:cover;background-position:center 45%}
 @media(max-width:700px){.hero-bg{background-image:url('../images/andes-vignes-hero-1000.webp');background-position:62% 50%}}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(20,16,12,.58) 0%,rgba(20,16,12,.28) 58%,rgba(20,16,12,.04) 100%),linear-gradient(to top,rgba(20,16,12,.68) 0%,transparent 55%)}
@@ -102,7 +104,8 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 /* ── QUOTE BAND ── */
 
 /* ── CAROUSEL ── */
-.carousel{height:66vh;min-height:380px;max-height:760px;position:relative;overflow:hidden}
+.carousel{height:66vh;min-height:380px;max-height:760px;position:relative;overflow:hidden;touch-action:pan-y}
+.carousel-slide img{-webkit-user-drag:none;user-select:none}
 .carousel-track{display:flex;height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1)}
 .carousel-slide{flex-shrink:0;width:100%;height:100%}
 .carousel-slide img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
@@ -432,3 +435,31 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 
 /* Bandeau cookies affiché sur un petit écran : on ne remonte le hero que de 5,75rem (≈ 16 px au-dessus du bandeau sur 375×667) pour ne pas glisser le titre sous la navigation. */
 @media(max-width:600px) and (max-height:700px){.hero{padding-bottom:calc(3.5rem + min(var(--cookie-h,0px),5.75rem))}}
+
+/* ── ADAPTATION TÉLÉPHONE ET ÉCRANS TACTILES ── */
+/* Écrans tactiles : cibles d'au moins 44 px, en agrandissant la zone de toucher sans déplacer le texte. */
+@media(pointer:coarse){
+  .nav-cta,.btn-or{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+  .nl{min-height:44px}
+  .vins-compare a,.lall,.cuvee-nm a{position:relative}
+  .vins-compare a::before,.lall::before,.cuvee-nm a::before{content:'';position:absolute;inset:-12px -4px}
+}
+@media(max-width:960px){
+  /* La Bodega : le récit d'abord, la carte ensuite (ses légendes sont illisibles en tête d'écran étroit). */
+  .bodega-g{display:flex;flex-direction:column;gap:0}
+  .bodega-map{display:contents}
+  .bodega-map .sl{order:0}
+  .bodega-c{order:1;max-width:none}
+  .bodega-map img{order:2;margin-top:3rem}
+}
+@media(max-width:600px){
+  /* Texte courant lisible sans zoom : ~15 px au lieu de 13–14 px. */
+  .hero-sub{font-size:.92rem}
+  .philo-t p,.sel-pillars p,.bodega-c p,.vins-note,.cuvee-desc,.deg-courses dd,.join-col p{font-size:.95rem}
+  .sel-pillars li{font-size:.92rem}
+  .cuvee-cep{font-size:.84rem}
+  .cres{font-size:.86rem}
+  /* Le panier est masqué : le bouton Commander affiche le nombre de bouteilles. */
+  .nav-cta[data-count]::after{content:attr(data-count);display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;margin-left:.55rem;padding:0 .3rem;border-radius:9px;background:var(--cream-l);color:var(--bdx);font-size:.68rem;letter-spacing:0;font-weight:500}
+  #toast{left:1rem;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));text-align:center}
+}
