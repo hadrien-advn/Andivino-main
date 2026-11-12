@@ -34,7 +34,7 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .btn-p:hover{background:var(--bdx-d)}
 .btn-p:disabled{opacity:.6;cursor:wait}
 .btn-p:focus-visible,.btn-o:focus-visible,.stepper button:focus-visible,.link-btn:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
-.btn-o{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--charbon);background:transparent;border:1px solid var(--cream-d);padding:.95rem 2.2rem;text-decoration:none;display:inline-block;transition:border-color var(--e)}
+.btn-o{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--charbon);background:transparent;border:1px solid var(--cream-d);padding:.95rem 2.2rem;text-decoration:none;display:inline-block;transition:border-color var(--e);text-align:center}
 .btn-o:hover{border-color:var(--bdx)}
 
 /* ── En-tête ── */
@@ -131,6 +131,26 @@ form .btn-p{width:100%}
 .book-closed p{font-size:.95rem;color:var(--charbon);margin-bottom:1.6rem;line-height:1.75}
 .cta-row{display:flex;gap:1rem;flex-wrap:wrap}
 
+/* ── Barre de réservation (mobile et tablette) ── */
+.book-bar{display:none}
+@media(max-width:960px){
+  .book-bar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem var(--gut) calc(.7rem + env(safe-area-inset-bottom,0px));background:var(--cream-l);border-top:1px solid var(--cream-d);box-shadow:0 -6px 22px rgba(20,16,12,.07);transform:translateY(105%);visibility:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),visibility 0s linear .5s}
+  .book-bar.show{transform:none;visibility:visible;transition:transform .5s cubic-bezier(.16,1,.3,1),visibility 0s}
+  .book-bar-info{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:.35rem;line-height:1.15}
+  .book-bar-info strong{font-family:var(--fd);font-weight:400;font-size:1.6rem;color:var(--charbon);font-variant-numeric:tabular-nums}
+  .book-bar-info small{font-size:.8rem;color:var(--gris)}
+  .book-bar-info span{flex-basis:100%;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-top:.25rem}
+  .book-bar.low .book-bar-info span{color:var(--bdx)}
+  .book-bar .btn-p{padding:1rem 1.7rem;flex-shrink:0}
+}
+
+/* ── Écrans tactiles : cibles d'au moins 44 px ── */
+@media(pointer:coarse){
+  .back-link{min-height:44px;display:inline-flex;align-items:center}
+  .wine h3 a{display:inline-block;padding:.5rem 0;margin:-.5rem 0}
+  .link-btn{min-height:44px;padding:0 .2rem}
+}
+
 @media(max-width:960px){
   :root{--gut:1.5rem}
   .hero{grid-template-columns:1fr;gap:3rem;padding:3.5rem var(--gut) 4.5rem}
@@ -145,19 +165,26 @@ form .btn-p{width:100%}
   :root{--gut:1.2rem}
   nav{padding:.9rem var(--gut)}
   .nav-logo-text{display:none}
-  .hero{padding-top:1.5rem}
+  /* En-tête : photo en bandeau, titre et accroche dans le premier écran, billet en 2 × 2. */
+  .hero{padding-top:0;gap:1.6rem}
   .hero-photo{margin:0 calc(-1 * var(--gut))}
-  .hero-photo img{border-radius:0;aspect-ratio:5/4}
-  .ticket>div{grid-template-columns:6.5rem 1fr}
+  .hero-photo img{border-radius:0;aspect-ratio:16/10;object-position:50% 28%}
+  .lead{margin-bottom:1.8rem}
+  .ticket{display:grid;grid-template-columns:1fr 1fr;column-gap:1.2rem;margin-bottom:1.8rem}
+  .ticket>div{grid-template-columns:1fr;gap:.3rem;padding:.85rem 0}
+  .ticket dd{font-size:.92rem;line-height:1.45}
+  .ticket dd span{font-size:.8rem}
   .hero-cta .btn-p{width:100%}
   .wine-grid{grid-template-columns:1fr}
   .wine{display:grid;grid-template-columns:84px 1fr;column-gap:1.4rem;padding:1.8rem 1.4rem;align-items:start}
   .wine .num{position:static;grid-column:2;margin-bottom:.2rem}
   .wine-visual{grid-row:1 / span 4;grid-column:1;height:170px;margin:0}
   .wine-meta,.wine h3,.wine p{grid-column:2}
-  .monogram{width:72px;height:110px;font-size:4rem}
-  .seal{display:none}
-  .book-card{padding:2.2rem 1.3rem 1.8rem;margin:0 calc(-1 * var(--gut) + .4rem)}
+  .monogram{width:72px;height:104px;font-size:4rem}
+  .wine-mystery .wine-visual{gap:.55rem}
+  .seal{text-transform:none;letter-spacing:0;font-size:.72rem;font-style:italic;line-height:1.35}
+  .book{padding:3rem 0}
+  .book-card{padding:2.4rem var(--gut) 2rem;border-left:0;border-right:0}
   .form-row{grid-template-columns:1fr;gap:0}
   .cta-row .btn-p,.cta-row .btn-o{flex:1 1 100%}
 }

@@ -69,12 +69,9 @@
     if (state.qty > 1) { state.qty--; renderParticipants(); }
   });
   els.plus.addEventListener('click', function () {
-    if (state.qty < maxQty()) {
-      state.qty++;
-      renderParticipants();
-      var last = els.participants.querySelector('.person:last-child input');
-      if (last) last.focus();
-    }
+    // Le focus reste sur « + » : sur téléphone, sauter au nouveau champ ouvrirait le clavier
+    // et éloignerait le compteur. Le nombre de places est annoncé par l'<output> (aria-live).
+    if (state.qty < maxQty()) { state.qty++; renderParticipants(); }
   });
   form.addEventListener('input', function (e) {
     if (e.target.removeAttribute) e.target.removeAttribute('aria-invalid');
@@ -100,6 +97,7 @@
       els.closed.hidden = true;
     }
 
+    updateBar(r, full, closed);
     if (r == null) return;
     els.badge.hidden = false;
     els.badge.classList.toggle('low', r > 0 && r <= 5);
@@ -110,6 +108,42 @@
     }
     if (state.qty > maxQty()) { state.qty = maxQty(); }
     renderParticipants();
+  }
+
+  // ── Barre de réservation mobile ─────────────────────────────────────────────────────────────
+  var bar = document.getElementById('bookBar');
+  var barMeta = document.getElementById('bookBarMeta');
+  var barCta = document.getElementById('bookBarCta');
+  var BAR_DATE = barMeta ? barMeta.textContent : '';
+
+  function updateBar(r, full, closed) {
+    if (!bar) return;
+    document.getElementById('bookBarPrice').textContent = euros(state.price);
+    bar.classList.toggle('low', r != null && r > 0 && r <= 5);
+    if (closed) {
+      barMeta.textContent = 'Inscriptions closes';
+      barCta.textContent = 'Détails';
+      barCta.href = '#reserver';
+    } else if (full) {
+      barMeta.textContent = 'Complet';
+      barCta.textContent = 'Être prévenu';
+      barCta.href = '/newsletter';
+    } else {
+      barMeta.textContent = r == null ? BAR_DATE : BAR_DATE.split(' · ')[0] + ' · ' + (r <= 5 ? 'plus que ' : '') + plural(r, 'place');
+      barCta.textContent = 'Réserver';
+      barCta.href = '#reserver';
+    }
+  }
+
+  // Visible seulement quand ni le bouton du haut, ni la réservation, ni le pied de page ne sont à l'écran.
+  if (bar && 'IntersectionObserver' in window) {
+    var inView = new Set();
+    var watched = [els.heroCta, document.getElementById('reserver'), document.querySelector('footer')].filter(Boolean);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) inView.add(en.target); else inView.delete(en.target); });
+      bar.classList.toggle('show', inView.size === 0);
+    });
+    watched.forEach(function (el) { io.observe(el); });
   }
 
   function loadAvailability() {
