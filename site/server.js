@@ -731,7 +731,7 @@ const issuedSecrets = new Map();
 app.post('/api/degustation/release', paymentLimiter, async (req, res) => {
   try {
     if (!stripe) return res.json({ ok: false });
-    const clientSecret = cleanText(req.body && req.body.clientSecret, 300);
+    const clientSecret = cleanText(req.body && req.body.clientSecret, 1000); // ~430 caractères chez Stripe
     const id = clientSecret.split('_secret_')[0];
     if (!/^cs_\w+$/.test(id)) return res.status(400).json({ ok: false });
     if (issuedSecrets.get(id) !== clientSecret) return res.json({ ok: false });
