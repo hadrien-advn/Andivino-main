@@ -9,6 +9,7 @@ require('dotenv').config();
 const { PRODUCTS, buildOrder } = require('./data/catalog');
 const { WINES, DOMAINES, SITE, wineUrl } = require('./data/wines');
 const { renderProductPage, renderDomainPage, winesDataJs } = require('./lib/product-page');
+const { renderCatalogue } = require('./lib/catalogue');
 const { DEGUSTATIONS, upcomingDegustations, deliveryNoteHtml } = require('./assets/js/degustations.js');
 
 const app = express();
@@ -241,6 +242,7 @@ async function getHtmlWithVersion(fileName) {
   else if (fileName.startsWith('domaine:')) html = renderDomainPage(DOMAINES[fileName.slice(8)]);
   else html = await fs.readFile(page(fileName), 'utf8');
   if (fileName === 'home.html') html = renderHomeDegustations(html);
+  if (fileName === 'vins-argentins.html') html = renderCatalogue(html);
   html = renderSiteDegustations(html);
   html = html.replace(/(href|src)="(\/assets\/[^"]+\.(css|js))"/g, `$1="$2?v=${BUILD_VERSION}"`);
   htmlCache[fileName] = html;

@@ -467,3 +467,4 @@ a.soon-nm{text-decoration:none;transition:color var(--e,.3s ease)}
 a.soon-nm:hover{color:var(--bdx)}
 .bodega-more{color:var(--bdx);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 .bodega-more:hover{color:var(--bdx-d,var(--bdx))}
+.soon-txt a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}

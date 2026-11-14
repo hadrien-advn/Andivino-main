@@ -227,3 +227,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .wine-top{display:flex;flex-direction:column}
 .wine-top .wine-hero{order:1}
 .wine-top .wine-lead{order:2;margin-bottom:0}
+/* Catalogue : domaine, cuvée sans photo, mention précommande */
+.art-body .vins-dom{margin:-.4rem 0 .4rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.art-next-wines img.shelf-logo{padding:2.6rem 1.5rem}
+.vins-table .vins-pre{display:block;font-family:var(--fb);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bdx)}
+@media(max-width:600px){.vins-shelf .shelf-item>a:first-child img.shelf-logo{padding:1.6rem 0}}
