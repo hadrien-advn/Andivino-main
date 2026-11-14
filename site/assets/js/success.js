@@ -81,6 +81,12 @@ try {
     steps[0].querySelector('p').textContent = 'Le ' + paid.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + ', votre commande est enregistrée.';
   }
   var last = LAST_STEP[receipt.liv];
+  // Précommande : la remise attend l'arrivée des bouteilles (receipt.preorder, AAAA-MM-JJ).
+  if (receipt.preorder && receipt.liv === 'main-propre') {
+    var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    var pa = String(receipt.preorder).split('-');
+    last = ['Remise à l’arrivée des bouteilles', 'Votre commande contient une précommande : nous vous la remettons en une fois, dès l’arrivée des bouteilles en France, prévue en ' + MOIS[parseInt(pa[1], 10) - 1] + ' ' + pa[0] + '. Nous vous écrivons pour convenir de la date.'];
+  }
   if (last) {
     steps[2].querySelector('strong').textContent = last[0];
     var p = steps[2].querySelector('p');

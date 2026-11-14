@@ -192,3 +192,5 @@ a.back-link:hover{color:var(--charbon)}
   .btn-checkout{font-size:.7rem;padding:1.1rem .9rem}
   #toast{right:1.2rem;bottom:1.2rem}
 }
+.badge-pre{border:1px solid var(--bdx);color:var(--bdx);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .55rem;display:inline-block;margin-left:.5rem;vertical-align:middle}
+.cart-preorder{margin:.9rem 0 0;padding:.8rem .9rem;border-left:2px solid var(--bdx);background:rgba(110,24,40,.05);font-size:.8rem;line-height:1.55;color:var(--charbon)}

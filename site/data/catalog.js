@@ -1,8 +1,16 @@
 // Prix et noms Stripe dérivés de data/wines.js (source unique des cuvées).
 const { WINES, STATUTS } = require('./wines');
+const { upcomingDegustations } = require('../assets/js/degustations.js');
 const PRODUCTS = Object.freeze(Object.fromEntries(WINES
   .filter((w) => STATUTS[w.statut].achetable)
-  .map((w) => [w.id, Object.freeze({ id: w.id, name: w.nomStripe, unitAmount: w.prix })])));
+  .map((w) => [w.id, Object.freeze({
+    id: w.id,
+    name: w.nomStripe,
+    unitAmount: w.prix,
+    // Précommande : payée à la commande, remise à l'arrivée des bouteilles (arrivee, AAAA-MM-JJ).
+    preorder: w.statut === 'precommande',
+    arrivee: w.statut === 'precommande' ? w.arrivee : null
+  })])));
 
 const SHIPPING_MODES = Object.freeze({
   degustation: 'Retrait degustation',
@@ -76,6 +84,16 @@ function buildOrder(cart, shipping, customer = {}) {
     };
   });
 
+  // Une commande qui contient une précommande est remise en une fois, à l'arrivée de la dernière cuvée.
+  const preorderItems = lineItems.filter((item) => PRODUCTS[item.id].preorder);
+  const preorder = preorderItems.length
+    ? { arrivee: preorderItems.map((item) => PRODUCTS[item.id].arrivee).sort().pop(), ids: preorderItems.map((item) => item.id) }
+    : null;
+  if (preorder && shipping === 'degustation'
+    && !upcomingDegustations().some((d) => d.date >= preorder.arrivee)) {
+    throw new Error("Le retrait en dégustation n'est pas possible pour une précommande : aucune dégustation n'est prévue après l'arrivée des bouteilles. Choisissez la remise en main propre.");
+  }
+
   const bottleCount = lineItems.reduce((sum, item) => sum + item.qty, 0);
   const subtotal = lineItems.reduce((sum, item) => sum + item.amount, 0);
   const shippingTotal = shippingAmount(shipping, bottleCount, customer.cp);
@@ -93,7 +111,8 @@ function buildOrder(cart, shipping, customer = {}) {
     shippingMode: shipping,
     shippingLabel: SHIPPING_MODES[shipping],
     bottleCount,
-    lineItems
+    lineItems,
+    preorder
   };
 }
 

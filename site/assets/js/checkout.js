@@ -74,7 +74,7 @@ function renderProducts(){
     return `<div class="prod-item${qty>0?' is-chosen':''}" id="pi-${w.id}">
       <div class="prod-bottle">${bottleSVG(w.id,100)}</div>
       <div class="prod-info">
-        <div class="pv">${w.millesime}${hr?`<span class="badge-promo">-${w.reduction}%</span>`:''}</div>
+        <div class="pv">${w.millesime}${hr?`<span class="badge-promo">-${w.reduction}%</span>`:''}${w.statut==='precommande'&&w.arrivee?`<span class="badge-pre">Précommande · arrivée ${moisArrivee(w.arrivee)}</span>`:''}</div>
         <div class="pn">${w.nom}</div>
         <div class="pb">${w.bodega}</div>
         <div class="pd">${w.description}</div>
@@ -136,6 +136,38 @@ function updateCart(){
   updateShippingPrices();
   updateGrandTotal();
   checkForm();
+  updatePreorderUI();
+}
+
+// ── PRÉCOMMANDE ──
+// Une commande qui contient une cuvée en précommande est payée aujourd'hui et remise en une fois, à
+// l'arrivée de la dernière cuvée (même règle que buildOrder dans data/catalog.js).
+var MOIS_FR=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+function moisArrivee(iso){var p=String(iso).split('-');return MOIS_FR[parseInt(p[1],10)-1]+' '+p[0];}
+function preorderInCart(){
+  var wines=getData().wines;
+  var dates=getCart().map(function(ci){var w=wines.find(function(x){return x.id===ci.id;});return w&&w.statut==='precommande'?w.arrivee:null;}).filter(Boolean).sort();
+  return dates.length?dates[dates.length-1]:null;
+}
+function updatePreorderUI(){
+  var arr=preorderInCart();
+  var note=document.getElementById('cartPreorder');
+  if(note){note.hidden=!arr;note.textContent=arr?'Précommande : votre commande vous sera remise en une fois, à l\u2019arrivée des bouteilles en France, prévue en '+moisArrivee(arr)+'. Le paiement est débité à la commande.':'';}
+  var idf=document.querySelector('#livIDF .liv-desc');
+  if(idf){if(!idf.dataset.base)idf.dataset.base=idf.textContent;idf.textContent=arr?'Livraison directe à votre domicile par un membre de l\u2019équipe Andivino, dès l\u2019arrivée des bouteilles ('+moisArrivee(arr)+'). Disponible à Paris (75) et en petite couronne (92, 93, 94).':idf.dataset.base;}
+  var deg=document.getElementById('livDegustation');var desc=document.getElementById('livDegustationDesc');
+  if(!deg||!desc)return;
+  var tastings=window.andivinoUpcomingDegustations?window.andivinoUpcomingDegustations():[];
+  var ok=!arr||tastings.some(function(d){return d.date>=arr;});
+  deg.classList.toggle('disabled',!ok);
+  deg.setAttribute('aria-disabled',String(!ok));
+  deg.tabIndex=ok?0:-1;
+  if(!desc.dataset.base)desc.dataset.base=desc.textContent;
+  desc.textContent=ok?desc.dataset.base:'Indisponible pour une précommande : aucune dégustation n\u2019est prévue après l\u2019arrivée des bouteilles.';
+  if(!ok&&typeof selectedLiv!=='undefined'&&selectedLiv==='degustation'){
+    selectedLiv=null;deg.classList.remove('selected');deg.setAttribute('aria-checked','false');
+    updateAddressFields();updateGrandTotal();resetPaymentElement();
+  }
 }
 
 // ── LIVRAISON ──
@@ -199,6 +231,8 @@ if (SUSPENDED_SHIPPING.length) document.getElementById('shipSuspendedNote').hidd
   } else {
     desc.textContent = "Vous récupérez vos bouteilles lors de notre prochaine dégustation. Nous vous écrivons pour la date ; elles sont aussi annoncées sur la page d'accueil et sur Instagram.";
   }
+  desc.dataset.base = desc.textContent;
+  updatePreorderUI();
 })();
 document.querySelectorAll('.liv-opt').forEach(function(el){
   el.addEventListener('click', function(){ selectLiv(el); });
@@ -500,6 +534,7 @@ function saveReceipt(paymentIntent) {
       var w = wines.find(function(x) { return x.id === item.id; }) || {};
       return { id: item.id, nom: w.nom || item.id, millesime: w.millesime || '', qty: item.qty, amount: Math.round(calcPrix(w) * 100) * item.qty };
     }),
+    preorder: preorderInCart(),
     subtotal: preparedOrder ? preparedOrder.subtotal : null,
     shipping: preparedOrder ? preparedOrder.shippingAmount : null,
     total: preparedOrder ? preparedOrder.amount : paymentIntent.amount

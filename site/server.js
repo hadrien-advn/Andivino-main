@@ -331,7 +331,7 @@ function orderFromPaymentIntent(event) {
     const product = PRODUCTS[item.id];
     return {
       productId: String(item.id || ''),
-      name: product ? product.name : String(item.id || ''),
+      name: product ? `${product.name}${product.preorder ? ' (précommande)' : ''}` : String(item.id || ''),
       quantity: Number(item.qty) || 0,
       unitAmount: product ? product.unitAmount : null
     };
@@ -365,7 +365,8 @@ function orderFromPaymentIntent(event) {
         country: address.country || null
       }
     },
-    lines
+    lines,
+    preorder: metadata.preorder === 'oui' ? { arrival: metadata.preorder_arrival || null } : null
   };
 }
 
@@ -472,8 +473,15 @@ function paymentIntentCustomerFields(order, customer) {
       shipping_mode: order.shippingMode,
       bottle_count: String(order.bottleCount),
       order_total_cents: String(order.amount),
-      cart: JSON.stringify(order.lineItems.map((item) => ({ id: item.id, qty: item.qty }))).slice(0, 450)
-    }
+      cart: JSON.stringify(order.lineItems.map((item) => ({ id: item.id, qty: item.qty }))).slice(0, 450),
+      // Chaîne vide = clé effacée : une commande qui ne contient plus de précommande perd la mention.
+      preorder: order.preorder ? 'oui' : '',
+      preorder_arrival: order.preorder ? order.preorder.arrivee : ''
+    },
+    // Reprise sur le reçu Stripe envoyé au client.
+    description: order.preorder
+      ? `Commande Andivino avec précommande : remise à l'arrivée des bouteilles en France, prévue le ${order.preorder.arrivee.split('-').reverse().join('/')}`
+      : 'Commande Andivino'
   };
 }
 

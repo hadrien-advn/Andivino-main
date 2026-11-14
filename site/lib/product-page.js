@@ -225,7 +225,7 @@ ${NAV}
       ${buyBlock(w, s)}
       <ul class="pdp-reassure">
         ${preorderNote}
-        <li><strong>Livraison et retours</strong> <span data-delivery-note>Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a>. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</span></li>
+        ${w.statut === 'precommande' ? `<li><strong>Livraison et retours</strong> Remise en main propre à <a href="/vin-argentin-paris">Paris et petite couronne</a> dès l'arrivée des bouteilles. Retour possible sous 14 jours après la remise (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</li>` : `<li><strong>Livraison et retours</strong> <span data-delivery-note>Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a>. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</span></li>`}
         <li><strong>Paiement sécurisé</strong> Par Stripe, confirmation immédiate par email.</li>
       </ul>
       <dl class="pdp-facts">
@@ -295,6 +295,7 @@ function winesDataJs() {
     cepages: cepagesTexte(w),
     description: w.resume || '',
     statut: w.statut,
+    arrivee: w.statut === 'precommande' ? w.arrivee : null,
     achetable: STATUTS[w.statut].achetable,
     url: wineUrl(w),
     image: w.image.src
