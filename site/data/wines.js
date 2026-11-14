@@ -38,7 +38,7 @@ const WINES = [
     millesime: 2014,
     nomComplet: 'Poesía 2014',
     nomStripe: 'Poesia 2014',
-    prix: 4499,
+    prix: 4500,
     statut: 'bientot-epuise',
     couleur: 'Rouge',
     format: '75 cl',
@@ -73,7 +73,7 @@ const WINES = [
       ['Élevage', '18 à 24 mois'],
       ['Garde', '25 ans']
     ],
-    leadHtml: "<strong>Poesía 2014</strong> est un vin rouge argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: un assemblage de 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon issu de vignes plantées en 1935 en franc de pied et vendangées à la main. Élevé de 18 à 24 mois, il se garde 25 ans. Il est noté 94 points par Wine Advocate, 91 par Vinous et 92 par James Suckling. 44,99&nbsp;€ la bouteille.",
+    leadHtml: "<strong>Poesía 2014</strong> est un vin rouge argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: un assemblage de 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon issu de vignes plantées en 1935 en franc de pied et vendangées à la main. Élevé de 18 à 24 mois, il se garde 25 ans. Il est noté 94 points par Wine Advocate, 91 par Vinous et 92 par James Suckling. 45&nbsp;€ la bouteille.",
     notesHtml: "Poesía s'exprime avec distinction et profondeur à travers une robe rouge rubis intense. Le nez, raffiné et complexe, mêle fruits rouges et noirs mûrs (framboise, cerise noire, mûre) à de subtiles notes de pain grillé, café, moka et cèdre, complétées par des touches de minéralité, d'épices fines et florales. La bouche offre une texture soyeuse, un équilibre précis et une fraîcheur élégante. Le fruit s'étire sur une trame minérale et des tanins fins et enveloppants, avant une finale longue, nette et raffinée.",
     fiche: [
       ['Origine', 'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine', true],
@@ -104,7 +104,7 @@ const WINES = [
     millesime: 2016,
     nomComplet: 'Poesía — Cuvée Hélène 2016',
     nomStripe: 'Poesia - Cuvee Helene 2016',
-    prix: 3599,
+    prix: 3600,
     statut: 'bientot-epuise',
     couleur: 'Rouge',
     format: '75 cl',
@@ -133,7 +133,7 @@ const WINES = [
       ['Élevage', '16 à 18 mois'],
       ['Garde', '25 ans']
     ],
-    leadHtml: "<strong>Poesía — Cuvée Hélène 2016</strong> est un vin rouge argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon issus d'une parcelle d'un hectare plantée en 1935 en franc de pied, vendangée à la main. Élevée de 16 à 18 mois, elle se garde 25 ans. 35,99&nbsp;€ la bouteille.",
+    leadHtml: "<strong>Poesía — Cuvée Hélène 2016</strong> est un vin rouge argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon issus d'une parcelle d'un hectare plantée en 1935 en franc de pied, vendangée à la main. Élevée de 16 à 18 mois, elle se garde 25 ans. 36&nbsp;€ la bouteille.",
     notesHtml: "D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La bouche séduit par la pureté et la maturité du fruit, sans excès de torréfaction, enrichie de baies noires, d'épices fines et d'un boisé fumé de grande qualité. La finale, longue et persistante, repose sur des tanins nobles et harmonieux. Un vin déjà remarquable, d'une grande élégance et profondeur.",
     fiche: [
       ['Origine', 'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine', true],
@@ -163,7 +163,7 @@ const WINES = [
     millesime: 2017,
     nomComplet: 'Clos des Andes 2017',
     nomStripe: 'Clos des Andes 2017',
-    prix: 2199,
+    prix: 2200,
     statut: 'en-stock',
     couleur: 'Rouge',
     format: '75 cl',
@@ -192,7 +192,7 @@ const WINES = [
       ['Élevage', '10 à 12 mois'],
       ['Garde', '15 ans']
     ],
-    leadHtml: "<strong>Clos des Andes 2017</strong> est un Malbec argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: 100&nbsp;% Malbec issu de vignes plantées en 1935 en franc de pied et vendangées à la main. Élevé de 10 à 12 mois, il se garde 15 ans. 21,99&nbsp;€ la bouteille.",
+    leadHtml: "<strong>Clos des Andes 2017</strong> est un Malbec argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: 100&nbsp;% Malbec issu de vignes plantées en 1935 en franc de pied et vendangées à la main. Élevé de 10 à 12 mois, il se garde 15 ans. 22&nbsp;€ la bouteille.",
     notesHtml: "Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre, généreuses et arrondies, s'étirent avec élégance vers une finale douce et veloutée, gagnant en finesse et en complexité à l'aération.",
     fiche: [
       ['Origine', 'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine', true],
@@ -226,7 +226,8 @@ const STATUTS = {
 const SITE = 'https://andivino.fr';
 const wineUrl = (w) => `/vins/${w.domaine}/${w.slug}`;
 const cepagesTexte = (w) => w.cepages.map((c) => (c.part === 100 ? `100 % ${c.nom}` : `${c.part} % ${c.nom}`)).join(', ');
-const prixTexte = (cents) => `${(cents / 100).toFixed(2).replace('.', ',')} €`;
+// Prix ronds affichés sans centimes (22 €), sinon avec (22,50 €).
+const prixTexte = (cents) => (cents % 100 === 0 ? `${cents / 100} €` : `${(cents / 100).toFixed(2).replace('.', ',')} €`);
 
 // Validation au chargement : une erreur de saisie plante le démarrage plutôt que de produire une fiche cassée.
 for (const w of WINES) {
