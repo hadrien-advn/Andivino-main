@@ -214,7 +214,7 @@ ${NAV}
       <img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" fetchpriority="high" alt="${esc(w.image.alt)}">
     </div>
     <div class="pdp-buy">
-      <p class="pdp-eyebrow">${esc(d.nom)} · ${esc(lieu)}</p>
+      <p class="pdp-eyebrow">${d.page ? `<a href="${d.page}">${esc(d.nom)}</a>` : esc(d.nom)} · ${esc(lieu)}</p>
       <h1 class="pdp-title" id="pdp-titre">${esc(w.nomComplet)}</h1>
       <p class="pdp-sub">${fine(sub)}</p>
       ${scores}
@@ -302,4 +302,134 @@ function winesDataJs() {
   return `// Généré par le serveur depuis data/wines.js.\nwindow.ANDIVINO_WINES = ${JSON.stringify(data).replace(/<\//g, '<\\/')};\n`;
 }
 
-module.exports = { renderProductPage, winesDataJs };
+
+// ── Pages domaine : /vins/<domaine> ──
+function renderDomainPage(d) {
+  const url = SITE + d.page;
+  const vins = WINES.filter((w) => w.domaine === d.slug);
+  const dejaEnLigne = new Set(vins.map((w) => w.nomComplet));
+  const aVenir = (d.aVenir || []).filter((c) => !dejaEnLigne.has(`${c.nom} ${c.millesime}`));
+  const autres = Object.values(DOMAINES).filter((x) => x.slug !== d.slug && x.page);
+  const visuel = d.image || d.logo;
+  const winery = {
+    '@context': 'https://schema.org',
+    '@type': 'Winery',
+    '@id': d.schemaId,
+    name: d.nom,
+    url,
+    description: d.seo.description,
+    address: { '@type': 'PostalAddress', addressLocality: d.lieu.split(',')[0].trim(), addressRegion: d.region, addressCountry: d.pays },
+    ...(visuel ? { image: SITE + visuel.src } : {})
+  };
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: 'Les vins', item: `${SITE}/vins-argentins` },
+      { '@type': 'ListItem', position: 3, name: d.nom, item: url }
+    ]
+  };
+  const blocs = [winery, breadcrumb];
+  if (vins.length) {
+    blocs.push({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: `Vins de ${d.nom} importés par Andivino`,
+      itemListElement: vins.map((w, i) => ({ '@type': 'ListItem', position: i + 1, url: SITE + wineUrl(w), name: w.nomComplet }))
+    });
+  }
+  const ld = blocs.map((o) => `<script type="application/ld+json">\n${JSON.stringify(o, null, 2).replace(/<\//g, '<\\/')}\n</script>`).join('\n');
+  const media = d.image
+    ? `<div class="dom-hero-media"><img src="${esc(d.image.src)}" width="${d.image.width}" height="${d.image.height}" fetchpriority="high" alt="${esc(d.image.alt)}"></div>`
+    : d.logo ? `<div class="dom-hero-media dom-hero-media--logo"><img src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" fetchpriority="high" alt="${esc(d.logo.alt)}"></div>` : '';
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${esc(d.seo.title)}</title>
+<meta name="description" content="${esc(d.seo.description)}">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="${url}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Andivino">
+<meta property="og:title" content="${esc(d.seo.title)}">
+<meta property="og:description" content="${esc(d.seo.description)}">
+<meta property="og:url" content="${url}">
+${visuel ? `<meta property="og:image" content="${SITE}${esc(visuel.src)}">` : ''}
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
+<link rel="preload" href="/assets/fonts/dm-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/fonts.css">
+<link rel="stylesheet" href="/assets/css/chronicles.css">
+<link rel="stylesheet" href="/assets/css/product.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/legal-banners.css">
+${ld}
+</head>
+<body class="pdp-page dom-page">
+${NAV}
+
+<main id="contenu">
+<div class="breadcrumb pdp-crumb"><a href="/">Accueil</a> / <a href="/vins-argentins">Les vins</a> / ${esc(d.nom)}</div>
+
+<article class="pdp dom">
+  <header class="dom-hero">
+    <div class="dom-hero-text">
+      <p class="pdp-eyebrow">Domaine · ${esc(d.lieu)}</p>
+      <h1 class="pdp-title">${esc(d.nom)}</h1>
+      ${d.accroche ? `<p class="dom-accroche">${esc(d.accroche)}</p>` : ''}
+      <p class="wine-lead dom-lead">${d.leadHtml}</p>
+    </div>
+    ${media}
+  </header>
+
+  <dl class="m-specs dom-facts">
+    ${(d.faits || []).map(([k, v]) => `<div><dt class="msl">${esc(k)}</dt><dd class="msv">${fine(v)}</dd></div>`).join('\n    ')}
+  </dl>
+
+  <div class="pdp-body art-body">
+    ${(d.sections || []).map((sec) => `<h2>${esc(sec.titre)}</h2>\n    ${sec.html.map((p) => `<p>${p}</p>`).join('\n    ')}`).join('\n\n    ')}
+  </div>
+${(d.galerie || []).length ? `
+  <div class="dom-galerie">
+    ${d.galerie.map((g) => `<img src="${esc(g.src)}" width="${g.width}" height="${g.height}" alt="${esc(g.alt)}" loading="lazy">`).join('\n    ')}
+  </div>
+` : ''}
+  <section class="pdp-related" aria-labelledby="dom-cuvees-t">
+    <h2 id="dom-cuvees-t">Les cuvées que nous importons</h2>
+    ${vins.length ? `<div class="pdp-cards">\n    ${vins.map(card).join('\n    ')}\n    </div>` : ''}
+    ${aVenir.length ? `<ul class="dom-avenir">
+      ${aVenir.map((c) => `<li><span class="dom-avenir-nom">${esc(c.nom)} <span>${esc(c.millesime)}</span></span><span class="dom-avenir-cep">${fine(c.cepages)}</span><span class="dom-avenir-prix">${fine(prixTexte(c.prix))}</span></li>`).join('\n      ')}
+    </ul>
+    <p class="dom-avenir-note">Arrivée en France prévue en janvier 2027. Pour être prévenu de l'ouverture des commandes, <a href="/newsletter">inscrivez-vous à la newsletter</a>.</p>` : ''}
+    <p class="pdp-all"><a href="/vins-argentins">Voir toutes nos cuvées</a></p>
+  </section>
+${autres.length ? `
+  <section class="dom-autres" aria-labelledby="dom-autres-t">
+    <h2 id="dom-autres-t">Nos autres domaines</h2>
+    <ul>
+      ${autres.map((x) => `<li><a href="${x.page}"><span class="dom-autres-nom">${esc(x.nom)}</span><span class="dom-autres-lieu">${esc(x.lieu)}</span></a></li>`).join('\n      ')}
+    </ul>
+  </section>
+` : ''}
+</article>
+</main>
+
+${footer()}
+
+<script src="/assets/js/degustations.js" defer></script>
+<script src="/assets/js/nav-autohide.js" defer></script>
+<script src="/assets/js/vendor/lenis.min.js" defer></script>
+<script src="/assets/js/smooth-scroll.js" defer></script>
+<script src="/assets/js/legal-banners.js" defer></script>
+</body>
+</html>
+`;
+}
+
+module.exports = { renderProductPage, renderDomainPage, winesDataJs };

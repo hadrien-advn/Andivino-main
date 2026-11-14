@@ -463,3 +463,7 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .nav-cta[data-count]::after{content:attr(data-count);display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;margin-left:.55rem;padding:0 .3rem;border-radius:9px;background:var(--cream-l);color:var(--bdx);font-size:.68rem;letter-spacing:0;font-weight:500}
   #toast{left:1rem;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));text-align:center}
 }
+a.soon-nm{text-decoration:none;transition:color var(--e,.3s ease)}
+a.soon-nm:hover{color:var(--bdx)}
+.bodega-more{color:var(--bdx);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.bodega-more:hover{color:var(--bdx-d,var(--bdx))}

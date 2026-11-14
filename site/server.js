@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const { PRODUCTS, buildOrder } = require('./data/catalog');
 const { WINES, DOMAINES, SITE, wineUrl } = require('./data/wines');
-const { renderProductPage, winesDataJs } = require('./lib/product-page');
+const { renderProductPage, renderDomainPage, winesDataJs } = require('./lib/product-page');
 const { DEGUSTATIONS, upcomingDegustations, deliveryNoteHtml } = require('./assets/js/degustations.js');
 
 const app = express();
@@ -238,6 +238,7 @@ async function getHtmlWithVersion(fileName) {
   if (htmlCache[fileName]) return htmlCache[fileName];
   let html;
   if (fileName.startsWith('vin:')) html = renderProductPage(WINES.find((w) => w.id === fileName.slice(4)));
+  else if (fileName.startsWith('domaine:')) html = renderDomainPage(DOMAINES[fileName.slice(8)]);
   else html = await fs.readFile(page(fileName), 'utf8');
   if (fileName === 'home.html') html = renderHomeDegustations(html);
   html = renderSiteDegustations(html);
@@ -400,12 +401,11 @@ app.get(['/chroniques/malbec-argentin-histoire-terroirs', '/chroniques/malbec-ar
 app.get(['/chroniques/accords-mets-vins-malbec-argentin', '/chroniques/accords-mets-vins-malbec-argentin/'], sendPage('chronique-accords-mets-vins-malbec-argentin.html'));
 // Fiches produits : une route par cuvée de data/wines.js, même gabarit (lib/product-page.js).
 for (const w of WINES) app.get(wineUrl(w), sendPage(`vin:${w.id}`));
-// Pages domaine pas encore créées : /vins/<domaine> renvoie au catalogue.
-app.get('/vins/:domaine', (req, res, next) => {
-  const d = DOMAINES[req.params.domaine];
-  if (!d) return next();
-  return res.redirect(302, d.page || '/vins-argentins');
-});
+// Pages domaine (data/domaines.js) ; un domaine sans page renvoie au catalogue.
+for (const d of Object.values(DOMAINES)) {
+  if (d.page) app.get(d.page, sendPage(`domaine:${d.slug}`));
+  else app.get(`/vins/${d.slug}`, (req, res) => res.redirect(302, '/vins-argentins'));
+}
 // Données des cuvées pour le panier, la page commande et la confirmation.
 app.get('/assets/js/wines-data.js', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
@@ -426,7 +426,10 @@ app.get('/robots.txt', (req, res) => res.sendFile(path.join(rootDir, 'robots.txt
 app.get('/sitemap.xml', async (req, res) => {
   try {
     const xml = await fs.readFile(path.join(rootDir, 'sitemap.xml'), 'utf8');
-    const vins = WINES.map((w) => `  <url><loc>${SITE}${wineUrl(w)}</loc><lastmod>${w.maj}</lastmod></url>`).join('\n');
+    const vins = [
+      ...Object.values(DOMAINES).filter((d) => d.page).map((d) => `  <url><loc>${SITE}${d.page}</loc><lastmod>${d.maj}</lastmod></url>`),
+      ...WINES.map((w) => `  <url><loc>${SITE}${wineUrl(w)}</loc><lastmod>${w.maj}</lastmod></url>`)
+    ].join('\n');
     res.type('application/xml').send(xml.replace('  <!-- vins -->', vins));
   } catch (e) {
     res.status(500).send('Erreur serveur');

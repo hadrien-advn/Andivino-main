@@ -9,20 +9,7 @@
 //
 // statut : 'en-stock' | 'bientot-epuise' | 'precommande' (avec arrivee 'AAAA-MM-JJ') | 'epuise'
 
-const DOMAINES = {
-  'bodega-poesia': {
-    slug: 'bodega-poesia',
-    nom: 'Bodega Poesía',
-    appellation: 'Luján de Cuyo',
-    region: 'Mendoza',
-    pays: 'AR',
-    schemaId: 'https://andivino.fr/#bodega-poesia',
-    // Page du domaine (/vins/bodega-poesia) : null tant qu'elle n'existe pas.
-    page: null,
-    // Phrase « dégustation » commune aux cuvées servies lors de nos soirées.
-    degustationHtml: 'servi avec les deux autres cuvées de la Bodega Poesía lors de notre <a href="/degustation">dégustation de vins argentins à Paris</a>'
-  }
-};
+const { DOMAINES } = require('./domaines');
 
 const LIENS_MALBEC = [
   { href: '/chroniques/malbec-argentin-histoire-terroirs', texte: "Le Malbec argentin : histoire et terroirs d'un cépage venu de Cahors" },
