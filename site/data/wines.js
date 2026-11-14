@@ -392,7 +392,7 @@ const WINES = [
     elevage: '6 mois',
     garde: '5 ans',
     scores: [],
-    image: { src: '/assets/images/bout-altus-malbec-2026.webp', width: 106, height: 416, alt: 'Bouteille de Gualtallary Altus Malbec, vin argentin de la Valle de Uco' },
+    image: { src: '/assets/images/bout-altus-malbec-2026.webp', width: 225, height: 900, alt: 'Bouteille de Gualtallary Altus Malbec, vin argentin de la Valle de Uco' },
     og: '/assets/images/og/altus-malbec-2026.jpg',
     maj: '2026-11-14',
     seo: {
