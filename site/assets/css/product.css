@@ -143,3 +143,9 @@
   .dom-avenir-cep{grid-column:1;grid-row:2}
   .dom-avenir-prix{grid-column:2;grid-row:1 / span 2;align-self:center}
 }
+.pdp-media--domaine{flex-direction:column;gap:1rem;margin:0;padding:0}
+.pdp-media--domaine img{width:100%;height:auto;max-height:none;object-fit:cover;aspect-ratio:4/5}
+.pdp-media--domaine figcaption{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.pdp-card img.pdp-card-logo{height:110px;margin:45px auto 45px}
+@media(max-width:860px){.pdp-media--domaine img{aspect-ratio:3/2;height:auto}}
+@media(max-width:600px){.pdp-card img.pdp-card-logo{height:80px;margin:35px auto}}

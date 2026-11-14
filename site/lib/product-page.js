@@ -55,7 +55,7 @@ function jsonLd(w, d) {
     name: w.nomComplet,
     sku: w.id,
     description: w.descriptionSchema,
-    image: [SITE + w.og, SITE + w.image.src].filter((x, i, a) => a.indexOf(x) === i),
+    image: [SITE + w.og, ...(w.image ? [SITE + w.image.src] : [])].filter((x, i, a) => a.indexOf(x) === i),
     brand: { '@type': 'Brand', name: d.nom },
     manufacturer: {
       '@type': 'Organization',
@@ -105,7 +105,7 @@ function card(w) {
   const d = DOMAINES[w.domaine];
   const s = statutDe(w);
   return `<div class="pdp-card">
-      <img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="" loading="lazy">
+      ${w.image ? `<img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="" loading="lazy">` : (d.logo ? `<img class="pdp-card-logo" src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" alt="" loading="lazy">` : '')}
       <p class="pdp-card-dom">${esc(d.nom)}</p>
       <h3 class="pdp-card-name"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></h3>
       <p class="pdp-card-cep">${fine(cepagesTexte(w))}</p>
@@ -126,7 +126,8 @@ const NAV = `<nav>
 </nav>`;
 
 function footer() {
-  const vins = WINES.map((w) => `<a href="${wineUrl(w)}">${esc(w.nomComplet.replace(/^Poesía — /, ''))}</a>`).join('');
+  // Un lien par domaine (et non par cuvée) : la colonne reste courte quel que soit le nombre de vins.
+  const vins = Object.values(DOMAINES).filter((d) => d.page).map((d) => `<a href="${d.page}">${esc(d.nom)}</a>`).join('');
   return `<footer>
   <div class="ft-in">
     <div class="ft-br">
@@ -210,9 +211,12 @@ ${NAV}
 
 <article class="pdp">
   <section class="pdp-top" aria-labelledby="pdp-titre">
-    <div class="pdp-media">
+    ${w.image ? `<div class="pdp-media">
       <img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" fetchpriority="high" alt="${esc(w.image.alt)}">
-    </div>
+    </div>` : `<figure class="pdp-media pdp-media--domaine">
+      <img src="${esc((d.image || d.logo).src)}" width="${(d.image || d.logo).width}" height="${(d.image || d.logo).height}" fetchpriority="high" alt="${esc((d.image || d.logo).alt)}">
+      <figcaption>Photo de la bouteille à venir</figcaption>
+    </figure>`}
     <div class="pdp-buy">
       <p class="pdp-eyebrow">${d.page ? `<a href="${d.page}">${esc(d.nom)}</a>` : esc(d.nom)} · ${esc(lieu)}</p>
       <h1 class="pdp-title" id="pdp-titre">${esc(w.nomComplet)}</h1>
@@ -298,7 +302,7 @@ function winesDataJs() {
     arrivee: w.statut === 'precommande' ? w.arrivee : null,
     achetable: STATUTS[w.statut].achetable,
     url: wineUrl(w),
-    image: w.image.src
+    image: w.image ? w.image.src : null
   }));
   return `// Généré par le serveur depuis data/wines.js.\nwindow.ANDIVINO_WINES = ${JSON.stringify(data).replace(/<\//g, '<\\/')};\n`;
 }
