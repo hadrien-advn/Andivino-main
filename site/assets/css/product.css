@@ -5,7 +5,7 @@
 
 /* ── Haut de fiche : bouteille + bloc d'achat ── */
 .pdp-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4.5rem;align-items:center;padding:1.8rem 0 4rem;border-bottom:1px solid var(--cream-d)}
-.pdp-media{background:var(--cream);display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;padding:3rem 2rem}
+.pdp-media{background:transparent;display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;padding:3rem 2rem}
 .pdp-media img{height:100%;max-height:540px;width:auto}
 
 .pdp-eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bdx);margin:0 0 .9rem}
