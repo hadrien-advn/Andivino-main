@@ -499,8 +499,7 @@ const WINES = [
     elevage: 'Cuve inox, sans bois',
     garde: '3 ans',
     scores: [],
-    // Photo de la bouteille à venir (celle du catalogue montre une étiquette de Chardonnay).
-    image: null,
+    image: { src: '/assets/images/bout-altus-torrontes-2026.webp', width: 229, height: 900, alt: 'Bouteille de Gualtallary Altus Torrontés 2026, vin blanc argentin de la Valle de Uco' },
     og: '/assets/images/og/altus-torrontes-2026.jpg',
     maj: '2026-11-14',
     seo: {
