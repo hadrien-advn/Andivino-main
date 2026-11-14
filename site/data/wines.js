@@ -226,7 +226,7 @@ const WINES = [
       { note: 93, source: 'Wine Advocate' },
       { note: 95, source: 'Descorchados' }
     ],
-    image: { src: '/assets/images/bout-carmelo-patti-malbec-2019.webp', width: 113, height: 450, alt: 'Bouteille de Carmelo Patti Malbec 2019, vin argentin de Luján de Cuyo' },
+    image: { src: '/assets/images/bout-carmelo-patti-malbec-2019.webp', width: 227, height: 900, alt: 'Bouteille de Carmelo Patti Malbec 2019, vin argentin de Luján de Cuyo' },
     og: '/assets/images/og/carmelo-patti-malbec-2019.jpg',
     maj: '2026-11-14',
     seo: {
@@ -284,7 +284,7 @@ const WINES = [
       { note: 95, source: 'Wine Advocate' },
       { note: 94, source: 'Descorchados' }
     ],
-    image: { src: '/assets/images/bout-carmelo-patti-cabernet-sauvignon-2018.webp', width: 107, height: 447, alt: 'Bouteille de Carmelo Patti Cabernet Sauvignon 2018, vin argentin de Luján de Cuyo' },
+    image: { src: '/assets/images/bout-carmelo-patti-cabernet-sauvignon-2018.webp', width: 226, height: 900, alt: 'Bouteille de Carmelo Patti Cabernet Sauvignon 2018, vin argentin de Luján de Cuyo' },
     og: '/assets/images/og/carmelo-patti-cabernet-sauvignon-2018.jpg',
     maj: '2026-11-14',
     seo: {
@@ -338,7 +338,7 @@ const WINES = [
     elevage: '24 mois',
     garde: '30 ans',
     scores: [{ note: 93, source: 'Wine Advocate' }],
-    image: { src: '/assets/images/bout-carmelo-patti-cabernet-franc-2021.webp', width: 108, height: 451, alt: 'Bouteille de Carmelo Patti Cabernet Franc, vin argentin de Luján de Cuyo' },
+    image: { src: '/assets/images/bout-carmelo-patti-cabernet-franc-2021.webp', width: 221, height: 900, alt: 'Bouteille de Carmelo Patti Cabernet Franc, vin argentin de Luján de Cuyo' },
     og: '/assets/images/og/carmelo-patti-cabernet-franc-2021.jpg',
     maj: '2026-11-14',
     seo: {
