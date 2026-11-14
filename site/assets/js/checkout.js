@@ -1,11 +1,14 @@
 const STORE='andivino_v1';
 const IMAGE_BASE_URL = new URL('../images/', document.currentScript.src).href;
-const WINE_PAGES={'clos-2017':'mendoza/lujan-de-cuyo/clos-des-andes-2017','helene-2016':'mendoza/lujan-de-cuyo/cuvee-helene-2016','poesia-2014':'mendoza/lujan-de-cuyo/poesia-2014'};
+// Cuvées : window.ANDIVINO_WINES (/assets/js/wines-data.js, généré depuis data/wines.js) ; liste ci-dessous en secours.
+const WINE_PAGES={'clos-2017':'/vins/bodega-poesia/clos-des-andes-2017','helene-2016':'/vins/bodega-poesia/cuvee-helene-2016','poesia-2014':'/vins/bodega-poesia/poesia-2014'};
+(window.ANDIVINO_WINES||[]).forEach(function(w){WINE_PAGES[w.id]=w.url;});
 const DEF={wines:[
   {id:'clos-2017',nom:'Clos des Andes',millesime:2017,prix:21.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'100\u00a0% Malbec, vendanges manuelles',superficie:'2 ha plantés en 1935',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'10 à 12 mois',garde:'15 ans',dispo:true,description:"Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir."},
   {id:'helene-2016',nom:'Poesía — Cuvée Hélène',millesime:2016,prix:35.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60\u00a0% Malbec, 40\u00a0% Cabernet Sauvignon, vendanges manuelles',superficie:'1 ha planté en 1935',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'16 à 18 mois',garde:'25 ans',dispo:true,description:"D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso."},
   {id:'poesia-2014',nom:'Poesía',millesime:2014,prix:44.99,reduction:0,bodega:'Bodega Poesía',appellation:'Luján de Cuyo, Mendoza',cepages:'60\u00a0% Malbec, 40\u00a0% Cabernet Sauvignon, vendanges manuelles',superficie:'13 ha plantés en 1935',sol:'Sablo-argileux',fermentation:'Inox et fûts de chêne',elevage:'18 à 24 mois',garde:'25 ans',dispo:true,description:"Poesía s'exprime avec distinction et profondeur à travers une robe rouge rubis intense."}
 ],degustations:[],chroniques:[],cart:[]};
+if(Array.isArray(window.ANDIVINO_WINES)&&window.ANDIVINO_WINES.length)DEF.wines=window.ANDIVINO_WINES.filter(function(w){return w.achetable!==false;});
 
 function getData(){try{const r=localStorage.getItem(STORE);const d=r?JSON.parse(r):{};return{wines:DEF.wines,degustations:DEF.degustations,chroniques:DEF.chroniques,cart:d.cart||[]};}catch(e){return JSON.parse(JSON.stringify(DEF));}}
 function saveData(d){try{localStorage.setItem(STORE,JSON.stringify(d));}catch(e){}}
@@ -22,6 +25,7 @@ var BOTTLE_IMGS={
   'helene-2016': IMAGE_BASE_URL + 'bout-helene-2016.webp',
   'poesia-2014': IMAGE_BASE_URL + 'bout-poesia.webp'
 };
+(window.ANDIVINO_WINES||[]).forEach(function(w){if(w.image)BOTTLE_IMGS[w.id]=w.image;});
 function bottleSVG(id,h){
   if(!h)h=100;
   // ── Images réelles ──
@@ -53,9 +57,13 @@ function renderProducts(){
   // init QTY from cart
   cart.forEach(ci=>{QTY[ci.id]=ci.qty;});
   // ?ajout=<id> depuis une fiche vin : ajoute 1 bouteille si absente du panier
-  const ajout=new URLSearchParams(location.search).get('ajout');
+  // ?ajout=<id>&qte=<n> depuis le formulaire d'une fiche vin : fixe la quantité choisie (1 à 36).
+  const params=new URLSearchParams(location.search);
+  const ajout=params.get('ajout');
+  const qte=parseInt(params.get('qte'),10);
   if(ajout&&wines.some(w=>w.id===ajout)){
-    if(!QTY[ajout]){QTY[ajout]=1;const c=getCart();c.push({id:ajout,qty:1});saveCart(c);}
+    if(qte>=1&&qte<=36){QTY[ajout]=qte;const c=getCart().filter(x=>x.id!==ajout);c.push({id:ajout,qty:qte});saveCart(c);}
+    else if(!QTY[ajout]){QTY[ajout]=1;const c=getCart();c.push({id:ajout,qty:1});saveCart(c);}
     history.replaceState(null,'',location.pathname);
   }
   const list=document.getElementById('prodList');if(!list)return;
@@ -70,7 +78,7 @@ function renderProducts(){
         <div class="pn">${w.nom}</div>
         <div class="pb">${w.bodega}</div>
         <div class="pd">${w.description}</div>
-        <a class="pf-link" href="/products/${WINE_PAGES[w.id]}" target="_blank" rel="noopener">Fiche du vin<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="visually-hidden"> (nouvel onglet)</span></a>
+        <a class="pf-link" href="${WINE_PAGES[w.id]}" target="_blank" rel="noopener">Fiche du vin<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="visually-hidden"> (nouvel onglet)</span></a>
       </div>
       <div class="prod-right">
         <div class="prod-px">

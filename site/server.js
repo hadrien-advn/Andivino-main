@@ -7,6 +7,8 @@ const Stripe = require('stripe');
 require('dotenv').config();
 
 const { PRODUCTS, buildOrder } = require('./data/catalog');
+const { WINES, DOMAINES, SITE, wineUrl } = require('./data/wines');
+const { renderProductPage, winesDataJs } = require('./lib/product-page');
 const { DEGUSTATIONS, upcomingDegustations, deliveryNoteHtml } = require('./assets/js/degustations.js');
 
 const app = express();
@@ -62,9 +64,13 @@ app.use((req, res, next) => {
 
 // Anciennes URLs (indexées avant restructuration) -> page qui les remplace.
 const LEGACY_REDIRECTS = {
-  '/vins/poesia-2014': '/products/mendoza/lujan-de-cuyo/poesia-2014',
-  '/vins/cuvee-helene-2016': '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016',
-  '/vins/clos-des-andes-2017': '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017',
+  // Fiches produits : /vins/<cuvée> (2025), puis /products/mendoza/lujan-de-cuyo/<cuvée> (jusqu'au 14/11/2026).
+  '/vins/poesia-2014': '/vins/bodega-poesia/poesia-2014',
+  '/vins/cuvee-helene-2016': '/vins/bodega-poesia/cuvee-helene-2016',
+  '/vins/clos-des-andes-2017': '/vins/bodega-poesia/clos-des-andes-2017',
+  '/products/mendoza/lujan-de-cuyo/poesia-2014': '/vins/bodega-poesia/poesia-2014',
+  '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016': '/vins/bodega-poesia/cuvee-helene-2016',
+  '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017': '/vins/bodega-poesia/clos-des-andes-2017',
   '/chroniques/mendoza-terroir-andin': '/chroniques/malbec-argentin-histoire-terroirs',
   '/chroniques/malbec-cabernet-assemblage-argentin': '/chroniques/malbec-argentin-histoire-terroirs',
   '/chroniques/vendanges-bodega-poesia-recit': '/chroniques'
@@ -225,11 +231,14 @@ function renderSiteDegustations(html) {
 let htmlCacheDay = '';
 const parisDay = () => new Date().toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris' });
 
+// fileName : page de pages/, ou clé « vin:<id> » pour une fiche produit rendue depuis data/wines.js.
 async function getHtmlWithVersion(fileName) {
   const today = parisDay();
   if (today !== htmlCacheDay) { for (const k of Object.keys(htmlCache)) delete htmlCache[k]; htmlCacheDay = today; }
   if (htmlCache[fileName]) return htmlCache[fileName];
-  let html = await fs.readFile(page(fileName), 'utf8');
+  let html;
+  if (fileName.startsWith('vin:')) html = renderProductPage(WINES.find((w) => w.id === fileName.slice(4)));
+  else html = await fs.readFile(page(fileName), 'utf8');
   if (fileName === 'home.html') html = renderHomeDegustations(html);
   html = renderSiteDegustations(html);
   html = html.replace(/(href|src)="(\/assets\/[^"]+\.(css|js))"/g, `$1="$2?v=${BUILD_VERSION}"`);
@@ -389,9 +398,20 @@ app.get('/professionnels', sendPage('professionnels.html'));
 app.get(['/chroniques', '/chroniques/'], sendPage('chroniques.html'));
 app.get(['/chroniques/malbec-argentin-histoire-terroirs', '/chroniques/malbec-argentin-histoire-terroirs/'], sendPage('chronique-malbec-argentin-histoire-terroirs.html'));
 app.get(['/chroniques/accords-mets-vins-malbec-argentin', '/chroniques/accords-mets-vins-malbec-argentin/'], sendPage('chronique-accords-mets-vins-malbec-argentin.html'));
-app.get(['/products/mendoza/lujan-de-cuyo/poesia-2014', '/products/mendoza/lujan-de-cuyo/poesia-2014/'], sendPage('vin-poesia-2014.html'));
-app.get(['/products/mendoza/lujan-de-cuyo/cuvee-helene-2016', '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016/'], sendPage('vin-cuvee-helene-2016.html'));
-app.get(['/products/mendoza/lujan-de-cuyo/clos-des-andes-2017', '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017/'], sendPage('vin-clos-des-andes-2017.html'));
+// Fiches produits : une route par cuvée de data/wines.js, même gabarit (lib/product-page.js).
+for (const w of WINES) app.get(wineUrl(w), sendPage(`vin:${w.id}`));
+// Pages domaine pas encore créées : /vins/<domaine> renvoie au catalogue.
+app.get('/vins/:domaine', (req, res, next) => {
+  const d = DOMAINES[req.params.domaine];
+  if (!d) return next();
+  return res.redirect(302, d.page || '/vins-argentins');
+});
+// Données des cuvées pour le panier, la page commande et la confirmation.
+app.get('/assets/js/wines-data.js', (req, res) => {
+  res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+  res.setHeader('Cache-Control', req.query.v ? 'public, max-age=31536000, immutable' : 'public, max-age=300');
+  res.send(winesDataJs());
+});
 
 app.get(['/paiement/success', '/paiement/success/'], sendPage('payment-success.html'));
 app.get(['/paiement/cancel', '/paiement/cancel/'], sendPage('payment-cancel.html'));
@@ -402,7 +422,16 @@ app.get(['/legal/cgv', '/legal/cgv/'], sendPage('legal-cgv.html'));
 app.get(['/legal/mentions-legales', '/legal/mentions-legales/'], sendPage('legal-mentions-legales.html'));
 
 app.get('/robots.txt', (req, res) => res.sendFile(path.join(rootDir, 'robots.txt')));
-app.get('/sitemap.xml', (req, res) => res.sendFile(path.join(rootDir, 'sitemap.xml')));
+// sitemap.xml + une entrée par cuvée de data/wines.js (insérée à la place de <!-- vins -->).
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    const xml = await fs.readFile(path.join(rootDir, 'sitemap.xml'), 'utf8');
+    const vins = WINES.map((w) => `  <url><loc>${SITE}${wineUrl(w)}</loc><lastmod>${w.maj}</lastmod></url>`).join('\n');
+    res.type('application/xml').send(xml.replace('  <!-- vins -->', vins));
+  } catch (e) {
+    res.status(500).send('Erreur serveur');
+  }
+});
 
 app.get('/api/stripe-config', (req, res) => {
   if (!stripePublishableKey) {

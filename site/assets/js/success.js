@@ -23,6 +23,7 @@ try {
     'helene-2016': '/assets/images/bout-helene-2016.webp',
     'poesia-2014': '/assets/images/bout-poesia.webp'
   };
+  (window.ANDIVINO_WINES || []).forEach(function (w) { if (w.image) BOTTLES[w.id] = w.image; });
   var SHIPPING = {
     degustation: 'Retrait à la dégustation',
     'main-propre': 'Remise en main propre',

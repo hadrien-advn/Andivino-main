@@ -1,0 +1,100 @@
+/* Fiche produit (lib/product-page.js). Les jetons (couleurs, polices) viennent de chronicles.css. */
+
+.pdp-crumb{max-width:1120px}
+.pdp{max-width:1120px;margin:0 auto;padding:0 1.5rem}
+
+/* ── Haut de fiche : bouteille + bloc d'achat ── */
+.pdp-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4.5rem;align-items:center;padding:1.8rem 0 4rem;border-bottom:1px solid var(--cream-d)}
+.pdp-media{background:var(--cream);display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;padding:3rem 2rem}
+.pdp-media img{height:100%;max-height:540px;width:auto}
+
+.pdp-eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bdx);margin:0 0 .9rem}
+.pdp-title{font-family:var(--fd);font-weight:300;font-style:italic;font-size:clamp(2.2rem,4vw,3.3rem);line-height:1.08;color:var(--charbon);margin:0 0 .8rem;text-wrap:balance}
+.pdp-sub{font-size:.88rem;color:var(--gris);margin:0 0 1.6rem;line-height:1.6}
+.pdp-scores{display:flex;gap:2rem;margin:0 0 1.8rem;padding:1.1rem 0;border-top:1px solid var(--cream-d);border-bottom:1px solid var(--cream-d)}
+.pdp-scores .score-it{text-align:left}
+
+.pdp-price-row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:0 0 1.2rem}
+.pdp-price{font-family:var(--fd);font-size:2.4rem;line-height:1;color:var(--charbon);margin:0;font-variant-numeric:tabular-nums}
+.pdp-price span{font-family:var(--fb);font-size:.72rem;letter-spacing:.04em;color:var(--gris);margin-left:.35rem}
+.pdp-status{display:flex;align-items:center;gap:.5rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--charbon);margin:0}
+.pdp-status::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--or);flex:none}
+.pdp-status--low::before{background:var(--bdx)}
+.pdp-status--pre::before{background:transparent;border:1.5px solid var(--bdx)}
+.pdp-status--out{color:var(--gris)}
+.pdp-status--out::before{background:var(--gris-l)}
+
+.pdp-form{display:flex;gap:.7rem;margin:0 0 1.6rem}
+.pdp-qty{display:flex;align-items:stretch;border:1px solid var(--cream-d);background:var(--cream-l)}
+.pdp-qty-btn{width:2.8rem;border:0;background:transparent;font-size:1.1rem;color:var(--charbon);cursor:pointer;transition:color var(--e)}
+.pdp-qty-btn:hover{color:var(--bdx)}
+.pdp-qty input{width:2.6rem;border:0;background:transparent;text-align:center;font:500 .95rem var(--fb);color:var(--charbon);-moz-appearance:textfield;appearance:textfield}
+.pdp-qty input::-webkit-outer-spin-button,.pdp-qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pdp-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;min-height:3.3rem;padding:0 1.8rem;border:0;background:var(--bdx);color:var(--cream-l);font:400 .72rem var(--fb);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background var(--e)}
+.pdp-cta:hover{background:var(--bdx-d);color:var(--cream-l)}
+.pdp-cta--alt{width:100%;margin-bottom:1.6rem}
+.pdp-qty-btn:focus-visible,.pdp-qty input:focus-visible,.pdp-cta:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
+.pdp-out{font-size:.9rem;color:var(--gris);margin:0 0 1rem}
+
+.pdp-reassure{list-style:none;margin:0 0 1.6rem;padding:0;border-top:1px solid var(--cream-d)}
+.pdp-reassure li{padding:.85rem 0;border-bottom:1px solid var(--cream-d);font-size:.82rem;line-height:1.6;color:var(--gris)}
+.pdp-reassure li::before{content:none}
+.pdp-reassure strong{display:block;font-weight:400;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--charbon);margin-bottom:.2rem}
+.pdp-reassure a{color:var(--bdx);text-decoration:underline;text-underline-offset:2px}
+
+.pdp-facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem;margin:0}
+.pdp-facts dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-bottom:.15rem}
+.pdp-facts dd{margin:0;font-size:.86rem;font-weight:500;color:var(--charbon)}
+
+/* ── Corps de fiche (typographie de .art-body) ── */
+.pdp-body{max-width:760px;margin:0 auto;padding:3.5rem 0 1.5rem}
+.pdp-lead{margin-top:0}
+
+/* ── Autres cuvées ── */
+.pdp-related{padding:3.5rem 0 5rem;border-top:1px solid var(--cream-d);margin-top:2rem}
+.pdp-related h2{font-family:var(--fd);font-weight:300;font-size:clamp(1.6rem,3vw,2.1rem);color:var(--charbon);margin:0 0 2rem;text-align:center}
+.pdp-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px;background:var(--cream-d);border:2px solid var(--cream-d)}
+.pdp-card{position:relative;background:var(--cream-l);padding:2.2rem 1.5rem 1.8rem;text-align:center;transition:background var(--e)}
+.pdp-card:hover{background:#fff}
+.pdp-card img{height:200px;width:auto;margin:0 auto 1.4rem;display:block}
+.pdp-card-dom{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);margin:0 0 .4rem}
+.pdp-card-name{font-family:var(--fd);font-weight:400;font-style:italic;font-size:1.35rem;line-height:1.2;margin:0 0 .4rem}
+.pdp-card-name a{color:var(--charbon);text-decoration:none}
+.pdp-card-name a::after{content:'';position:absolute;inset:0}
+.pdp-card-name a:focus-visible{outline:none}
+.pdp-card:focus-within{outline:2px solid var(--bdx);outline-offset:-2px}
+.pdp-card-cep{font-size:.8rem;color:var(--gris);margin:0 0 .9rem}
+.pdp-card-price{font-family:var(--fd);font-size:1.35rem;color:var(--charbon);margin:0}
+.pdp-card-price span{display:block;font-family:var(--fb);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bdx);margin-top:.35rem}
+.pdp-all{text-align:center;margin:2rem 0 0}
+.pdp-all a{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--charbon);text-decoration:none;border-bottom:1px solid var(--cream-d);padding-bottom:.3rem;transition:border-color var(--e),color var(--e)}
+.pdp-all a:hover{color:var(--bdx);border-color:var(--bdx)}
+
+/* ── Barre d'achat fixe (mobile) ── */
+.pdp-sticky{display:none}
+
+@media(max-width:860px){
+  .pdp-top{grid-template-columns:1fr;gap:1.6rem;padding:1rem 0 3rem}
+  .pdp-media{aspect-ratio:auto;padding:1.2rem 1rem}
+  .pdp-media img{height:230px}
+  .pdp-scores{gap:1.4rem}
+  .pdp-body{padding-top:2.6rem}
+  .pdp-sticky:not([hidden]){display:flex;align-items:center;gap:1rem;position:fixed;left:0;right:0;bottom:var(--cookie-h,0px);z-index:60;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));background:var(--cream-l);border-top:1px solid var(--cream-d);box-shadow:0 -6px 18px rgba(20,16,12,.06)}
+  .pdp-sticky-info{display:flex;flex-direction:column;min-width:0;flex:1}
+  .pdp-sticky-name{font-family:var(--fd);font-style:italic;font-size:1.05rem;color:var(--charbon);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pdp-sticky-price{font-size:.8rem;color:var(--gris);font-variant-numeric:tabular-nums}
+  .pdp-sticky .pdp-cta{flex:none;min-height:2.9rem;padding:0 1.4rem}
+  .pdp-page footer{padding-bottom:5rem}
+}
+@media(max-width:600px){
+  .pdp{padding:0 1rem}
+  .pdp-crumb{margin-top:5.5rem}
+  .pdp-title{font-size:2.1rem;margin-bottom:.5rem}
+  .pdp-sub{margin-bottom:1.1rem}
+  .pdp-scores{margin-bottom:1.2rem;padding:.8rem 0}
+  .pdp-facts{grid-template-columns:1fr 1fr}
+  .pdp-cards{grid-template-columns:1fr 1fr}
+  .pdp-card{padding:1.6rem .8rem 1.4rem}
+  .pdp-card img{height:150px}
+}
+@media(prefers-reduced-motion:reduce){.pdp *{transition:none!important}}

@@ -11,6 +11,7 @@ const DEF={wines:[
   {id:'c2',titre:'Malbec &amp; Cabernet : le grand assemblage argentin',categorie:'Éducation',date:'2025-02-14',resume:'Pourquoi associer le Malbec local au Cabernet bordelais ? La Bodega Poesía révèle sa philosophie d\'assemblage.',contenu:'<p>L\'assemblage Malbec-Cabernet Sauvignon est au cœur de l\'identité de Bodega Poesía.</p>'},
   {id:'c3',titre:'Trois Français aux vendanges : le récit de Gaspard',categorie:'Reportage',date:'2025-03-01',resume:'Gaspard, Esteban et Hadrien racontent leurs premières vendanges à Luján de Cuyo. Une expérience fondatrice.',contenu:'<p>C\'était en été austral, sous un soleil de mars brûlant.</p>'}
 ],cart:[]};
+if(Array.isArray(window.ANDIVINO_WINES)&&window.ANDIVINO_WINES.length)DEF.wines=window.ANDIVINO_WINES;
 
 function getData(){try{const r=localStorage.getItem(STORE);const d=r?JSON.parse(r):{};return{wines:DEF.wines,degustations:DEF.degustations,chroniques:DEF.chroniques,cart:d.cart||[]};}catch(e){return JSON.parse(JSON.stringify(DEF));}}
 function saveData(d){try{localStorage.setItem(STORE,JSON.stringify(d));}catch(e){}}

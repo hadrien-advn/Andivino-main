@@ -1,20 +1,8 @@
-const PRODUCTS = Object.freeze({
-  'clos-2017': Object.freeze({
-    id: 'clos-2017',
-    name: 'Clos des Andes 2017',
-    unitAmount: 2199
-  }),
-  'helene-2016': Object.freeze({
-    id: 'helene-2016',
-    name: 'Poesia - Cuvee Helene 2016',
-    unitAmount: 3599
-  }),
-  'poesia-2014': Object.freeze({
-    id: 'poesia-2014',
-    name: 'Poesia 2014',
-    unitAmount: 4499
-  })
-});
+// Prix et noms Stripe dérivés de data/wines.js (source unique des cuvées).
+const { WINES, STATUTS } = require('./wines');
+const PRODUCTS = Object.freeze(Object.fromEntries(WINES
+  .filter((w) => STATUTS[w.statut].achetable)
+  .map((w) => [w.id, Object.freeze({ id: w.id, name: w.nomStripe, unitAmount: w.prix })])));
 
 const SHIPPING_MODES = Object.freeze({
   degustation: 'Retrait degustation',
