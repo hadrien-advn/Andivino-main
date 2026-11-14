@@ -104,52 +104,73 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .hosts-text strong{font-weight:500;color:var(--charbon)}
 
 /* ── Réservation ── */
-.book{background:var(--cream);padding:7.5rem var(--gut);scroll-margin-top:0}
-.book-card{max-width:640px;margin:0 auto;background:var(--cream-l);border:1px solid var(--cream-d);padding:3.5rem 3.5rem 3rem}
-.book-card h2{margin-bottom:.6rem}
-.places-line{font-size:.92rem;color:var(--gris);margin-bottom:2.2rem}
+/* Mendoza en fond (la photo du hero de l'accueil, floutée et assombrie), et posée dessus une
+   carte d'invitation en papier : bords déchirés, une seconde feuille de travers, un cachet de cire. */
+.book{position:relative;isolation:isolate;overflow:hidden;padding:8rem var(--gut) 8.5rem;scroll-margin-top:0;background:#2A1F18}
+.book::before{content:'';position:absolute;inset:-40px;z-index:-2;background:url('/assets/images/andes-vignes-hero-1000.webp') center 45%/cover no-repeat;filter:blur(7px) saturate(.9) brightness(.92);transform:scale(1.04)}
+.book::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 60% at 50% 45%,rgba(42,31,24,.18),rgba(30,21,15,.62)),linear-gradient(rgba(30,21,15,.12),rgba(30,21,15,.32))}
+.book-sheet{position:relative;max-width:640px;margin:0 auto}
+/* la seconde feuille, glissée dessous et un peu de travers */
+.book-sheet::before{content:'';position:absolute;inset:14px -10px -12px 12px;background:#EFE6D9;transform:rotate(2.2deg);box-shadow:0 30px 60px -18px rgba(0,0,0,.55);border-radius:2px}
+.book-card{position:relative;background:var(--cream-l);padding:3.8rem 3.6rem 3.2rem;transform:rotate(-.6deg);
+  -webkit-mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x;
+  mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x}
+/* le contenu reste droit : seule la feuille est de travers */
+.book-card>*{transform:rotate(.6deg)}
+.book-seal{position:absolute;z-index:3;top:-40px;right:-36px;width:136px;height:136px;transform:rotate(-12deg);filter:drop-shadow(0 7px 7px rgba(0,0,0,.38)) drop-shadow(0 1px 1px rgba(0,0,0,.3));pointer-events:none}
+.book-card h2{margin-bottom:.6rem;padding-right:4.5rem}
+.places-line{font-size:.92rem;color:var(--gris);margin-bottom:2.4rem}
 .places-line strong{color:var(--charbon);font-weight:500}
 
-.qty{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0;border-top:1px solid var(--cream-d);border-bottom:1px solid var(--cream-d);margin-bottom:1.8rem}
-.qty-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
-.stepper{display:flex;align-items:center;border:1px solid var(--cream-d)}
-.stepper button{width:44px;height:44px;background:transparent;border:0;font-size:1.2rem;color:var(--charbon);cursor:pointer;transition:background var(--e),color var(--e)}
-.stepper button:hover:not(:disabled){background:var(--cream);color:var(--bdx)}
-.stepper button:disabled{color:var(--gris-l);cursor:not-allowed}
-.stepper output{min-width:44px;text-align:center;font-family:var(--fb);font-size:1.05rem;color:var(--charbon);font-variant-numeric:tabular-nums}
+/* « Combien serez-vous ? » : deux pastilles rondes autour d'un grand chiffre. */
+.qty{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem}
+.qty-label{font-family:var(--fd);font-style:italic;font-size:1.35rem;color:var(--charbon)}
+.stepper{display:flex;align-items:center;gap:.6rem}
+.stepper button{width:44px;height:44px;border-radius:50%;background:transparent;border:1px solid var(--gris-l);font-size:1.25rem;line-height:1;color:var(--charbon);cursor:pointer;transition:background var(--e),color var(--e),border-color var(--e),transform .2s ease}
+.stepper button:hover:not(:disabled){background:var(--bdx);border-color:var(--bdx);color:var(--cream-l)}
+.stepper button:active:not(:disabled){transform:scale(.94)}
+.stepper button:disabled{color:var(--gris-l);border-color:var(--cream-d);cursor:not-allowed}
+.stepper output{min-width:2.4rem;text-align:center;font-family:var(--fd);font-size:2.2rem;line-height:1;color:var(--bdx);font-variant-numeric:lining-nums tabular-nums}
 
-.qty-hint{font-size:.8rem;color:var(--gris);margin:-1.1rem 0 1.6rem;text-align:right}
+.qty-hint{font-size:.8rem;color:var(--gris);margin:-1.2rem 0 1.6rem;text-align:right}
 .qty-hint a{color:var(--bdx)}
-.person{border:0;margin-bottom:1.6rem}
-.consent{display:flex;gap:.8rem;align-items:flex-start;font-size:.86rem;color:var(--charbon);line-height:1.55;padding:.9rem 0 1.1rem;cursor:pointer}
-.consent input{margin-top:.18rem;width:18px;height:18px;flex-shrink:0;accent-color:var(--bdx);cursor:pointer}
-.consent input:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
-.person legend{font-family:var(--fd);font-size:1.25rem;font-style:italic;color:var(--charbon);margin-bottom:.9rem;display:flex;align-items:baseline;gap:.7rem}
+.person{border:0;margin-bottom:1.4rem}
+.person legend{font-family:var(--fd);font-size:1.25rem;font-style:italic;color:var(--charbon);margin-bottom:.6rem;display:flex;align-items:baseline;gap:.7rem}
 .person legend small{font-family:var(--fb);font-style:normal;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
-.form-group label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
-.form-group input{font-family:var(--fb);font-size:1rem;color:var(--charbon);background:var(--cream-l);border:1px solid var(--cream-d);padding:.75rem 1rem;outline:none;border-radius:0;transition:border-color var(--e),box-shadow var(--e);width:100%}
-.form-group input::placeholder{color:#736B62}
-.form-group input:focus{border-color:var(--bdx);box-shadow:0 0 0 3px rgba(110,24,40,.12)}
-.form-group input[aria-invalid="true"]{border-color:var(--err);background:#FDF7F5}
-.form-group input[aria-invalid="true"]:focus{box-shadow:0 0 0 3px rgba(168,38,26,.14)}
-.field-error{font-size:.8rem;color:var(--err);line-height:1.45}
-.field-hint{font-size:.8rem;color:var(--charbon);line-height:1.45}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.form-group{display:flex;flex-direction:column;gap:.15rem;margin-bottom:1rem}
+.form-group label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+/* Champs à remplir comme une invitation : une ligne à écrire, pas une boîte. */
+.form-group input{font-family:var(--fb);font-size:1.05rem;color:var(--charbon);background:transparent;border:0;border-bottom:1px solid var(--gris-l);padding:.55rem 0 .5rem;outline:none;border-radius:0;transition:border-color var(--e),box-shadow var(--e);width:100%}
+.form-group input::placeholder{color:#8E857B;font-style:italic}
+.form-group input:focus{border-bottom-color:var(--bdx);box-shadow:0 1px 0 0 var(--bdx)}
+.form-group input[aria-invalid="true"]{border-bottom-color:var(--err);background:transparent}
+.form-group input[aria-invalid="true"]:focus{box-shadow:0 1px 0 0 var(--err)}
+.field-error{font-size:.8rem;color:var(--err);line-height:1.45;margin-top:.3rem}
+.field-hint{font-size:.8rem;color:var(--charbon);line-height:1.45;margin-top:.3rem}
 .link-inline{background:none;border:0;padding:0;font:inherit;color:var(--bdx);text-decoration:underline;text-underline-offset:3px;cursor:pointer;overflow-wrap:anywhere}
 .link-inline:focus-visible{outline:2px solid var(--bdx);outline-offset:2px}
 .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 
-.total{display:flex;justify-content:space-between;align-items:baseline;padding:1.2rem 0;border-top:1px solid var(--cream-d);margin-bottom:1rem}
-.total span{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
-.total strong{font-family:var(--fd);font-weight:400;font-size:1.8rem;color:var(--charbon);font-variant-numeric:tabular-nums}
+.consent{display:flex;gap:.85rem;align-items:flex-start;font-size:.86rem;color:var(--charbon);line-height:1.55;padding:.6rem 0 1.4rem;cursor:pointer}
+.consent input{appearance:none;-webkit-appearance:none;margin:.1rem 0 0;width:20px;height:20px;flex-shrink:0;border:1px solid var(--gris-l);border-radius:6px;background:var(--cream-l) center/12px no-repeat;cursor:pointer;transition:background-color var(--e),border-color var(--e)}
+.consent input:checked{background-color:var(--bdx);border-color:var(--bdx);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5' fill='none' stroke='%23FAF6F1' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.consent input:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
+
+/* Le total, sous une ligne de pointillés comme le talon d'un billet. */
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:1.4rem 0 1.1rem;margin-bottom:.6rem;background:radial-gradient(circle,var(--gris-l) 1.1px,transparent 1.5px) 0 0/9px 3px repeat-x}
+.total span{font-family:var(--fd);font-style:italic;font-size:1.25rem;color:var(--charbon)}
+.total strong{font-family:var(--fd);font-weight:400;font-size:2.2rem;color:var(--bdx);font-variant-numeric:lining-nums tabular-nums}
 .status{font-size:.86rem;color:var(--err);margin-bottom:.9rem;line-height:1.55}
 .status:empty{display:none}
-form .btn-p{width:100%}
+.book-card .btn-p,.book-card .btn-o{border-radius:999px}
+form .btn-p{width:100%;border-radius:999px;padding:1.15rem 2.2rem;display:flex;align-items:center;justify-content:center;gap:.7rem;box-shadow:0 10px 22px -12px rgba(110,24,40,.65)}
+form .btn-p::after{content:'→';font-size:1rem;letter-spacing:0;transition:transform var(--e)}
+form .btn-p:hover::after{transform:translateX(4px)}
 .form-note{font-size:.76rem;color:var(--gris);line-height:1.65;margin-top:1.1rem;text-align:center}
-.form-note.legal{margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--cream-d);text-align:left}
+.form-note.legal{margin-top:2rem;padding-top:1.4rem;text-align:left;font-size:.72rem;background:radial-gradient(circle,var(--gris-l) 1.1px,transparent 1.5px) 0 0/9px 3px repeat-x}
 
-.pay-summary{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1rem 0;border-top:1px solid var(--cream-d);border-bottom:1px solid var(--cream-d);margin-bottom:1.6rem}
+.pay-summary{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1.1rem 0;margin-bottom:1.6rem;background:radial-gradient(circle,var(--gris-l) 1.1px,transparent 1.5px) 0 0/9px 3px repeat-x,radial-gradient(circle,var(--gris-l) 1.1px,transparent 1.5px) 0 100%/9px 3px repeat-x}
 .pay-summary{flex-wrap:wrap}
 .pay-summary p{font-size:.9rem;color:var(--charbon)}
 .pay-summary #paySummary{flex:1 1 0;min-width:0;overflow-wrap:anywhere}
@@ -158,7 +179,7 @@ form .btn-p{width:100%}
 .link-btn{background:none;border:0;font-family:var(--fb);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);cursor:pointer;text-decoration:underline;text-underline-offset:3px;flex-shrink:0}
 #checkout{min-height:120px}
 
-.book-closed{padding:1.6rem 0 .4rem;border-top:1px solid var(--cream-d)}
+.book-closed{padding:.6rem 0 .4rem}
 .book-closed p{font-size:.95rem;color:var(--charbon);margin-bottom:1.6rem;line-height:1.75}
 .cta-row{display:flex;gap:1rem;flex-wrap:wrap}
 
@@ -217,8 +238,11 @@ form .btn-p{width:100%}
   .wine h3{font-size:1.45rem;margin-bottom:.55rem}
   .pairing{margin-top:3.5rem;padding-top:2rem}
   .qty-hint{text-align:left;margin-top:-1rem}
-  .book{padding:3rem 0}
-  .book-card{padding:2.4rem var(--gut) 2rem;border-left:0;border-right:0}
+  .book{padding:4.5rem .9rem 5rem}
+  .book-card{padding:3rem 1.4rem 2.4rem}
+  .book-seal{width:86px;height:86px;top:-26px;right:-8px}
+  .book-card h2{padding-right:3.6rem}
+  .qty{flex-wrap:wrap}
   .form-row{grid-template-columns:1fr;gap:0}
   .cta-row .btn-p,.cta-row .btn-o{flex:1 1 100%}
 }
