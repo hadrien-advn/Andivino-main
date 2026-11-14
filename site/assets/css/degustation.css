@@ -66,27 +66,35 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .hero-photo::after{content:'';position:absolute;left:-1.2rem;bottom:-1.2rem;width:40%;height:40%;border-left:1px solid var(--or);border-bottom:1px solid var(--or);pointer-events:none}
 
 /* ── Vins ── */
-.wines{background:var(--cream);padding:7.5rem var(--gut)}
+.wines{background:var(--cream-l);padding:7.5rem var(--gut)}
 .sec-head{max-width:1160px;margin:0 auto 3.5rem}
-.wine-grid{list-style:none;max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--cream-d);border:1px solid var(--cream-d)}
-.wine{background:var(--cream-l);padding:2.2rem 1.8rem 2.4rem;position:relative;display:flex;flex-direction:column}
-.num{font-family:var(--fd);font-size:1.1rem;color:var(--gris);position:absolute;top:1.2rem;left:1.4rem;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:.55rem}
-.num::before{content:'';width:18px;height:1px;background:var(--or)}
-.wine-visual{height:240px;display:flex;align-items:center;justify-content:center;margin-bottom:1.8rem}
-.wine-visual img{height:100%;width:auto;object-fit:contain}
-.wine-meta{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);margin-bottom:.5rem}
-.wine h3{font-size:1.5rem;font-style:italic;line-height:1.1;margin-bottom:.8rem}
-.wine h3 a{color:inherit;text-decoration:none}
+/* Les vins posés sur une même feuille de papier, sans cartes ni cadres. */
+.wine-grid{list-style:none;max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1.5rem,3vw,3rem)}
+.wine{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.wine-visual{--floor:1.4rem;position:relative;width:100%;max-width:220px;height:320px;display:flex;align-items:flex-end;justify-content:center;padding:3.2rem 0 var(--floor);margin-bottom:1.9rem}
+/* Le fond est une seule feuille, lisse, qui se froisse autour de chaque bouteille : un visuel par
+   bouteille (fond blanc), posé en « produit » sur le crème pour que seuls les plis apparaissent. */
+.wine-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/fond-1.webp?v=2')) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none}
+.wine:nth-child(2) .wine-visual{--papier:url('/assets/images/papier/fond-2.webp')}
+.wine:nth-child(3) .wine-visual{--papier:url('/assets/images/papier/fond-3.webp')}
+.wine:nth-child(4) .wine-visual{--papier:url('/assets/images/papier/fond-4.webp')}
+/* Bouteille posée : ombre de contact au sol et ombre portée douce vers l'arrière-droite. */
+.wine-visual img{position:relative;z-index:2;height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17));transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.wine::before{content:'';position:absolute;z-index:1;left:50%;top:calc(320px - 1.4rem - 7px);width:min(48%,104px);height:14px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,28,18,.42),rgba(40,28,18,0));filter:blur(1.5px);pointer-events:none}
+.wine:hover .wine-visual img{transform:translateY(-6px)}
+.num{position:absolute;top:1.15rem;left:50%;transform:translateX(-50%);z-index:1;font-family:var(--fd);font-size:1.05rem;color:var(--gris);font-variant-numeric:tabular-nums;line-height:1}
+.wine-meta{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);margin-bottom:.55rem}
+.wine h3{font-size:1.55rem;font-style:italic;line-height:1.1;margin-bottom:.8rem}
+.wine h3 a{color:inherit;text-decoration:none;transition:color var(--e)}
 .wine h3 a:hover{color:var(--bdx)}
 .wine h3 span{font-style:normal;font-size:1.1rem;color:var(--gris)}
-.wine p{font-size:.88rem;color:var(--gris);line-height:1.75}
-.wine-mystery .wine-visual{flex-direction:column;gap:.8rem}
-.wine-mystery .wine-visual img{height:calc(100% - 3.5rem)}
-.seal{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);text-align:center;line-height:1.6}
+.wine p{font-size:.88rem;color:var(--gris);line-height:1.75;max-width:17rem;text-wrap:pretty}
 
-.pairing{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:baseline;padding:2rem 1.8rem;border:1px solid var(--cream-d);border-top:0;background:var(--cream-l)}
-.pairing h3{font-size:1.35rem;line-height:1.1;white-space:nowrap}
-.pairing p{font-size:.92rem;color:var(--gris);line-height:1.75;max-width:44rem}
+/* Les planches : une ligne de carte, centrée sous les vins, annoncée par un filet d'or. */
+.pairing{max-width:40rem;margin:4.5rem auto 0;text-align:center;padding-top:2.4rem;position:relative}
+.pairing::before{content:'';position:absolute;top:0;left:50%;width:48px;height:1px;background:var(--or);transform:translateX(-50%)}
+.pairing h3{font-size:1.55rem;font-style:italic;line-height:1.1;margin-bottom:.7rem}
+.pairing p{font-size:.92rem;color:var(--gris);line-height:1.8;text-wrap:pretty}
 
 /* ── Hôtes ── */
 .hosts{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1160px;margin:0 auto;padding:7.5rem var(--gut)}
@@ -198,16 +206,17 @@ form .btn-p{width:100%}
   .ticket dd{font-size:.92rem;line-height:1.45}
   .ticket dd span{font-size:.8rem}
   .hero-cta .btn-p{width:100%}
-  .wine-grid{grid-template-columns:1fr}
-  .pairing{grid-template-columns:1fr;gap:.6rem;padding:1.8rem 1.4rem}
-  .qty-hint{text-align:left;margin-top:-1rem}
-  .wine{display:grid;grid-template-columns:84px 1fr;column-gap:1.4rem;padding:1.8rem 1.4rem;align-items:start}
-  .wine .num{position:static;grid-column:2;margin-bottom:.2rem}
-  .wine-visual{grid-row:1 / span 4;grid-column:1;height:170px;margin:0}
+  /* Téléphone : la bouteille à gauche, le texte à droite, une bouteille par ligne. */
+  .wine-grid{grid-template-columns:1fr;gap:2.4rem}
+  .wine{display:grid;grid-template-columns:96px minmax(0,1fr);column-gap:1.4rem;align-items:center;text-align:left}
+  .wine-visual{--floor:.8rem;grid-row:1 / span 3;grid-column:1;width:96px;height:176px;padding:2.1rem 0 .8rem;margin:0}
+  .wine::before{display:none}
+  .num{left:48px;top:.8rem;font-size:.95rem}
   .wine-meta,.wine h3,.wine p{grid-column:2}
-  .wine-mystery .wine-visual img{height:110px}
-  .wine-mystery .wine-visual{gap:.55rem}
-  .seal{text-transform:none;letter-spacing:0;font-size:.72rem;font-style:italic;line-height:1.35}
+  .wine p{max-width:none}
+  .wine h3{font-size:1.45rem;margin-bottom:.55rem}
+  .pairing{margin-top:3.5rem;padding-top:2rem}
+  .qty-hint{text-align:left;margin-top:-1rem}
   .book{padding:3rem 0}
   .book-card{padding:2.4rem var(--gut) 2rem;border-left:0;border-right:0}
   .form-row{grid-template-columns:1fr;gap:0}
