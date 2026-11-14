@@ -105,11 +105,11 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .hosts-text strong{font-weight:500;color:var(--charbon)}
 
 /* ── Réservation ── */
-/* La finca sous la neige en fond (floutée et assombrie), et posée dessus une
+/* La finca sous la neige en fond (floutée, gardée lumineuse), et posée dessus une
    carte d'invitation en papier : bords déchirés, une seconde feuille de travers, un cachet de cire. */
-.book{position:relative;isolation:isolate;overflow:hidden;padding:8rem var(--gut) 8.5rem;scroll-margin-top:0;background:#2A1F18}
-.book::before{content:'';position:absolute;inset:-40px;z-index:-2;background:url('/assets/images/finca-neige-reservation.webp') center 62%/cover no-repeat;filter:blur(7px) saturate(.9) brightness(.92);transform:scale(1.04)}
-.book::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 60% at 50% 45%,rgba(42,31,24,.18),rgba(30,21,15,.62)),linear-gradient(rgba(30,21,15,.12),rgba(30,21,15,.32))}
+.book{position:relative;isolation:isolate;overflow:hidden;padding:8rem var(--gut) 8.5rem;scroll-margin-top:0;background:#D9D4CC}
+.book::before{content:'';position:absolute;inset:-40px;z-index:-2;background:url('/assets/images/finca-neige-reservation.webp') center 62%/cover no-repeat;filter:blur(10px) saturate(1.05) brightness(1.04);transform:scale(1.05)}
+.book::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(75% 65% at 50% 45%,rgba(250,246,241,.08),rgba(52,38,27,.22))}
 .book-sheet{position:relative;max-width:640px;margin:0 auto}
 /* la seconde feuille, glissée dessous et un peu de travers */
 .book-sheet::before{content:'';position:absolute;inset:14px -10px -12px 12px;background:#EFE6D9;transform:rotate(2.2deg);box-shadow:0 30px 60px -18px rgba(0,0,0,.55);border-radius:2px}
