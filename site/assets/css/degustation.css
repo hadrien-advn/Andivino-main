@@ -62,6 +62,7 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .places.full::before{background:var(--gris-l)}
 
 .hero-photo{position:relative}
+.hero-photo picture{display:block}
 .hero-photo img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px}
 .hero-photo::after{content:'';position:absolute;left:-1.2rem;bottom:-1.2rem;width:40%;height:40%;border-left:1px solid var(--or);border-bottom:1px solid var(--or);pointer-events:none}
 
@@ -168,7 +169,7 @@ form .btn-p{width:100%;border-radius:999px;padding:1.15rem 2.2rem;display:flex;a
 form .btn-p::after{content:'→';font-size:1rem;letter-spacing:0;transition:transform var(--e)}
 form .btn-p:hover::after{transform:translateX(4px)}
 .form-note{font-size:.76rem;color:var(--gris);line-height:1.65;margin-top:1.1rem;text-align:center}
-.form-note.legal{margin-top:2rem;padding-top:1.4rem;text-align:left;font-size:.72rem;background:radial-gradient(circle,var(--gris-l) 1.1px,transparent 1.5px) 0 0/9px 3px repeat-x}
+.form-note.legal{margin-top:2rem;padding-top:1.4rem;text-align:left;font-size:.78rem;background:radial-gradient(circle,var(--gris-l) 1.1px,transparent 1.5px) 0 0/9px 3px repeat-x}
 
 .pay-summary{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1.1rem 0;margin-bottom:1.6rem;background:radial-gradient(circle,var(--gris-l) 1.1px,transparent 1.5px) 0 0/9px 3px repeat-x,radial-gradient(circle,var(--gris-l) 1.1px,transparent 1.5px) 0 100%/9px 3px repeat-x}
 .pay-summary{flex-wrap:wrap}
@@ -239,7 +240,14 @@ form .btn-p:hover::after{transform:translateX(4px)}
   .pairing{margin-top:3.5rem;padding-top:2rem}
   .qty-hint{text-align:left;margin-top:-1rem}
   .book{padding:4.5rem .9rem 5rem}
-  .book-card{padding:3rem 1.4rem 2.4rem}
+  .book-card{padding:3rem 1.25rem 2.4rem}
+  /* Le module Stripe gagne de la largeur : il déborde un peu sur les marges de la carte. */
+  #checkout{margin:0 -.6rem}
+  /* Champs à la hauteur du doigt, bouton de paiement sur une ligne, mentions lisibles. */
+  .form-group input{padding:.75rem 0 .65rem;min-height:44px}
+  form .btn-p{letter-spacing:.1em;padding:1.1rem 1.4rem}
+  .form-note{font-size:.8rem}
+  .form-note.legal{font-size:.78rem;line-height:1.6}
   .book-seal{width:86px;height:86px;top:-26px;right:-8px}
   .book-card h2{padding-right:3.6rem}
   .qty{flex-wrap:wrap}

@@ -73,7 +73,11 @@
       </div>
     </div>
     <figure class="hero-photo">
-      <img src="/assets/images/degustation-table-poesia.webp" alt="Table de dégustation Andivino : bouteilles de Clos des Andes 2017, Poesía Cuvée Hélène 2016 et Poesía 2014, fiches de dégustation, verres et planche de charcuteries et fromages" width="1050" height="1400" fetchpriority="high">
+      <picture>
+        <!-- Téléphone : la photo est affichée en bandeau 16:10, on sert directement ce bandeau (plus léger). -->
+        <source media="(max-width: 600px)" srcset="/assets/images/degustation-table-poesia-bandeau-750.webp 750w, /assets/images/degustation-table-poesia-bandeau-1125.webp 1125w" sizes="100vw" width="1125" height="703">
+        <img src="/assets/images/degustation-table-poesia.webp" alt="Table de dégustation Andivino : bouteilles de Clos des Andes 2017, Poesía Cuvée Hélène 2016 et Poesía 2014, fiches de dégustation, verres et planche de charcuteries et fromages" width="1050" height="1400" fetchpriority="high">
+      </picture>
     </figure>
   </header>
 
