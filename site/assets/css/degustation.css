@@ -104,10 +104,10 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .hosts-text strong{font-weight:500;color:var(--charbon)}
 
 /* ── Réservation ── */
-/* Mendoza en fond (la photo du hero de l'accueil, floutée et assombrie), et posée dessus une
+/* La finca sous la neige en fond (floutée et assombrie), et posée dessus une
    carte d'invitation en papier : bords déchirés, une seconde feuille de travers, un cachet de cire. */
 .book{position:relative;isolation:isolate;overflow:hidden;padding:8rem var(--gut) 8.5rem;scroll-margin-top:0;background:#2A1F18}
-.book::before{content:'';position:absolute;inset:-40px;z-index:-2;background:url('/assets/images/andes-vignes-hero-1000.webp') center 45%/cover no-repeat;filter:blur(7px) saturate(.9) brightness(.92);transform:scale(1.04)}
+.book::before{content:'';position:absolute;inset:-40px;z-index:-2;background:url('/assets/images/finca-neige-reservation.webp') center 62%/cover no-repeat;filter:blur(7px) saturate(.9) brightness(.92);transform:scale(1.04)}
 .book::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 60% at 50% 45%,rgba(42,31,24,.18),rgba(30,21,15,.62)),linear-gradient(rgba(30,21,15,.12),rgba(30,21,15,.32))}
 .book-sheet{position:relative;max-width:640px;margin:0 auto}
 /* la seconde feuille, glissée dessous et un peu de travers */
