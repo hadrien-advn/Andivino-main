@@ -91,11 +91,6 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 .wine h3 span{font-style:normal;font-size:1.1rem;color:var(--gris)}
 .wine p{font-size:.88rem;color:var(--gris);line-height:1.75;max-width:17rem;text-wrap:pretty}
 
-/* Les planches : une ligne de carte, centrée sous les vins, annoncée par un filet d'or. */
-.pairing{max-width:40rem;margin:4.5rem auto 0;text-align:center;padding-top:2.4rem;position:relative}
-.pairing::before{content:'';position:absolute;top:0;left:50%;width:48px;height:1px;background:var(--or);transform:translateX(-50%)}
-.pairing h3{font-size:1.55rem;font-style:italic;line-height:1.1;margin-bottom:.7rem}
-.pairing p{font-size:.92rem;color:var(--gris);line-height:1.8;text-wrap:pretty}
 
 /* ── Hôtes ── */
 .hosts{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1160px;margin:0 auto;padding:7.5rem var(--gut)}
@@ -237,7 +232,6 @@ form .btn-p:hover::after{transform:translateX(4px)}
   .wine-meta,.wine h3,.wine p{grid-column:2}
   .wine p{max-width:none}
   .wine h3{font-size:1.45rem;margin-bottom:.55rem}
-  .pairing{margin-top:3.5rem;padding-top:2rem}
   .qty-hint{text-align:left;margin-top:-1rem}
   .book{padding:4.5rem .9rem 5rem}
   .book-card{padding:3rem 1.25rem 2.4rem}
