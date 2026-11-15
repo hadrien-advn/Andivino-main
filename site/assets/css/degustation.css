@@ -106,13 +106,13 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 
 /* ── Réservation ── */
 /* La finca sous la neige en fond (floutée, gardée lumineuse), et posée dessus une
-   carte d'invitation en papier : bords déchirés, une seconde feuille de travers, un cachet de cire. */
+   carte d'invitation en papier : bords déchirés, légèrement de travers, un cachet de cire. */
 .book{position:relative;isolation:isolate;overflow:hidden;padding:8rem var(--gut) 8.5rem;scroll-margin-top:0;background:#D9D4CC}
 .book::before{content:'';position:absolute;inset:-40px;z-index:-2;background:url('/assets/images/finca-neige-reservation.webp') center 62%/cover no-repeat;filter:blur(10px) saturate(1.05) brightness(1.04);transform:scale(1.05)}
 .book::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(75% 65% at 50% 45%,rgba(250,246,241,.08),rgba(52,38,27,.22))}
 .book-sheet{position:relative;max-width:640px;margin:0 auto}
-/* la seconde feuille, glissée dessous et un peu de travers */
-.book-sheet::before{content:'';position:absolute;inset:14px -10px -12px 12px;background:#EFE6D9;transform:rotate(2.2deg);box-shadow:0 30px 60px -18px rgba(0,0,0,.55);border-radius:2px}
+/* ombre douce sous la carte (un calque flou à part : la carte découpée ne peut pas porter d'ombre) */
+.book-sheet::before{content:'';position:absolute;inset:40px 24px -6px;background:rgba(40,28,18,.32);filter:blur(28px);transform:rotate(-.6deg);border-radius:12px}
 .book-card{position:relative;background:var(--cream-l);padding:3.8rem 3.6rem 3.2rem;transform:rotate(-.6deg);
   -webkit-mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x;
   mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x}
