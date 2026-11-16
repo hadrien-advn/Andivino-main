@@ -17,34 +17,34 @@
 .px-btn-o:hover{border-color:var(--bdx);color:var(--bdx)}
 
 /* ── Le comptoir : étagères à gauche, bon à droite ── */
-.px-shop{padding:calc(var(--nav) + 2.2rem) 0 6rem;overflow-x:clip}
+.px-shop{padding:calc(var(--nav) + 1.6rem) 0 6rem;overflow-x:clip}
 .px-shop-g{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:4rem;align-items:start}
 .px-shop .breadcrumb{max-width:none;margin:0 0 1.4rem;padding:0}
 .paris h1{font-size:clamp(2.5rem,4.2vw,3.6rem);line-height:1.06;letter-spacing:-.01em;max-width:17ch}
-.px-lead{margin-top:1.5rem;max-width:40rem;font-size:.98rem;line-height:1.85;color:var(--gris);text-wrap:pretty}
-.px-block{margin-top:3.4rem}
+.px-lead{margin-top:1.2rem;max-width:40rem;font-size:.98rem;line-height:1.85;color:var(--gris);text-wrap:pretty}
+.px-block{margin-top:2.2rem}
 .px-block+.px-block{margin-top:4.8rem}
 .px-hd h2{font-size:clamp(1.6rem,2.5vw,2.15rem);line-height:1.15}
 .px-hd p{margin-top:.6rem;font-size:.9rem;line-height:1.8;color:var(--gris);max-width:40rem;text-wrap:pretty}
 
 /* Une bouteille par feuille : même traitement que .wine-visual de la page dégustation. */
-.pv-shelf{--row:2.6rem;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--row) clamp(1rem,2.4vw,2rem);margin-top:2.2rem}
+.pv-shelf{--row:2.6rem;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--row) clamp(1rem,2.4vw,2rem);margin-top:1.4rem}
 
-.pv-item{--h:300px;--floor:1.3rem;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
-.pv-shelf--pre .pv-item{--h:250px}
-.pv-visual{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:210px;height:var(--h);padding:3rem 0 var(--floor);margin-bottom:1.5rem}
+.pv-item{--h:250px;--floor:1.3rem;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.pv-shelf--pre .pv-item{--h:220px}
+.pv-visual{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:210px;height:var(--h);padding:2.4rem 0 var(--floor);margin-bottom:1.5rem}
 .pv-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/fond-1.webp')) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none}
 .pv-visual img{position:relative;z-index:2;height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17));transition:transform .7s cubic-bezier(.16,1,.3,1)}
 .pv-item::before{content:'';position:absolute;z-index:1;left:50%;top:calc(var(--h) - var(--floor) - 7px);width:min(44%,92px);height:14px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,28,18,.42),rgba(40,28,18,0));filter:blur(1.5px);pointer-events:none}
 .pv-item:hover .pv-visual img,.pv-item.is-in .pv-visual img{transform:translateY(-6px)}
-.pv-meta{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
-.pv-nm{margin-top:.45rem;font-size:1.5rem;font-style:italic;line-height:1.12}
+.pv-meta{margin-top:.4rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.pv-nm{font-size:1.5rem;font-style:italic;line-height:1.12}
 .pv-nm a{color:inherit;text-decoration:none;transition:color var(--e)}
 .pv-nm a:hover{color:var(--bdx)}
-.pv-cep{margin-top:.35rem;font-size:.7rem;letter-spacing:.12em;text-wrap:balance;text-transform:uppercase;color:var(--gris)}
+.pv-cep{margin-top:.2rem;font-size:.7rem;letter-spacing:.12em;text-wrap:balance;text-transform:uppercase;color:var(--gris)}
 .pv-px{margin-top:.7rem;font-family:var(--fd);font-size:1.5rem;line-height:1;color:var(--charbon);font-variant-numeric:tabular-nums lining-nums}
 .pv-flag{display:block;margin-top:.5rem;font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bdx)}
-.pv-act{margin-top:auto;padding-top:1.1rem;min-height:46px;display:flex;justify-content:center}
+.pv-act{margin-top:auto;padding-top:.9rem;min-height:46px;display:flex;justify-content:center}
 .pv-add{display:inline-flex;align-items:center;min-height:44px;padding:0 1.5rem;border:1px solid var(--bdx);color:var(--bdx);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;transition:background var(--e),color var(--e)}
 .pv-add:hover{background:var(--bdx);color:var(--cream-l)}
 .pv-add[hidden],.pv-qty[hidden]{display:none}
@@ -156,7 +156,7 @@
 /* ── Responsive ── */
 @media(max-width:1100px){
   .px-shop-g{grid-template-columns:minmax(0,1fr) 300px;gap:3rem}
-  .pv-item{--h:260px}.pv-shelf--pre .pv-item{--h:220px}
+  .pv-item{--h:240px}.pv-shelf--pre .pv-item{--h:210px}
 }
 @media(max-width:960px){
   .paris{--gut:1.5rem}

@@ -13,7 +13,7 @@ const mot = (n) => MOTS[n] || String(n);
 const listeFr = (a) => (a.length > 1 ? `${a.slice(0, -1).join(', ')} et ${a[a.length - 1]}` : a[0] || '');
 const sansBalises = (html) => html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
 
-// Nom affiché sur la carte, sans millésime ni « Poesía — » (le domaine est écrit au-dessus).
+// Nom affiché sur la carte, sans millésime ni nom de domaine (domaine et millésime sont écrits dessous).
 const nomCarte = (w) => w.nom.replace(/^Poesía — /, '').replace(new RegExp(`^${DOMAINES[w.domaine].nom} `), '');
 const cepCourt = (w) => (w.cepages.length > 1 ? w.cepages.map((c) => c.nom.split(' ')[0]).join('-') : `100 % ${w.cepages[0].nom}`);
 
@@ -38,8 +38,8 @@ function carte(w, i, { first = false } = {}) {
   const nom = esc(w.nomComplet);
   return `<li class="pv-item" data-id="${esc(w.id)}" data-nom="${nom}" data-prix="${w.prix}"${pre ? ` data-arrivee="${esc(moisArrivee(w.arrivee))}"` : ''} style="--papier:url('/assets/images/papier/fond-${(i % 4) + 1}.webp')">
           <a class="pv-visual" href="${url}" tabindex="-1" aria-hidden="true">${img}</a>
-          <p class="pv-meta">${esc(d.nom)} · ${w.millesime}</p>
           <h3 class="pv-nm"><a href="${url}">${esc(nomCarte(w))}</a></h3>
+          <p class="pv-meta">${esc(d.nom)} · ${w.millesime}</p>
           <p class="pv-cep">${fine(cepCourt(w))}${w.couleur === 'Blanc' ? ' · blanc' : ''}</p>
           <p class="pv-px">${fine(prixTexte(w.prix))}${flag}</p>
           <div class="pv-act">
