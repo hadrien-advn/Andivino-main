@@ -28,7 +28,8 @@
 .px-hd p{margin-top:.6rem;font-size:.9rem;line-height:1.8;color:var(--gris);max-width:40rem;text-wrap:pretty}
 
 /* Une bouteille par feuille : même traitement que .wine-visual de la page dégustation. */
-.pv-shelf{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.6rem clamp(1rem,2.4vw,2rem);margin-top:2.2rem}
+.pv-shelf{--row:2.6rem;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--row) clamp(1rem,2.4vw,2rem);margin-top:2.2rem}
+
 .pv-item{--h:300px;--floor:1.3rem;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
 .pv-shelf--pre .pv-item{--h:250px}
 .pv-visual{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:210px;height:var(--h);padding:3rem 0 var(--floor);margin-bottom:1.5rem}
@@ -36,14 +37,14 @@
 .pv-visual img{position:relative;z-index:2;height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17));transition:transform .7s cubic-bezier(.16,1,.3,1)}
 .pv-item::before{content:'';position:absolute;z-index:1;left:50%;top:calc(var(--h) - var(--floor) - 7px);width:min(44%,92px);height:14px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,28,18,.42),rgba(40,28,18,0));filter:blur(1.5px);pointer-events:none}
 .pv-item:hover .pv-visual img,.pv-item.is-in .pv-visual img{transform:translateY(-6px)}
-.pv-meta{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.pv-meta{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
 .pv-nm{margin-top:.45rem;font-size:1.5rem;font-style:italic;line-height:1.12}
 .pv-nm a{color:inherit;text-decoration:none;transition:color var(--e)}
 .pv-nm a:hover{color:var(--bdx)}
-.pv-cep{margin-top:.35rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.pv-cep{margin-top:.35rem;font-size:.7rem;letter-spacing:.12em;text-wrap:balance;text-transform:uppercase;color:var(--gris)}
 .pv-px{margin-top:.7rem;font-family:var(--fd);font-size:1.5rem;line-height:1;color:var(--charbon);font-variant-numeric:tabular-nums lining-nums}
 .pv-flag{display:block;margin-top:.5rem;font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bdx)}
-.pv-act{margin-top:1.1rem;min-height:46px;display:flex;justify-content:center}
+.pv-act{margin-top:auto;padding-top:1.1rem;min-height:46px;display:flex;justify-content:center}
 .pv-add{display:inline-flex;align-items:center;min-height:44px;padding:0 1.5rem;border:1px solid var(--bdx);color:var(--bdx);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;transition:background var(--e),color var(--e)}
 .pv-add:hover{background:var(--bdx);color:var(--cream-l)}
 .pv-add[hidden],.pv-qty[hidden]{display:none}
@@ -52,7 +53,14 @@
 .pv-qty button:hover{background:var(--bdx);color:var(--cream-l)}
 .pv-qty button:disabled{opacity:.35;cursor:default;background:none;color:var(--bdx)}
 .pv-qty output{min-width:2.6rem;display:grid;place-items:center;font-family:var(--fd);font-size:1.35rem;color:var(--charbon);font-variant-numeric:tabular-nums lining-nums;border-inline:1px solid rgba(110,24,40,.25)}
-
+/* Une étagère = une grille de lignes partagées : domaine, nom, cépage, prix et bouton tombent sur la même
+   ligne d'une bouteille à l'autre, même quand un libellé passe sur deux lignes. */
+@supports (grid-template-rows:subgrid){
+  .pv-shelf{row-gap:0}
+  .pv-item{display:grid;grid-row:span 6;grid-template-rows:subgrid;justify-items:center;padding-bottom:var(--row)}
+  .pv-item>*{align-self:start}
+  .pv-act{margin-top:0}
+}
 /* Le bon de commande */
 .px-bon{position:sticky;top:calc(var(--nav) + 1.6rem);margin-top:.4rem}
 .bon-in{background:var(--cream);border:1px solid var(--cream-d);padding:1.9rem 1.8rem 1.6rem}
@@ -171,12 +179,12 @@
   .px-block{margin-top:2.4rem}
   #cuvees .px-hd p{display:none}
   .px-hd h2{font-size:1.55rem}
-  .pv-shelf{grid-template-columns:1fr 1fr;gap:2.2rem .9rem;margin-top:1.6rem}
+  .pv-shelf{--row:2.2rem;grid-template-columns:1fr 1fr;column-gap:.9rem;margin-top:1.6rem}
   .pv-item{--h:220px;--floor:1rem}
   .pv-shelf--pre .pv-item{--h:190px}
   .pv-visual{padding-top:2.2rem;margin-bottom:1.1rem}
   .pv-nm{font-size:1.25rem}
-  .pv-meta,.pv-cep{letter-spacing:.1em}
+  .pv-meta,.pv-cep{letter-spacing:.08em}
   .pv-qty button{width:42px}
   .pv-qty output{min-width:2.2rem}
   .pa-grid{grid-template-columns:1fr}

@@ -160,8 +160,6 @@ function faq() {
       `Sous 7 jours pour les cuvées disponibles.${pre.length ? ` Une commande qui contient une précommande est remise en une seule fois, à l'arrivée des bouteilles (prévue en ${esc(arrivee)})&nbsp;: nous vous contactons pour convenir de la date.` : ''}`],
     ['Livrez-vous en dehors de Paris et de la petite couronne ?',
       "Pas pour l'instant&nbsp;: l'expédition par transporteur est suspendue. Écrivez-nous à <a href=\"mailto:contact@andivino.fr\">contact@andivino.fr</a>."],
-    ['Peut-on retourner une commande ?',
-      'Oui, sous 14 jours après réception, bouteilles non ouvertes et dans leur emballage d\'origine. Les frais de retour sont à la charge du client. Le détail est dans nos <a href="/legal/cgv">conditions générales de vente</a>.'],
     ['Peut-on goûter les vins avant de les acheter ?',
       next
         ? `Oui&nbsp;: nous organisons des dégustations à Paris. La prochaine a lieu le ${quand} (${esc(next.lieu)})&nbsp;: <a href="${esc(next.url)}">réservez votre place</a>.`
