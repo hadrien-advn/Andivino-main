@@ -345,9 +345,32 @@ function renderDomainPage(d) {
     });
   }
   const ld = blocs.map((o) => `<script type="application/ld+json">\n${JSON.stringify(o, null, 2).replace(/<\//g, '<\\/')}\n</script>`).join('\n');
-  const media = d.image
-    ? `<div class="dom-hero-media"><img src="${esc(d.image.src)}" width="${d.image.width}" height="${d.image.height}" fetchpriority="high" alt="${esc(d.image.alt)}"></div>`
-    : d.logo ? `<div class="dom-hero-media dom-hero-media--logo"><img src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" fetchpriority="high" alt="${esc(d.logo.alt)}"></div>` : '';
+  // Une feuille de papier froissé par bouteille (mêmes visuels que la page dégustation).
+  const PAPIERS = ['fond-1.webp?v=2', 'fond-2.webp', 'fond-3.webp', 'fond-4.webp'];
+  // Le nom du domaine est déjà en titre : « Carmelo Patti Malbec » devient « Malbec ».
+  const nomCourt = (w) => (w.nom.startsWith(d.nom + ' ') ? w.nom.slice(d.nom.length + 1) : w.nom);
+  const bouteille = (w, i) => {
+    const s = statutDe(w);
+    const notes = (w.scores || []).map((x) => `<span>${x.note}&nbsp;pts ${esc(x.source)}</span>`).join(' · ');
+    return `<li class="dm-item">
+        <div class="dm-visual" style="--papier:url('/assets/images/papier/${PAPIERS[i % PAPIERS.length]}')">${w.image ? `<img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}" loading="${i < 3 ? 'eager' : 'lazy'}">` : ''}</div>
+        <p class="dm-meta">${esc(w.couleur)} · garde ${fine(w.garde)}</p>
+        <h3 class="dm-nm"><a href="${wineUrl(w)}">${esc(nomCourt(w))} <span>${w.millesime}</span></a></h3>
+        <p class="dm-cep">${fine(cepagesTexte(w))}</p>
+        <p class="dm-scores">${notes}</p>
+        <p class="dm-px">${fine(prixTexte(w.prix))}${w.statut !== 'en-stock' ? `<span class="dm-flag dm-flag--${w.statut}">${esc(s.label)}</span>` : ''}</p>
+      </li>`;
+  };
+  // Vignette d'un autre domaine : son logo, à défaut sa première bouteille.
+  const vignette = (x) => {
+    const b = WINES.find((w) => w.domaine === x.slug && w.image);
+    const v = x.logo || (b && b.image);
+    return v ? `<img class="${x.logo ? 'dm-v-logo' : 'dm-v-btl'}" src="${esc(v.src)}" width="${v.width}" height="${v.height}" alt="" loading="lazy">` : '<span></span>';
+  };
+  const photos = [d.image, ...(d.galerie || [])].filter(Boolean);
+  const nbMots = ['', 'Un vin', 'Deux vins', 'Trois vins', 'Quatre vins', 'Cinq vins', 'Six vins'];
+  const titreCave = vins.length && nbMots[vins.length] ? `${nbMots[vins.length]} <em>du domaine</em>` : 'Les vins <em>du domaine</em>';
+  const fleche = '<svg class="dm-arrow" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -371,59 +394,67 @@ ${visuel ? `<meta property="og:image" content="${SITE}${esc(visuel.src)}">` : ''
 <link rel="preload" href="/assets/fonts/dm-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/fonts.css">
 <link rel="stylesheet" href="/assets/css/chronicles.css">
-<link rel="stylesheet" href="/assets/css/product.css">
 <link rel="stylesheet" href="/assets/css/footer.css">
 <link rel="stylesheet" href="/assets/css/legal-banners.css">
+<link rel="stylesheet" href="/assets/css/domaine.css">
 ${ld}
 </head>
-<body class="pdp-page dom-page">
+<body class="dom-page">
 ${NAV}
 
-<main id="contenu">
-<div class="breadcrumb pdp-crumb"><a href="/">Accueil</a> / <a href="/vins-argentins">Les vins</a> / ${esc(d.nom)}</div>
-
-<article class="pdp dom">
-  <header class="dom-hero">
-    <div class="dom-hero-text">
-      <p class="pdp-eyebrow">Domaine · ${esc(d.lieu)}</p>
-      <h1 class="pdp-title">${esc(d.nom)}</h1>
-      ${d.accroche ? `<p class="dom-accroche">${esc(d.accroche)}</p>` : ''}
-      <p class="wine-lead dom-lead">${d.leadHtml}</p>
+<main id="contenu" class="dm">
+  <header class="dm-hero dm-wrap">
+    <div class="breadcrumb dm-crumb"><a href="/">Accueil</a> / <a href="/vins-argentins">Les vins</a> / ${esc(d.nom)}</div>
+    <div class="dm-hero-g">
+      <div class="dm-id">
+        <h1 class="dm-title">${esc(d.nom)}</h1>
+        <p class="dm-lieu">${esc(d.lieu)}</p>
+        ${d.accroche ? `<p class="dm-accroche">${esc(d.accroche)}</p>` : ''}
+      </div>
+      <p class="dm-lead">${d.leadHtml}</p>
     </div>
-    ${media}
   </header>
 
-  <dl class="m-specs dom-facts">
-    ${(d.faits || []).map(([k, v]) => `<div><dt class="msl">${esc(k)}</dt><dd class="msv">${fine(v)}</dd></div>`).join('\n    ')}
-  </dl>
+  <section class="dm-cave dm-wrap" aria-labelledby="dm-cave-t">
+    <h2 id="dm-cave-t" class="dm-h2">${titreCave}</h2>
+    ${vins.length ? `<ul class="dm-shelf">
+      ${vins.map(bouteille).join('\n      ')}
+    </ul>` : ''}
+    ${aVenir.length ? `<ul class="dm-avenir">
+      ${aVenir.map((c) => `<li><span class="dm-avenir-nom">${esc(c.nom)} <span>${esc(c.millesime)}</span></span><span class="dm-avenir-cep">${fine(c.cepages)}</span><span class="dm-avenir-prix">${fine(prixTexte(c.prix))}</span></li>`).join('\n      ')}
+    </ul>
+    <p class="dm-note">Arrivée en France prévue en janvier 2027. Pour être prévenu de l'ouverture des commandes, <a href="/newsletter">inscrivez-vous à la newsletter</a>.</p>` : ''}
+    <p class="dm-all"><a href="/vins-argentins">Toutes nos cuvées ${fleche}</a></p>
+  </section>
 
-  <div class="pdp-body art-body">
-    ${(d.sections || []).map((sec) => `<h2>${esc(sec.titre)}</h2>\n    ${sec.html.map((p) => `<p>${p}</p>`).join('\n    ')}`).join('\n\n    ')}
-  </div>
-${(d.galerie || []).length ? `
-  <div class="dom-galerie">
-    ${d.galerie.map((g) => `<img src="${esc(g.src)}" width="${g.width}" height="${g.height}" alt="${esc(g.alt)}" loading="lazy">`).join('\n    ')}
-  </div>
-` : ''}
-  <section class="pdp-related" aria-labelledby="dom-cuvees-t">
-    <h2 id="dom-cuvees-t">Les cuvées que nous importons</h2>
-    ${vins.length ? `<div class="pdp-cards">\n    ${vins.map(card).join('\n    ')}\n    </div>` : ''}
-    ${aVenir.length ? `<ul class="dom-avenir">
-      ${aVenir.map((c) => `<li><span class="dom-avenir-nom">${esc(c.nom)} <span>${esc(c.millesime)}</span></span><span class="dom-avenir-cep">${fine(c.cepages)}</span><span class="dom-avenir-prix">${fine(prixTexte(c.prix))}</span></li>`).join('\n      ')}
-    </ul>
-    <p class="dom-avenir-note">Arrivée en France prévue en janvier 2027. Pour être prévenu de l'ouverture des commandes, <a href="/newsletter">inscrivez-vous à la newsletter</a>.</p>` : ''}
-    <p class="pdp-all"><a href="/vins-argentins">Voir toutes nos cuvées</a></p>
+  <section class="dm-recit" aria-label="Le domaine ${esc(d.nom)}">
+    <div class="dm-recit-g dm-wrap">
+      <div class="dm-texte art-body">
+        ${(d.sections || []).map((sec) => `<h2>${esc(sec.titre)}</h2>\n        ${sec.html.map((p) => `<p>${p}</p>`).join('\n        ')}`).join('\n\n        ')}
+      </div>
+      <aside class="dm-fiche" aria-labelledby="dm-fiche-t">
+        ${d.logo ? `<img class="dm-seal" src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" alt="${esc(d.logo.alt)}" loading="lazy">` : ''}
+        <div class="dm-sheet${d.logo ? ' dm-sheet--seal' : ''}">
+          <h2 id="dm-fiche-t">Le domaine <em>en bref</em></h2>
+          <dl>
+            ${(d.faits || []).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${fine(v)}</dd></div>`).join('\n            ')}
+          </dl>
+        </div>
+      </aside>
+    </div>
   </section>
-${autres.length ? `
-  <section class="dom-autres" aria-labelledby="dom-autres-t">
-    <h2 id="dom-autres-t">Nos autres domaines</h2>
+${photos.length ? `
+  <section class="dm-photos dm-wrap dm-photos--${Math.min(photos.length, 3)}" aria-label="Le domaine en images">
+    ${photos.slice(0, 3).map((g, i) => `<figure><img src="${esc(g.src)}" width="${g.width}" height="${g.height}" alt="${esc(g.alt)}" loading="lazy"></figure>`).join('\n    ')}
+  </section>
+` : ''}${autres.length ? `
+  <section class="dm-autres dm-wrap" aria-labelledby="dm-autres-t">
+    <h2 id="dm-autres-t" class="dm-h2">Nos autres <em>domaines</em></h2>
     <ul>
-      ${autres.map((x) => `<li><a href="${x.page}"><span class="dom-autres-nom">${esc(x.nom)}</span><span class="dom-autres-lieu">${esc(x.lieu)}</span></a></li>`).join('\n      ')}
+      ${autres.map((x) => `<li><a href="${x.page}">${vignette(x)}<span class="dm-autres-txt"><span class="dm-autres-nom">${esc(x.nom)}</span><span class="dm-autres-lieu">${esc(x.lieu)}</span></span>${fleche}</a></li>`).join('\n      ')}
     </ul>
   </section>
-` : ''}
-</article>
-</main>
+` : ''}</main>
 
 ${footer()}
 

@@ -234,6 +234,9 @@ Nets et sobres : un aplat, des capitales espacées, aucun arrondi.
 ### Wine Card
 La pièce maîtresse. Millésime en capitales bordeaux, nom de cuvée en Title italique, bodega en capitales grises, bouteille détourée centrée (175px), description limitée à 3 lignes au-dessus d'un filet, puis prix Cormorant à gauche et « + Ajouter » à droite. Le nom est un lien étendu à toute la carte ; le bouton reste au-dessus. Sous l'étagère, le bloc « Cuvées en importation » présente les domaines à venir : logos à largeur égale aux deux bords, noms en Cormorant au centre de chaque moitié, motif doré « lys à volutes » (mask CSS teinté en or) au milieu.
 
+### Domain Page
+Gabarit commun des pages `/vins/<domaine>` (`lib/product-page.js`, `assets/css/domaine.css`). Le nom du domaine en grand (Cormorant 300, jusqu'à 6rem), le lieu en capitales derrière un filet d'or, l'accroche en italique ; le récit court à droite. Puis « Trois vins *du domaine* » : chaque bouteille posée sur sa feuille de papier froissé (`papier/fond-1` à `fond-4`, en multiply, ombre de contact), lignes alignées en subgrid (couleur et garde, nom court, cépages, notes réelles, prix, statut). Sur mobile, une bouteille par ligne, la feuille à gauche. Ensuite le récit sur bande crème à côté d'une fiche « Le domaine *en bref* » sur feuille aux bords déchirés (`papier/bord-haut`, `bord-bas`), légèrement de travers, avec le logo du domaine posé comme un cachet ; les photos (une grande, deux empilées) ; et les autres domaines en deux rangées à filets, logo ou bouteille en vignette.
+
 ### Delivery Option
 Rangée cliquable en radio (rôle `radio`, utilisable au clavier) : pastille ronde, titre 0.85rem en graisse 500, description grise, prix en Cormorant aligné en haut à droite. Sélection = filet bordeaux 1.5px et fond bordeaux à 4%. Indisponible = 50% d'opacité.
 

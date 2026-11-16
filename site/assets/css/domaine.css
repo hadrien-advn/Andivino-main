@@ -1,0 +1,170 @@
+/* Pages domaine (/vins/<domaine>, lib/product-page.js → renderDomainPage). Charge après chronicles.css
+   (jetons, nav, .art-body). Une cave de domaine : le nom en grand, puis les bouteilles posées chacune sur
+   sa feuille de papier froissé (visuels de la page dégustation), le récit à côté d'une fiche déchirée,
+   les photos, et le passage vers les autres domaines. */
+.dm{--gut:4rem;--nav:74px}
+.dm ::selection{background:rgba(110,24,40,.16);color:var(--charbon)}
+.dm a:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
+.dm-wrap{max-width:calc(1160px + 2 * var(--gut));margin:0 auto;padding-left:var(--gut);padding-right:var(--gut)}
+.dm h1,.dm h2,.dm h3{font-family:var(--fd);font-weight:300;color:var(--charbon);text-wrap:balance}
+.dm h2 em{font-style:italic;color:var(--bdx)}
+.dm-h2{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;letter-spacing:-.005em}
+.dm-arrow{flex:none;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+
+/* ── En-tête : le nom du domaine, d'où il vient, ce qu'il est ── */
+.dm-hero{padding-top:calc(var(--nav) + 2.2rem)}
+.dm-crumb{max-width:none;margin:0 0 2.6rem;padding:0}
+.dm-hero-g{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:2.5rem 5.5rem;align-items:end;padding-bottom:3.6rem;border-bottom:1px solid var(--cream-d)}
+.dm-title{font-size:clamp(3.2rem,7.4vw,6rem);line-height:.98;letter-spacing:-.018em}
+.dm-lieu{display:flex;align-items:center;gap:.9rem;margin-top:1.5rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris)}
+.dm-lieu::before{content:'';width:28px;height:1px;background:var(--or);flex:none}
+.dm-accroche{margin-top:1.1rem;font-family:var(--fd);font-style:italic;font-size:clamp(1.35rem,2.1vw,1.7rem);line-height:1.3;color:var(--charbon);max-width:24ch;text-wrap:balance}
+.dm-lead{max-width:34rem;font-size:.98rem;line-height:1.85;color:var(--gris);text-wrap:pretty}
+.dm-lead strong{font-weight:500;color:var(--charbon)}
+
+/* ── La cave : une bouteille par feuille, comme sur la page dégustation ── */
+.dm-cave{padding-top:4.2rem;padding-bottom:6.5rem}
+.dm-shelf{--h:360px;--floor:1.5rem;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3rem clamp(1.5rem,3vw,3rem);margin-top:2.4rem}
+.dm-shelf:has(>:nth-child(4)){grid-template-columns:repeat(4,minmax(0,1fr))}
+.dm-item{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.dm-item::before{content:'';position:absolute;z-index:1;left:50%;top:calc(var(--h) - var(--floor) - 7px);width:min(44%,100px);height:14px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,28,18,.42),rgba(40,28,18,0));filter:blur(1.5px);pointer-events:none}
+.dm-visual{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:240px;height:var(--h);padding:3.4rem 0 var(--floor);margin-bottom:1.6rem}
+/* La feuille est un visuel sur fond blanc posé en multiply : seuls les plis apparaissent sur le crème. */
+.dm-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/fond-1.webp?v=2')) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none}
+.dm-visual img{position:relative;z-index:2;height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17));transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.dm-item:hover .dm-visual img,.dm-item:focus-within .dm-visual img{transform:translateY(-6px)}
+.dm-meta{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.dm-nm{margin-top:.5rem;font-size:1.7rem;font-style:italic;line-height:1.1}
+.dm-nm a{color:inherit;text-decoration:none;transition:color var(--e)}
+.dm-nm a::after{content:'';position:absolute;inset:0;z-index:3}
+.dm-nm a:focus-visible{outline:none}
+.dm-item:focus-within{outline:2px solid var(--bdx);outline-offset:6px}
+.dm-item:hover .dm-nm a{color:var(--bdx)}
+.dm-nm span{font-style:normal;font-size:1.2rem;color:var(--gris)}
+.dm-cep{margin-top:.35rem;font-size:.84rem;color:var(--gris)}
+.dm-scores{margin-top:.55rem;font-size:.76rem;letter-spacing:.04em;color:var(--charbon);font-variant-numeric:lining-nums}
+.dm-scores span{white-space:nowrap}
+.dm-scores:empty{display:none}
+.dm-px{margin-top:.9rem;font-family:var(--fd);font-size:1.65rem;line-height:1;color:var(--charbon);font-variant-numeric:tabular-nums lining-nums}
+.dm-flag{display:flex;align-items:flex-start;justify-content:center;gap:.5rem;margin-top:.6rem;line-height:1.5;font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bdx)}
+.dm-flag::before{content:'';width:7px;height:7px;margin-top:.42em;border-radius:50%;background:var(--bdx);flex:none}
+.dm-flag--precommande::before{background:transparent;border:1.5px solid var(--bdx)}
+.dm-flag--epuise{color:var(--gris)}
+.dm-flag--epuise::before{background:var(--gris-l)}
+/* Lignes partagées : domaine, nom, cépage, notes et prix tombent à la même hauteur d'une bouteille à l'autre. */
+@media(min-width:601px){
+  @supports (grid-template-rows:subgrid){
+    .dm-shelf{row-gap:0}
+    .dm-item{display:grid;grid-row:span 6;grid-template-rows:subgrid;justify-items:center;padding-bottom:3rem}
+    .dm-item>*{align-self:start}
+    .dm-scores:empty{display:block}
+  }
+}
+.dm-all{margin-top:1rem;text-align:center}
+.dm-all a{display:inline-flex;align-items:center;gap:.7rem;min-height:44px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--charbon);text-decoration:none;transition:color var(--e)}
+.dm-all a:hover{color:var(--bdx)}
+.dm-all a:hover .dm-arrow{transform:translateX(4px)}
+
+/* Cuvées annoncées sans fiche (data/domaines.js → aVenir) */
+.dm-avenir{list-style:none;max-width:760px;margin:2.4rem auto 0;border-top:1px solid var(--cream-d)}
+.dm-avenir li{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:1rem;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--cream-d)}
+.dm-avenir-nom{font-family:var(--fd);font-style:italic;font-size:1.3rem;color:var(--charbon)}
+.dm-avenir-nom span{font-style:normal;color:var(--gris)}
+.dm-avenir-cep{font-size:.82rem;color:var(--gris)}
+.dm-avenir-prix{font-family:var(--fd);font-size:1.3rem;color:var(--charbon);font-variant-numeric:tabular-nums}
+.dm-note{max-width:760px;margin:1.2rem auto 0;font-size:.85rem;color:var(--gris);text-align:center}
+.dm-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
+
+/* ── Le récit, et à côté la fiche du domaine sur une feuille déchirée ── */
+.dm-recit{background:var(--cream);padding:7rem 0 7.5rem}
+.dm-recit-g{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:6rem;align-items:start}
+.dm-texte h2{margin-top:3.2rem}
+.dm-texte h2:first-child{margin-top:0}
+.dm-texte p{font-size:.98rem}
+.dm-fiche{position:sticky;top:calc(var(--nav) + 2.5rem)}
+/* ombre douce sous la feuille (calque flou à part : une feuille découpée par masque ne porte pas d'ombre) */
+.dm-fiche::before{content:'';position:absolute;inset:36px 22px -4px;background:rgba(40,28,18,.24);filter:blur(24px);transform:rotate(.6deg);border-radius:12px}
+.dm-sheet{position:relative;background:var(--cream-l);padding:3rem 2.4rem 2.6rem;transform:rotate(.6deg);
+  -webkit-mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x;
+  mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x}
+.dm-sheet>*{transform:rotate(-.6deg)}
+.dm-sheet h2{font-size:1.75rem;line-height:1.15;margin-bottom:1.2rem}
+.dm-sheet--seal h2{padding-right:4.5rem}
+.dm-seal{position:absolute;z-index:3;top:-30px;right:-18px;width:auto;height:104px;transform:rotate(7deg);filter:drop-shadow(0 6px 6px rgba(40,28,18,.28)) drop-shadow(0 1px 1px rgba(40,28,18,.25));pointer-events:none}
+.dm-sheet dl>div{display:grid;grid-template-columns:7.6rem minmax(0,1fr);gap:1rem;padding:.75rem 0;border-bottom:1px dashed rgba(101,93,84,.32)}
+.dm-sheet dl>div:last-child{border-bottom:0}
+.dm-sheet dt{padding-top:.2rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);line-height:1.45}
+.dm-sheet dd{margin:0;font-size:.9rem;line-height:1.5;color:var(--charbon)}
+
+/* ── Photos du domaine ── */
+.dm-photos{display:grid;gap:1rem;padding-top:6.5rem}
+.dm-photos figure{margin:0;overflow:hidden;border-radius:2px;background:var(--cream-d)}
+.dm-photos img{display:block;width:100%;height:100%;object-fit:cover}
+.dm-photos--3{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr));height:min(40vw,600px)}
+.dm-photos--3 figure:first-child{grid-row:span 2}
+.dm-photos--2{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);height:min(34vw,480px)}
+.dm-photos--1 figure{aspect-ratio:16/7}
+
+/* ── Les autres domaines ── */
+.dm-autres{padding-top:6.5rem;padding-bottom:7.5rem}
+.dm-autres ul{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:2.2rem;border-top:1px solid var(--cream-d);border-bottom:1px solid var(--cream-d)}
+.dm-autres li+li{border-left:1px solid var(--cream-d)}
+.dm-autres a{display:grid;grid-template-columns:76px minmax(0,1fr) auto;align-items:center;gap:1.6rem;min-height:9rem;padding:1.6rem 2.2rem;color:var(--charbon);text-decoration:none;transition:background var(--e)}
+.dm-autres li:first-child a{padding-left:0}
+.dm-autres a:hover{background:rgba(242,234,224,.55)}
+.dm-autres img{display:block;margin:0 auto;width:auto;max-width:76px;object-fit:contain}
+.dm-autres .dm-v-logo{height:64px}
+.dm-autres .dm-v-btl{height:96px;filter:drop-shadow(4px 4px 6px rgba(70,52,34,.18))}
+.dm-autres-txt{display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.dm-autres-nom{font-family:var(--fd);font-style:italic;font-size:1.75rem;line-height:1.1;transition:color var(--e)}
+.dm-autres-lieu{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.dm-autres .dm-arrow{color:var(--bdx)}
+.dm-autres a:hover .dm-autres-nom{color:var(--bdx)}
+.dm-autres a:hover .dm-arrow{transform:translateX(5px)}
+
+@media(max-width:960px){
+  .dm{--gut:1.5rem}
+  .dm-hero-g{grid-template-columns:1fr;gap:1.8rem;padding-bottom:2.8rem}
+  .dm-recit-g{grid-template-columns:1fr;gap:4.5rem}
+  .dm-fiche{position:relative;top:auto;max-width:480px;margin:0 auto;width:100%}
+  .dm-autres li:first-child a{padding-left:1.2rem}
+}
+@media(max-width:860px){
+  .dm-photos--3{grid-template-columns:1fr 1fr;grid-template-rows:auto;height:auto}
+  .dm-photos--3 figure:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:3/2}
+  .dm-photos--3 figure:not(:first-child),.dm-photos--2 figure{aspect-ratio:4/3}
+  .dm-photos--2{height:auto}
+  .dm-autres ul{grid-template-columns:1fr}
+  .dm-autres li+li{border-left:0;border-top:1px solid var(--cream-d)}
+  .dm-autres li:first-child a,.dm-autres a{padding:1.4rem 0}
+}
+@media(max-width:600px){
+  .dm{--gut:1.2rem}
+  .dm-hero{padding-top:calc(var(--nav) + 1.4rem)}
+  .dm-crumb{margin-bottom:1.8rem}
+  .dm-title{font-size:clamp(2.7rem,12vw,3.4rem)}
+  .dm-cave{padding-top:3.2rem;padding-bottom:4.5rem}
+  /* une bouteille par ligne : la feuille à gauche, la fiche à droite */
+  .dm-shelf,.dm-shelf:has(>:nth-child(4)){--h:230px;--floor:1rem;grid-template-columns:1fr;gap:1.6rem;margin-top:1.6rem}
+  .dm-item{display:grid;grid-template-columns:132px minmax(0,1fr);grid-template-rows:auto;column-gap:1.4rem;align-items:center;text-align:left;justify-items:start}
+  .dm-item::before{left:66px;width:56px}
+  .dm-visual{grid-row:1 / span 6;max-width:132px;padding-top:2.2rem;margin:0}
+  .dm-item>:not(.dm-visual){grid-column:2}
+  .dm-meta{align-self:end}
+  .dm-nm{font-size:1.5rem;margin-top:.35rem}
+  .dm-flag{justify-content:flex-start;letter-spacing:.1em}
+  .dm-px{align-self:start}
+  .dm-item:focus-within{outline-offset:2px}
+  .dm-recit{padding:4.5rem 0 5rem}
+  .dm-sheet{padding:2.6rem 1.6rem 2.2rem}
+  .dm-sheet dl>div{grid-template-columns:6.4rem minmax(0,1fr);gap:.8rem}
+  .dm-seal{height:84px;right:-6px;top:-26px}
+  .dm-photos{padding-top:4.5rem;gap:.6rem}
+  .dm-autres{padding-top:4.5rem;padding-bottom:5rem}
+  .dm-autres a{grid-template-columns:56px minmax(0,1fr) auto;gap:1.1rem;min-height:0}
+  .dm-autres img{max-width:56px}
+  .dm-autres .dm-v-logo{height:48px}
+  .dm-autres .dm-v-btl{height:76px}
+  .dm-autres-nom{font-size:1.45rem}
+}
+@media(prefers-reduced-motion:reduce){.dm *{transition:none!important}}
