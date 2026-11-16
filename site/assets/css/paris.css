@@ -117,6 +117,11 @@
 .pa-why{margin-top:.5rem;font-size:.86rem;line-height:1.75;color:var(--gris);flex:1}
 .pa-px{margin-top:1rem;font-family:var(--fd);font-size:1.3rem;color:var(--charbon);font-variant-numeric:tabular-nums lining-nums}
 .pa-pre{display:block;margin-top:.3rem;font-family:var(--fb);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+/* Les quatre accords partagent leurs lignes : plat, vin, texte et prix alignés d'une colonne à l'autre. */
+@supports (grid-template-rows:subgrid){
+  .pa-item{display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:0;align-content:start}
+  .pa-item>*{align-self:start}
+}
 
 .px-deg-g{display:grid;grid-template-columns:1fr 1fr;gap:5.5rem;align-items:center}
 .px-deg-photos{position:relative;padding-bottom:3.5rem}
