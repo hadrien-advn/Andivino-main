@@ -33,4 +33,6 @@ Le script ne compte pas les doublons suivants :
   - `andes-roses` : vignes-andes-roses-crepuscule, poteaux-vigne-sommet-enneige-aube
   - `allee-vignes` : allee-vignes-aube-claire, allee-vignes-panoramique-peupliers
   - `bouteilles-altus` : gamme, trio, cosecha tardía
+  - `vino-sapiens-comptoir` : degustation-vino-sapiens-comptoir-equipe, degustation-vino-sapiens-porte-rouge-ardoise
+- **Lot du 17/11/2026** : dégustation Andivino à la Cave Vino Sapiens (Paris 7e). Les visages des fondateurs et des invités sont reconnaissables : pas d'usage publicitaire hors du site sans leur accord.
 - Pour ajouter des photos : nom de fichier en minuscules ASCII qui décrit l'image, `.jpg` d'origine plus `cwebp -q 78 -metadata none in.jpg -o <id>.webp`, puis une entrée dans le catalogue.

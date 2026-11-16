@@ -180,6 +180,66 @@
       "serie": "bouteilles-altus",
       "usage": "Fiche domaine ou boutique, uniquement si la gamme est vendue",
       "reservee": null
+    },
+    {
+      "id": "degustation-vino-sapiens-comptoir-equipe",
+      "w": 1500, "h": 2000, "orientation": "portrait",
+      "alt": "L'équipe Andivino derrière le comptoir de la Cave Vino Sapiens (Paris 7e), alignant les verres avant la dégustation, bouteilles de la Bodega Poesía sur le comptoir",
+      "tags": ["degustation", "paris", "equipe", "comptoir", "cave"],
+      "marque": "Bodega Poesía (bouteilles au second plan)",
+      "serie": "vino-sapiens-comptoir",
+      "usage": "Section dégustation à Paris, page Paris ou page dégustation",
+      "reservee": "vin-argentin-paris"
+    },
+    {
+      "id": "degustation-vino-sapiens-porte-rouge-ardoise",
+      "w": 1500, "h": 2000, "orientation": "portrait",
+      "alt": "L'équipe Andivino prépare la dégustation derrière le comptoir de la Cave Vino Sapiens, vue par la porte rouge de la cave, ardoise des horaires à gauche",
+      "tags": ["degustation", "paris", "equipe", "comptoir", "cave"],
+      "marque": null,
+      "serie": "vino-sapiens-comptoir",
+      "usage": "Même série que le comptoir : une seule des deux par page. L'ardoise de la cave annonce sa propre livraison gratuite : à éviter près d'un texte sur nos frais de livraison",
+      "reservee": null
+    },
+    {
+      "id": "degustation-vino-sapiens-devanture-invites",
+      "w": 1125, "h": 2000, "orientation": "portrait",
+      "alt": "Devanture de la Cave Vino Sapiens, rue Saint-Dominique à Paris, invités verre à la main sur le trottoir lors de la dégustation Andivino",
+      "tags": ["degustation", "paris", "devanture", "invites", "soiree"],
+      "marque": "Cave Vino Sapiens (enseigne)",
+      "serie": null,
+      "usage": "Format vertical : colonne étroite, mobile, bandeau de dégustation",
+      "reservee": "vin-argentin-paris"
+    },
+    {
+      "id": "degustation-vino-sapiens-terrasse-tonneau",
+      "w": 1500, "h": 2000, "orientation": "portrait",
+      "alt": "Invités de la dégustation Andivino en terrasse de la Cave Vino Sapiens, autour d'une table tonneau, vus depuis la porte de la cave",
+      "tags": ["degustation", "paris", "terrasse", "invites", "soiree"],
+      "marque": null,
+      "serie": null,
+      "usage": "Ambiance de soirée parisienne ; visages d'invités reconnaissables",
+      "reservee": null
+    },
+    {
+      "id": "degustation-poesia-bouteilles-comptoir-carafe",
+      "w": 2000, "h": 1500, "orientation": "paysage",
+      "alt": "Bouteilles de Clos des Andes, Cuvée Hélène et Poesía 2014 alignées sur le comptoir, verres et carafe de vin rouge, lors d'une dégustation Andivino à Paris",
+      "tags": ["degustation", "paris", "bouteilles", "poesia", "carafe"],
+      "marque": "Bodega Poesía",
+      "serie": null,
+      "usage": "Contenus sur les cuvées Poesía, en paysage",
+      "reservee": "vin-argentin-paris"
+    },
+    {
+      "id": "degustation-poesia-plateau-fiches-verre",
+      "w": 1500, "h": 2000, "orientation": "portrait",
+      "alt": "Verre de vin rouge, assiette de charcuterie et de fromages, fiches de dégustation Andivino de Poesía 2014 et de la Cuvée Hélène 2016 sur une table tonneau",
+      "tags": ["degustation", "paris", "accords", "fromages", "charcuterie", "poesia"],
+      "marque": "Bodega Poesía (fiches Andivino)",
+      "serie": null,
+      "usage": "Accords mets-vins, déroulé d'une dégustation",
+      "reservee": null
     }
   ]
 }

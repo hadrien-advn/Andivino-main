@@ -10,6 +10,7 @@ const { PRODUCTS, buildOrder } = require('./data/catalog');
 const { WINES, DOMAINES, SITE, wineUrl } = require('./data/wines');
 const { renderProductPage, renderDomainPage, winesDataJs } = require('./lib/product-page');
 const { renderCatalogue } = require('./lib/catalogue');
+const { renderParis } = require('./lib/paris-page');
 const { DEGUSTATIONS, upcomingDegustations, deliveryNoteHtml } = require('./assets/js/degustations.js');
 
 const app = express();
@@ -243,6 +244,7 @@ async function getHtmlWithVersion(fileName) {
   else html = await fs.readFile(page(fileName), 'utf8');
   if (fileName === 'home.html') html = renderHomeDegustations(html);
   if (fileName === 'vins-argentins.html') html = renderCatalogue(html);
+  if (fileName === 'vin-argentin-paris.html') html = renderParis(html);
   html = renderSiteDegustations(html);
   html = html.replace(/(href|src)="(\/assets\/[^"]+\.(css|js))"/g, `$1="$2?v=${BUILD_VERSION}"`);
   htmlCache[fileName] = html;
