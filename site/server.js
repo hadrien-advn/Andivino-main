@@ -637,6 +637,10 @@ function publicTasting(d) {
 
 // paid : places réservées (session terminée) ; held : places tenues par un paiement en cours.
 // La page affiche total - paid ; une nouvelle réservation n'est acceptée que dans total - paid - held.
+// Inscriptions de test faites en production : ne prennent pas de place.
+const SESSIONS_TEST = new Set([
+  'cs_live_b04c8ft2PeG5r7DqyknFOELh600hOG3UmGnx7s3g8MxtzQSELhLgXj9zop' // test webhook du 15/11/2026
+]);
 let placesCache = null;
 async function placesTaken(eventId, fresh = false) {
   if (!fresh && placesCache && placesCache.eventId === eventId && Date.now() - placesCache.at < 15000) return placesCache.counts;
@@ -646,6 +650,7 @@ async function placesTaken(eventId, fresh = false) {
   for await (const session of stripe.checkout.sessions.list({ limit: 100 })) {
     if (++seen > 3000) break;
     if (session.metadata?.kind !== 'degustation' || session.metadata.event_id !== eventId) continue;
+    if (SESSIONS_TEST.has(session.id)) continue;
     const places = Number(session.metadata.places) || 0;
     if (session.status === 'complete') counts.paid += places;
     else if (session.status === 'open' && session.expires_at > now) counts.held += places;
