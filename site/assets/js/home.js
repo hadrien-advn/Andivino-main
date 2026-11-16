@@ -70,9 +70,12 @@ function renderDeg(tab='upcoming'){
     return `<div class="ditem">
       <div class="ddate"><div class="dday">${dt.getDate()}</div><div class="dmon">${MN[dt.getMonth()]} ${dt.getFullYear()}</div></div>
       <div class="dinfo"><h3>${d.titre}</h3><div class="dmeta"><span>${ICON_TIME}${d.heure}</span><span>${ICON_PIN}${d.lieu}</span></div></div>
-      ${tab==='upcoming'?(d.url?`<a href="${d.url}" class="btn-or">S'inscrire</a>`:`<span class="btn-or disabled">Sur invitation</span>`):''}
+      ${tab==='upcoming'?(d.url?`<a href="${d.url}" class="btn-or"${d.inscription?' data-places':''}>S'inscrire</a>`:`<span class="btn-or disabled">Sur invitation</span>`):''}
     </div>`;
   }).join('');
+  // Dégustation payante complète : le bouton l'annonce avant même d'ouvrir la page.
+  const live=list.querySelector('[data-places]');
+  if(live)fetch('/api/degustation',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(x=>{if(x&&x.remaining===0&&x.open){live.textContent='Complet';live.setAttribute('aria-label','Complet, voir la dégustation');}}).catch(()=>{});
 }
 // Sans date à venir, on montre les dernières dégustations plutôt qu'un onglet vide.
 function initDeg(){
