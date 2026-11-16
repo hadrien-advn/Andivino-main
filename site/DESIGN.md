@@ -240,6 +240,14 @@ Rangée cliquable en radio (rôle `radio`, utilisable au clavier) : pastille ron
 ### Score Row
 Notes de critiques sur la fiche produit : chiffre en Cormorant 300 1.5rem avec « pts » en exposant, source en capitales 0.7rem dessous.
 
+### Étagère sur papier (Paper Shelf)
+Bouteilles détourées posées chacune sur une feuille froissée (`assets/images/papier/fond-1` à `4`, `mix-blend-mode: multiply`, ombre de contact et ombre portée douce), sans carte ni cadre : page dégustation et `/vin-argentin-paris`. Sous la bouteille : nom de la cuvée en Cormorant italique, puis « domaine · millésime » et cépages en capitales 0.7rem grises, prix Cormorant 1.5rem, puis l'action (« Ajouter » au filet bordeaux, qui devient un sélecteur − n + carré après le premier ajout). Le nom vient toujours avant le domaine : pas de surtitre.
+
+**La Règle de l'Étagère alignée.** Une étagère ou une rangée de colonnes équivalentes partage ses lignes (`grid-template-rows: subgrid`) : nom, domaine, cépage, prix et bouton tombent sur la même ligne d'une colonne à l'autre, même quand un libellé passe sur deux lignes. Même règle pour les colonnes d'accords plat → vin.
+
+### Bon de commande (Order Slip)
+Encadré crème (#F2EAE0) à filet crème ombré, collant sous la navigation, à droite d'une étagère : titre Cormorant 1.75rem, lignes à pointillés gris cendre (quantité × cuvée, montant Cormorant tabulaire), ligne de livraison, total Cormorant 2.1rem, un seul bouton bordeaux (au filet tant que le bon est vide). Plat au repos. Il lit et écrit le même panier que `/commande`. Sous 960px il devient une barre fixe en bas d'écran (total + bouton), au-dessus du bandeau cookies (`--cookie-h`), visible seulement quand le panier contient une bouteille. Seul geste animé : la ligne ajoutée se pose (fondu et glissement de 6px), désactivé en mouvement réduit.
+
 ### Section Label (existant, à ne pas étendre)
 Les sections actuelles portent un petit libellé en capitales précédé d'un trait (« — Notre histoire ») au-dessus du titre. Ce motif existe sur toutes les sections mais n'est **pas une règle du système** : une nouvelle surface laisse le titre porter seul la section.
 
