@@ -50,6 +50,8 @@ function item(w) {
     ['g:max_handling_time', '2']
   ];
   const shipping = ZONES.map((cp) => `      <g:shipping><g:country>FR</g:country><g:postal_code>${cp}</g:postal_code><g:service>Remise en main propre</g:service><g:price>5.00 EUR</g:price><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>`);
+  // Reste de la France métropolitaine : point relais, tarif pour 1 à 3 bouteilles (data/catalog.js).
+  shipping.push('      <g:shipping><g:country>FR</g:country><g:service>Point relais</g:service><g:price>9.00 EUR</g:price><g:min_transit_time>3</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>');
   return `    <item>\n${lignes.map(([k, v]) => `      <${k}>${xml(v)}</${k}>`).join('\n')}\n${shipping.join('\n')}\n    </item>`;
 }
 

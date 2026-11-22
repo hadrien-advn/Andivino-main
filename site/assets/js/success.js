@@ -27,14 +27,14 @@ try {
   var SHIPPING = {
     degustation: 'Retrait à la dégustation',
     'main-propre': 'Remise en main propre',
-    colissimo: 'Colissimo',
-    'mondial-relay': 'Mondial Relay'
+    relais: 'Point relais',
+    domicile: 'Livraison à domicile'
   };
   var LAST_STEP = {
     degustation: ['Retrait à la dégustation', 'Nous vous écrivons pour vous donner la date de retrait. Les prochaines dégustations sont annoncées sur le site.'],
     'main-propre': ['Remise en main propre', 'Nous vous écrivons pour vous donner la date de remise à votre adresse.'],
-    colissimo: ['Expédition Colissimo', 'Vous recevez l’email de suivi dès que le colis part, pour une livraison en 48 h.'],
-    'mondial-relay': ['Expédition Mondial Relay', 'Vous recevez l’email de suivi dès que le colis part vers votre point relais.']
+    relais: ['Expédition en point relais', 'Vous recevez par email le point relais retenu et le suivi dès que le colis part.'],
+    domicile: ['Livraison à domicile', 'Vous recevez l’email de suivi dès que le colis part.']
   };
 
   var money = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' });

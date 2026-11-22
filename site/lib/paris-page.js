@@ -159,7 +159,7 @@ function faq() {
     ['Quel est le délai de livraison ?',
       `Sous 7 jours pour les cuvées disponibles.${pre.length ? ` Une commande qui contient une précommande est remise en une seule fois, à l'arrivée des bouteilles (prévue en ${esc(arrivee)})&nbsp;: nous vous contactons pour convenir de la date.` : ''}`],
     ['Livrez-vous en dehors de Paris et de la petite couronne ?',
-      "Pas pour l'instant&nbsp;: l'expédition par transporteur est suspendue. Écrivez-nous à <a href=\"mailto:contact@andivino.fr\">contact@andivino.fr</a>."],
+      "Oui, partout en France métropolitaine (hors Corse)&nbsp;: en point relais dès 9&nbsp;€, à domicile dès 12&nbsp;€, et la livraison est offerte au-delà de 300&nbsp;€ d'achat."],
     ['Peut-on goûter les vins avant de les acheter ?',
       next
         ? `Oui&nbsp;: nous organisons des dégustations à Paris. La prochaine a lieu le ${quand} (${esc(next.lieu)})&nbsp;: <a href="${esc(next.url)}">réservez votre place</a>.`

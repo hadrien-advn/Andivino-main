@@ -27,7 +27,7 @@ function jsonLd(w, d) {
     availability: s.schema,
     itemCondition: 'https://schema.org/NewCondition',
     seller: { '@type': 'Organization', '@id': `${SITE}/#organization`, name: 'Andivino', url: `${SITE}/` },
-    shippingDetails: {
+    shippingDetails: [{
       '@type': 'OfferShippingDetails',
       shippingRate: { '@type': 'MonetaryAmount', value: '5.00', currency: 'EUR' },
       shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'FR', postalCodePrefix: ['75', '92', '93', '94'] },
@@ -36,7 +36,17 @@ function jsonLd(w, d) {
         handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 2, unitCode: 'DAY' },
         transitTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 5, unitCode: 'DAY' }
       }
-    },
+    }, {
+      // Point relais, 1 à 3 bouteilles (grille complète dans data/catalog.js).
+      '@type': 'OfferShippingDetails',
+      shippingRate: { '@type': 'MonetaryAmount', value: '9.00', currency: 'EUR' },
+      shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'FR' },
+      deliveryTime: {
+        '@type': 'ShippingDeliveryTime',
+        handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 2, unitCode: 'DAY' },
+        transitTime: { '@type': 'QuantitativeValue', minValue: 3, maxValue: 5, unitCode: 'DAY' }
+      }
+    }],
     hasMerchantReturnPolicy: {
       '@type': 'MerchantReturnPolicy',
       applicableCountry: 'FR',
@@ -231,7 +241,7 @@ ${NAV}
       ${buyBlock(w, s)}
       <ul class="pdp-reassure">
         ${preorderNote}
-        ${w.statut === 'precommande' ? `<li><strong>Livraison et retours</strong> Remise en main propre à <a href="/vin-argentin-paris">Paris et petite couronne</a> dès l'arrivée des bouteilles. Retour possible sous 14 jours après la remise (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</li>` : `<li><strong>Livraison et retours</strong> <span data-delivery-note>Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a>. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</span></li>`}
+        ${w.statut === 'precommande' ? `<li><strong>Livraison et retours</strong> Remise en main propre à <a href="/vin-argentin-paris">Paris et petite couronne</a>, ou expédition en France métropolitaine, dès l'arrivée des bouteilles. Retour possible sous 14 jours après la remise (bouteilles non ouvertes).</li>` : `<li><strong>Livraison et retours</strong> <span data-delivery-note>Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a>. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</span></li>`}
         <li><strong>Paiement sécurisé</strong> Par Stripe, confirmation immédiate par email.</li>
       </ul>
       <dl class="pdp-facts">

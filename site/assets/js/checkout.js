@@ -172,23 +172,36 @@ function updatePreorderUI(){
 
 // ── LIVRAISON ──
 var selectedLiv = null;
-// Livraison par transporteur suspendue (meme liste que SUSPENDED_SHIPPING_MODES dans data/catalog.js).
-var SUSPENDED_SHIPPING = ['colissimo', 'mondial-relay'];
+// Meme grille que SHIPPING_TIERS et FREE_SHIPPING_ABOVE dans data/catalog.js (euros TTC).
+var SHIPPING_TIERS = {
+  'relais':   [{max:3,price:9},{max:6,price:12},{max:12,price:17},{max:Infinity,price:25}],
+  'domicile': [{max:3,price:12},{max:6,price:15},{max:12,price:20},{max:Infinity,price:30}]
+};
+var FREE_SHIPPING_ABOVE = 300;
 
-// Tarifs livraison selon nb bouteilles total
+function cartSubtotal() {
+  var wines = getData().wines;
+  return getCart().reduce(function(s, ci) {
+    var w = wines.find(function(x){ return x.id === ci.id; });
+    return s + (w ? calcPrix(w) * ci.qty : 0);
+  }, 0);
+}
+
+// Tarif livraison selon le mode, le nombre de bouteilles et le montant des vins
 function shippingCost(mode, nbBottles) {
   if (mode === 'degustation') return 0;
   if (mode === 'main-propre') return 5;
-  var tiers = {
-    'colissimo':    [{max:3,price:9.90},{max:6,price:12.90},{max:99,price:16.90}],
-    'mondial-relay':[{max:3,price:7.90},{max:6,price:10.90},{max:99,price:14.90}]
-  };
-  var t = tiers[mode];
+  var t = SHIPPING_TIERS[mode];
   if (!t) return 0;
+  if (cartSubtotal() > FREE_SHIPPING_ABOVE) return 0;
   for (var i = 0; i < t.length; i++) {
     if (nbBottles <= t[i].max) return t[i].price;
   }
   return t[t.length-1].price;
+}
+
+function fmtShip(price) {
+  return price === 0 ? 'Offerte' : (price % 1 === 0 ? String(price) : price.toFixed(2).replace('.',',')) + ' €';
 }
 
 function nbBottlesInCart() {
@@ -197,12 +210,12 @@ function nbBottlesInCart() {
 
 function updateShippingPrices() {
   var nb = nbBottlesInCart();
-  ['colissimo','mondial-relay'].forEach(function(mode) {
-    if (SUSPENDED_SHIPPING.indexOf(mode) !== -1) return;
+  ['relais','domicile'].forEach(function(mode) {
+    var el = document.getElementById(mode === 'relais' ? 'priceRelais' : 'priceDomicile');
+    if (!el) return;
     var cost = shippingCost(mode, nb);
-    var id = mode === 'colissimo' ? 'priceColissimo' : 'priceMondialRelay';
-    var el = document.getElementById(id);
-    if (el) el.textContent = cost.toFixed(2).replace('.',',') + ' €';
+    el.textContent = fmtShip(cost);
+    el.classList.toggle('free', cost === 0);
   });
 }
 
@@ -216,12 +229,6 @@ function selectLiv(el) {
   updateGrandTotal();
   resetPaymentElement();
 }
-// Modes suspendus : retirés de la liste, une seule ligne renvoie vers l'email.
-SUSPENDED_SHIPPING.forEach(function(mode) {
-  var el = document.querySelector('.liv-opt[data-mode="' + mode + '"]');
-  if (el) el.hidden = true;
-});
-if (SUSPENDED_SHIPPING.length) document.getElementById('shipSuspendedNote').hidden = false;
 // Retrait : toujours proposé ; la date s'affiche dès qu'une dégustation est programmée.
 (function() {
   var desc = document.getElementById('livDegustationDesc');
@@ -242,12 +249,7 @@ document.querySelectorAll('.liv-opt').forEach(function(el){
 });
 
 function updateGrandTotal() {
-  var wines = getData().wines;
-  var c = getCart();
-  var sub = c.reduce(function(s, ci) {
-    var w = wines.find(function(x){ return x.id === ci.id; });
-    return s + (w ? calcPrix(w) * ci.qty : 0);
-  }, 0);
+  var sub = cartSubtotal();
   var nb = nbBottlesInCart();
   var ship = selectedLiv ? shippingCost(selectedLiv, nb) : null;
   var grandTotal = ship !== null ? sub + ship : sub;
@@ -256,14 +258,14 @@ function updateGrandTotal() {
   var grandEl = document.getElementById('cartGrandTotal');
   var noteEl  = document.getElementById('cartSubNote');
 
-  if (shipEl) shipEl.textContent = ship === null ? '—' : (ship === 0 ? 'Gratuit' : ship.toFixed(2).replace('.',',') + ' €');
+  if (shipEl) shipEl.textContent = ship === null ? '—' : (ship === 0 ? 'Gratuit' : fmtShip(ship));
   if (grandEl) grandEl.textContent = (ship !== null ? grandTotal : sub).toFixed(2).replace('.',',') + ' €';
   if (noteEl)  noteEl.textContent  = ship === null ? 'Sélectionnez un mode de livraison.' : '';
 
   // Résumé affiché au-dessus du bouton sur mobile, où le récapitulatif passe en bas de page.
   var sumEl = document.getElementById('paySummaryDetail');
   var sumTotal = document.getElementById('paySummaryTotal');
-  if (sumEl) sumEl.textContent = nb + (nb > 1 ? ' bouteilles' : ' bouteille') + ' · Livraison ' + (ship === null ? 'à choisir' : (ship === 0 ? 'gratuite' : ship.toFixed(2).replace('.',',') + ' €'));
+  if (sumEl) sumEl.textContent = nb + (nb > 1 ? ' bouteilles' : ' bouteille') + ' · Livraison ' + (ship === null ? 'à choisir' : (ship === 0 ? 'gratuite' : fmtShip(ship)));
   if (sumTotal) sumTotal.textContent = (ship !== null ? grandTotal : sub).toFixed(2).replace('.',',') + ' €';
 }
 
@@ -287,6 +289,9 @@ function cpProblem() {
   var cp = document.getElementById('f-cp').value.trim();
   if (cp.length < 5) return '';
   if (!/^\d{5}$/.test(cp)) return 'Le code postal compte 5 chiffres.';
+  if ((selectedLiv === 'relais' || selectedLiv === 'domicile') && /^(20|97|98)/.test(cp)) {
+    return 'Nous expédions en France métropolitaine, hors Corse. Pour une autre destination, écrivez-nous à <a href="mailto:contact@andivino.fr">contact@andivino.fr</a>.';
+  }
   if (selectedLiv === 'main-propre' && !IDF_CP.test(cp)) {
     return 'La remise en main propre est réservée à Paris (75) et à la petite couronne (92, 93, 94). Ailleurs, écrivez-nous à <a href="mailto:contact@andivino.fr">contact@andivino.fr</a>.';
   }
