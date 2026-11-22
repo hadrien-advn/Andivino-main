@@ -43,6 +43,9 @@ function item(w) {
     ['g:product_type', `Vins argentins > Vin ${w.couleur.toLowerCase()} > ${d.nom}`],
     ['g:color', w.couleur],
     ['g:size', w.format || '75 cl'],
+    // Prix au litre (obligatoire en France) : Google le calcule à partir de ces deux valeurs.
+    ['g:unit_pricing_measure', (w.format || '75 cl').replace(/\s+/g, '')],
+    ['g:unit_pricing_base_measure', '1l'],
     ['g:min_handling_time', '0'],
     ['g:max_handling_time', '2']
   ];
