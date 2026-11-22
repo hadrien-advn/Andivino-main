@@ -170,16 +170,7 @@ function renderProductPage(w) {
   const url = SITE + wineUrl(w);
   const lieu = `${d.appellation}, ${d.region}`;
   const sub = [`Vin ${w.couleur.toLowerCase()}`, cepagesTexte(w), w.format].filter(Boolean).join(' · ');
-  const scores = (w.scores || []).length
-    ? `<div class="scores-row pdp-scores">${w.scores.map((x) => `<div class="score-it"><div class="score-pts">${esc(x.note)}<sup>pts</sup></div><div class="score-src">${esc(x.source)}</div></div>`).join('')}</div>`
-    : '';
   const statusClass = { 'en-stock': 'ok', 'bientot-epuise': 'low', precommande: 'pre', epuise: 'out' }[w.statut];
-  const facts = [
-    ['Appellation', lieu],
-    ['Cépages', cepagesTexte(w)],
-    w.elevage && ['Élevage', w.elevage],
-    w.garde && ['Garde', w.garde]
-  ].filter(Boolean);
   const degust = (txt) => txt
     .replace('{degustation:e}', (d.degustationHtml || '').replace(/^servi /, 'servie '))
     .replace('{degustation}', d.degustationHtml || '');
@@ -237,7 +228,6 @@ ${NAV}
       <p class="pdp-eyebrow">${d.page ? `<a href="${d.page}">${esc(d.nom)}</a>` : esc(d.nom)} · ${esc(lieu)}</p>
       <h1 class="pdp-title" id="pdp-titre">${esc(w.nomComplet)}</h1>
       <p class="pdp-sub">${fine(sub)}</p>
-      ${scores}
       <div class="pdp-price-row">
         <p class="pdp-price">${fine(prixTexte(w.prix))} <span>TTC · ${esc(w.format || 'la bouteille')}</span></p>
         <p class="pdp-status pdp-status--${statusClass}">${esc(s.label)}</p>
@@ -248,19 +238,13 @@ ${NAV}
         ${w.statut === 'precommande' ? `<li><strong>Livraison et retours</strong> Remise en main propre à <a href="/vin-argentin-paris">Paris et petite couronne</a>, ou expédition en France métropolitaine, dès l'arrivée des bouteilles. Retour possible sous 14 jours après la remise (bouteilles non ouvertes).</li>` : `<li><strong>Livraison et retours</strong> <span data-delivery-note>Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a>. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</span></li>`}
         <li><strong>Paiement sécurisé</strong> Par Stripe, confirmation immédiate par email.</li>
       </ul>
-      <dl class="pdp-facts">
-        ${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${fine(v)}</dd></div>`).join('\n        ')}
+      <dl class="pdp-facts" aria-label="Fiche technique">
+        ${w.fiche.map(([k, v, wide]) => `<div${wide ? ' class="wide"' : ''}><dt>${esc(k)}</dt><dd>${fine(v)}</dd></div>`).join('\n        ')}
       </dl>
       <div class="pdp-body art-body">
-        <p class="wine-lead pdp-lead">${w.leadHtml}</p>
-
         <h2>Notes de dégustation</h2>
         <p>${w.notesHtml}</p>
 
-        <h2>Fiche technique</h2>
-        <dl class="m-specs">
-          ${w.fiche.map(([k, v, wide]) => `<div${wide ? ' class="wide"' : ''}><dt class="msl">${esc(k)}</dt><dd class="msv">${fine(v)}</dd></div>`).join('\n      ')}
-        </dl>
     ${(w.serviceHtml || []).length ? `
         <h2>Service et accords</h2>
         ${w.serviceHtml.map((p) => `<p>${degust(p)}</p>`).join('\n    ')}
