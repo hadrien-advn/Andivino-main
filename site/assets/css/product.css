@@ -4,8 +4,9 @@
 .pdp{max-width:1120px;margin:0 auto;padding:0 1.5rem}
 
 /* ── Haut de fiche : bouteille + bloc d'achat ── */
-.pdp-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4.5rem;align-items:center;padding:1.8rem 0 4rem;border-bottom:1px solid var(--cream-d)}
-.pdp-media{background:transparent;display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;padding:3rem 2rem}
+.pdp-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4.5rem;align-items:start;padding:1.8rem 0 4rem;border-bottom:1px solid var(--cream-d)}
+/* La bouteille démarre en haut de la fiche puis reste à mi-hauteur d'écran pendant qu'on lit le bloc d'achat. */
+.pdp-media{position:sticky;top:max(5.5rem,calc(50vh - 290px));background:transparent;display:flex;align-items:center;justify-content:center;padding:0 2rem}
 .pdp-media img{height:100%;max-height:540px;width:auto}
 /* La bouteille posée sur sa feuille de papier froissé (même traitement que la page dégustation et les pages
    domaine) : la feuille est un visuel sur fond blanc posé en multiply, seuls ses plis apparaissent sur le crème. */
@@ -84,7 +85,7 @@
 
 @media(max-width:860px){
   .pdp-top{grid-template-columns:1fr;gap:1.6rem;padding:1rem 0 3rem}
-  .pdp-media{aspect-ratio:auto;padding:1.2rem 1rem}
+  .pdp-media{position:static;padding:1.2rem 1rem}
   .pdp-media img{height:230px}
   .pdp-visual{--floor:1.3rem;width:220px;height:340px;padding-top:3rem}
   .pdp-scores{gap:1.4rem}
