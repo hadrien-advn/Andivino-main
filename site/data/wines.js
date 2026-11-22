@@ -96,7 +96,7 @@ const WINES = [
     format: '75 cl',
     cepages: [{ nom: 'Malbec', part: 60 }, { nom: 'Cabernet Sauvignon', part: 40 }],
     vendanges: 'Manuelles',
-    elevage: '16 mois',
+    elevage: '18 à 24 mois',
     garde: '25 ans',
     scores: [
       { note: '92+', source: 'Wine Advocate' },
@@ -104,10 +104,10 @@ const WINES = [
     ],
     image: { src: '/assets/images/bout-helene-2016.webp', width: 234, height: 900, alt: 'Bouteille de la Cuvée Hélène 2016, vin argentin de Mendoza' },
     og: '/assets/images/og/cuvee-helene-2016.jpg',
-    maj: '2026-11-14',
+    maj: '2026-11-22',
     seo: {
       title: 'Poesía — Cuvée Hélène 2016, vin de Mendoza | Andivino',
-      description: "Poesía — Cuvée Hélène 2016, assemblage Malbec-Cabernet Sauvignon d'une parcelle plantée en 1935 à Luján de Cuyo, Mendoza. Élevage 16 mois en fût de chêne.",
+      description: "Poesía — Cuvée Hélène 2016, assemblage Malbec-Cabernet Sauvignon d'une parcelle plantée en 1935 à Luján de Cuyo, Mendoza. Élevage 18 à 24 mois en fût de chêne français.",
       ogTitle: 'Poesía — Cuvée Hélène 2016, vin de Mendoza | Andivino',
       ogDescription: 'Assemblage Malbec-Cabernet Sauvignon de la Bodega Poesía, Luján de Cuyo, Mendoza.'
     },
@@ -119,10 +119,10 @@ const WINES = [
       ['Vignes', 'Parcelle de 1 ha plantée en 1935, franc de pied'],
       ['Sol', 'Sablo-argileux'],
       ['Altitude', '900 m'],
-      ['Élevage', '16 mois en fût de chêne'],
+      ['Élevage', '18 à 24 mois en fût de chêne français'],
       ['Garde', '25 ans']
     ],
-    leadHtml: "<strong>Poesía — Cuvée Hélène 2016</strong> est un vin rouge argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon issus d'une parcelle d'un hectare plantée en 1935 en franc de pied, vendangée à la main. Élevée 16 mois en fût de chêne, elle se garde 25 ans. Elle est notée 92+ par Wine Advocate et 91 par James Suckling. 36&nbsp;€ la bouteille.",
+    leadHtml: "<strong>Poesía — Cuvée Hélène 2016</strong> est un vin rouge argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon issus d'une parcelle d'un hectare plantée en 1935 en franc de pied, vendangée à la main. Élevée 18 à 24 mois en fût de chêne français, elle se garde 25 ans. Elle est notée 92+ par Wine Advocate et 91 par James Suckling. 36&nbsp;€ la bouteille.",
     notesHtml: "D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La bouche séduit par la pureté et la maturité du fruit, sans excès de torréfaction, enrichie de baies noires, d'épices fines et d'un boisé fumé de grande qualité. La finale, longue et persistante, repose sur des tanins nobles et harmonieux. Un vin déjà remarquable, d'une grande élégance et profondeur.",
     fiche: [
       ['Origine', 'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine', true],
@@ -131,7 +131,7 @@ const WINES = [
       ['Superficie', '1 ha planté en 1935, franc de pied'],
       ['Sol', 'Sablo-argileux'],
       ['Cuves de fermentation', 'Inox et fûts de chêne'],
-      ['Élevage', '16 mois en fût de chêne'],
+      ['Élevage', '18 à 24 mois en fût de chêne français'],
       ['Garde', '25 ans']
     ],
     serviceHtml: [
@@ -139,7 +139,7 @@ const WINES = [
       'Pour la goûter avant de commander, elle est {degustation:e}.'
     ],
     terroirHtml: [
-      "La Cuvée Hélène vient d'une seule parcelle d'à peine 1 hectare, plantée en 1935 en franc de pied à Luján de Cuyo, sur un sol sablo-argileux à 900 mètres d'altitude. Elle partage l'assemblage de Poesía (60&nbsp;% Malbec, 40&nbsp;% Cabernet Sauvignon) avec un élevage un peu plus court, de 16 mois.",
+      "La Cuvée Hélène vient d'une seule parcelle d'à peine 1 hectare, plantée en 1935 en franc de pied à Luján de Cuyo, sur un sol sablo-argileux à 900 mètres d'altitude. Elle partage l'assemblage de Poesía (60&nbsp;% Malbec, 40&nbsp;% Cabernet Sauvignon) avec un élevage de 18 à 24 mois en fût de chêne français.",
       "Entre le Clos des Andes, 100&nbsp;% Malbec de garde 15 ans, et Poesía 2014, la plus longuement élevée, elle offre la garde de Poesía (25 ans) à un prix plus doux. Pour en savoir plus sur ce terroir et cet assemblage&nbsp;:"
     ],
     liens: LIENS_MALBEC
