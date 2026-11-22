@@ -58,16 +58,53 @@ function renderWines(){
 
 // Flèches : on avance d'autant de cuvées qu'il en tient à l'écran (au moins une), et chaque flèche
 // s'éteint en bout de piste. Le défilement lui-même reste natif (doigt, trackpad, clavier).
+// Défilement automatique : une cuvée toutes les 4,5 s, retour au début en bout de piste. Il s'arrête
+// au survol, au focus, au toucher, hors écran ou onglet masqué, et ne démarre pas si le visiteur a demandé
+// à réduire les animations. Le bouton du milieu le met en pause (ou le relance) pour de bon.
 function initCarousel(track){
   const root=track.closest('.vc');if(!root)return;
   const btns=root.querySelectorAll('[data-vc]');
-  const step=()=>{const it=track.querySelector('.vc-item');if(!it)return track.clientWidth;const gap=parseFloat(getComputedStyle(track).columnGap)||0;const w=it.getBoundingClientRect().width+gap;return Math.max(1,Math.floor((track.clientWidth-gap)/w))*w;};
+  const play=root.querySelector('.vc-play');
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const sync=()=>{const max=track.scrollWidth-track.clientWidth-2;btns.forEach(b=>{b.disabled=+b.dataset.vc<0?track.scrollLeft<=2:track.scrollLeft>=max;});};
-  btns.forEach(b=>b.addEventListener('click',()=>track.scrollBy({left:+b.dataset.vc*step(),behavior:reduce?'auto':'smooth'})));
+  const gap=()=>parseFloat(getComputedStyle(track).columnGap)||0;
+  const card=()=>{const it=track.querySelector('.vc-item');return it?it.getBoundingClientRect().width+gap():track.clientWidth;};
+  const step=()=>Math.max(1,Math.floor((track.clientWidth-gap())/card()))*card();
+  const atEnd=()=>track.scrollLeft>=track.scrollWidth-track.clientWidth-2;
+  const sync=()=>{btns.forEach(b=>{b.disabled=+b.dataset.vc<0?track.scrollLeft<=2:atEnd();});};
+  const go=(left)=>track.scrollBy({left,behavior:reduce?'auto':'smooth'});
+
+  let timer=null,stopped=reduce,hover=false,visible=false;
+  const tick=()=>{if(atEnd())track.scrollTo({left:0,behavior:'smooth'});else go(card());};
+  const update=()=>{
+    const run=!stopped&&!hover&&visible&&!document.hidden;
+    if(run&&!timer)timer=setInterval(tick,4500);
+    else if(!run&&timer){clearInterval(timer);timer=null;}
+  };
+  const restart=()=>{if(timer){clearInterval(timer);timer=null;}update();};
+
+  btns.forEach(b=>b.addEventListener('click',()=>{go(+b.dataset.vc*step());restart();}));
   track.addEventListener('scroll',()=>requestAnimationFrame(sync),{passive:true});
   window.addEventListener('resize',sync);
-  sync();
+  root.addEventListener('mouseenter',()=>{hover=true;update();});
+  root.addEventListener('mouseleave',()=>{hover=false;update();});
+  root.addEventListener('focusin',()=>{hover=true;update();});
+  root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget)){hover=false;update();}});
+  // Un doigt posé sur la piste : le visiteur a pris la main, on n'insiste pas.
+  track.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'){stopped=true;if(play)play.setAttribute('aria-pressed','true'),play.setAttribute('aria-label','Relancer le défilement');update();}},{passive:true});
+  document.addEventListener('visibilitychange',update);
+  if('IntersectionObserver' in window)new IntersectionObserver(es=>{visible=es[0].isIntersecting;update();},{threshold:.35}).observe(track);
+  else visible=true;
+  if(play&&!reduce){
+    play.hidden=false;
+    play.addEventListener('click',()=>{
+      stopped=!stopped;
+      play.setAttribute('aria-pressed',String(stopped));
+      play.setAttribute('aria-label',stopped?'Relancer le défilement':'Mettre en pause le défilement');
+      if(!stopped)hover=false;
+      restart();
+    });
+  }
+  sync();update();
 }
 
 /* ── DÉGUSTATIONS ── */

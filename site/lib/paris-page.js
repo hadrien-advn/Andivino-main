@@ -25,7 +25,7 @@ const precommandes = () => achetables().filter((w) => w.statut === 'precommande'
 const ICON_MOINS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14"/></svg>';
 const ICON_PLUS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
 
-// Une bouteille posée sur sa feuille froissée (papier/fond-1 à 4, comme la page dégustation).
+// Une bouteille posée sur sa feuille froissée (papier/feuille-1 à 4, comme la page dégustation).
 // Sans JavaScript, « Ajouter » mène à /commande?ajout=<id> ; avec, il remplit le bon de la page.
 function carte(w, i, { first = false } = {}) {
   const d = DOMAINES[w.domaine];
@@ -36,7 +36,7 @@ function carte(w, i, { first = false } = {}) {
   const pre = w.statut === 'precommande';
   const flag = w.statut === 'bientot-epuise' ? `<span class="pv-flag">${esc(STATUTS[w.statut].label)}</span>` : '';
   const nom = esc(w.nomComplet);
-  return `<li class="pv-item" data-id="${esc(w.id)}" data-nom="${nom}" data-prix="${w.prix}"${pre ? ` data-arrivee="${esc(moisArrivee(w.arrivee))}"` : ''} style="--papier:url('/assets/images/papier/fond-${(i % 4) + 1}.webp')">
+  return `<li class="pv-item" data-id="${esc(w.id)}" data-nom="${nom}" data-prix="${w.prix}"${pre ? ` data-arrivee="${esc(moisArrivee(w.arrivee))}"` : ''} style="--papier:url('/assets/images/papier/feuille-${(i % 4) + 1}.webp')">
           <a class="pv-visual" href="${url}" tabindex="-1" aria-hidden="true">${img}</a>
           <h3 class="pv-nm"><a href="${url}">${esc(nomCarte(w))}</a></h3>
           <p class="pv-meta">${esc(d.nom)} · ${w.millesime}</p>

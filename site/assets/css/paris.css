@@ -33,7 +33,7 @@
 .pv-item{--h:250px;--floor:1.3rem;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
 .pv-shelf--pre .pv-item{--h:220px}
 .pv-visual{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:210px;height:var(--h);padding:2.4rem 0 var(--floor);margin-bottom:1.5rem}
-.pv-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/fond-1.webp')) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none}
+.pv-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/feuille-1.webp')) center/100% 100% no-repeat;pointer-events:none}
 .pv-visual img{position:relative;z-index:2;height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17));transition:transform .7s cubic-bezier(.16,1,.3,1)}
 .pv-item::before{content:'';position:absolute;z-index:1;left:50%;top:calc(var(--h) - var(--floor) - 7px);width:min(44%,92px);height:14px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,28,18,.42),rgba(40,28,18,0));filter:blur(1.5px);pointer-events:none}
 .pv-item:hover .pv-visual img,.pv-item.is-in .pv-visual img{transform:translateY(-6px)}

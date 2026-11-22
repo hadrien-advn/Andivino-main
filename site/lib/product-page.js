@@ -11,7 +11,7 @@ const moisArrivee = (iso) => { const [y, m] = iso.split('-').map(Number); return
 const prixSchema = (cents) => (cents / 100).toFixed(2);
 // Feuille de papier froissé (visuels de la page dégustation) propre à chaque cuvée : la même sur la page
 // domaine et sur la fiche, et deux cuvées voisines dans data/wines.js n'ont jamais la même.
-const PAPIERS = ['fond-1.webp?v=2', 'fond-2.webp', 'fond-3.webp', 'fond-4.webp'];
+const PAPIERS = ['feuille-1.webp', 'feuille-2.webp', 'feuille-3.webp', 'feuille-4.webp'];
 const papier = (w) => `--papier:url('/assets/images/papier/${PAPIERS[Math.max(0, WINES.indexOf(w)) % PAPIERS.length]}')`;
 
 function statutDe(w) {

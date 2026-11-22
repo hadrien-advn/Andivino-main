@@ -129,19 +129,26 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .btn-add:hover{background:var(--bdx);border-color:var(--bdx);color:var(--cream-l)}
 /* Le carrousel des cuvées : chaque bouteille posée sur sa feuille de papier froissé (la même que sur sa
    fiche et sa page domaine), la piste défile à l'horizontale, alignée sur la marge du site.
-   La piste porte le fond de la section : la feuille en multiply s'y fond, même dans un contexte isolé. */
+   La feuille est une image transparente (plis seuls) : elle se pose sur le crème sans mode de fusion, que Safari iOS ignore dans une piste défilante. */
 .vc{--vc-pad:var(--gut);--vc-w:clamp(230px,22vw,290px);position:relative}
-.vc-bar{display:flex;align-items:center;justify-content:flex-end;gap:.6rem;padding:0 var(--vc-pad);margin-bottom:.4rem}
+.vc-bar{display:flex;align-items:center;justify-content:center;gap:1.4rem;padding:0 var(--vc-pad);margin-top:1.6rem}
 .vc-btn{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:1px solid rgba(110,24,40,.3);border-radius:50%;background:transparent;color:var(--bdx);cursor:pointer;transition:background var(--e),color var(--e),border-color var(--e),opacity var(--e)}
 .vc-btn:hover:not(:disabled){background:var(--bdx);border-color:var(--bdx);color:var(--cream-l)}
 .vc-btn:disabled{opacity:.3;cursor:default}
 .vc-btn:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
+/* Pause / reprise du défilement automatique : deux barres, ou un triangle quand il est en pause. */
+.vc-play{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:0;background:transparent;color:var(--gris);cursor:pointer;transition:color var(--e)}
+.vc-play[hidden]{display:none}
+.vc-play:hover{color:var(--bdx)}
+.vc-play:focus-visible{outline:2px solid var(--bdx);outline-offset:2px;border-radius:50%}
+.vc-play span{width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor}
+.vc-play[aria-pressed="true"] span{width:0;height:0;border:0;border-left:10px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
 .vc-track{list-style:none;margin:0;display:grid;grid-auto-flow:column;grid-auto-columns:var(--vc-w);gap:clamp(1.5rem,3vw,3.2rem);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--vc-pad);padding:1rem var(--vc-pad) 1.5rem;background:var(--cream-l);scrollbar-width:none}
 .vc-track::-webkit-scrollbar{display:none}
 .vc-track:focus-visible{outline:2px solid var(--bdx);outline-offset:-2px}
 .vc-item{position:relative;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;text-align:center}
 .vc-visual{--floor:1.4rem;position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:220px;height:340px;padding:3.2rem 0 var(--floor);margin-bottom:1.5rem}
-.vc-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/fond-1.webp?v=2')) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none}
+.vc-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/feuille-1.webp')) center/100% 100% no-repeat;pointer-events:none}
 .vc-visual::before{content:'';position:absolute;z-index:1;left:50%;bottom:calc(var(--floor) - 7px);width:min(44%,96px);height:14px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,28,18,.42),rgba(40,28,18,0));filter:blur(1.5px);pointer-events:none}
 .vc-visual img{position:relative;z-index:2;height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17));transition:transform .7s cubic-bezier(.16,1,.3,1)}
 .vc-item:hover .vc-visual img{transform:translateY(-6px)}
@@ -155,10 +162,31 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .vc-buy{display:flex;align-items:center;justify-content:center;gap:1.1rem;margin-top:auto;padding-top:1.1rem}
 .vc-px{font-family:var(--fd);font-size:1.5rem;line-height:1;color:var(--charbon);font-variant-numeric:lining-nums;white-space:nowrap}
 .vc-buy .btn-add{display:inline-flex;align-items:center;text-decoration:none}
-.vc-foot{margin-top:2.2rem;text-align:center}
+.vc-foot{margin-top:2.6rem;text-align:center}
+/* Les trois domaines, sous le carrousel : blason, nom, appellation ; chacun mène à sa page. */
+.vd{max-width:1000px;margin:3.6rem auto 0;padding:2.8rem var(--gut) 0;border-top:1px solid var(--cream-d)}
+.vd ul{list-style:none;margin:1.6rem 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem}
+.vd a{display:flex;flex-direction:column;align-items:center;gap:.45rem;text-align:center;text-decoration:none;color:var(--charbon)}
+.vd-img{display:flex;align-items:flex-end;justify-content:center;height:110px;margin-bottom:.8rem}
+.vd-logo{height:100%;width:auto;max-width:140px;object-fit:contain;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.vd-btl{height:100%;width:auto;filter:drop-shadow(4px 4px 6px rgba(70,52,34,.18));transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.vd-nm{font-family:var(--fd);font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.1;transition:color var(--e)}
+.vd-reg{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.vd a:hover .vd-nm{color:var(--bdx)}
+.vd a:hover .vd-logo,.vd a:hover .vd-btl{transform:translateY(-4px)}
+.vd a:focus-visible{outline:2px solid var(--bdx);outline-offset:6px}
 @media(max-width:600px){
+  /* Téléphone : la cuvée active au centre de l'écran, ses voisines dépassent de chaque côté. */
   .vc{--vc-w:72vw}
-  .vc-bar{display:none}
+  .vc-track{padding-inline:calc((100vw - var(--vc-w)) / 2);scroll-padding-inline:0}
+  .vc-item{scroll-snap-align:center}
+  .vc-bar{gap:1rem;margin-top:1.2rem}
+  .vd{margin-top:2.8rem;padding-top:2.2rem}
+  .vd ul{gap:.8rem}
+  .vd-img{height:72px;margin-bottom:.5rem}
+  .vd-logo{max-width:84px}
+  .vd-nm{font-size:1.15rem}
+  .vd-reg{font-size:.6rem;letter-spacing:.12em}
   .vc-visual{height:300px;max-width:190px}
   .vc-nm{font-size:1.45rem}
 }

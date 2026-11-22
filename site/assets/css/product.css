@@ -6,13 +6,13 @@
 /* ── Haut de fiche : bouteille + bloc d'achat ── */
 .pdp-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4.5rem;align-items:start;padding:1.8rem 0 4rem;border-bottom:1px solid var(--cream-d)}
 /* La bouteille démarre en haut de la fiche puis reste à mi-hauteur d'écran pendant qu'on lit le bloc d'achat.
-   sticky isole le bloc : sans fond propre (le crème de la page), la feuille en multiply apparaîtrait blanche. */
+   Le bloc porte le crème de la page. */
 .pdp-media{position:sticky;top:max(5.5rem,calc(50vh - 290px));background:var(--cream-l);display:flex;align-items:center;justify-content:center;padding:0 2rem}
 .pdp-media img{height:100%;max-height:540px;width:auto}
 /* La bouteille posée sur sa feuille de papier froissé (même traitement que la page dégustation et les pages
-   domaine) : la feuille est un visuel sur fond blanc posé en multiply, seuls ses plis apparaissent sur le crème. */
+   domaine) : la feuille est une image transparente, seuls ses plis apparaissent sur le crème. */
 .pdp-visual{--floor:2rem;position:relative;display:flex;align-items:flex-end;justify-content:center;width:min(100%,340px);height:540px;padding:4.4rem 0 var(--floor)}
-.pdp-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/fond-1.webp?v=2')) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none}
+.pdp-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/feuille-1.webp')) center/100% 100% no-repeat;pointer-events:none}
 .pdp-visual::before{content:'';position:absolute;z-index:1;left:50%;bottom:calc(var(--floor) - 8px);width:min(42%,130px);height:16px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,28,18,.42),rgba(40,28,18,0));filter:blur(1.5px);pointer-events:none}
 .pdp-media .pdp-visual img{position:relative;z-index:2;height:100%;max-height:none;width:auto;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17))}
 
@@ -68,7 +68,7 @@
 .pdp-card:hover{background:#fff}
 .pdp-card img{height:200px;width:auto;margin:0 auto 1.4rem;display:block}
 .pdp-card-visual{--floor:.9rem;position:relative;display:flex;align-items:flex-end;justify-content:center;width:150px;height:240px;margin:0 auto 1.4rem;padding:2.2rem 0 var(--floor)}
-.pdp-card-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none}
+.pdp-card-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier) center/100% 100% no-repeat;pointer-events:none}
 .pdp-card .pdp-card-visual img{position:relative;z-index:1;height:100%;margin:0;filter:drop-shadow(0 1px 1px rgba(40,28,18,.25)) drop-shadow(6px 5px 8px rgba(70,52,34,.15))}
 .pdp-card-dom{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);margin:0 0 .4rem}
 .pdp-card-name{font-family:var(--fd);font-weight:400;font-style:italic;font-size:1.35rem;line-height:1.2;margin:0 0 .4rem}
