@@ -33,10 +33,15 @@ function item(w, i) {
       </li>`;
 }
 
-// Les domaines sous le carrousel : blason (à défaut, la bouteille phare du domaine), nom et appellation,
+// Les domaines sous le carrousel : blason ou logo (à défaut, la bouteille phare du domaine), nom et appellation,
 // chacun menant à sa page.
 function domaines() {
   return Object.values(DOMAINES).filter((d) => d.page).map((d) => {
+    // Logo en toutes lettres : il tient la place du blason et du nom (le nom reste lisible par les lecteurs d'écran).
+    if (d.logoTexte) {
+      const m = d.logoTexte;
+      return `<li><a href="${d.page}"><span class="vd-img vd-img--mot"><img class="vd-mot" src="${esc(m.src)}" width="${m.width}" height="${m.height}" alt="" loading="lazy" decoding="async"></span><span class="vd-sr">${esc(d.nom)}</span><span class="vd-reg">${esc(d.appellation)}</span></a></li>`;
+    }
     const b = WINES.find((w) => w.domaine === d.slug && w.image);
     const v = d.logo || (b && b.image);
     const img = v ? `<img class="${d.logo ? 'vd-logo' : 'vd-btl'}" src="${esc(v.src)}" width="${v.width}" height="${v.height}" alt="" loading="lazy" decoding="async">` : '';

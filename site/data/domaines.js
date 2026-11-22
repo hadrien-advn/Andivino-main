@@ -21,6 +21,8 @@ const DOMAINES = {
     accroche: 'Vignes de 1935 en franc de pied, à 900 mètres',
     leadHtml: "La <strong>Bodega Poesía</strong> est un domaine de Luján de Cuyo, dans la province de Mendoza (Argentine)&nbsp;: 13 hectares de Malbec et de Cabernet Sauvignon plantés en 1935 en franc de pied, à 900 mètres d'altitude. Andivino importe trois de ses vins en France&nbsp;: Clos des Andes 2017, la Cuvée Hélène 2016 et Poesía 2014.",
     image: { src: '/assets/images/poarg3.webp', width: 1800, height: 1200, alt: 'Vignes de Malbec de la Bodega Poesía, à Luján de Cuyo (Mendoza)' },
+    // Logo en toutes lettres (le nom y figure) : utilisé à la place du nom dans la bande des domaines de l'accueil.
+    logoTexte: { src: '/assets/images/logo-bodega-poesia.webp', width: 371, height: 179, alt: 'Bodega Poesía' },
     galerie: [
       { src: '/assets/images/poarg1.webp', width: 1800, height: 1200, alt: 'Chai et installations de la Bodega Poesía, Mendoza' }
     ],
