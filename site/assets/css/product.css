@@ -54,12 +54,14 @@
 .pdp-facts dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-bottom:.15rem}
 .pdp-facts dd{margin:0;font-size:.86rem;font-weight:500;color:var(--charbon)}
 
-/* ── Corps de fiche (typographie de .art-body) ── */
-.pdp-body{max-width:760px;margin:0 auto;padding:3.5rem 0 1.5rem}
+/* ── Corps de fiche (typographie de .art-body) : dans la colonne de droite, sous le bloc d'achat,
+   pour que la bouteille reste à côté pendant toute la lecture. ── */
+.pdp-body{margin-top:2.8rem;padding-top:2.8rem;border-top:1px solid var(--cream-d)}
+.pdp-body>h2:first-of-type{margin-top:2.6rem}
 .pdp-lead{margin-top:0}
 
 /* ── Autres cuvées ── */
-.pdp-related{padding:3.5rem 0 5rem;border-top:1px solid var(--cream-d);margin-top:2rem}
+.pdp-related{padding:3.5rem 0 5rem}
 .pdp-related h2{font-family:var(--fd);font-weight:300;font-size:clamp(1.6rem,3vw,2.1rem);color:var(--charbon);margin:0 0 2rem;text-align:center}
 .pdp-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px;background:var(--cream-d);border:2px solid var(--cream-d)}
 .pdp-card{position:relative;background:var(--cream-l);padding:2.2rem 1.5rem 1.8rem;text-align:center;transition:background var(--e)}
@@ -90,7 +92,7 @@
   .pdp-media img{height:230px}
   .pdp-visual{--floor:1.3rem;width:220px;height:340px;padding-top:3rem}
   .pdp-scores{gap:1.4rem}
-  .pdp-body{padding-top:2.6rem}
+  .pdp-body{margin-top:2.2rem;padding-top:2.2rem}
   .pdp-sticky:not([hidden]){display:flex;align-items:center;gap:1rem;position:fixed;left:0;right:0;bottom:var(--cookie-h,0px);z-index:60;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));background:var(--cream-l);border-top:1px solid var(--cream-d);box-shadow:0 -6px 18px rgba(20,16,12,.06)}
   .pdp-sticky-info{display:flex;flex-direction:column;min-width:0;flex:1}
   .pdp-sticky-name{font-family:var(--fd);font-style:italic;font-size:1.05rem;color:var(--charbon);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

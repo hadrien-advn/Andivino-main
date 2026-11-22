@@ -251,28 +251,28 @@ ${NAV}
       <dl class="pdp-facts">
         ${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${fine(v)}</dd></div>`).join('\n        ')}
       </dl>
+      <div class="pdp-body art-body">
+        <p class="wine-lead pdp-lead">${w.leadHtml}</p>
+
+        <h2>Notes de dégustation</h2>
+        <p>${w.notesHtml}</p>
+
+        <h2>Fiche technique</h2>
+        <dl class="m-specs">
+          ${w.fiche.map(([k, v, wide]) => `<div${wide ? ' class="wide"' : ''}><dt class="msl">${esc(k)}</dt><dd class="msv">${fine(v)}</dd></div>`).join('\n      ')}
+        </dl>
+    ${(w.serviceHtml || []).length ? `
+        <h2>Service et accords</h2>
+        ${w.serviceHtml.map((p) => `<p>${degust(p)}</p>`).join('\n    ')}
+    ` : ''}${(w.terroirHtml || []).length ? `
+        <h2>Le terroir et la parcelle</h2>
+        ${w.terroirHtml.map((p) => `<p>${p}</p>`).join('\n    ')}
+        ${(w.liens || []).length ? `<ul>\n      ${w.liens.map((l) => `<li><a href="${esc(l.href)}">${esc(l.texte)}</a></li>`).join('\n      ')}\n    </ul>` : ''}
+    ` : ''}
+      </div>
     </div>
   </section>
 
-  <div class="pdp-body art-body">
-    <p class="wine-lead pdp-lead">${w.leadHtml}</p>
-
-    <h2>Notes de dégustation</h2>
-    <p>${w.notesHtml}</p>
-
-    <h2>Fiche technique</h2>
-    <dl class="m-specs">
-      ${w.fiche.map(([k, v, wide]) => `<div${wide ? ' class="wide"' : ''}><dt class="msl">${esc(k)}</dt><dd class="msv">${fine(v)}</dd></div>`).join('\n      ')}
-    </dl>
-${(w.serviceHtml || []).length ? `
-    <h2>Service et accords</h2>
-    ${w.serviceHtml.map((p) => `<p>${degust(p)}</p>`).join('\n    ')}
-` : ''}${(w.terroirHtml || []).length ? `
-    <h2>Le terroir et la parcelle</h2>
-    ${w.terroirHtml.map((p) => `<p>${p}</p>`).join('\n    ')}
-    ${(w.liens || []).length ? `<ul>\n      ${w.liens.map((l) => `<li><a href="${esc(l.href)}">${esc(l.texte)}</a></li>`).join('\n      ')}\n    </ul>` : ''}
-` : ''}
-  </div>
 
   <section class="pdp-related" aria-labelledby="pdp-related-t">
     <h2 id="pdp-related-t">${autres.length ? `Les autres cuvées de la ${esc(d.nom)}` : 'Nos autres cuvées'}</h2>
