@@ -1,6 +1,5 @@
 // Prix et noms Stripe dérivés de data/wines.js (source unique des cuvées).
 const { WINES, STATUTS } = require('./wines');
-const { upcomingDegustations } = require('../assets/js/degustations.js');
 const PRODUCTS = Object.freeze(Object.fromEntries(WINES
   .filter((w) => STATUTS[w.statut].achetable)
   .map((w) => [w.id, Object.freeze({
@@ -12,15 +11,16 @@ const PRODUCTS = Object.freeze(Object.fromEntries(WINES
     arrivee: w.statut === 'precommande' ? w.arrivee : null
   })])));
 
+// Le retrait en degustation n'est plus propose (novembre 2026).
 const SHIPPING_MODES = Object.freeze({
-  degustation: 'Retrait degustation',
   'main-propre': 'Remise en main propre',
   relais: 'Point relais',
   domicile: 'Livraison a domicile'
 });
 
 // Expedition en France metropolitaine (hors Corse), au depart de Paris. Tarifs TTC en centimes par
-// tranche de bouteilles ; offerte quand le panier (vins seuls) depasse FREE_SHIPPING_ABOVE.
+// tranche de bouteilles. Expedition et remise en main propre sont offertes quand le panier (vins
+// seuls) depasse FREE_SHIPPING_ABOVE.
 // Meme grille dans assets/js/checkout.js et pages/legal-cgv.html.
 const SHIPPING_TIERS = Object.freeze({
   relais: [
@@ -43,17 +43,13 @@ function shippingAmount(mode, bottleCount, postalCode = '', subtotal = 0) {
     throw new Error('Mode de livraison invalide.');
   }
 
-  if (mode === 'degustation') {
-    return 0;
-  }
-
   const cp = String(postalCode).trim();
 
   if (mode === 'main-propre') {
     if (!/^(75|92|93|94)\d{3}$/.test(cp)) {
       throw new Error('La remise en main propre est limitee a Paris et petite couronne.');
     }
-    return 500;
+    return subtotal > FREE_SHIPPING_ABOVE ? 0 : 500;
   }
 
   if (!/^\d{5}$/.test(cp) || /^(20|97|98)/.test(cp)) {
@@ -96,10 +92,6 @@ function buildOrder(cart, shipping, customer = {}) {
   const preorder = preorderItems.length
     ? { arrivee: preorderItems.map((item) => PRODUCTS[item.id].arrivee).sort().pop(), ids: preorderItems.map((item) => item.id) }
     : null;
-  if (preorder && shipping === 'degustation'
-    && !upcomingDegustations().some((d) => d.date >= preorder.arrivee)) {
-    throw new Error("Le retrait en dégustation n'est pas possible pour une précommande : aucune dégustation n'est prévue après l'arrivée des bouteilles. Choisissez la remise en main propre ou l'expédition.");
-  }
 
   const bottleCount = lineItems.reduce((sum, item) => sum + item.qty, 0);
   const subtotal = lineItems.reduce((sum, item) => sum + item.amount, 0);

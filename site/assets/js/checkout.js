@@ -155,19 +155,6 @@ function updatePreorderUI(){
   if(note){note.hidden=!arr;note.textContent=arr?'Précommande : votre commande vous sera remise en une fois, à l\u2019arrivée des bouteilles en France, prévue en '+moisArrivee(arr)+'. Le paiement est débité à la commande.':'';}
   var idf=document.querySelector('#livIDF .liv-desc');
   if(idf){if(!idf.dataset.base)idf.dataset.base=idf.textContent;idf.textContent=arr?'Livraison directe à votre domicile par un membre de l\u2019équipe Andivino, dès l\u2019arrivée des bouteilles ('+moisArrivee(arr)+'). Disponible à Paris (75) et en petite couronne (92, 93, 94).':idf.dataset.base;}
-  var deg=document.getElementById('livDegustation');var desc=document.getElementById('livDegustationDesc');
-  if(!deg||!desc)return;
-  var tastings=window.andivinoUpcomingDegustations?window.andivinoUpcomingDegustations():[];
-  var ok=!arr||tastings.some(function(d){return d.date>=arr;});
-  deg.classList.toggle('disabled',!ok);
-  deg.setAttribute('aria-disabled',String(!ok));
-  deg.tabIndex=ok?0:-1;
-  if(!desc.dataset.base)desc.dataset.base=desc.textContent;
-  desc.textContent=ok?desc.dataset.base:'Indisponible pour une précommande : aucune dégustation n\u2019est prévue après l\u2019arrivée des bouteilles.';
-  if(!ok&&typeof selectedLiv!=='undefined'&&selectedLiv==='degustation'){
-    selectedLiv=null;deg.classList.remove('selected');deg.setAttribute('aria-checked','false');
-    updateAddressFields();updateGrandTotal();resetPaymentElement();
-  }
 }
 
 // ── LIVRAISON ──
@@ -189,11 +176,10 @@ function cartSubtotal() {
 
 // Tarif livraison selon le mode, le nombre de bouteilles et le montant des vins
 function shippingCost(mode, nbBottles) {
-  if (mode === 'degustation') return 0;
+  if (cartSubtotal() > FREE_SHIPPING_ABOVE) return 0;
   if (mode === 'main-propre') return 5;
   var t = SHIPPING_TIERS[mode];
   if (!t) return 0;
-  if (cartSubtotal() > FREE_SHIPPING_ABOVE) return 0;
   for (var i = 0; i < t.length; i++) {
     if (nbBottles <= t[i].max) return t[i].price;
   }
@@ -210,8 +196,9 @@ function nbBottlesInCart() {
 
 function updateShippingPrices() {
   var nb = nbBottlesInCart();
-  ['relais','domicile'].forEach(function(mode) {
-    var el = document.getElementById(mode === 'relais' ? 'priceRelais' : 'priceDomicile');
+  var ids = { 'main-propre': 'priceMainPropre', relais: 'priceRelais', domicile: 'priceDomicile' };
+  Object.keys(ids).forEach(function(mode) {
+    var el = document.getElementById(ids[mode]);
     if (!el) return;
     var cost = shippingCost(mode, nb);
     el.textContent = fmtShip(cost);
@@ -229,18 +216,7 @@ function selectLiv(el) {
   updateGrandTotal();
   resetPaymentElement();
 }
-// Retrait : toujours proposé ; la date s'affiche dès qu'une dégustation est programmée.
-(function() {
-  var desc = document.getElementById('livDegustationDesc');
-  var next = (window.andivinoUpcomingDegustations ? window.andivinoUpcomingDegustations() : [])[0];
-  if (next) {
-    desc.textContent = 'Prochaine dégustation : ' + window.andivinoFmtDateLong(next.date) + ', ' + next.lieu + '. Vous récupérez vos bouteilles sur place.';
-  } else {
-    desc.textContent = "Vous récupérez vos bouteilles lors de notre prochaine dégustation. Nous vous écrivons pour la date ; elles sont aussi annoncées sur la page d'accueil et sur Instagram.";
-  }
-  desc.dataset.base = desc.textContent;
-  updatePreorderUI();
-})();
+updatePreorderUI();
 document.querySelectorAll('.liv-opt').forEach(function(el){
   el.addEventListener('click', function(){ selectLiv(el); });
   el.addEventListener('keydown', function(e){
@@ -273,11 +249,11 @@ function updateGrandTotal() {
 var IDF_CP = /^(75|92|93|94)\d{3}$/;
 // Même règle que le serveur (normalizeCustomer).
 var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-function needsAddress() { return selectedLiv !== 'degustation'; }
+function needsAddress() { return true; }
 function requiredFieldIds() {
   return ['f-prenom','f-nom','f-email'].concat(needsAddress() ? ['f-adresse','f-cp','f-ville'] : []);
 }
-// Pas d'adresse pour un retrait en dégustation.
+// Tous les modes demandent une adresse de livraison.
 function updateAddressFields() {
   var wrap = document.getElementById('addrFields');
   wrap.hidden = !needsAddress();

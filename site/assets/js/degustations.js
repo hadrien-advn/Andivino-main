@@ -1,4 +1,4 @@
-// Dégustations : source unique pour l'accueil, le retrait en dégustation de la commande et le serveur
+// Dégustations : source unique pour l'accueil, la note de livraison et le serveur
 // (data/catalog.js). La date de la prochaine dégustation s'affiche sur l'option de retrait.
 (function (root) {
   // inscription : dégustation payante ouverte sur andivino.fr/degustation (prix en centimes TTC, places
@@ -25,12 +25,8 @@
 
   // Conditions de livraison réelles, affichées partout où l'on peut commander (grille dans data/catalog.js).
   function deliveryNoteHtml() {
-    var next = upcomingDegustations()[0];
     var contact = '<a href="mailto:contact@andivino.fr">écrivez-nous</a>';
-    var quand = 'dégustation du ' + (next ? fmtDateLong(next.date) : '');
-    if (next && next.url) quand = '<a href="' + next.url + '">' + quand + '</a>';
-    var retrait = next ? ', ou retrait gratuit à notre ' + quand + ' (' + next.lieu + ')' : '';
-    return 'Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a> (5 €)' + retrait + '. Expédition en France métropolitaine : point relais dès 9 €, domicile dès 12 €, offerte au-delà de 300 € d\'achat. Retour possible sous 14 jours (bouteilles non ouvertes). Une question : ' + contact + '.';
+    return 'Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a> (5 €). Expédition en France métropolitaine : point relais dès 9 €, domicile dès 12 €. Livraison offerte au-delà de 300 € d\'achat. Retour possible sous 14 jours (bouteilles non ouvertes). Une question : ' + contact + '.';
   }
 
   if (typeof module === 'object' && module.exports) {

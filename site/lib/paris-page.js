@@ -148,14 +148,11 @@ function faq() {
   const pre = precommandes();
   const arrivee = pre.length ? moisArrivee(pre[0].arrivee) : '';
   const quand = next ? `${new Date(`${next.date}T12:00:00+01:00`).getDate()} ${MOIS[new Date(`${next.date}T12:00:00+01:00`).getMonth()]} à ${next.heure}` : '';
-  const retrait = next
-    ? `Le retrait lors de notre prochaine dégustation est gratuit (<a href="${esc(next.url)}">le ${quand}, ${esc(next.lieu)}</a>).`
-    : "Le retrait lors de l'une de nos dégustations est gratuit, quand une date est prévue.";
   const qr = [
     ['Où acheter du vin argentin à Paris ?',
       `Sur andivino.fr&nbsp;: nous importons en direct les vins de ${esc(listeFr(doms.map((d) => d.nom)))}, à Mendoza, et les livrons en main propre à Paris et en petite couronne. ${mot(achetables().length).replace(/^./, (c) => c.toUpperCase())} cuvées, de ${fine(prixTexte(Math.min(...prix)))} à ${fine(prixTexte(Math.max(...prix)))} la bouteille${pre.length ? `, dont ${mot(pre.length)} en précommande pour ${esc(arrivee)}` : ''}.`],
     ['Combien coûte la livraison à Paris ?',
-      `5&nbsp;€ par commande, dès une bouteille, à Paris (75) et en petite couronne (92, 93, 94). ${retrait}`],
+      "5&nbsp;€ par commande, dès une bouteille, à Paris (75) et en petite couronne (92, 93, 94). Offerte au-delà de 300&nbsp;€ d'achat."],
     ['Quel est le délai de livraison ?',
       `Sous 7 jours pour les cuvées disponibles.${pre.length ? ` Une commande qui contient une précommande est remise en une seule fois, à l'arrivée des bouteilles (prévue en ${esc(arrivee)})&nbsp;: nous vous contactons pour convenir de la date.` : ''}`],
     ['Livrez-vous en dehors de Paris et de la petite couronne ?',

@@ -270,8 +270,8 @@ function cleanText(value, maxLength = 120) {
   return String(value || '').trim().slice(0, maxLength);
 }
 
-// Pas d'adresse pour un retrait en degustation.
-function normalizeCustomer(raw = {}, shippingMode) {
+// Tous les modes de livraison demandent une adresse.
+function normalizeCustomer(raw = {}) {
   const customer = {
     prenom: cleanText(raw.prenom, 80),
     nom: cleanText(raw.nom, 80),
@@ -283,8 +283,7 @@ function normalizeCustomer(raw = {}, shippingMode) {
     message: cleanText(raw.message, 600)
   };
 
-  const needsAddress = shippingMode !== 'degustation';
-  if (!customer.prenom || !customer.nom || !customer.email || (needsAddress && (!customer.adresse || !customer.cp || !customer.ville))) {
+  if (!customer.prenom || !customer.nom || !customer.email || !customer.adresse || !customer.cp || !customer.ville) {
     throw new Error('Coordonnees incompletes.');
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customer.email)) {
@@ -502,7 +501,7 @@ app.post('/api/create-payment-intent', paymentLimiter, async (req, res) => {
       return res.status(503).json({ error: 'Configuration Stripe serveur manquante.' });
     }
 
-    const customer = normalizeCustomer(req.body.customer, req.body.shipping);
+    const customer = normalizeCustomer(req.body.customer);
     const order = buildOrder(req.body.cart, req.body.shipping, customer);
 
     const paymentIntent = await stripe.paymentIntents.create({
@@ -548,7 +547,7 @@ app.post('/api/update-payment-intent', paymentLimiter, async (req, res) => {
       return res.status(409).json({ error: 'Ce paiement ne peut plus être modifié.' });
     }
 
-    const customer = normalizeCustomer(req.body.customer, req.body.shipping);
+    const customer = normalizeCustomer(req.body.customer);
     const order = buildOrder(req.body.cart, req.body.shipping, customer);
     if (order.amount !== paymentIntent.amount || order.shippingMode !== paymentIntent.metadata.shipping_mode) {
       return res.status(409).json({ error: 'Votre commande a changé. Préparez à nouveau le paiement.' });
