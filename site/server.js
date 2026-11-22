@@ -11,6 +11,7 @@ const { WINES, DOMAINES, SITE, wineUrl } = require('./data/wines');
 const { renderProductPage, renderDomainPage, winesDataJs } = require('./lib/product-page');
 const { renderCatalogue } = require('./lib/catalogue');
 const { renderParis } = require('./lib/paris-page');
+const { merchantFeedXml } = require('./lib/merchant-feed');
 const { DEGUSTATIONS, upcomingDegustations, deliveryNoteHtml } = require('./assets/js/degustations.js');
 
 const app = express();
@@ -439,6 +440,12 @@ app.get('/sitemap.xml', async (req, res) => {
   } catch (e) {
     res.status(500).send('Erreur serveur');
   }
+});
+
+// Flux produits pour Google Merchant Center (onglet Shopping), généré depuis data/wines.js.
+app.get('/merchant-feed.xml', (req, res) => {
+  res.set('X-Robots-Tag', 'noindex');
+  res.type('application/xml').send(merchantFeedXml());
 });
 
 app.get('/api/stripe-config', (req, res) => {

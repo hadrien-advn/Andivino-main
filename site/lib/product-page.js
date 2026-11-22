@@ -1,6 +1,7 @@
 // Gabarit des fiches produits (/vins/<domaine>/<cuvée>), rendu par le serveur depuis data/wines.js.
 // Une seule mise en page pour toutes les cuvées : modifier ce fichier modifie toutes les fiches.
 const { WINES, DOMAINES, STATUTS, SITE, wineUrl, cepagesTexte, prixTexte } = require('../data/wines');
+const { packshot } = require('./merchant-feed');
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 // Espaces insécables avant « % », « € », « : » dans les textes simples (déjà échappés).
@@ -55,7 +56,8 @@ function jsonLd(w, d) {
     name: w.nomComplet,
     sku: w.id,
     description: w.descriptionSchema,
-    image: [SITE + w.og, ...(w.image ? [SITE + w.image.src] : [])].filter((x, i, a) => a.indexOf(x) === i),
+    // Packshot carré sur fond blanc d'abord : c'est l'image que Google Shopping préfère.
+    image: [packshot(w), w.og, w.image && w.image.src].filter(Boolean).map((src) => SITE + src).filter((x, i, a) => a.indexOf(x) === i),
     brand: { '@type': 'Brand', name: d.nom },
     manufacturer: {
       '@type': 'Organization',
