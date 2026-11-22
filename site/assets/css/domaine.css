@@ -81,6 +81,10 @@
 .dm-texte h2{margin-top:3.2rem}
 .dm-texte h2:first-child{margin-top:0}
 .dm-texte p{font-size:.98rem}
+/* Carte d'une section (ex. le terroir de la Bodega Poesía) : dessin sur fond blanc posé en multiply sur le crème. */
+.dm-carte{margin:2.6rem 0 0;max-width:440px}
+.dm-carte img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
+.dm-carte figcaption{margin-top:.9rem;font-family:var(--fd);font-style:italic;font-size:1rem;line-height:1.4;color:var(--gris)}
 .dm-fiche{position:sticky;top:calc(var(--nav) + 2.5rem)}
 /* ombre douce sous la feuille (calque flou à part : une feuille découpée par masque ne porte pas d'ombre) */
 .dm-fiche::before{content:'';position:absolute;inset:36px 22px -4px;background:rgba(40,28,18,.24);filter:blur(24px);transform:rotate(.6deg);border-radius:12px}

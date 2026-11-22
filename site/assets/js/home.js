@@ -133,7 +133,6 @@ function createMobileMenu(){
   div.innerHTML=`<ul>
     <li><a href="#philosophie">Notre histoire</a></li>
     <li><a href="#vins">Les vins</a></li>
-    <li><a href="#bodega">La Bodega</a></li>
     <li><a href="#degustations">Dégustations</a></li>
     <li><a href="#chroniques">Chroniques</a></li>
     <li><a href="/commande" class="nav-mobile-cta">Commander</a></li>

@@ -9,6 +9,10 @@ const fine = (s) => esc(s).replace(/ (%|€|:|;|\?|!)/g, '&nbsp;$1');
 const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 const moisArrivee = (iso) => { const [y, m] = iso.split('-').map(Number); return `${MOIS[m - 1]} ${y}`; };
 const prixSchema = (cents) => (cents / 100).toFixed(2);
+// Feuille de papier froissé (visuels de la page dégustation) propre à chaque cuvée : la même sur la page
+// domaine et sur la fiche, et deux cuvées voisines dans data/wines.js n'ont jamais la même.
+const PAPIERS = ['fond-1.webp?v=2', 'fond-2.webp', 'fond-3.webp', 'fond-4.webp'];
+const papier = (w) => `--papier:url('/assets/images/papier/${PAPIERS[Math.max(0, WINES.indexOf(w)) % PAPIERS.length]}')`;
 
 function statutDe(w) {
   const s = STATUTS[w.statut];
@@ -117,7 +121,7 @@ function card(w) {
   const d = DOMAINES[w.domaine];
   const s = statutDe(w);
   return `<div class="pdp-card">
-      ${w.image ? `<img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="" loading="lazy">` : (d.logo ? `<img class="pdp-card-logo" src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" alt="" loading="lazy">` : '')}
+      ${w.image ? `<div class="pdp-card-visual" style="${papier(w)}"><img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="" loading="lazy"></div>` : (d.logo ? `<img class="pdp-card-logo" src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" alt="" loading="lazy">` : '')}
       <p class="pdp-card-dom">${esc(d.nom)}</p>
       <h3 class="pdp-card-name"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></h3>
       <p class="pdp-card-cep">${fine(cepagesTexte(w))}</p>
@@ -149,7 +153,7 @@ function footer() {
       </div>
       <p>Importateur de vins argentins d'exception. Bodega Poesía — Luján de Cuyo, Mendoza.</p>
     </div>
-    <div class="ft-col"><h4>Navigation</h4><a href="/#philosophie">Notre histoire</a><a href="/#bodega">La Bodega</a><a href="/vins-argentins">Les vins</a><a href="/degustation">Dégustations</a><a href="/chroniques">Chroniques</a></div>
+    <div class="ft-col"><h4>Navigation</h4><a href="/#philosophie">Notre histoire</a><a href="/vins-argentins">Les vins</a><a href="/degustation">Dégustations</a><a href="/chroniques">Chroniques</a></div>
     <div class="ft-col"><h4>Commander</h4>${vins}<a href="/commande">Particuliers (B2C)</a><a href="/vin-argentin-paris">Livraison à Paris</a><a href="/professionnels">Professionnels (B2B)</a><a href="/legal/cgv">Livraison &amp; CGV</a></div>
     <div class="ft-col"><h4>Contact</h4><a href="mailto:contact@andivino.fr">contact@andivino.fr</a><a href="/newsletter">Newsletter</a><p class="ft-note">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p></div>
   </div>
@@ -224,7 +228,7 @@ ${NAV}
 <article class="pdp">
   <section class="pdp-top" aria-labelledby="pdp-titre">
     ${w.image ? `<div class="pdp-media">
-      <img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" fetchpriority="high" alt="${esc(w.image.alt)}">
+      <div class="pdp-visual" style="${papier(w)}"><img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" fetchpriority="high" alt="${esc(w.image.alt)}"></div>
     </div>` : `<figure class="pdp-media pdp-media--domaine">
       <img src="${esc((d.image || d.logo).src)}" width="${(d.image || d.logo).width}" height="${(d.image || d.logo).height}" fetchpriority="high" alt="${esc((d.image || d.logo).alt)}">
       <figcaption>Photo de la bouteille à venir</figcaption>
@@ -357,15 +361,13 @@ function renderDomainPage(d) {
     });
   }
   const ld = blocs.map((o) => `<script type="application/ld+json">\n${JSON.stringify(o, null, 2).replace(/<\//g, '<\\/')}\n</script>`).join('\n');
-  // Une feuille de papier froissé par bouteille (mêmes visuels que la page dégustation).
-  const PAPIERS = ['fond-1.webp?v=2', 'fond-2.webp', 'fond-3.webp', 'fond-4.webp'];
   // Le nom du domaine est déjà en titre : « Carmelo Patti Malbec » devient « Malbec ».
   const nomCourt = (w) => (w.nom.startsWith(d.nom + ' ') ? w.nom.slice(d.nom.length + 1) : w.nom);
   const bouteille = (w, i) => {
     const s = statutDe(w);
     const notes = (w.scores || []).map((x) => `<span>${x.note}&nbsp;pts ${esc(x.source)}</span>`).join(' · ');
     return `<li class="dm-item">
-        <div class="dm-visual" style="--papier:url('/assets/images/papier/${PAPIERS[i % PAPIERS.length]}')">${w.image ? `<img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}" loading="${i < 3 ? 'eager' : 'lazy'}">` : ''}</div>
+        <div class="dm-visual" style="${papier(w)}">${w.image ? `<img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}" loading="${i < 3 ? 'eager' : 'lazy'}">` : ''}</div>
         <p class="dm-meta">${esc(w.couleur)} · garde ${fine(w.garde)}</p>
         <h3 class="dm-nm"><a href="${wineUrl(w)}">${esc(nomCourt(w))} <span>${w.millesime}</span></a></h3>
         <p class="dm-cep">${fine(cepagesTexte(w))}</p>
@@ -442,7 +444,7 @@ ${NAV}
   <section class="dm-recit" aria-label="Le domaine ${esc(d.nom)}">
     <div class="dm-recit-g dm-wrap">
       <div class="dm-texte art-body">
-        ${(d.sections || []).map((sec) => `<h2>${esc(sec.titre)}</h2>\n        ${sec.html.map((p) => `<p>${p}</p>`).join('\n        ')}`).join('\n\n        ')}
+        ${(d.sections || []).map((sec) => `<h2>${esc(sec.titre)}</h2>\n        ${sec.html.map((p) => `<p>${p}</p>`).join('\n        ')}${sec.carte ? `\n        <figure class="dm-carte"><img src="${esc(sec.carte.src)}" width="${sec.carte.width}" height="${sec.carte.height}" alt="${esc(sec.carte.alt)}" loading="lazy" decoding="async">${sec.carte.legende ? `<figcaption>${esc(sec.carte.legende)}</figcaption>` : ''}</figure>` : ''}`).join('\n\n        ')}
       </div>
       <aside class="dm-fiche" aria-labelledby="dm-fiche-t">
         ${d.logo ? `<img class="dm-seal" src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" alt="${esc(d.logo.alt)}" loading="lazy">` : ''}

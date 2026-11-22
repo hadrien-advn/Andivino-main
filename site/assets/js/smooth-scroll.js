@@ -12,7 +12,7 @@
   new MutationObserver(syncLock).observe(document.body,{attributes:true,attributeFilter:['style']});
   syncLock();
 
-  // Liens d'ancre de la page (#vins, #bodega…) : même glissé que la molette
+  // Liens d'ancre de la page (#vins, #degustations…) : même glissé que la molette
   document.addEventListener('click',e=>{
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     const a=e.target.closest('a[href^="#"]');

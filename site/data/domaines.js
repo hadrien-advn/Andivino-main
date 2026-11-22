@@ -1,6 +1,6 @@
 // Domaines importés : pages /vins/<domaine> (lib/product-page.js, renderDomainPage) et rattachement des cuvées.
 // Faits repris du catalogue Andivino 2026 et de la page d'accueil ; ne rien ajouter qui n'y figure pas.
-// Champs « html » : HTML de confiance, inséré tel quel. aVenir : cuvées annoncées dont la fiche n'existe pas encore.
+// Champs « html » : HTML de confiance, inséré tel quel. sections[].carte : image placée sous les paragraphes de la section. aVenir : cuvées annoncées dont la fiche n'existe pas encore.
 
 const DOMAINES = {
   'bodega-poesia': {
@@ -43,6 +43,7 @@ const DOMAINES = {
       },
       {
         titre: 'Le terroir',
+        carte: { src: '/assets/images/map-mendoza.webp', width: 866, height: 1000, alt: 'Carte de Mendoza : la Bodega Poesía entre Chacras de Coria et Luján de Cuyo, au pied de la cordillère des Andes', legende: 'La Bodega Poesía, au pied des Andes, entre Chacras de Coria et Luján de Cuyo' },
         html: [
           "Le Malbec et le Cabernet Sauvignon poussent sur un sol sablo-argileux posé sur un sous-sol de graves, qui assure un drainage optimal et donne de la profondeur au vin. Les vignes, plantées en 1935 en franc de pied, s'épanouissent face à l'Aconcagua et à ses neiges éternelles, entre des oliviers bicentenaires, avec les contrastes thermiques du piedmont andin."
         ]

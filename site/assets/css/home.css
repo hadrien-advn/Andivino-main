@@ -116,18 +116,6 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 
 /* ── CO-FONDATEURS ── */
 
-/* ── BODEGA ── */
-.s-bodega{padding:7.5rem 0;background:var(--cream-l)}
-.bodega-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(3rem,5.5vw,6rem);align-items:start}
-.bodega-map{position:sticky;top:6rem}
-.bodega-map img{width:100%;max-width:520px;height:auto;display:block;margin:0 auto}
-.bodega-c{max-width:48rem}
-.bodega-c h2{font-family:var(--fd);font-size:clamp(2rem,3.2vw,3.3rem);font-weight:300;color:var(--charbon);margin-bottom:.3rem}
-.bodega-loc{font-family:var(--fd);font-style:italic;font-size:1.05rem;color:var(--bdx);margin-bottom:2rem}
-.bodega-c p{font-size:.88rem;line-height:1.9;color:var(--gris);margin-bottom:1rem}
-.bodega-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;border-top:1px solid var(--cream-d);padding-top:2rem;margin-top:2rem}
-.fact .fl{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);margin-bottom:.15rem}
-.fact .fv{font-size:.85rem;color:var(--charbon);font-weight:500}
 
 /* ── VINS ── */
 .s-vins{padding:7.5rem 0;background:var(--cream-l)}
@@ -324,7 +312,7 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .nav-mobile-cta{background:var(--bdx)!important;color:var(--cream-l)!important;text-align:center;margin-top:1.5rem;padding:1rem!important;border:none!important;font-family:var(--fb)!important;font-size:.7rem!important;font-style:normal!important;letter-spacing:.15em;text-transform:uppercase}
 
 .hero h1,.philo-t h2,.vins-hd h2,.chron-hd h2,.join-in>h2{text-wrap:balance}
-.philo-t p,.sel-pillars p,.bodega-c p{text-wrap:pretty}
+.philo-t p,.sel-pillars p{text-wrap:pretty}
 .nlinks a{white-space:nowrap}
 
 /* RESPONSIVE */
@@ -339,7 +327,7 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .hero{padding:0 1.5rem calc(4rem + var(--cookie-h,0px))}
   .hero-ind{right:1.5rem}
   .si,.deg-in,.chron-in,.join-in{padding:0 1.5rem}
-  .philo-g,.bodega-g{grid-template-columns:1fr}
+  .philo-g{grid-template-columns:1fr}
   .philo-g{min-height:0}
   .philo-t{padding:4.5rem 1.5rem 3rem;max-width:none}
   .philo-img{min-height:0;aspect-ratio:3/2}
@@ -347,9 +335,7 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .sel-img{max-width:none;order:0}
   .sel-img img{aspect-ratio:4/3;object-position:56% 40%}
   .sel-pillars{max-width:none}
-  .bodega-facts{grid-template-columns:1fr 1fr}
   .carousel{height:60vh}
-  .bodega-map{position:static}
   .chron-g{grid-template-columns:1fr}
   .chron-hd{flex-direction:column;align-items:flex-start;gap:1rem}
   .deg-menu{grid-template-columns:1fr;gap:3rem}
@@ -382,7 +368,7 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .hero-ind{display:none}
 
   /* SECTIONS padding */
-  .s-bodega,.s-vins,.s-deg,.s-chron{padding:4.5rem 0}
+  .s-vins,.s-deg,.s-chron{padding:4.5rem 0}
 
   /* PHILOSOPHIE */
   .philo-t{padding:4rem 1.2rem 2.5rem}
@@ -393,7 +379,6 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .sel-pillars .pillar+.pillar{padding-top:2.2rem}
 
   /* BODEGA */
-  .bodega-facts{grid-template-columns:1fr 1fr}
 
   /* VINS */
 
@@ -444,18 +429,10 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .vins-compare a,.lall,.cuvee-nm a{position:relative}
   .vins-compare a::before,.lall::before,.cuvee-nm a::before{content:'';position:absolute;inset:-12px -4px}
 }
-@media(max-width:960px){
-  /* La Bodega : le récit d'abord, la carte ensuite (ses légendes sont illisibles en tête d'écran étroit). */
-  .bodega-g{display:flex;flex-direction:column;gap:0}
-  .bodega-map{display:contents}
-  .bodega-map .sl{order:0}
-  .bodega-c{order:1;max-width:none}
-  .bodega-map img{order:2;margin-top:3rem}
-}
 @media(max-width:600px){
   /* Texte courant lisible sans zoom : ~15 px au lieu de 13–14 px. */
   .hero-sub{font-size:.92rem}
-  .philo-t p,.sel-pillars p,.bodega-c p,.vins-note,.cuvee-desc,.deg-courses dd,.join-col p{font-size:.95rem}
+  .philo-t p,.sel-pillars p,.vins-note,.cuvee-desc,.deg-courses dd,.join-col p{font-size:.95rem}
   .sel-pillars li{font-size:.92rem}
   .cuvee-cep{font-size:.84rem}
   .cres{font-size:.86rem}
@@ -465,6 +442,4 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 }
 a.soon-nm{text-decoration:none;transition:color var(--e,.3s ease)}
 a.soon-nm:hover{color:var(--bdx)}
-.bodega-more{color:var(--bdx);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
-.bodega-more:hover{color:var(--bdx-d,var(--bdx))}
 .soon-txt a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
