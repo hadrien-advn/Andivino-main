@@ -466,4 +466,4 @@ ${footer()}
 `;
 }
 
-module.exports = { renderProductPage, renderDomainPage, winesDataJs };
+module.exports = { renderProductPage, renderDomainPage, winesDataJs, papier };

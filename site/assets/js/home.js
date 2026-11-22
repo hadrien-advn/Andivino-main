@@ -40,8 +40,8 @@ function observeFade(){
 }
 
 /* ── WINES ── */
-// Les cartes des cuvées (texte, prix, liens vers les fiches) sont écrites dans pages/home.html, pour être
-// lisibles sans JavaScript, de même que le bloc « Cuvées en importation » : ici on ne fait que brancher les boutons.
+// Le carrousel des cuvées (texte, prix, liens vers les fiches) est écrit par le serveur (lib/home-vins.js),
+// pour être lisible sans JavaScript : ici on branche les boutons « Ajouter » et les flèches du carrousel.
 function renderWines(){
   const {wines}=getData();const g=document.getElementById('vinsGrid');if(!g)return;
   g.querySelectorAll('[data-add-id]').forEach(btn=>{
@@ -52,7 +52,22 @@ function renderWines(){
       if(w)showToast(`${w.nom} ${w.millesime} ajouté au panier`);
     });
   });
+  initCarousel(g);
   observeFade();
+}
+
+// Flèches : on avance d'autant de cuvées qu'il en tient à l'écran (au moins une), et chaque flèche
+// s'éteint en bout de piste. Le défilement lui-même reste natif (doigt, trackpad, clavier).
+function initCarousel(track){
+  const root=track.closest('.vc');if(!root)return;
+  const btns=root.querySelectorAll('[data-vc]');
+  const step=()=>{const it=track.querySelector('.vc-item');if(!it)return track.clientWidth;const gap=parseFloat(getComputedStyle(track).columnGap)||0;const w=it.getBoundingClientRect().width+gap;return Math.max(1,Math.floor((track.clientWidth-gap)/w))*w;};
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sync=()=>{const max=track.scrollWidth-track.clientWidth-2;btns.forEach(b=>{b.disabled=+b.dataset.vc<0?track.scrollLeft<=2:track.scrollLeft>=max;});};
+  btns.forEach(b=>b.addEventListener('click',()=>track.scrollBy({left:+b.dataset.vc*step(),behavior:reduce?'auto':'smooth'})));
+  track.addEventListener('scroll',()=>requestAnimationFrame(sync),{passive:true});
+  window.addEventListener('resize',sync);
+  sync();
 }
 
 /* ── DÉGUSTATIONS ── */

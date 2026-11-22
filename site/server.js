@@ -11,6 +11,7 @@ const { WINES, DOMAINES, SITE, wineUrl } = require('./data/wines');
 const { renderProductPage, renderDomainPage, winesDataJs } = require('./lib/product-page');
 const { renderCatalogue } = require('./lib/catalogue');
 const { renderParis } = require('./lib/paris-page');
+const { renderHomeVins } = require('./lib/home-vins');
 const { merchantFeedXml } = require('./lib/merchant-feed');
 const { DEGUSTATIONS, upcomingDegustations, deliveryNoteHtml } = require('./assets/js/degustations.js');
 
@@ -243,7 +244,7 @@ async function getHtmlWithVersion(fileName) {
   if (fileName.startsWith('vin:')) html = renderProductPage(WINES.find((w) => w.id === fileName.slice(4)));
   else if (fileName.startsWith('domaine:')) html = renderDomainPage(DOMAINES[fileName.slice(8)]);
   else html = await fs.readFile(page(fileName), 'utf8');
-  if (fileName === 'home.html') html = renderHomeDegustations(html);
+  if (fileName === 'home.html') html = renderHomeVins(renderHomeDegustations(html));
   if (fileName === 'vins-argentins.html') html = renderCatalogue(html);
   if (fileName === 'vin-argentin-paris.html') html = renderParis(html);
   html = renderSiteDegustations(html);
