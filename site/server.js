@@ -13,6 +13,7 @@ const { renderCatalogue, renderPros } = require('./lib/catalogue');
 const { renderParis } = require('./lib/paris-page');
 const { renderHomeVins } = require('./lib/home-vins');
 const { merchantFeedXml } = require('./lib/merchant-feed');
+const { wineSearcherTxt } = require('./lib/wine-searcher-feed');
 const { DEGUSTATIONS, upcomingDegustations, deliveryNoteHtml } = require('./assets/js/degustations.js');
 
 const app = express();
@@ -464,6 +465,12 @@ app.get('/sitemap.xml', async (req, res) => {
 app.get('/merchant-feed.xml', (req, res) => {
   res.set('X-Robots-Tag', 'noindex');
   res.type('application/xml').send(merchantFeedXml());
+});
+
+// Liste de prix pour Wine-Searcher (vins achetables, un lien par fiche), générée depuis data/wines.js.
+app.get('/wine-searcher.txt', (req, res) => {
+  res.set('X-Robots-Tag', 'noindex');
+  res.type('text/plain; charset=utf-8').send(wineSearcherTxt());
 });
 
 app.get('/api/stripe-config', (req, res) => {
