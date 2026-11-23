@@ -380,12 +380,12 @@ const WINES = [
   // ── Gualtallary Wines (Tupungato, Valle de Uco) : catalogue 2026, précommande, arrivée janvier 2027 ──
   {
     id: 'altus-malbec-2026',
-    slug: 'altus-malbec-2026',
+    slug: 'altus-reserva-malbec-2026',
     domaine: 'gualtallary-wines',
-    nom: 'Altus Malbec',
+    nom: 'Altus Reserva Malbec',
     millesime: 2026,
-    nomComplet: 'Altus Malbec 2026',
-    nomStripe: 'Gualtallary Altus Malbec 2026',
+    nomComplet: 'Altus Reserva Malbec 2026',
+    nomStripe: 'Gualtallary Altus Reserva Malbec 2026',
     prix: 1500,
     statut: 'a-venir',
     arrivee: '2027-01-04',
@@ -395,13 +395,13 @@ const WINES = [
     elevage: '6 mois',
     garde: '5 ans',
     scores: [],
-    image: { src: '/assets/images/bout-altus-malbec-2026.webp', width: 225, height: 900, alt: 'Bouteille de Gualtallary Altus Malbec, vin argentin de la Valle de Uco' },
+    image: { src: '/assets/images/bout-altus-malbec-2026.webp', width: 225, height: 900, alt: 'Bouteille de Gualtallary Altus Reserva Malbec 2026, vin argentin de la Valle de Uco' },
     og: '/assets/images/og/altus-malbec-2026.jpg',
     maj: '2026-11-23',
     seo: {
-      title: 'Altus Malbec 2026, Malbec d\'altitude de Gualtallary | Andivino',
-      description: 'Altus Malbec 2026 de Gualtallary Wines : 100 % Malbec né à 1500 m dans la Valle de Uco (Mendoza), 6 mois en fût de chêne. Cerise, prune, poivre. 15 €.',
-      ogTitle: 'Altus Malbec 2026 — Gualtallary, Valle de Uco | Andivino',
+      title: 'Altus Reserva Malbec 2026, Malbec de Gualtallary | Andivino',
+      description: 'Altus Reserva Malbec 2026 de Gualtallary Wines : 100 % Malbec né à 1500 m dans la Valle de Uco (Mendoza), 6 mois en fût de chêne. Cerise, prune, poivre. 15 €.',
+      ogTitle: 'Altus Reserva Malbec 2026 — Gualtallary, Valle de Uco | Andivino',
       ogDescription: 'Un Malbec de haute altitude, né à 1500 mètres au pied des Andes.'
     },
     resume: "Un Malbec de haute altitude : cerise, prune et framboise, des épices douces et du poivre, une bouche souple et fraîche.",
@@ -413,7 +413,7 @@ const WINES = [
       ['Élevage', '6 mois en fût de chêne'],
       ['Garde', '5 ans']
     ],
-    leadHtml: "<strong>Altus Malbec 2026</strong> est un Malbec argentin de Gualtallary Wines, à Tupungato (Valle de Uco, Mendoza)&nbsp;: 100&nbsp;% Malbec né à 1500 mètres d'altitude sur des sols alluviaux calcaires, élevé 6 mois en fût de chêne. Il se garde 5 ans. 15&nbsp;€ la bouteille, en précommande pour une arrivée en janvier 2027.",
+    leadHtml: "<strong>Altus Reserva Malbec 2026</strong> est un Malbec argentin de Gualtallary Wines, à Tupungato (Valle de Uco, Mendoza)&nbsp;: 100&nbsp;% Malbec né à 1500 mètres d'altitude sur des sols alluviaux calcaires, élevé 6 mois en fût de chêne. Il se garde 5 ans. 15&nbsp;€ la bouteille, en précommande pour une arrivée en janvier 2027.",
     notesHtml: "Ce Malbec de Gualtallary s'exprime avec éclat et gourmandise à travers une robe rouge intense aux reflets pourpres. Le nez, intense et fruité, mêle fruits rouges et noirs frais (cerise, prune, framboise) à de délicates touches d'épices douces et de poivre, reflet de la pureté du fruit d'altitude. La bouche offre un bon volume, une texture souple et une fraîcheur vive. Le fruit, juteux et éclatant, s'appuie sur des tanins aimables et fondus, avant une finale harmonieuse et équilibrée. Un Malbec de haute altitude, sincère et généreux, né à 1500 mètres au pied des Andes, à Gualtallary, au cœur de la vallée de l'Uco.",
     fiche: [
       ['Origine', 'Gualtallary Wines, Tupungato, Valle de Uco – Mendoza, Argentine', true],
@@ -425,7 +425,7 @@ const WINES = [
       ['Vinification', "Macarena Giménez, avec les conseils d'Alberto Antonini", true]
     ],
     terroirHtml: [
-      "Des trois vins de Gualtallary Wines que nous importons, l'Altus Malbec 2026 est le seul rouge&nbsp;: né à 1500 mètres, un peu plus bas que le Torrontés et le Gran Chardonnay (1600 mètres), élevé 6 mois en fût de chêne, il se garde 5 ans.",
+      "Des trois vins de Gualtallary Wines que nous importons, l'Altus Reserva Malbec 2026 est le seul rouge&nbsp;: né à 1500 mètres, un peu plus bas que le Torrontés et le Gran Chardonnay (1600 mètres), élevé 6 mois en fût de chêne, il se garde 5 ans.",
       "Gualtallary, dans la Valle de Uco, est l'un des secteurs les plus prisés de Mendoza. L'altitude et les sols alluviaux, à forte teneur en carbonate de calcium, y donnent des vins tendus et salins, à l'acidité franche&nbsp;: un Malbec plus frais que le Malbec solaire auquel l'Argentine est souvent réduite.",
       "La vinification est signée Macarena Giménez, avec les conseils d'Alberto Antonini. Pour aller plus loin&nbsp;:"
     ],

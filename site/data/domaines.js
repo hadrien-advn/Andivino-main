@@ -130,7 +130,7 @@ const DOMAINES = {
       description: 'Gualtallary Wines, à Tupungato (Valle de Uco, Mendoza) : vignes de 1250 à 1600 m sur sols alluviaux calcaires, conseil Alberto Antonini. Torrontés, Malbec, Chardonnay.'
     },
     accroche: 'Vins d\'altitude, tendus et salins',
-    leadHtml: "<strong>Gualtallary Wines</strong> est un domaine de Tupungato, dans la Valle de Uco (Mendoza), dont les vignes s'étagent entre 1250 et 1600 mètres d'altitude. Ses vins, tendus et salins, sont vinifiés par Macarena Giménez avec les conseils d'Alberto Antonini. Andivino importe en exclusivité en France trois de ses vins&nbsp;: Altus Torrontés 2026, Altus Malbec 2026 et Gran Chardonnay 2024.",
+    leadHtml: "<strong>Gualtallary Wines</strong> est un domaine de Tupungato, dans la Valle de Uco (Mendoza), dont les vignes s'étagent entre 1250 et 1600 mètres d'altitude. Ses vins, tendus et salins, sont vinifiés par Macarena Giménez avec les conseils d'Alberto Antonini. Andivino importe en exclusivité en France trois de ses vins&nbsp;: Altus Torrontés 2026, Altus Reserva Malbec 2026 et Gran Chardonnay 2024.",
     image: { src: '/assets/images/banque/entree-gualtallary-wines-volcan-tupungato.webp', width: 2000, height: 1333, alt: "Panneau Gualtallary Wines à l'entrée du domaine, sommet enneigé des Andes au fond" },
     logo: { src: '/assets/images/logo-gualtallary.webp', width: 363, height: 320, alt: 'Logo de Gualtallary Wines' },
     galerie: [
@@ -170,7 +170,7 @@ const DOMAINES = {
     ],
     aVenir: [
       { nom: 'Altus Torrontés', millesime: 2026, cepages: '100 % Torrontés', prix: 1500 },
-      { nom: 'Altus Malbec', millesime: 2026, cepages: '100 % Malbec', prix: 1500 },
+      { nom: 'Altus Reserva Malbec', millesime: 2026, cepages: '100 % Malbec', prix: 1500 },
       { nom: 'Gran Chardonnay', millesime: 2024, cepages: '100 % Chardonnay', prix: 2400 }
     ]
   }

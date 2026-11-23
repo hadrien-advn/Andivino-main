@@ -75,6 +75,8 @@ const LEGACY_REDIRECTS = {
   '/products/mendoza/lujan-de-cuyo/poesia-2014': '/vins/bodega-poesia/poesia-2014',
   '/products/mendoza/lujan-de-cuyo/cuvee-helene-2016': '/vins/bodega-poesia/cuvee-helene-2016',
   '/products/mendoza/lujan-de-cuyo/clos-des-andes-2017': '/vins/bodega-poesia/clos-des-andes-2017',
+  // Altus Malbec renommé Altus Reserva Malbec (nom de l'étiquette, 23/11/2026).
+  '/vins/gualtallary-wines/altus-malbec-2026': '/vins/gualtallary-wines/altus-reserva-malbec-2026',
   '/chroniques/mendoza-terroir-andin': '/chroniques/malbec-argentin-histoire-terroirs',
   '/chroniques/malbec-cabernet-assemblage-argentin': '/chroniques/malbec-argentin-histoire-terroirs',
   '/chroniques/vendanges-bodega-poesia-recit': '/chroniques'
