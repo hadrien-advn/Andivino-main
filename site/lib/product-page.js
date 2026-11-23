@@ -102,9 +102,21 @@ function jsonLd(w, d) {
     '@type': 'BreadcrumbList',
     itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.item }))
   };
+  // La page qui porte le produit, avec sa date de mise à jour (Product n'a pas de dateModified).
+  const page = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: w.seo.title,
+    inLanguage: 'fr-FR',
+    isPartOf: { '@id': `${SITE}/#website` },
+    mainEntity: { '@id': `${url}#product` },
+    ...(w.maj ? { dateModified: w.maj } : {})
+  };
   // « </ » ne doit jamais apparaître dans un <script>.
   const out = (o) => JSON.stringify(o, null, 2).replace(/<\//g, '<\\/');
-  return `<script type="application/ld+json">\n${out(product)}\n</script>\n<script type="application/ld+json">\n${out(breadcrumb)}\n</script>`;
+  return [product, page, breadcrumb].map((o) => `<script type="application/ld+json">\n${out(o)}\n</script>`).join('\n');
 }
 
 function buyBlock(w, s) {
@@ -346,7 +358,18 @@ function renderDomainPage(d) {
       { '@type': 'ListItem', position: 3, name: d.nom, item: url }
     ]
   };
-  const blocs = [winery, breadcrumb];
+  const page = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: d.seo.title,
+    inLanguage: 'fr-FR',
+    isPartOf: { '@id': `${SITE}/#website` },
+    about: { '@id': d.schemaId },
+    ...(d.maj ? { dateModified: d.maj } : {})
+  };
+  const blocs = [winery, page, breadcrumb];
   if (vins.length) {
     blocs.push({
       '@context': 'https://schema.org',
