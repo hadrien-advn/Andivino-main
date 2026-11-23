@@ -1,0 +1,99 @@
+/* Catalogue /vins-argentins (lib/catalogue.js → chapitres). Charge après chronicles.css (jetons, nav, pied).
+   La cave, domaine par domaine : un chapitre par bandeau crème alterné, l'emblème et le nom du domaine en tête,
+   puis ses bouteilles posées chacune sur sa feuille de papier froissé (la même que sur sa fiche). */
+.ct{--gut:4rem;--nav:74px}
+.ct ::selection{background:rgba(110,24,40,.16);color:var(--charbon)}
+.ct a:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
+.ct-wrap{max-width:calc(1160px + 2 * var(--gut));margin:0 auto;padding-left:var(--gut);padding-right:var(--gut)}
+
+/* ── En-tête : le titre en grand, le lieu derrière un filet d'or, une phrase ── */
+.ct-hero{padding-top:calc(var(--nav) + 2.2rem);padding-bottom:3.2rem}
+.ct-crumb{max-width:none;margin:0 0 2.6rem;padding:0}
+.ct-hero-g{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:2.5rem 5.5rem;align-items:end}
+.ct-title{font-family:var(--fd);font-weight:300;font-size:clamp(3.2rem,7.4vw,6rem);line-height:.98;letter-spacing:-.018em;color:var(--charbon);text-wrap:balance}
+.ct-lieu{display:flex;align-items:center;gap:.9rem;margin-top:1.5rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris)}
+.ct-lieu::before{content:'';width:28px;height:1px;background:var(--or);flex:none}
+.ct-lead{max-width:34rem;font-size:.98rem;line-height:1.85;color:var(--gris);text-wrap:pretty}
+
+/* ── Un chapitre par domaine ── */
+.ct-dom{padding:4.2rem 0 5.5rem;background:var(--cream-l)}
+.ct-dom--alt{background:var(--cream)}
+.ct-dom-hd{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,22rem);align-items:center;gap:1.4rem 2.6rem;padding-bottom:2.6rem;border-bottom:1px solid var(--cream-d)}
+.ct-dom--alt .ct-dom-hd{border-bottom-color:rgba(101,93,84,.18)}
+.ct-emb{display:block;width:auto;height:92px;max-width:110px;object-fit:contain}
+.ct-dom-nm{font-family:var(--fd);font-weight:300;font-size:clamp(2.2rem,4.2vw,3.4rem);line-height:1.02;letter-spacing:-.01em;color:var(--charbon);text-wrap:balance}
+.ct-dom-nm a{color:inherit;text-decoration:none;transition:color var(--e)}
+.ct-dom-nm a:hover{color:var(--bdx)}
+.ct-dom-lieu{margin-top:.7rem;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.ct-dom-side{display:flex;flex-direction:column;align-items:flex-start;gap:.7rem}
+.ct-dom-acc{font-family:var(--fd);font-style:italic;font-size:1.3rem;line-height:1.3;color:var(--charbon);text-wrap:balance}
+.ct-dom-note{font-size:.84rem;line-height:1.6;color:var(--gris);text-wrap:pretty}
+.ct-dom-note a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.ct-dom-more{display:inline-flex;align-items:center;gap:.6rem;min-height:44px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);text-decoration:none}
+.ct-dom-more svg{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.ct-dom-more:hover svg{transform:translateX(4px)}
+
+/* ── L'étagère : la feuille est une image transparente (plis seuls), l'ombre de contact pose la bouteille ── */
+.ct-shelf{--h:350px;--floor:1.5rem;list-style:none;margin:3rem 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(1.5rem,3.5vw,3.5rem)}
+.ct-item{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.ct-item::before{content:'';position:absolute;z-index:1;left:50%;top:calc(var(--h) - var(--floor) - 7px);width:min(44%,100px);height:14px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,28,18,.42),rgba(40,28,18,0));filter:blur(1.5px);pointer-events:none}
+.ct-visual{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:236px;height:var(--h);padding:3.4rem 0 var(--floor);margin-bottom:1.7rem}
+.ct-visual::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/feuille-1.webp')) center/100% 100% no-repeat;pointer-events:none}
+.ct-visual img{position:relative;z-index:2;height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17));transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ct-item:hover .ct-visual img{transform:translateY(-6px)}
+.ct-nm{font-family:var(--fd);font-weight:300;font-style:italic;font-size:1.7rem;line-height:1.1;color:var(--charbon);text-wrap:balance}
+.ct-nm a{color:inherit;text-decoration:none;transition:color var(--e)}
+.ct-nm a:hover{color:var(--bdx)}
+.ct-nm span{font-style:normal;font-size:1.2rem;color:var(--gris)}
+.ct-cep{margin-top:.4rem;font-size:.82rem;line-height:1.5;color:var(--gris)}
+.ct-flag{margin-top:.45rem;font-family:var(--fd);font-style:italic;font-size:1rem;line-height:1.3;color:var(--bdx)}
+.ct-flag:empty{display:none}
+.ct-buy{display:flex;align-items:center;justify-content:center;gap:1.1rem;margin-top:1.1rem}
+.ct-px{font-family:var(--fd);font-size:1.6rem;line-height:1;color:var(--charbon);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+.ct-add{display:inline-flex;align-items:center;min-height:44px;padding:0 1.2rem;border:1px solid rgba(110,24,40,.4);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bdx);text-decoration:none;white-space:nowrap;transition:background var(--e),color var(--e),border-color var(--e)}
+.ct-add:hover{background:var(--bdx);border-color:var(--bdx);color:var(--cream-l)}
+/* Lignes partagées : nom, cépages, mention et prix tombent à la même hauteur d'une bouteille à l'autre. */
+@media(min-width:601px){
+  @supports (grid-template-rows:subgrid){
+    .ct-item{display:grid;grid-row:span 5;grid-template-rows:subgrid;justify-items:center;row-gap:0}
+    .ct-item>*{align-self:start}
+    .ct-flag:empty{display:block}
+    .ct-buy{align-self:end}
+  }
+}
+
+/* ── Une ligne pratique pour finir ── */
+.ct-info{padding-top:3.6rem;padding-bottom:5rem;text-align:center}
+.ct-info p{max-width:60ch;margin:0 auto;font-size:.86rem;line-height:1.8;color:var(--gris);text-wrap:pretty}
+.ct-info p+p{margin-top:.3rem}
+.ct-info a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
+
+@media(max-width:960px){
+  .ct{--gut:1.5rem}
+  .ct-hero-g{grid-template-columns:1fr;gap:1.6rem}
+  .ct-dom-hd{grid-template-columns:auto minmax(0,1fr)}
+  .ct-dom-side{grid-column:1 / -1}
+  .ct-shelf{--h:300px}
+}
+@media(max-width:600px){
+  .ct{--gut:1.2rem}
+  .ct-hero{padding-top:calc(var(--nav) + 1.4rem);padding-bottom:3rem}
+  .ct-crumb{margin-bottom:1.8rem}
+  .ct-title{font-size:clamp(2.7rem,12vw,3.4rem)}
+  .ct-dom{padding:3.6rem 0 4rem}
+  .ct-dom-hd{gap:1rem 1.2rem;padding-bottom:1.8rem}
+  .ct-emb{height:64px;max-width:76px}
+  .ct-dom-acc{font-size:1.15rem}
+  /* une bouteille par ligne : la feuille à gauche, l'étiquette à droite */
+  .ct-shelf{--h:230px;--floor:1rem;grid-template-columns:1fr;row-gap:1.8rem;margin-top:1.8rem}
+  .ct-item{display:grid;grid-template-columns:132px minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1fr;column-gap:1.3rem;align-items:start;justify-items:start;text-align:left}
+  .ct-item::before{left:66px;width:56px}
+  .ct-visual{grid-row:1 / -1;max-width:132px;padding-top:2.2rem;margin:0}
+  .ct-nm{grid-row:2}.ct-cep{grid-row:3}.ct-flag{grid-row:4}.ct-buy{grid-row:5}
+  .ct-item>:not(.ct-visual){grid-column:2}
+  .ct-nm{font-size:1.45rem}
+  .ct-buy{justify-content:flex-start;flex-wrap:wrap;gap:.6rem 1rem;margin-top:.8rem;align-self:start}
+  .ct-px{font-size:1.45rem}
+  .ct-info{padding-top:2.8rem;padding-bottom:4rem}
+}
+@media(prefers-reduced-motion:reduce){.ct *{transition:none!important}}
