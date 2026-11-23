@@ -183,7 +183,7 @@ function createMobileMenu(){
     <li><a href="#vins">Les vins</a></li>
     <li><a href="#degustations">Dégustations</a></li>
     <li><a href="#chroniques">Chroniques</a></li>
-    <li><a href="/commande" class="nav-mobile-cta">Commander</a></li>
+    <li><a href="/vins-argentins" class="nav-mobile-cta" data-commander>Commander</a></li>
   </ul>`;
   document.body.appendChild(div);
   navMobile=div;

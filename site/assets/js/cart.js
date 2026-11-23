@@ -132,7 +132,19 @@
     volet.querySelector('.cd-total strong').textContent = euros(total);
     if (badge) { badge.textContent = n; badge.classList.toggle('on', n > 0); }
     bouton.setAttribute('aria-label', n ? 'Voir le panier, ' + n + (n > 1 ? ' bouteilles' : ' bouteille') : 'Voir le panier, vide');
+    commander();
   }
+
+  // Boutons « Commander » (data-commander) : panier vide, la page des vins ; panier rempli, le paiement.
+  function cible() { return nombre() > 0 ? '/commande' : '/vins-argentins'; }
+  function commander() {
+    document.querySelectorAll('a[data-commander]').forEach(function (a) { a.setAttribute('href', cible()); });
+  }
+  // Recalculé au clic aussi : le menu mobile de l'accueil crée son lien après coup.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-commander]');
+    if (a) a.setAttribute('href', cible());
+  }, true);
 
   function focusables() {
     return Array.prototype.filter.call(panneau.querySelectorAll('a[href],button:not([disabled])'), function (el) { return el.offsetParent !== null && el.tabIndex !== -1; });
