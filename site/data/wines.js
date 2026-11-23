@@ -214,7 +214,7 @@ const WINES = [
     nomComplet: 'Carmelo Patti Malbec 2019',
     nomStripe: 'Carmelo Patti Malbec 2019',
     prix: 3200,
-    statut: 'precommande',
+    statut: 'a-venir',
     arrivee: '2027-01-04',
     couleur: 'Rouge',
     format: '75 cl',
@@ -272,7 +272,7 @@ const WINES = [
     nomComplet: 'Carmelo Patti Cabernet Sauvignon 2018',
     nomStripe: 'Carmelo Patti Cabernet Sauvignon 2018',
     prix: 3400,
-    statut: 'precommande',
+    statut: 'a-venir',
     arrivee: '2027-01-04',
     couleur: 'Rouge',
     format: '75 cl',
@@ -329,7 +329,7 @@ const WINES = [
     nomComplet: 'Carmelo Patti Cabernet Franc 2021',
     nomStripe: 'Carmelo Patti Cabernet Franc 2021',
     prix: 3200,
-    statut: 'precommande',
+    statut: 'a-venir',
     arrivee: '2027-01-04',
     couleur: 'Rouge',
     format: '75 cl',
@@ -384,7 +384,7 @@ const WINES = [
     nomComplet: 'Altus Malbec 2026',
     nomStripe: 'Gualtallary Altus Malbec 2026',
     prix: 1500,
-    statut: 'precommande',
+    statut: 'a-venir',
     arrivee: '2027-01-04',
     couleur: 'Rouge',
     format: '75 cl',
@@ -436,7 +436,7 @@ const WINES = [
     nomComplet: 'Gran Chardonnay 2024',
     nomStripe: 'Gualtallary Gran Chardonnay 2024',
     prix: 2400,
-    statut: 'precommande',
+    statut: 'a-venir',
     arrivee: '2027-01-04',
     couleur: 'Blanc',
     format: '75 cl',
@@ -491,7 +491,7 @@ const WINES = [
     nomComplet: 'Altus Torrontés 2026',
     nomStripe: 'Gualtallary Altus Torrontes 2026',
     prix: 1500,
-    statut: 'precommande',
+    statut: 'a-venir',
     arrivee: '2027-01-04',
     couleur: 'Blanc',
     format: '75 cl',
@@ -544,7 +544,9 @@ const STATUTS = {
   'en-stock': { label: 'En stock', schema: 'https://schema.org/InStock', cta: 'Commander', achetable: true },
   'bientot-epuise': { label: 'Bientôt épuisé', schema: 'https://schema.org/LimitedAvailability', cta: 'Commander', achetable: true },
   precommande: { label: 'Précommande', schema: 'https://schema.org/PreOrder', cta: 'Précommander', achetable: true },
-  epuise: { label: 'Épuisé', schema: 'https://schema.org/OutOfStock', cta: null, achetable: false }
+  epuise: { label: 'Épuisé', schema: 'https://schema.org/OutOfStock', cta: null, achetable: false },
+  // Annoncée, pas encore en vente (novembre 2026 : pas de précommande hors Poesía, la livraison à l'arrivée étant trop compliquée).
+  'a-venir': { label: 'Bientôt disponible', schema: 'https://schema.org/OutOfStock', cta: null, achetable: false }
 };
 
 const SITE = 'https://andivino.fr';
@@ -561,7 +563,7 @@ for (const w of WINES) {
   }
   if (!DOMAINES[w.domaine]) throw new Error(`data/wines.js : domaine inconnu « ${w.domaine} » pour ${w.id}`);
   if (!STATUTS[w.statut]) throw new Error(`data/wines.js : statut inconnu « ${w.statut} » pour ${w.id}`);
-  if (w.statut === 'precommande' && !/^\d{4}-\d{2}-\d{2}$/.test(w.arrivee || '')) throw new Error(`data/wines.js : ${w.id} en précommande sans date d'arrivée (arrivee: 'AAAA-MM-JJ')`);
+  if ((w.statut === 'precommande' || w.statut === 'a-venir') && !/^\d{4}-\d{2}-\d{2}$/.test(w.arrivee || '')) throw new Error(`data/wines.js : ${w.id} (${w.statut}) sans date d'arrivée (arrivee: 'AAAA-MM-JJ')`);
   if (!Number.isInteger(w.prix) || w.prix <= 0) throw new Error(`data/wines.js : prix invalide pour ${w.id} (en centimes)`);
 }
 if (new Set(WINES.map((w) => w.id)).size !== WINES.length) throw new Error('data/wines.js : id en double');

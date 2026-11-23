@@ -12,6 +12,7 @@ const cepCourt = (w) => (w.cepages.length > 1 ? w.cepages.map((c) => c.nom.split
 
 function flag(w) {
   if (w.statut === 'precommande') return `Précommande · ${moisArrivee(w.arrivee)}`;
+  if (w.statut === 'a-venir') return `Arrivée prévue · ${moisArrivee(w.arrivee)}`;
   if (w.statut === 'bientot-epuise' || w.statut === 'epuise') return STATUTS[w.statut].label;
   return '';
 }
@@ -36,7 +37,9 @@ function presentation(w) {
   const fin = [w.elevage && `Élevage ${w.elevage.charAt(0).toLowerCase()}${w.elevage.slice(1)}`, w.garde && `garde ${w.garde}`].filter(Boolean).join(', ');
   if (fin) bits.push(`${fin.charAt(0).toUpperCase()}${fin.slice(1)}.`);
   if ((w.scores || []).length) bits.push(`${w.scores.map((s) => `${s.note} points ${s.source}`).join(', ')}.`);
-  bits.push(w.statut === 'precommande' ? `${prixTexte(w.prix)}, en précommande pour une arrivée en ${moisArrivee(w.arrivee)}.` : `${prixTexte(w.prix)} la bouteille.`);
+  bits.push(w.statut === 'precommande' ? `${prixTexte(w.prix)}, en précommande pour une arrivée en ${moisArrivee(w.arrivee)}.`
+    : w.statut === 'a-venir' ? `${prixTexte(w.prix)} la bouteille, en vente à son arrivée en France, prévue en ${moisArrivee(w.arrivee)}.`
+    : `${prixTexte(w.prix)} la bouteille.`);
   return `<h3><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></h3>\n  <p>${fine(bits.filter(Boolean).join(' '))}</p>`;
 }
 

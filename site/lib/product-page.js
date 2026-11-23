@@ -16,7 +16,8 @@ const papier = (w) => `--papier:url('/assets/images/papier/${PAPIERS[Math.max(0,
 
 function statutDe(w) {
   const s = STATUTS[w.statut];
-  const label = w.statut === 'precommande' ? `Précommande · arrivée prévue en ${moisArrivee(w.arrivee)}` : s.label;
+  const label = w.statut === 'precommande' ? `Précommande · arrivée prévue en ${moisArrivee(w.arrivee)}`
+    : w.statut === 'a-venir' ? `Arrivée prévue en ${moisArrivee(w.arrivee)}` : s.label;
   return { ...s, label };
 }
 
@@ -102,6 +103,10 @@ function jsonLd(w, d) {
 }
 
 function buyBlock(w, s) {
+  if (w.statut === 'a-venir') {
+    return `<p class="pdp-out">Cette cuvée arrive en France en ${moisArrivee(w.arrivee)}. Elle n'est pas encore en vente&nbsp;: elle le sera à son arrivée.</p>
+      <a href="/newsletter" class="pdp-cta pdp-cta--alt">Être prévenu de sa mise en vente</a>`;
+  }
   if (!s.achetable) {
     return `<p class="pdp-out">Cette cuvée est épuisée pour le moment.</p>
       <a href="/newsletter" class="pdp-cta pdp-cta--alt">Être prévenu de son retour</a>`;
@@ -170,7 +175,7 @@ function renderProductPage(w) {
   const url = SITE + wineUrl(w);
   const lieu = `${d.appellation}, ${d.region}`;
   const sub = [`Vin ${w.couleur.toLowerCase()}`, cepagesTexte(w), w.format].filter(Boolean).join(' · ');
-  const statusClass = { 'en-stock': 'ok', 'bientot-epuise': 'low', precommande: 'pre', epuise: 'out' }[w.statut];
+  const statusClass = { 'en-stock': 'ok', 'bientot-epuise': 'low', precommande: 'pre', 'a-venir': 'pre', epuise: 'out' }[w.statut];
   const degust = (txt) => txt
     .replace('{degustation:e}', (d.degustationHtml || '').replace(/^servi /, 'servie '))
     .replace('{degustation}', d.degustationHtml || '');
@@ -233,11 +238,11 @@ ${NAV}
         <p class="pdp-status pdp-status--${statusClass}">${esc(s.label)}</p>
       </div>
       ${buyBlock(w, s)}
-      <ul class="pdp-reassure">
+${s.achetable ? `      <ul class="pdp-reassure">
         ${preorderNote}
         ${w.statut === 'precommande' ? `<li><strong>Livraison et retours</strong> Remise en main propre à <a href="/vin-argentin-paris">Paris et petite couronne</a>, ou expédition en France métropolitaine, dès l'arrivée des bouteilles. Retour possible sous 14 jours après la remise (bouteilles non ouvertes).</li>` : `<li><strong>Livraison et retours</strong> <span data-delivery-note>Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a>. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</span></li>`}
         <li><strong>Paiement sécurisé</strong> Par Stripe, confirmation immédiate par email.</li>
-      </ul>
+      </ul>` : ''}
       <dl class="pdp-facts" aria-label="Fiche technique">
         ${w.fiche.map(([k, v, wide]) => `<div${wide ? ' class="wide"' : ''}><dt>${esc(k)}</dt><dd>${fine(v)}</dd></div>`).join('\n        ')}
       </dl>

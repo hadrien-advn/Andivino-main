@@ -11,7 +11,7 @@ const xml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 const prix = (cents) => `${(cents / 100).toFixed(2)} EUR`;
 
 // statut du site → valeur Merchant Center
-const DISPO = { 'en-stock': 'in_stock', 'bientot-epuise': 'in_stock', precommande: 'preorder', epuise: 'out_of_stock' };
+const DISPO = { 'en-stock': 'in_stock', 'bientot-epuise': 'in_stock', precommande: 'preorder', epuise: 'out_of_stock', 'a-venir': 'out_of_stock' };
 const ZONES = ['75*', '92*', '93*', '94*'];
 const ASSETS = path.join(__dirname, '..', 'assets');
 
@@ -62,7 +62,7 @@ function merchantFeedXml() {
     <title>Andivino – vins argentins</title>
     <link>${SITE}/</link>
     <description>Cuvées importées d'Argentine par Andivino</description>
-${WINES.map(item).join('\n')}
+${WINES.filter((w) => w.statut !== 'a-venir').map(item).join('\n')}
   </channel>
 </rss>
 `;

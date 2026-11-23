@@ -67,8 +67,18 @@ function renderProducts(){
     history.replaceState(null,'',location.pathname);
   }
   const list=document.getElementById('prodList');if(!list)return;
-  // Les cuvées déjà choisies (depuis une fiche vin, par exemple) passent en tête.
-  const ordered=wines.slice().sort((a,b)=>(QTY[b.id]>0)-(QTY[a.id]>0));
+  // Une cuvée retirée de la vente (ou inconnue) ne reste pas dans le panier.
+  const vendues=getCart().filter(ci=>wines.some(w=>w.id===ci.id));
+  if(vendues.length!==getCart().length){saveCart(vendues);Object.keys(QTY).forEach(id=>{if(!vendues.some(ci=>ci.id===id))delete QTY[id];});}
+  // Seules les cuvées du panier sont affichées, dans l'ordre où elles y ont été mises. Une ligne ramenée
+  // à 0 reste visible jusqu'au prochain chargement, pour pouvoir la remonter.
+  const ordered=vendues.map(ci=>wines.find(w=>w.id===ci.id));
+  const autres='<a class="prod-more" href="/vins-argentins">'+(ordered.length?'Ajouter une autre cuvée':'Choisir nos vins')+'<span aria-hidden="true"> →</span></a>';
+  if(!ordered.length){
+    list.innerHTML='<div class="prod-empty"><p>Votre panier est vide.</p>'+autres+'</div>';
+    updateCart();
+    return;
+  }
   list.innerHTML=ordered.map(w=>{
     const p=calcPrix(w);const hr=w.reduction>0;const qty=QTY[w.id]||0;
     return `<div class="prod-item${qty>0?' is-chosen':''}" id="pi-${w.id}">
@@ -93,7 +103,7 @@ function renderProducts(){
         </div>
       </div>
     </div>`;
-  }).join('');
+  }).join('')+autres;
   list.querySelectorAll('.qty-btn').forEach(btn=>{
     btn.addEventListener('click',()=>changeQty(btn.dataset.wineId, parseInt(btn.dataset.delta,10)));
   });

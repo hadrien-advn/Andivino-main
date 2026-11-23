@@ -16,6 +16,7 @@ function item(w, i) {
   // Le domaine est écrit au-dessus : « Carmelo Patti Malbec » devient « Malbec ».
   const nom = w.nom.startsWith(d.nom + ' ') ? w.nom.slice(d.nom.length + 1) : w.nom;
   const flag = w.statut === 'precommande' ? `Précommande · ${moisArrivee(w.arrivee)}`
+    : w.statut === 'a-venir' ? `Arrivée prévue · ${moisArrivee(w.arrivee)}`
     : (w.statut === 'bientot-epuise' || w.statut === 'epuise') ? s.label : '';
   const img = w.image
     ? `<img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async">`

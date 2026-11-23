@@ -48,7 +48,7 @@
 .dm-px{margin-top:.9rem;font-family:var(--fd);font-size:1.65rem;line-height:1;color:var(--charbon);font-variant-numeric:tabular-nums lining-nums}
 .dm-flag{display:flex;align-items:flex-start;justify-content:center;gap:.5rem;margin-top:.6rem;line-height:1.5;font-family:var(--fb);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bdx)}
 .dm-flag::before{content:'';width:7px;height:7px;margin-top:.42em;border-radius:50%;background:var(--bdx);flex:none}
-.dm-flag--precommande::before{background:transparent;border:1.5px solid var(--bdx)}
+.dm-flag--precommande::before,.dm-flag--a-venir::before{background:transparent;border:1.5px solid var(--bdx)}
 .dm-flag--epuise{color:var(--gris)}
 .dm-flag--epuise::before{background:var(--gris-l)}
 /* Lignes partagées : domaine, nom, cépage, notes et prix tombent à la même hauteur d'une bouteille à l'autre. */
