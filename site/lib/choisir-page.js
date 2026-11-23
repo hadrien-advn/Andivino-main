@@ -5,7 +5,8 @@
 //   {prixbrut:<id>}            prix pour le JSON-LD (22 €)
 //   {arrivee:<id>}             mois d'arrivée d'une cuvée à venir (janvier 2027)
 //   {dispo:<id>}               disponibilité en toutes lettres, qui suit le statut (« attendu en janvier 2027 », « disponible »…)
-// Ces jetons servent aussi dans d'autres chroniques (torrontés), via renderChoisir.
+//   <!--garde:tableau-->       tableau de garde de toutes les cuvées (élevage, garde, « à boire jusqu'en » = millésime + garde)
+// Ces jetons servent aussi dans d'autres chroniques (torrontés, garde), via renderChoisir.
 // Le texte, lui, est daté : il présente les trois Poesía comme disponibles pour Noël 2026 et les six autres
 // comme attendues en janvier. À relire quand les statuts changent.
 const { WINES, DOMAINES, STATUTS, wineUrl, cepagesTexte, prixTexte } = require('../data/wines');
@@ -62,9 +63,34 @@ ${lignes.join('\n')}
 </div>`;
 }
 
+function tableauGarde() {
+  const ans = (w) => parseInt(String(w.garde), 10) || 0;
+  const lignes = [...WINES]
+    .sort((a, b) => ans(b) - ans(a) || b.prix - a.prix)
+    .map((w) => {
+      const jusqu = w.millesime && ans(w) ? String(w.millesime + ans(w)) : '—';
+      return `<tr><th scope="row"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></th>`
+        + `<td data-label="Domaine">${esc(DOMAINES[w.domaine].nom)}</td>`
+        + `<td data-label="Élevage">${nbsp(esc(w.elevage || '—'))}</td>`
+        + `<td data-label="Garde">${nbsp(esc(w.garde || '—'))}</td>`
+        + `<td data-label="Jusqu'en">${jusqu}</td></tr>`;
+    });
+  return `<div class="vins-table-wrap">
+<table class="vins-table" aria-label="Potentiel de garde des vins d'Andivino">
+<thead>
+<tr><th scope="col">Vin</th><th scope="col">Domaine</th><th scope="col">Élevage</th><th scope="col">Garde</th><th scope="col">À boire jusqu'en</th></tr>
+</thead>
+<tbody>
+${lignes.join('\n')}
+</tbody>
+</table>
+</div>`;
+}
+
 function renderChoisir(html) {
   return html
     .replace('<!--choisir:tableau-->', tableau())
+    .replace('<!--garde:tableau-->', tableauGarde())
     .replace(/\{prix:([a-z0-9-]+)\}/g, (_, id) => nbsp(prixTexte(vin(id).prix)))
     .replace(/\{prixbrut:([a-z0-9-]+)\}/g, (_, id) => prixTexte(vin(id).prix))
     .replace(/\{arrivee:([a-z0-9-]+)\}/g, (_, id) => moisArrivee(vin(id)))

@@ -13,7 +13,8 @@ const { DOMAINES } = require('./domaines');
 
 const LIENS_MALBEC = [
   { href: '/chroniques/malbec-argentin-histoire-terroirs', texte: "Le Malbec argentin : histoire et terroirs d'un cépage venu de Cahors" },
-  { href: '/chroniques/accords-mets-vins-malbec-argentin', texte: 'Accords mets-vins avec un Malbec argentin' }
+  { href: '/chroniques/accords-mets-vins-malbec-argentin', texte: 'Accords mets-vins avec un Malbec argentin' },
+  { href: '/chroniques/malbec-argentin-garde-vieillissement', texte: 'Le Malbec argentin se garde-t-il ? Garde et apogée' }
 ];
 
 const WINES = [
@@ -315,7 +316,7 @@ const WINES = [
     terroirHtml: [
       "Les raisins viennent de Perdriel, au cœur de Luján de Cuyo, à 960 mètres d'altitude, sur un sol sablo-argileux. Carmelo Patti les vinifie avec des levures indigènes, élève ses vins en cuve béton puis en barriques, et les met en bouteille sans collage ni filtration. Il ne les libère que lorsqu'il les juge prêts, souvent cinq ans après la récolte. Pour découvrir le domaine&nbsp;:"
     ],
-    liens: [{ href: '/vins/carmelo-patti', texte: 'Carmelo Patti, un vigneron de garde à Luján de Cuyo' }]
+    liens: [{ href: '/vins/carmelo-patti', texte: 'Carmelo Patti, un vigneron de garde à Luján de Cuyo' }, { href: '/chroniques/malbec-argentin-garde-vieillissement', texte: 'Le Malbec argentin se garde-t-il ? Garde et apogée' }]
   },
   {
     id: 'cp-cabernet-franc-2021',
@@ -369,7 +370,7 @@ const WINES = [
     terroirHtml: [
       "Les raisins viennent de Perdriel, au cœur de Luján de Cuyo, à 960 mètres d'altitude, sur un sol sablo-argileux. Carmelo Patti les vinifie avec des levures indigènes, élève ses vins en cuve béton puis en barriques, et les met en bouteille sans collage ni filtration. Il ne les libère que lorsqu'il les juge prêts. Pour découvrir le domaine&nbsp;:"
     ],
-    liens: [{ href: '/vins/carmelo-patti', texte: 'Carmelo Patti, un vigneron de garde à Luján de Cuyo' }]
+    liens: [{ href: '/vins/carmelo-patti', texte: 'Carmelo Patti, un vigneron de garde à Luján de Cuyo' }, { href: '/chroniques/malbec-argentin-garde-vieillissement', texte: 'Le Malbec argentin se garde-t-il ? Garde et apogée' }]
   },
   // ── Gualtallary Wines (Tupungato, Valle de Uco) : catalogue 2026, précommande, arrivée janvier 2027 ──
   {
