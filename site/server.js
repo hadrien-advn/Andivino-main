@@ -260,7 +260,7 @@ async function getHtmlWithVersion(fileName) {
   if (fileName === 'vins-argentins.html') html = renderCatalogue(html);
   if (fileName === 'professionnels.html') html = renderPros(html);
   if (fileName === 'vin-argentin-paris.html') html = renderParis(html);
-  if (fileName === 'chronique-choisir-vin-argentin.html') html = renderChoisir(html);
+  if (fileName === 'chronique-choisir-vin-argentin.html' || fileName === 'chronique-torrontes-vin-blanc-argentin.html') html = renderChoisir(html);
   html = renderSiteDegustations(html);
   // Panier latéral (assets/js/cart.js) sur toutes les pages qui ont le bandeau du site, sauf la page panier
   // elle-même et les retours de paiement.
@@ -428,6 +428,7 @@ app.get(['/chroniques/malbec-argentin-histoire-terroirs', '/chroniques/malbec-ar
 app.get(['/chroniques/accords-mets-vins-malbec-argentin', '/chroniques/accords-mets-vins-malbec-argentin/'], sendPage('chronique-accords-mets-vins-malbec-argentin.html'));
 app.get(['/chroniques/choisir-vin-argentin', '/chroniques/choisir-vin-argentin/'], sendPage('chronique-choisir-vin-argentin.html'));
 app.get(['/chroniques/vin-argentin-guide', '/chroniques/vin-argentin-guide/'], sendPage('chronique-vin-argentin-guide.html'));
+app.get(['/chroniques/torrontes-vin-blanc-argentin', '/chroniques/torrontes-vin-blanc-argentin/'], sendPage('chronique-torrontes-vin-blanc-argentin.html'));
 // Fiches produits : une route par cuvée de data/wines.js, même gabarit (lib/product-page.js).
 for (const w of WINES) app.get(wineUrl(w), sendPage(`vin:${w.id}`));
 // Pages domaine (data/domaines.js) ; un domaine sans page renvoie au catalogue.

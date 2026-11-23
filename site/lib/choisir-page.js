@@ -4,6 +4,8 @@
 //   {prix:<id>}                prix pour le HTML (22&nbsp;€)
 //   {prixbrut:<id>}            prix pour le JSON-LD (22 €)
 //   {arrivee:<id>}             mois d'arrivée d'une cuvée à venir (janvier 2027)
+//   {dispo:<id>}               disponibilité en toutes lettres, qui suit le statut (« attendu en janvier 2027 », « disponible »…)
+// Ces jetons servent aussi dans d'autres chroniques (torrontés), via renderChoisir.
 // Le texte, lui, est daté : il présente les trois Poesía comme disponibles pour Noël 2026 et les six autres
 // comme attendues en janvier. À relire quand les statuts changent.
 const { WINES, DOMAINES, STATUTS, wineUrl, cepagesTexte, prixTexte } = require('../data/wines');
@@ -22,6 +24,16 @@ const moisArrivee = (w) => new Date(`${w.arrivee}T12:00:00Z`).toLocaleDateString
 function dispo(w) {
   if (w.statut === 'a-venir' || w.statut === 'precommande') return `Arrivée en ${moisArrivee(w)}`;
   return STATUTS[w.statut].label;
+}
+
+function dispoTexte(w) {
+  switch (w.statut) {
+    case 'a-venir': return `attendu en ${moisArrivee(w)}`;
+    case 'precommande': return `en précommande, arrivée prévue en ${moisArrivee(w)}`;
+    case 'bientot-epuise': return 'disponible en quantité limitée';
+    case 'epuise': return 'épuisé';
+    default: return 'disponible';
+  }
 }
 
 function tableau() {
@@ -55,7 +67,8 @@ function renderChoisir(html) {
     .replace('<!--choisir:tableau-->', tableau())
     .replace(/\{prix:([a-z0-9-]+)\}/g, (_, id) => nbsp(prixTexte(vin(id).prix)))
     .replace(/\{prixbrut:([a-z0-9-]+)\}/g, (_, id) => prixTexte(vin(id).prix))
-    .replace(/\{arrivee:([a-z0-9-]+)\}/g, (_, id) => moisArrivee(vin(id)));
+    .replace(/\{arrivee:([a-z0-9-]+)\}/g, (_, id) => moisArrivee(vin(id)))
+    .replace(/\{dispo:([a-z0-9-]+)\}/g, (_, id) => dispoTexte(vin(id)));
 }
 
 module.exports = { renderChoisir };

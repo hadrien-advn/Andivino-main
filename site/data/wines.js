@@ -531,7 +531,7 @@ const WINES = [
     terroirHtml: [
       "Les raisins viennent de Gualtallary, dans la Valle de Uco, l'un des secteurs les plus prisés de Mendoza&nbsp;: des vignes à 1600 mètres d'altitude, sur des sols alluviaux riches en carbonate de calcium, qui donnent des vins tendus et salins, à l'acidité franche. Pour découvrir le domaine&nbsp;:"
     ],
-    liens: [{ href: '/vins/gualtallary-wines', texte: "Gualtallary Wines, vins d'altitude de la Valle de Uco" }]
+    liens: [{ href: '/vins/gualtallary-wines', texte: "Gualtallary Wines, vins d'altitude de la Valle de Uco" }, { href: '/chroniques/torrontes-vin-blanc-argentin', texte: "Le Torrontés, le vin blanc de l'Argentine : goût, terroirs, accords" }]
   }
 
 ];
