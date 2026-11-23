@@ -33,15 +33,14 @@ main{flex:1;position:relative;isolation:isolate;overflow:clip;display:flex;align
 .card{position:relative;max-width:600px;width:100%;view-transition-name:nl-card}
 .card::before{content:'';position:absolute;inset:44px 26px -10px;background:rgba(40,28,18,.42);filter:blur(30px);transform:rotate(var(--tilt));border-radius:14px}
 .sheet{position:relative;padding:3.8rem 3.4rem 3.4rem;transform:rotate(var(--tilt));
-  isolation:isolate;background:var(--cream-l);
+  background:var(--cream-l);
   -webkit-mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x;
   mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x}
-.sheet::before{content:'';position:absolute;inset:0;z-index:-1;background:url('/assets/images/papier/fond-2.webp') center/cover;mix-blend-mode:multiply;opacity:.38}
 .sheet>*{transform:rotate(calc(var(--tilt) * -1))}
-/* L'écusson posé comme un cachet sur le coin de la feuille */
-.seal{position:absolute;z-index:3;top:-30px;right:22px;height:92px;width:auto;transform:rotate(8deg);filter:drop-shadow(0 6px 6px rgba(40,28,18,.3)) drop-shadow(0 1px 1px rgba(40,28,18,.25));pointer-events:none}
+/* Le cachet de cire de la carte d'invitation (page dégustation), posé sur le coin */
+.seal{position:absolute;z-index:3;top:-40px;right:-32px;width:132px;height:132px;transform:rotate(-12deg);filter:drop-shadow(0 7px 7px rgba(0,0,0,.38)) drop-shadow(0 1px 1px rgba(0,0,0,.3));pointer-events:none}
 
-h1{font-family:var(--fd);font-size:2.9rem;font-weight:300;color:var(--charbon);margin-bottom:1rem;line-height:1.08;text-wrap:balance;padding-right:3rem}
+h1{font-family:var(--fd);font-size:2.9rem;font-weight:300;color:var(--charbon);margin-bottom:1rem;line-height:1.08;text-wrap:balance;padding-right:4.5rem}
 h1 em{font-style:italic;color:var(--bdx)}
 .lead{font-size:.95rem;color:var(--gris);margin-bottom:2.2rem;line-height:1.75;max-width:30rem}
 
@@ -98,7 +97,7 @@ h1 em{font-style:italic;color:var(--bdx)}
   ::view-transition-group(nl-card){animation-duration:.6s;animation-timing-function:var(--out)}
 }
 @keyframes nl-rise{from{opacity:0;transform:translateY(10px)}}
-@keyframes nl-stamp{from{opacity:0;transform:rotate(-6deg) scale(1.5)}60%{opacity:1}}
+@keyframes nl-stamp{from{opacity:0;transform:rotate(-22deg) scale(1.45)}60%{opacity:1}}
 
 @media(max-width:640px){
   body>nav{padding:1rem 1.2rem}
@@ -107,7 +106,7 @@ h1 em{font-style:italic;color:var(--bdx)}
   .nav-logo-text{height:17px}
   main{padding:3.4rem .9rem 4rem}
   .sheet{padding:3rem 1.5rem 2.6rem}
-  .seal{height:68px;top:-24px;right:14px}
+  .seal{width:86px;height:86px;top:-26px;right:-6px}
   h1{font-size:2.2rem}
   .done-title{font-size:2.5rem}
   .next-t{font-size:1.3rem}
