@@ -245,3 +245,134 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 /* Tableaux : le domaine passe sous le nom du vin ; les intitulés mobiles ne se coupent pas. */
 .vins-table .vins-dom-l{display:block;margin-top:.2rem;font-family:var(--fb);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
 @media(max-width:600px){.vins-table td::before{flex:none;white-space:nowrap}.vins-table tbody th{flex-direction:column;align-items:flex-start;gap:0}}
+
+/* ══ CHRONIQUE : GABARIT DE LECTURE ══
+   Structure posée par lib/chronicle-page.js (classe .chron sur <body>) : titre en grand, photo d'ouverture
+   à la largeur du conteneur, colonne « Dans cette chronique » collante à gauche, texte à 37rem et photos
+   qui débordent vers la droite. Tout est scopé sous .chron : les autres pages qui chargent ce fichier ne bougent pas. */
+.chron{--g:4rem;--text:37rem}
+.chron .breadcrumb{max-width:1160px;margin:7.6rem auto 0;padding:0 var(--g)}
+.chron .article-header{max-width:1160px;margin:0 auto;padding:2.4rem var(--g) 3.4rem;border:0}
+.chron .article-header h1{font-style:normal;font-weight:300;font-size:clamp(2.5rem,5.3vw,4.9rem);line-height:1.04;letter-spacing:-.012em;max-width:15.5em;margin:0 0 2.4rem;color:var(--charbon)}
+.chron .article-header h1 em{font-style:italic;color:var(--bdx)}
+.chron .art-lede{font-size:clamp(1.25rem,2.1vw,1.65rem);line-height:1.35;color:var(--charbon);max-width:30ch;margin:0 0 1.6rem}
+.chron .article-header .art-meta{display:flex;align-items:center;gap:1rem;font-size:.7rem;line-height:1.7;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.chron .article-header .art-meta::before{content:'';flex:none;width:28px;height:1px;background:var(--or)}
+.chron .art-hero{max-width:1160px;margin:0 auto}
+.chron .art-hero img{display:block;width:100%;height:auto;aspect-ratio:2.25/1;object-fit:cover;object-position:50% 60%;border-radius:2px}
+/* Photo portrait (accords mets-vins) : à droite du titre plutôt qu'en bandeau. */
+.chron .article-header-portrait{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,25rem);column-gap:5rem;align-items:end}
+.chron .article-header-portrait>*{grid-column:1}
+.chron .article-header-portrait .art-hero{grid-column:2;grid-row:1 / span 3;margin:0}
+.chron .article-header-portrait .art-hero img{aspect-ratio:4/5}
+
+.chron .art-layout{max-width:1160px;margin:0 auto;padding:4.8rem var(--g) 3rem;display:grid;grid-template-columns:11.5rem minmax(0,1fr);column-gap:5rem;align-items:start}
+.chron .art-layout>.article-wrap{grid-column:2;max-width:none;margin:0;padding:0;min-width:0}
+.chron .art-body{font-size:1rem;line-height:1.85}
+.chron .art-body>:where(p,ul,ol,h2,h3,section,div){max-width:var(--text)}
+.chron .art-body h2{font-size:clamp(1.9rem,3.1vw,2.45rem);line-height:1.12;margin:4.6rem 0 1.3rem;clear:both;scroll-margin-top:2rem}
+.chron .art-body h2:not(.art-key-t)::before{content:'';display:block;width:28px;height:1px;background:var(--or);margin-bottom:1.5rem}
+.chron .art-body h3{font-size:1.5rem;font-weight:400;margin:2.6rem 0 .8rem}
+.chron .art-body h2+h3{margin-top:1.6rem}
+
+/* Colonne « Dans cette chronique » : collante, chapitre courant en bordeaux (assets/js/chronicle.js). */
+.chron .art-rail{grid-column:1;grid-row:1;position:sticky;top:6.6rem;max-height:calc(100vh - 8.6rem);overflow-y:auto;scrollbar-width:none}
+.chron .art-rail::-webkit-scrollbar{display:none}
+.chron .art-rail-t{font-size:.7rem;line-height:1.6;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--charbon);padding-bottom:.9rem;border-bottom:1px solid var(--or)}
+.chron .art-rail ol{list-style:none}
+.chron .art-rail li{border-bottom:1px solid var(--cream-d)}
+.chron .art-rail a{position:relative;display:block;padding:.62rem 0;font-family:var(--fd);font-size:1.02rem;line-height:1.3;color:var(--gris);text-decoration:none;transition:color var(--e),padding-left .45s cubic-bezier(.16,1,.3,1)}
+.chron .art-rail a::before{content:'';position:absolute;left:0;top:1.28rem;width:0;height:1px;background:var(--or);transition:width .45s cubic-bezier(.16,1,.3,1)}
+.chron .art-rail a:hover{color:var(--charbon)}
+.chron .art-rail a[aria-current="true"]{color:var(--bdx);padding-left:1.3rem}
+.chron .art-rail a[aria-current="true"]::before{width:.8rem}
+.chron .art-rail a:focus-visible{outline:2px solid var(--bdx);outline-offset:2px}
+
+/* L'essentiel : une fiche d'étiquette, double filet d'or, intitulés en capitales dans leur colonne. */
+.chron .art-key:not(.art-toc){background:var(--cream);border:1px solid rgba(196,164,74,.8);outline:1px solid rgba(196,164,74,.45);outline-offset:-8px;padding:2.1rem 2.4rem 1.7rem;margin:0 0 3.2rem}
+.chron .art-body .art-key:not(.art-toc) .art-key-t{font-family:var(--fd);font-size:1.6rem;line-height:1.2;font-style:italic;font-weight:300;letter-spacing:0;text-transform:none;color:var(--charbon);margin:0 0 .9rem}
+.chron .art-key:not(.art-toc) li{position:relative;margin:0;padding:.75rem 0 .75rem 10.2rem;border-top:1px solid var(--cream-d);font-size:.92rem;line-height:1.7}
+.chron .art-key:not(.art-toc) li::before{content:none}
+.chron .art-key:not(.art-toc) li>strong:first-child{position:absolute;left:0;top:1.02rem;width:8.8rem;font-size:.7rem;line-height:1.5;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--charbon)}
+/* Lettrine sur le premier paragraphe du récit. */
+.chron .art-key+p::first-letter{float:left;font-family:var(--fd);font-weight:300;font-size:4.7em;line-height:.78;margin:.1em .12em 0 -.02em;color:var(--bdx)}
+
+/* Photos : elles débordent la colonne de texte jusqu'au bord droit ; la marge accueille cartes et portraits. */
+.chron .art-body .art-figure{max-width:none;margin:3.4rem 0}
+.chron .art-body .art-figure img{aspect-ratio:auto;max-height:78vh;object-fit:cover}
+.chron .art-body .art-figure-portrait{max-width:26rem;margin-left:0}
+.chron .art-side{float:right;clear:right;width:17rem;margin:.5rem 0 1.6rem 2.6rem}
+.chron .art-side img{display:block;width:100%;height:auto;border-radius:2px}
+.chron .art-side figcaption{display:flex;gap:.7rem;margin-top:.8rem;font-size:.78rem;line-height:1.6;color:var(--gris)}
+.chron .art-side figcaption::before{content:'';flex:none;width:18px;height:1px;margin-top:.8em;background:var(--or)}
+.chron .art-map img{mix-blend-mode:multiply}
+
+/* Citation en exergue : reprise du texte, en grand. */
+.chron .art-pull{max-width:none;margin:3.6rem 0 3.4rem;clear:both}
+.chron .art-pull::before{content:'';display:block;width:28px;height:1px;background:var(--or);margin-bottom:1.5rem}
+.chron .art-pull p{max-width:20ch;font-family:var(--fd);font-style:italic;font-weight:300;font-size:clamp(2rem,3.9vw,3.15rem);line-height:1.1;color:var(--charbon);text-wrap:balance;margin:0}
+.chron .art-pull p::before{content:'«\00a0'}
+.chron .art-pull p::after{content:'\00a0»'}
+
+/* Pour aller plus loin, foire aux questions, mention sanitaire. */
+.chron .art-further{clear:both;margin:2.4rem 0 0;border-top:1px solid var(--cream-d)}
+.chron .art-further p{max-width:none;margin:0;padding:.95rem 0;border-bottom:1px solid var(--cream-d);font-size:.92rem;line-height:1.7}
+.chron .art-faq-t~h3{font-size:1.3rem;margin:0;padding-top:1.3rem;border-top:1px solid var(--cream-d)}
+.chron .art-faq-t+h3{margin-top:.6rem}
+.chron .art-faq-t~p{margin-bottom:1.4rem}
+.chron .art-body .art-legal{margin-top:2.6rem;padding-top:1.3rem;border-top:1px solid var(--cream-d);font-size:.8rem}
+
+/* Fin d'article : bande crème pleine largeur, bouteilles sur leur feuille de papier. */
+.chron .art-next{width:auto;max-width:none;margin:3rem 0 0;padding:6.5rem var(--g) 5.5rem;border-top:0}
+.chron .art-next h2{font-size:clamp(2.2rem,4.4vw,3.4rem)}
+.chron .art-next-wines{max-width:820px;gap:2.5rem;margin-bottom:3rem}
+.chron .art-next-wines a{padding:0 0 1rem}
+.chron .art-next-wines a:hover{background:none}
+.chron .art-next-v{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:200px;height:290px;padding-top:3rem;margin:0 auto 1.2rem}
+.chron .art-next-v::after{content:'';position:absolute;z-index:0;left:-15.5%;top:3.5%;width:131%;height:96.5%;background:var(--papier,url('/assets/images/papier/feuille-1.webp')) center/100% 100% no-repeat;pointer-events:none}
+.chron .art-next-wines .art-next-v img{position:relative;z-index:2;width:auto;height:100%;max-width:none;margin:0;filter:drop-shadow(0 1px 1px rgba(40,28,18,.3)) drop-shadow(10px 8px 12px rgba(70,52,34,.17));transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.chron .art-next-wines a:hover .art-next-v img{transform:translateY(-6px)}
+.chron .art-next-n{font-style:italic;font-size:1.3rem}
+.chron .article-more{max-width:1160px;padding:2.2rem var(--g) 6rem}
+
+/* Filet d'or de lecture, en haut de l'écran (défilement natif, sans script). */
+@supports (animation-timeline: scroll()){
+  .chron::after{content:'';position:fixed;z-index:600;top:0;left:0;right:0;height:2px;background:var(--or);transform:scaleX(0);transform-origin:0 50%;pointer-events:none;animation:chron-progress linear both;animation-timeline:scroll(root)}
+  @keyframes chron-progress{to{transform:scaleX(1)}}
+}
+
+@media(max-width:1100px){
+  .chron .art-layout{display:block;max-width:calc(var(--text) + 2 * var(--g))}
+  .chron .art-rail{display:none}
+  .chron .art-side{width:15rem}
+}
+@media(max-width:960px){
+  .chron{--g:1.5rem}
+  .chron .breadcrumb{margin-top:6.4rem}
+  .chron .art-hero{padding:0}
+  .chron .art-hero img{aspect-ratio:3/2;border-radius:0}
+  .chron .article-header-portrait{display:block}
+  .chron .article-header-portrait .art-hero{margin-top:2rem}
+  .chron .article-header-portrait .art-hero img{aspect-ratio:4/3}
+}
+@media(max-width:600px){
+  .chron{--g:1.2rem}
+  .chron .article-header{padding:1.6rem var(--g) 2.4rem}
+  .chron .article-header h1{margin-bottom:1.6rem}
+  .chron .article-header .art-meta{align-items:flex-start}
+  .chron .article-header .art-meta::before{margin-top:.85em}
+  .chron .art-layout{padding-top:3rem}
+  .chron .art-key:not(.art-toc){padding:1.6rem 1.4rem 1.2rem}
+  .chron .art-key:not(.art-toc) li{padding-left:0}
+  .chron .art-key:not(.art-toc) li>strong:first-child{position:static;display:block;width:auto;margin-bottom:.2rem}
+  .chron .art-body h2{margin-top:3.6rem}
+  .chron .art-side{float:none;width:auto;max-width:20rem;margin:2.2rem auto}
+  .chron .art-side-photo{max-width:15rem}
+  .chron .art-next{padding:4.5rem var(--g) 4rem}
+  .chron .art-next-wines{gap:.6rem}
+  .chron .art-next-v{height:180px;padding-top:2rem}
+  .chron .art-next-n{font-size:1.05rem}
+}
+/* Le guide a son propre sommaire dans le texte : sur grand écran, la colonne le remplace. */
+@media(min-width:1101px){.chron .art-layout:has(.art-rail) .art-toc{display:none}}
+@media(max-width:600px){.chron .art-pull p{font-size:1.8rem}}

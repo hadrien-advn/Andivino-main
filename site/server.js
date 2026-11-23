@@ -12,6 +12,7 @@ const { renderProductPage, renderDomainPage, winesDataJs } = require('./lib/prod
 const { renderCatalogue, renderPros } = require('./lib/catalogue');
 const { renderParis } = require('./lib/paris-page');
 const { renderChoisir } = require('./lib/choisir-page');
+const { renderChronicle } = require('./lib/chronicle-page');
 const { renderHomeVins } = require('./lib/home-vins');
 const { merchantFeedXml } = require('./lib/merchant-feed');
 const { wineSearcherTxt } = require('./lib/wine-searcher-feed');
@@ -262,6 +263,7 @@ async function getHtmlWithVersion(fileName) {
   if (fileName === 'professionnels.html') html = renderPros(html);
   if (fileName === 'vin-argentin-paris.html') html = renderParis(html);
   if (['chronique-choisir-vin-argentin.html', 'chronique-torrontes-vin-blanc-argentin.html', 'chronique-malbec-argentin-garde-vieillissement.html'].includes(fileName)) html = renderChoisir(html);
+  if (/^chronique-.+\.html$/.test(fileName)) html = renderChronicle(html);
   html = renderSiteDegustations(html);
   // Panier latéral (assets/js/cart.js) sur toutes les pages qui ont le bandeau du site, sauf la page panier
   // elle-même et les retours de paiement.
