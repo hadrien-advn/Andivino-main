@@ -259,6 +259,13 @@ async function getHtmlWithVersion(fileName) {
   if (fileName === 'professionnels.html') html = renderPros(html);
   if (fileName === 'vin-argentin-paris.html') html = renderParis(html);
   html = renderSiteDegustations(html);
+  // Panier latéral (assets/js/cart.js) sur toutes les pages qui ont le bandeau du site, sauf la page panier
+  // elle-même et les retours de paiement.
+  if (!['commande.html', 'payment-success.html', 'payment-cancel.html'].includes(fileName) && html.includes('class="nlinks"')) {
+    html = html.replace('</head>', '<link rel="stylesheet" href="/assets/css/cart.css">\n</head>');
+    const data = html.includes('/assets/js/wines-data.js') ? '' : '<script src="/assets/js/wines-data.js" defer></script>\n';
+    html = html.replace(/<\/body>(?![\s\S]*<\/body>)/, `${data}<script src="/assets/js/cart.js" defer></script>\n</body>`);
+  }
   html = html.replace(/(href|src)="(\/assets\/[^"]+\.(css|js))"/g, `$1="$2?v=${BUILD_VERSION}"`);
   htmlCache[fileName] = html;
   return html;

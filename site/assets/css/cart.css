@@ -1,0 +1,72 @@
+/* Panier latéral (assets/js/cart.js), ajouté par le serveur à toutes les pages du site sauf /commande.
+   Jetons de couleur et polices : ceux de la page (chronicles.css ou home.css, mêmes valeurs). */
+
+/* ── Bouton du bandeau (pages autres que l'accueil, qui a déjà le sien : .btn-cart) ── */
+.nav-fin{display:flex;align-items:center;gap:1.4rem}
+.nav-panier{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0;background:none;border:0;color:var(--charbon);cursor:pointer;transition:color var(--e)}
+.nav-panier:hover{color:var(--bdx)}
+.nav-panier:focus-visible,.btn-cart:focus-visible{outline:2px solid var(--bdx);outline-offset:2px}
+.nav-panier-n{position:absolute;top:5px;right:3px;display:none;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 3px;border-radius:8px;background:var(--bdx);color:#fff;font-size:.66rem;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.nav-panier-n.on{display:flex}
+@media(max-width:600px){.nav-fin{gap:.6rem}}
+
+/* ── Volet ── */
+.cd{position:fixed;inset:0;z-index:1000}
+.cd[hidden]{display:none}
+.cd-voile{position:absolute;inset:0;background:rgba(20,16,12,.42);opacity:0;transition:opacity .4s ease}
+.cd-panneau{position:absolute;top:0;right:0;bottom:0;display:flex;flex-direction:column;width:min(440px,100%);background:var(--cream-l);box-shadow:-1px 0 0 rgba(196,164,74,.35),-24px 0 60px rgba(20,16,12,.18);transform:translateX(100%);transition:transform .42s cubic-bezier(.16,1,.3,1);outline:none;font-family:var(--fb);color:var(--noir)}
+.cd--ouvert .cd-voile{opacity:1}
+.cd--ouvert .cd-panneau{transform:none}
+
+.cd-tete{display:flex;align-items:baseline;gap:.9rem;padding:1.6rem 1.4rem 1.2rem 2rem;border-bottom:1px solid var(--cream-d)}
+.cd-titre{font-family:var(--fd);font-weight:300;font-style:italic;font-size:2rem;line-height:1.1;color:var(--charbon)}
+.cd-nb{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.cd-x{align-self:center;margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:0;color:var(--charbon);cursor:pointer;transition:color var(--e)}
+.cd-x:hover{color:var(--bdx)}
+
+.cd-corps{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:0 2rem}
+.cd-liste{list-style:none;margin:0;padding:0}
+.cd-ligne{display:grid;grid-template-columns:64px minmax(0,1fr);gap:1.2rem;padding:1.4rem 0;border-bottom:1px solid var(--cream-d)}
+.cd-img{display:flex;align-items:center;justify-content:center;height:118px;background:var(--cream);}
+.cd-img img{height:100px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(3px 4px 5px rgba(70,52,34,.18))}
+.cd-info{display:flex;flex-direction:column;min-width:0}
+.cd-dom{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx)}
+.cd-nom{margin-top:.2rem;font-family:var(--fd);font-style:italic;font-size:1.3rem;line-height:1.15;color:var(--charbon)}
+.cd-nom a{color:inherit;text-decoration:none}
+.cd-nom a:hover{color:var(--bdx)}
+.cd-nom span{font-style:normal;font-size:1.05rem;color:var(--gris)}
+.cd-bas{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:auto;padding-top:.8rem}
+.cd-qte{display:inline-flex;align-items:center;border:1px solid var(--cream-d)}
+.cd-qte button{width:36px;height:36px;background:none;border:0;font-size:1.05rem;color:var(--charbon);cursor:pointer;transition:background var(--e),color var(--e)}
+.cd-qte button:hover:not(:disabled){background:var(--cream);color:var(--bdx)}
+.cd-qte button:disabled{color:var(--gris-l);cursor:default}
+.cd-qte span{min-width:2rem;text-align:center;font-size:.9rem;font-variant-numeric:tabular-nums}
+.cd-px{font-family:var(--fd);font-size:1.3rem;color:var(--charbon);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+.cd-retirer{align-self:flex-start;margin-top:.35rem;padding:.3rem 0;background:none;border:0;font-size:.72rem;letter-spacing:.04em;color:var(--gris);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.cd-retirer:hover{color:var(--bdx)}
+
+.cd-vide{display:none;padding:3.5rem 0;text-align:center}
+.cd-vide p{font-family:var(--fd);font-style:italic;font-size:1.4rem;color:var(--charbon)}
+.cd-lien{display:inline-flex;align-items:center;min-height:44px;margin-top:.8rem;padding:0 1.4rem;border:1px solid rgba(110,24,40,.4);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bdx);text-decoration:none;transition:background var(--e),color var(--e)}
+.cd-lien:hover{background:var(--bdx);color:var(--cream-l)}
+.cd--vide .cd-vide{display:block}
+.cd--vide .cd-pied{display:none}
+
+.cd-pied{padding:1.3rem 2rem calc(1.4rem + env(safe-area-inset-bottom));border-top:1px solid var(--cream-d);background:var(--cream-l)}
+.cd-total{display:flex;align-items:baseline;justify-content:space-between;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.cd-total strong{font-family:var(--fd);font-weight:400;font-size:1.7rem;letter-spacing:0;text-transform:none;color:var(--charbon);font-variant-numeric:lining-nums tabular-nums}
+.cd-note{margin-top:.2rem;font-size:.78rem;color:var(--gris)}
+.cd-go{display:flex;align-items:center;justify-content:center;min-height:52px;margin-top:1.1rem;background:var(--bdx);color:var(--cream-l);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background var(--e)}
+.cd-go:hover{background:var(--bdx-d)}
+.cd-go:focus-visible,.cd-lien:focus-visible,.cd-x:focus-visible,.cd-suite:focus-visible,.cd-qte button:focus-visible,.cd-retirer:focus-visible,.cd-nom a:focus-visible{outline:2px solid var(--bdx);outline-offset:2px}
+.cd-suite{display:block;width:100%;min-height:44px;margin-top:.3rem;background:none;border:0;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);cursor:pointer;transition:color var(--e)}
+.cd-suite:hover{color:var(--charbon)}
+
+@media(max-width:600px){
+  .cd-panneau{width:100%;box-shadow:none}
+  .cd-tete{padding:1.1rem .8rem 1rem 1.3rem}
+  .cd-titre{font-size:1.7rem}
+  .cd-corps{padding:0 1.3rem}
+  .cd-pied{padding:1.1rem 1.3rem calc(1rem + env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){.cd-voile,.cd-panneau{transition:none}}

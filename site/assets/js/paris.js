@@ -15,6 +15,8 @@
       d.cart = cart;
       localStorage.setItem(STORE, JSON.stringify(d));
     } catch (e) { /* stockage indisponible : le bon reste juste pour cette visite */ }
+    // le panier latéral (cart.js) suit
+    try { window.dispatchEvent(new CustomEvent('andivino:panier', { detail: 'paris' })); } catch (e) {}
   }
 
   var items = Array.prototype.slice.call(document.querySelectorAll('.pv-item[data-id]'));
@@ -103,11 +105,13 @@
   });
 
   // Un autre onglet (ou /commande) a changé le panier : on suit.
-  window.addEventListener('storage', function (e) {
-    if (e.key !== STORE) return;
+  function suivre() {
     cart = lire();
     if (JSON.stringify(cart) !== JSON.stringify(memoire)) { memoire = cart.slice(); rendre(); }
-  });
+  }
+  window.addEventListener('storage', function (e) { if (e.key === STORE) suivre(); });
+  // Le panier latéral (cart.js) de cette même page a changé le panier
+  window.addEventListener('andivino:panier', suivre);
 
   rendre();
 })();

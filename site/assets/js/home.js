@@ -25,12 +25,6 @@ function updateBadge(){
   const n=cartCount();
   const b=document.getElementById('cartBadge');
   if(b){b.textContent=n;b.classList.toggle('on',n>0);}
-  // Sur téléphone l'icône panier est masquée : le bouton « Commander » porte le nombre de bouteilles.
-  const cta=document.querySelector('nav .nav-cta');
-  if(cta){
-    if(n>0){cta.dataset.count=n;cta.setAttribute('aria-label','Commander, '+n+' bouteille'+(n>1?'s':'')+' dans le panier');}
-    else{delete cta.dataset.count;cta.removeAttribute('aria-label');}
-  }
 }
 function showToast(msg='Ajouté au panier'){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2400);}
 
@@ -49,7 +43,9 @@ function renderWines(){
       event.preventDefault();
       const w=wines.find(x=>x.id===btn.dataset.addId);
       addToCart(btn.dataset.addId);
-      if(w)showToast(`${w.nom} ${w.millesime} ajouté au panier`);
+      // Le panier latéral (cart.js) s'ouvre sur la bouteille ajoutée ; sans lui, simple message.
+      if(window.AndivinoCart){window.AndivinoCart.rendre();window.AndivinoCart.ouvrir();}
+      else if(w)showToast(`${w.nom} ${w.millesime} ajouté au panier`);
     });
   });
   initCarousel(g);
@@ -242,7 +238,4 @@ initDeg();
 observeFade();
 
 /* ── MORE LISTENERS ── */
-document.getElementById('cartBtn').addEventListener('click',function(e){
-  e.preventDefault();
-  window.location.href='/commande';
-});
+// Bouton panier du bandeau : ouvre le panier latéral (cart.js).

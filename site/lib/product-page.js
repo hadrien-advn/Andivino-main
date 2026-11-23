@@ -123,7 +123,7 @@ function buyBlock(w, s) {
           <input type="number" name="qte" id="pdp-qte" value="1" min="1" max="36" inputmode="numeric" aria-label="Nombre de bouteilles">
           <button type="button" class="pdp-qty-btn" data-qty-step="1" aria-label="Une bouteille de plus">+</button>
         </div>
-        <button type="submit" class="pdp-cta" id="pdp-cta">${esc(s.cta)}</button>
+        <button type="submit" class="pdp-cta" id="pdp-cta">${esc(s.cta === 'Commander' ? 'Ajouter au panier' : s.cta)}</button>
       </form>`;
 }
 
@@ -145,7 +145,6 @@ const NAV = `<nav>
   </a>
   <ul class="nlinks">
     <li><a href="/vins-argentins">Les vins</a></li>
-    <li><a href="/commande">Commander</a></li>
     <li><a href="/chroniques">Chroniques</a></li>
   </ul>
   <a href="/vins-argentins" class="back-link">← Les vins</a>
@@ -164,7 +163,7 @@ function footer() {
       <p>Importateur de vins argentins d'exception. Bodega Poesía — Luján de Cuyo, Mendoza.</p>
     </div>
     <div class="ft-col"><h4>Navigation</h4><a href="/#philosophie">Notre histoire</a><a href="/vins-argentins">Les vins</a><a href="/degustation">Dégustations</a><a href="/chroniques">Chroniques</a></div>
-    <div class="ft-col"><h4>Commander</h4>${vins}<a href="/commande">Particuliers (B2C)</a><a href="/vin-argentin-paris">Livraison à Paris</a><a href="/professionnels">Professionnels (B2B)</a><a href="/legal/cgv">Livraison &amp; CGV</a></div>
+    <div class="ft-col"><h4>Commander</h4>${vins}<a href="/vins-argentins">Particuliers (B2C)</a><a href="/vin-argentin-paris">Livraison à Paris</a><a href="/professionnels">Professionnels (B2B)</a><a href="/legal/cgv">Livraison &amp; CGV</a></div>
     <div class="ft-col"><h4>Contact</h4><a href="mailto:contact@andivino.fr">contact@andivino.fr</a><a href="/newsletter">Newsletter</a><p class="ft-note">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p></div>
   </div>
   <div class="ft-btm">
@@ -229,7 +228,8 @@ ${NAV}
 <article class="pdp">
   <section class="pdp-top" aria-labelledby="pdp-titre">
     ${w.image ? `<div class="pdp-media">
-      <div class="pdp-visual" style="${papier(w)}"><img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" fetchpriority="high" alt="${esc(w.image.alt)}"></div>
+      <div class="pdp-visual" style="${papier(w)}" data-zoom="${esc((w.zoom || w.image).src)}"><img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" fetchpriority="high" alt="${esc(w.image.alt)}" draggable="false"><span class="pdp-lens" aria-hidden="true"></span></div>
+      <p class="pdp-zoom-hint" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><span class="pdp-zoom-hint-m">Maintenez le doigt pour zoomer</span><span class="pdp-zoom-hint-d">Survolez la bouteille pour lire l'étiquette</span></p>
     </div>` : `<figure class="pdp-media pdp-media--domaine">
       <img src="${esc((d.image || d.logo).src)}" width="${(d.image || d.logo).width}" height="${(d.image || d.logo).height}" fetchpriority="high" alt="${esc((d.image || d.logo).alt)}">
       <figcaption>Photo de la bouteille à venir</figcaption>
@@ -279,7 +279,7 @@ ${s.achetable ? `      <ul class="pdp-reassure">
 
 ${s.achetable ? `<div class="pdp-sticky" id="pdp-sticky" hidden>
   <div class="pdp-sticky-info"><span class="pdp-sticky-name">${esc(w.nomComplet)}</span><span class="pdp-sticky-price">${fine(prixTexte(w.prix))}</span></div>
-  <button type="submit" form="pdp-form" class="pdp-cta">${esc(s.cta)}</button>
+  <button type="submit" form="pdp-form" class="pdp-cta">${esc(s.cta === 'Commander' ? 'Ajouter' : s.cta)}</button>
 </div>` : ''}
 </main>
 

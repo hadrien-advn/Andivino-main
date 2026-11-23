@@ -30,7 +30,7 @@ function bouteille(w, rang, sansMention) {
     ? `<img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}"${rang === 0 ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`
     : '';
   const cta = s.achetable
-    ? `<a class="ct-add" href="/commande?ajout=${esc(w.id)}" aria-label="${esc(s.cta)} ${esc(w.nomComplet)}">${esc(s.cta)}</a>`
+    ? `<a class="ct-add" href="/commande?ajout=${esc(w.id)}" aria-label="${esc(s.cta === 'Commander' ? 'Ajouter au panier' : s.cta)} : ${esc(w.nomComplet)}">${esc(s.cta === 'Commander' ? 'Ajouter' : s.cta)}</a>`
     : '';
   return `<li class="ct-item">
           <a class="ct-visual" href="${wineUrl(w)}" style="${papier(w)}" tabindex="-1" aria-hidden="true">${img}</a>

@@ -60,7 +60,7 @@ const WINES = [
       ['Garde', '25 ans']
     ],
     leadHtml: "<strong>Poesía 2014</strong> est un vin rouge argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: un assemblage de 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon issu de vignes plantées en 1935 en franc de pied et vendangées à la main. Élevé 24 mois en fût de chêne, il se garde 25 ans. Il est noté 94 points par Wine Advocate et 94 par James Suckling. 45&nbsp;€ la bouteille.",
-    notesHtml: "Poesía s'exprime avec distinction et profondeur à travers une robe rouge rubis intense. Le nez, raffiné et complexe, mêle fruits rouges et noirs mûrs (framboise, cerise noire, mûre) à de subtiles notes de pain grillé, café, moka et cèdre, complétées par des touches de minéralité, d'épices fines et florales. La bouche offre une texture soyeuse, un équilibre précis et une fraîcheur élégante. Le fruit s'étire sur une trame minérale et des tanins fins et enveloppants, avant une finale longue, nette et raffinée.",
+    notesHtml: "Robe rouge rubis intense. Au nez, la framboise, la cerise noire et la mûre se mêlent au pain grillé, au moka et au cèdre, avec des touches minérales, épicées et florales. La bouche, soyeuse et fraîche, s'étire sur des tanins fins jusqu'à une finale longue, nette et raffinée.",
     fiche: [
       ['Origine', 'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine', true],
       ['Cépages', '60 % Malbec, 40 % Cabernet Sauvignon'],
@@ -77,7 +77,6 @@ const WINES = [
       'Pour le goûter avant de commander, il est {degustation}.'
     ],
     terroirHtml: [
-      "Poesía 2014 est le plus ancien millésime des trois cuvées de la Bodega Poesía, élevé 24 mois en fût de chêne&nbsp;; la Cuvée Hélène, élevée de 18 à 24 mois, partage le même assemblage de 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon. Comme elle, il se garde 25 ans.",
       "Les raisins viennent de vignes plantées en 1935 en franc de pied, jamais greffées, sur le sol sablo-argileux de Luján de Cuyo, à 900 mètres d'altitude. Pour aller plus loin&nbsp;:"
     ],
     liens: LIENS_MALBEC
@@ -103,6 +102,7 @@ const WINES = [
       { note: 91, source: 'James Suckling' }
     ],
     image: { src: '/assets/images/bout-helene-2016.webp', width: 234, height: 900, alt: 'Bouteille de la Cuvée Hélène 2016, vin argentin de Mendoza' },
+    zoom: { src: '/assets/images/bout-helene-2016-hd.webp', width: 483, height: 1856 },
     og: '/assets/images/og/cuvee-helene-2016.jpg',
     maj: '2026-11-23',
     seo: {
@@ -123,7 +123,7 @@ const WINES = [
       ['Garde', '25 ans']
     ],
     leadHtml: "<strong>Poesía — Cuvée Hélène 2016</strong> est un vin rouge argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: 60&nbsp;% Malbec et 40&nbsp;% Cabernet Sauvignon issus d'une parcelle d'un hectare plantée en 1935 en franc de pied, vendangée à la main. Élevée 18 à 24 mois en fût de chêne français, elle se garde 25 ans. Elle est notée 92+ par Wine Advocate et 91 par James Suckling. 36&nbsp;€ la bouteille.",
-    notesHtml: "D'une robe rouge sombre et brillante, le vin offre un nez subtil et complexe de framboise noire, moka et espresso, relevé d'une délicate note florale. La bouche séduit par la pureté et la maturité du fruit, sans excès de torréfaction, enrichie de baies noires, d'épices fines et d'un boisé fumé de grande qualité. La finale, longue et persistante, repose sur des tanins nobles et harmonieux. Un vin déjà remarquable, d'une grande élégance et profondeur.",
+    notesHtml: "Robe rouge sombre et brillante, nez de framboise noire, de moka et d'espresso relevé d'une note florale. La bouche, pure et mûre, mêle baies noires, épices fines et un boisé fumé, sans excès de torréfaction. La finale, longue et persistante, repose sur des tanins nobles et harmonieux.",
     fiche: [
       ['Origine', 'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine', true],
       ['Cépages', '60 % Malbec, 40 % Cabernet Sauvignon'],
@@ -139,7 +139,6 @@ const WINES = [
       'Pour la goûter avant de commander, elle est {degustation:e}.'
     ],
     terroirHtml: [
-      "La Cuvée Hélène vient d'une seule parcelle d'à peine 1 hectare, plantée en 1935 en franc de pied à Luján de Cuyo, sur un sol sablo-argileux à 900 mètres d'altitude. Elle partage l'assemblage de Poesía (60&nbsp;% Malbec, 40&nbsp;% Cabernet Sauvignon) avec un élevage de 18 à 24 mois en fût de chêne français.",
       "Entre le Clos des Andes, 100&nbsp;% Malbec de garde 15 ans, et Poesía 2014, le plus ancien millésime, elle offre la garde de Poesía (25 ans) à un prix plus doux. Pour en savoir plus sur ce terroir et cet assemblage&nbsp;:"
     ],
     liens: LIENS_MALBEC
@@ -182,7 +181,7 @@ const WINES = [
       ['Garde', '15 ans']
     ],
     leadHtml: "<strong>Clos des Andes 2017</strong> est un Malbec argentin de la Bodega Poesía, à Luján de Cuyo (Mendoza)&nbsp;: 100&nbsp;% Malbec issu de vignes plantées en 1935 en franc de pied et vendangées à la main. Élevé 12 mois en fût de chêne, il se garde 15 ans. 22&nbsp;€ la bouteille.",
-    notesHtml: "Le Clos des Andes dévoile un bouquet ample et expressif, marqué par des arômes de cerise noire mûre et de cassis, relevés d'une subtile note de chocolat noir. La bouche, mi-corsée, séduit par des tanins souples et harmonieux. Les saveurs de prune noire et de mûre, généreuses et arrondies, s'étirent avec élégance vers une finale douce et veloutée, gagnant en finesse et en complexité à l'aération.",
+    notesHtml: "Un bouquet ample de cerise noire mûre et de cassis, relevé d'une note de chocolat noir. La bouche, mi-corsée, déroule la prune noire et la mûre sur des tanins souples. La finale, douce et veloutée, gagne en finesse à l'aération.",
     fiche: [
       ['Origine', 'Bodega Poesía, Luján de Cuyo – Mendoza, Argentine', true],
       ['Cépages', '100 % Malbec'],
@@ -198,7 +197,6 @@ const WINES = [
       'Pour le goûter avant de commander, il est {degustation}.'
     ],
     terroirHtml: [
-      "Clos des Andes est le seul 100&nbsp;% Malbec des trois cuvées de la Bodega Poesía et la porte d'entrée de la Bodega Poesía&nbsp;: 2 hectares de vignes plantées en 1935 en franc de pied, un élevage court de 12 mois et une garde de 15 ans. Sans le Cabernet Sauvignon des deux cuvées Poesía, c'est le Malbec de Luján de Cuyo qui parle seul&nbsp;: cerise noire, cassis, prune et des tanins souples.",
       "Le sol sablo-argileux et les 900 mètres d'altitude du piedmont andin lui donnent sa maturité et sa fraîcheur. Pour comprendre ce terroir&nbsp;:"
     ],
     liens: LIENS_MALBEC
@@ -246,7 +244,7 @@ const WINES = [
       ['Garde', '35 ans']
     ],
     leadHtml: "<strong>Carmelo Patti Malbec 2019</strong> est un Malbec argentin de la bodega Carmelo Patti, à Perdriel (Luján de Cuyo, Mendoza)&nbsp;: 100&nbsp;% Malbec né à 960 mètres d'altitude, vendangé à la main, élevé 24 mois en fût de chêne et mis en bouteille sans collage ni filtration. Il se garde 35 ans. Il est noté 93 points par Wine Advocate et 95 par Descorchados. 32&nbsp;€ la bouteille, en exclusivité en France chez Andivino, en précommande pour une arrivée en janvier 2027.",
-    notesHtml: "Ce Malbec s'exprime avec authenticité et caractère à travers une robe rouge profond aux reflets bleutés. Le nez, profond et complexe, mêle fruits rouges et noirs mûrs (fraise, cerise, cassis, prune) à des notes plus terriennes de sous-bois et de tabac, rehaussées de touches d'épices douces, de cacao et de menthe, issues d'un élevage en cuve béton puis en barriques de chêne français. La bouche offre une texture souple et ronde, une fraîcheur vive et un équilibre naturel. Le fruit, juteux et généreux, s'appuie sur des tanins fins et caressants, avant une finale longue, douce et délicatement épicée. Un Malbec de tradition, sincère et racé, né à 960 mètres d'altitude à Perdriel, au cœur de Luján de Cuyo.",
+    notesHtml: "Robe rouge profond aux reflets bleutés&nbsp;; au nez, la fraise, la cerise, le cassis et la prune croisent le sous-bois, le tabac, les épices douces, le cacao et la menthe. La bouche, souple et ronde, d'une fraîcheur vive, porte un fruit juteux sur des tanins fins et caressants. La finale est longue, douce et délicatement épicée.",
     fiche: [
       ['Origine', 'Carmelo Patti, Perdriel, Luján de Cuyo – Mendoza, Argentine', true],
       ['Cépages', '100 % Malbec'],
@@ -258,9 +256,7 @@ const WINES = [
       ['Garde', '35 ans']
     ],
     terroirHtml: [
-      "Parmi les trois cuvées de Carmelo Patti que nous importons, le Malbec 2019 est la mieux notée par Descorchados (95 points). Il se garde 35 ans, comme le Cabernet Sauvignon 2018, et coûte 32&nbsp;€, comme le Cabernet Franc 2021.",
-      "Les raisins viennent de Perdriel, au cœur de Luján de Cuyo, à 960 mètres d'altitude, sur un sol sablo-argileux. Carmelo Patti les vinifie avec des levures indigènes, élève ses vins en cuve béton puis en barriques, et les met en bouteille sans collage ni filtration. Il ne les libère que lorsqu'il les juge prêts, souvent cinq ans après la récolte.",
-      "Son Malbec a été élu meilleur Malbec du monde en 2007. Pour aller plus loin&nbsp;:"
+      "Les raisins viennent de Perdriel, au cœur de Luján de Cuyo, à 960 mètres d'altitude, sur un sol sablo-argileux. Carmelo Patti les vinifie avec des levures indigènes, élève ses vins en cuve béton puis en barriques, et les met en bouteille sans collage ni filtration. Il ne les libère que lorsqu'il les juge prêts, souvent cinq ans après la récolte. Son Malbec a été élu meilleur Malbec du monde en 2007. Pour aller plus loin&nbsp;:"
     ],
     liens: [{ href: '/vins/carmelo-patti', texte: 'Carmelo Patti, un vigneron de garde à Luján de Cuyo' }, ...LIENS_MALBEC]
   },
@@ -305,7 +301,7 @@ const WINES = [
       ['Garde', '35 ans']
     ],
     leadHtml: "<strong>Carmelo Patti Cabernet Sauvignon 2018</strong> est un vin rouge argentin de la bodega Carmelo Patti, à Perdriel (Luján de Cuyo, Mendoza)&nbsp;: 100&nbsp;% Cabernet Sauvignon vendangé à la main, élevé 24 mois en fût de chêne et mis en bouteille sans collage ni filtration. Il se garde 35 ans. Il est noté 95 points par Wine Advocate et 94 par Descorchados. 34&nbsp;€ la bouteille, en exclusivité en France chez Andivino, en précommande pour une arrivée en janvier 2027.",
-    notesHtml: "Ce Cabernet Sauvignon s'exprime avec finesse à travers une robe rouge profond, nuancée de reflets rouge feu qui témoignent de sa lente évolution en bouteille. Le nez, nuancé et raffiné, associe fruits rouges et noirs mûrs (groseille, framboise, cassis, cerise) à des notes d'épices, de fruits secs et de café, sur un fond légèrement terrien. La bouche offre une texture fine et précise, un équilibre remarquable et une acidité vive qui lui confère tension et élégance. Le fruit, pur et délié, s'étire sur des tanins fondus et très aimables, avant une finale persistante aux accents minéraux. Un Cabernet de grande tradition, d'inspiration européenne, devenu une référence culte en Argentine.",
+    notesHtml: "Robe rouge profond aux reflets rouge feu, signe d'une lente évolution en bouteille. Le nez associe groseille, framboise, cassis et cerise aux épices, aux fruits secs et au café, sur un fond légèrement terrien. La bouche, fine et tendue par une acidité vive, s'étire sur des tanins fondus jusqu'à une finale persistante aux accents minéraux.",
     fiche: [
       ['Origine', 'Carmelo Patti, Perdriel, Luján de Cuyo – Mendoza, Argentine', true],
       ['Cépages', '100 % Cabernet Sauvignon'],
@@ -317,7 +313,6 @@ const WINES = [
       ['Garde', '35 ans']
     ],
     terroirHtml: [
-      "Parmi les trois cuvées de Carmelo Patti que nous importons, le Cabernet Sauvignon 2018 est le plus ancien millésime et le mieux noté par Wine Advocate (95 points). Il se garde 35 ans, comme le Malbec 2019.",
       "Les raisins viennent de Perdriel, au cœur de Luján de Cuyo, à 960 mètres d'altitude, sur un sol sablo-argileux. Carmelo Patti les vinifie avec des levures indigènes, élève ses vins en cuve béton puis en barriques, et les met en bouteille sans collage ni filtration. Il ne les libère que lorsqu'il les juge prêts, souvent cinq ans après la récolte. Pour découvrir le domaine&nbsp;:"
     ],
     liens: [{ href: '/vins/carmelo-patti', texte: 'Carmelo Patti, un vigneron de garde à Luján de Cuyo' }]
@@ -360,7 +355,7 @@ const WINES = [
       ['Garde', '30 ans']
     ],
     leadHtml: "<strong>Carmelo Patti Cabernet Franc 2021</strong> est un vin rouge argentin de la bodega Carmelo Patti, à Perdriel (Luján de Cuyo, Mendoza)&nbsp;: 100&nbsp;% Cabernet Franc vendangé à la main, élevé 24 mois en fût de chêne et mis en bouteille sans collage ni filtration. Il se garde 30 ans. Il est noté 93 points par Wine Advocate. 32&nbsp;€ la bouteille, en exclusivité en France chez Andivino, en précommande pour une arrivée en janvier 2027.",
-    notesHtml: "Ce Cabernet Franc s'exprime avec fraîcheur et singularité à travers une robe rouge grenat. Le nez, expressif et nuancé, mêle fruits rouges et noirs (fraise, framboise, cassis) aux notes signatures du cépage&nbsp;: poivron doux, menthol et feuille de tabac, complétées de touches fumées et d'épices fines issues d'un élevage en barriques de chêne français. La bouche offre une texture souple, un équilibre précis et une fraîcheur digeste. Le fruit, croquant et lumineux, se prolonge sur des tanins délicats et des saveurs de réglisse et de cassis, avant une finale longue et harmonieuse. Un Cabernet Franc de caractère, fidèle à la philosophie sans artifice de Carmelo Patti.",
+    notesHtml: "Robe rouge grenat&nbsp;; au nez, la fraise, la framboise et le cassis rencontrent les notes du cépage, poivron doux, menthol et feuille de tabac, avec des touches fumées et épicées. La bouche, souple et digeste, porte un fruit croquant sur des tanins délicats, entre réglisse et cassis. La finale est longue et harmonieuse.",
     fiche: [
       ['Origine', 'Carmelo Patti, Perdriel, Luján de Cuyo – Mendoza, Argentine', true],
       ['Cépages', '100 % Cabernet Franc'],
@@ -372,7 +367,6 @@ const WINES = [
       ['Garde', '30 ans']
     ],
     terroirHtml: [
-      "Parmi les trois cuvées de Carmelo Patti que nous importons, le Cabernet Franc 2021 est le millésime le plus récent. Il se garde 30 ans, contre 35 pour le Malbec 2019 et le Cabernet Sauvignon 2018, et coûte 32&nbsp;€, comme le Malbec.",
       "Les raisins viennent de Perdriel, au cœur de Luján de Cuyo, à 960 mètres d'altitude, sur un sol sablo-argileux. Carmelo Patti les vinifie avec des levures indigènes, élève ses vins en cuve béton puis en barriques, et les met en bouteille sans collage ni filtration. Il ne les libère que lorsqu'il les juge prêts. Pour découvrir le domaine&nbsp;:"
     ],
     liens: [{ href: '/vins/carmelo-patti', texte: 'Carmelo Patti, un vigneron de garde à Luján de Cuyo' }]
@@ -396,6 +390,7 @@ const WINES = [
     garde: '5 ans',
     scores: [],
     image: { src: '/assets/images/bout-altus-malbec-2026.webp', width: 225, height: 900, alt: 'Bouteille de Gualtallary Altus Reserva Malbec 2026, vin argentin de la Valle de Uco' },
+    zoom: { src: '/assets/images/bout-altus-malbec-2026-hd.webp', width: 441, height: 1764 },
     og: '/assets/images/og/altus-malbec-2026.jpg',
     maj: '2026-11-23',
     seo: {
@@ -414,7 +409,7 @@ const WINES = [
       ['Garde', '5 ans']
     ],
     leadHtml: "<strong>Altus Reserva Malbec 2026</strong> est un Malbec argentin de Gualtallary Wines, à Tupungato (Valle de Uco, Mendoza)&nbsp;: 100&nbsp;% Malbec né à 1500 mètres d'altitude sur des sols alluviaux calcaires, élevé 6 mois en fût de chêne. Il se garde 5 ans. 15&nbsp;€ la bouteille, en précommande pour une arrivée en janvier 2027.",
-    notesHtml: "Ce Malbec de Gualtallary s'exprime avec éclat et gourmandise à travers une robe rouge intense aux reflets pourpres. Le nez, intense et fruité, mêle fruits rouges et noirs frais (cerise, prune, framboise) à de délicates touches d'épices douces et de poivre, reflet de la pureté du fruit d'altitude. La bouche offre un bon volume, une texture souple et une fraîcheur vive. Le fruit, juteux et éclatant, s'appuie sur des tanins aimables et fondus, avant une finale harmonieuse et équilibrée. Un Malbec de haute altitude, sincère et généreux, né à 1500 mètres au pied des Andes, à Gualtallary, au cœur de la vallée de l'Uco.",
+    notesHtml: "Robe rouge intense aux reflets pourpres, nez de cerise, de prune et de framboise fraîches, relevé d'épices douces et de poivre. La bouche, souple et fraîche, a du volume et un fruit juteux sur des tanins fondus. La finale est harmonieuse et équilibrée.",
     fiche: [
       ['Origine', 'Gualtallary Wines, Tupungato, Valle de Uco – Mendoza, Argentine', true],
       ['Cépages', '100 % Malbec'],
@@ -425,9 +420,7 @@ const WINES = [
       ['Vinification', "Macarena Giménez, avec les conseils d'Alberto Antonini", true]
     ],
     terroirHtml: [
-      "Des trois vins de Gualtallary Wines que nous importons, l'Altus Reserva Malbec 2026 est le seul rouge&nbsp;: né à 1500 mètres, un peu plus bas que le Torrontés et le Gran Chardonnay (1600 mètres), élevé 6 mois en fût de chêne, il se garde 5 ans.",
-      "Gualtallary, dans la Valle de Uco, est l'un des secteurs les plus prisés de Mendoza. L'altitude et les sols alluviaux, à forte teneur en carbonate de calcium, y donnent des vins tendus et salins, à l'acidité franche&nbsp;: un Malbec plus frais que le Malbec solaire auquel l'Argentine est souvent réduite.",
-      "La vinification est signée Macarena Giménez, avec les conseils d'Alberto Antonini. Pour aller plus loin&nbsp;:"
+      "Gualtallary, dans la Valle de Uco, est l'un des secteurs les plus prisés de Mendoza. L'altitude et les sols alluviaux, à forte teneur en carbonate de calcium, y donnent des vins tendus et salins, à l'acidité franche&nbsp;: un Malbec plus frais que le Malbec solaire auquel l'Argentine est souvent réduite. Pour aller plus loin&nbsp;:"
     ],
     liens: [{ href: '/vins/gualtallary-wines', texte: "Gualtallary Wines, vins d'altitude de la Valle de Uco" }, ...LIENS_MALBEC]
   },
@@ -470,7 +463,7 @@ const WINES = [
       ['Garde', '15 ans']
     ],
     leadHtml: "<strong>Gran Chardonnay 2024</strong> est un vin blanc argentin de Gualtallary Wines, à Tupungato (Valle de Uco, Mendoza)&nbsp;: 100&nbsp;% Chardonnay issu de vignes à 1600 mètres d'altitude, élevé 8 mois en fût de chêne français. Il se garde 15 ans. Il a obtenu 96 points aux Decanter World Wine Awards 2026 et 92 chez Vinous. 24&nbsp;€ la bouteille, en précommande pour une arrivée en janvier 2027.",
-    notesHtml: "Ce Gran Chardonnay s'exprime avec éclat et élégance à travers une robe jaune brillant aux légers reflets verts. Le nez, complexe et expressif, mêle fruits tropicaux mûrs (ananas, mangue, fruit de la passion) à des notes d'agrumes et de fleurs blanches, complétées de subtiles touches de vanille et de noisette grillée, issues d'un élevage en barriques de chêne français. La bouche offre une belle concentration, une texture ample et une acidité juteuse qui lui confère tension et fraîcheur. Le fruit, mûr et lumineux, s'étire sur un boisé délicat et parfaitement intégré, avant une finale longue et raffinée. Un Chardonnay d'altitude racé et élégant, révélant la fraîcheur unique de Gualtallary.",
+    notesHtml: "Robe jaune brillant aux reflets verts&nbsp;; au nez, l'ananas, la mangue et le fruit de la passion se mêlent aux agrumes, aux fleurs blanches, à la vanille et à la noisette grillée. La bouche, ample et concentrée, est tendue par une acidité juteuse, sur un boisé délicat et bien intégré. La finale est longue et raffinée.",
     fiche: [
       ['Origine', 'Gualtallary Wines, Tupungato, Valle de Uco – Mendoza, Argentine', true],
       ['Cépages', '100 % Chardonnay'],
@@ -481,9 +474,7 @@ const WINES = [
       ['Vinification', "Macarena Giménez, avec les conseils d'Alberto Antonini", true]
     ],
     terroirHtml: [
-      "Des deux blancs de Gualtallary Wines que nous importons, le Gran Chardonnay 2024 est celui de garde&nbsp;: élevé 8 mois en fût de chêne français, il se garde 15 ans, quand l'Altus Torrontés 2026, vinifié en cuve inox, se garde 3 ans.",
-      "Les raisins viennent de Gualtallary, dans la Valle de Uco, l'un des secteurs les plus prisés de Mendoza&nbsp;: des vignes à 1600 mètres d'altitude, sur des sols alluviaux riches en carbonate de calcium, qui donnent des vins tendus et salins, à l'acidité franche.",
-      "La vinification est signée Macarena Giménez, avec les conseils d'Alberto Antonini. Pour découvrir le domaine&nbsp;:"
+      "Les raisins viennent de Gualtallary, dans la Valle de Uco, l'un des secteurs les plus prisés de Mendoza&nbsp;: des vignes à 1600 mètres d'altitude, sur des sols alluviaux riches en carbonate de calcium, qui donnent des vins tendus et salins, à l'acidité franche. Pour découvrir le domaine&nbsp;:"
     ],
     liens: [{ href: '/vins/gualtallary-wines', texte: "Gualtallary Wines, vins d'altitude de la Valle de Uco" }]
   },
@@ -505,6 +496,7 @@ const WINES = [
     garde: '3 ans',
     scores: [],
     image: { src: '/assets/images/bout-altus-torrontes-2026.webp', width: 229, height: 900, alt: 'Bouteille de Gualtallary Altus Torrontés 2026, vin blanc argentin de la Valle de Uco' },
+    zoom: { src: '/assets/images/bout-altus-torrontes-2026-hd.webp', width: 450, height: 1771 },
     og: '/assets/images/og/altus-torrontes-2026.jpg',
     maj: '2026-11-23',
     seo: {
@@ -523,7 +515,7 @@ const WINES = [
       ['Garde', '3 ans']
     ],
     leadHtml: "<strong>Altus Torrontés 2026</strong> est un vin blanc argentin de Gualtallary Wines, à Tupungato (Valle de Uco, Mendoza)&nbsp;: 100&nbsp;% Torrontés, le grand cépage blanc d'Argentine, issu de vignes à 1600 mètres d'altitude et vinifié en cuve inox, sans bois. Il se garde 3 ans. 15&nbsp;€ la bouteille, en précommande pour une arrivée en janvier 2027.",
-    notesHtml: "Ce Torrontés de Gualtallary s'exprime avec fraîcheur à travers une robe or pâle aux reflets verts. Le nez, expressif et aromatique, mêle notes florales (fleur d'oranger, jasmin) à des touches d'agrumes, zeste d'orange et pamplemousse, préservées par une vinification en cuve inox. La bouche offre une attaque sèche, une texture vive et une fraîcheur éclatante. Le fruit, pur et ciselé, s'étire sur une belle tension acide, avant une finale nette, persistante et désaltérante.",
+    notesHtml: "Robe or pâle aux reflets verts, nez de fleur d'oranger, de jasmin, de zeste d'orange et de pamplemousse. La bouche, sèche et vive, s'étire sur une belle tension acide. La finale est nette, persistante et désaltérante.",
     fiche: [
       ['Origine', 'Gualtallary Wines, Tupungato, Valle de Uco – Mendoza, Argentine', true],
       ['Cépages', '100 % Torrontés'],
@@ -537,9 +529,7 @@ const WINES = [
       "Un Torrontés d'altitude vibrant, idéal avec des empanadas, la cuisine asiatique, les poissons et les fromages doux."
     ],
     terroirHtml: [
-      "Des deux blancs de Gualtallary Wines que nous importons, l'Altus Torrontés 2026 est le plus vif&nbsp;: vinifié en cuve inox, sans bois, il se garde 3 ans, quand le Gran Chardonnay 2024, élevé 8 mois en fût de chêne français, se garde 15 ans.",
-      "Les raisins viennent de Gualtallary, dans la Valle de Uco, l'un des secteurs les plus prisés de Mendoza&nbsp;: des vignes à 1600 mètres d'altitude, sur des sols alluviaux riches en carbonate de calcium, qui donnent des vins tendus et salins, à l'acidité franche.",
-      "La vinification est signée Macarena Giménez, avec les conseils d'Alberto Antonini. Pour découvrir le domaine&nbsp;:"
+      "Les raisins viennent de Gualtallary, dans la Valle de Uco, l'un des secteurs les plus prisés de Mendoza&nbsp;: des vignes à 1600 mètres d'altitude, sur des sols alluviaux riches en carbonate de calcium, qui donnent des vins tendus et salins, à l'acidité franche. Pour découvrir le domaine&nbsp;:"
     ],
     liens: [{ href: '/vins/gualtallary-wines', texte: "Gualtallary Wines, vins d'altitude de la Valle de Uco" }]
   }
