@@ -54,7 +54,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .art-box{background:var(--cream-l);max-width:760px;width:100%;padding:3.5rem;position:relative;margin:auto}
 .art-cl{position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;cursor:pointer;font-size:1.3rem;color:var(--gris);transition:color var(--e)}
 .art-cl:hover{color:var(--noir)}
-.art-cat{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bdx);margin-bottom:.6rem}
 .art-title{font-family:var(--fd);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;font-style:italic;color:var(--charbon);line-height:1.2;margin-bottom:.8rem}
 .art-meta{font-size:.72rem;color:var(--gris);margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--cream-d)}
 .art-body{font-size:1rem;line-height:1.85;color:var(--gris)}
@@ -94,7 +93,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 @media(max-width:600px){.nl{gap:.9rem}.nav-logo-img{height:34px}.nav-text-img{height:16px}}
 
 /* ── STANDALONE ARTICLE PAGE ── */
-.breadcrumb{max-width:760px;margin:7rem auto 0;padding:0 1.5rem;font-size:.7rem;letter-spacing:.08em;color:var(--gris)}
+.breadcrumb{max-width:760px;margin:7rem auto 0;padding:0 1.5rem;font-size:.72rem;letter-spacing:.02em;color:var(--gris)}
 .breadcrumb a{color:var(--gris);text-decoration:none}
 .breadcrumb a:hover{color:var(--bdx)}
 .article-header{max-width:760px;margin:0 auto;padding:1.5rem 1.5rem 2.5rem;border-bottom:1px solid var(--cream-d)}
@@ -111,7 +110,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 /* ── FIN D'ARTICLE : CTA VINS ── */
 .art-next{width:calc(100% - 3rem);max-width:712px;margin:1.5rem auto 0;padding:3.5rem 2.5rem 3rem;background:var(--cream);border-top:1px solid var(--or);text-align:center}
-.art-next-ey{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);margin-bottom:.8rem}
 .art-next h2{font-family:var(--fd);font-weight:300;font-size:clamp(1.9rem,4vw,2.6rem);line-height:1.15;color:var(--charbon);margin-bottom:.9rem;text-wrap:balance}
 .art-next h2 em{font-style:italic;color:var(--bdx)}
 .art-next-txt{font-size:.92rem;line-height:1.8;color:var(--gris);max-width:52ch;margin:0 auto 2.2rem;text-wrap:pretty}
@@ -215,7 +213,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .wine-lead{font-size:1.02rem}
 
 /* Encadré « L'essentiel » en tête d'article (réponse directe avant le récit). */
-.art-key{background:var(--cream);border-left:2px solid var(--bdx);padding:1.4rem 1.6rem;margin:0 0 2.2rem}
+.art-key{background:var(--cream);border-top:1px solid var(--or);border-bottom:1px solid var(--or);padding:1.5rem 1.7rem 1.4rem;margin:0 0 2.2rem}
 .art-body .art-key .art-key-t{font-family:var(--fb);font-size:.7rem;line-height:1.7;letter-spacing:.16em;text-transform:uppercase;color:var(--bdx);margin:0 0 .7rem;font-weight:500;text-wrap:wrap}
 .art-key ul{margin:0;padding:0}
 .art-key li{margin:.3rem 0}
@@ -233,6 +231,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .vins-table .vins-pre{display:block;font-family:var(--fb);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bdx)}
 @media(max-width:600px){.vins-shelf .shelf-item>a:first-child img.shelf-logo{padding:1.6rem 0}}
 /* Guide du vin argentin : sommaire et tableau des régions (texte courant, pas de colonne prix). */
-.art-toc ol{margin:0}
-.art-toc li{margin:.25rem 0}
+.art-key.art-toc{background:none;border-color:var(--cream-d);padding:1.3rem 0 1.1rem}
+.art-toc ol{margin:0;max-width:none;column-gap:2.5rem}
+.art-toc li{margin:.25rem 0;break-inside:avoid}
+@media(min-width:700px){.art-toc ol{columns:2}}
 .vins-table.regions-table td:last-child{white-space:normal;font-family:inherit;font-size:inherit;color:inherit}
+/* Navigation de fin d'article : liens dans le texte, comme dans le corps. */
+.art-next-txt a{color:var(--bdx);text-decoration:none;border-bottom:1px solid rgba(110,24,40,.6);transition:color var(--e),border-color var(--e)}
+.art-next-txt a:hover{color:var(--bdx-d);border-color:var(--bdx-d)}
+/* Surfaces navigateur : sélection, focus clavier. */
+.art-page ::selection,.art-next ::selection{background:var(--bdx);color:var(--cream-l)}
+.art-page a:focus-visible,.art-next a:focus-visible,.article-more a:focus-visible,.breadcrumb a:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
+/* Tableaux : le domaine passe sous le nom du vin ; les intitulés mobiles ne se coupent pas. */
+.vins-table .vins-dom-l{display:block;margin-top:.2rem;font-family:var(--fb);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+@media(max-width:600px){.vins-table td::before{flex:none;white-space:nowrap}.vins-table tbody th{flex-direction:column;align-items:flex-start;gap:0}}

@@ -43,8 +43,7 @@ function tableau() {
     .map((w) => {
       const style = `${w.couleur}, ${cepagesTexte(w)}`;
       const notes = w.scores.length ? w.scores.map((s) => `${s.note} ${s.source}`).join(', ') : '—';
-      return `<tr><th scope="row"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></th>`
-        + `<td data-label="Domaine">${esc(DOMAINES[w.domaine].nom)}</td>`
+      return `<tr><th scope="row"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a><span class="vins-dom-l">${esc(DOMAINES[w.domaine].nom)}</span></th>`
         + `<td data-label="Style">${nbsp(esc(style))}</td>`
         + `<td data-label="Garde">${nbsp(esc(w.garde || '—'))}</td>`
         + `<td data-label="Critique">${esc(notes)}</td>`
@@ -54,7 +53,7 @@ function tableau() {
   return `<div class="vins-table-wrap">
 <table class="vins-table" aria-label="Les vins argentins d'Andivino, du moins cher au plus cher">
 <thead>
-<tr><th scope="col">Vin</th><th scope="col">Domaine</th><th scope="col">Style</th><th scope="col">Garde</th><th scope="col">Critique</th><th scope="col">Disponibilité</th><th scope="col">Prix</th></tr>
+<tr><th scope="col">Vin</th><th scope="col">Style</th><th scope="col">Garde</th><th scope="col">Critique</th><th scope="col">Disponibilité</th><th scope="col">Prix</th></tr>
 </thead>
 <tbody>
 ${lignes.join('\n')}
@@ -69,8 +68,7 @@ function tableauGarde() {
     .sort((a, b) => ans(b) - ans(a) || b.prix - a.prix)
     .map((w) => {
       const jusqu = w.millesime && ans(w) ? String(w.millesime + ans(w)) : '—';
-      return `<tr><th scope="row"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></th>`
-        + `<td data-label="Domaine">${esc(DOMAINES[w.domaine].nom)}</td>`
+      return `<tr><th scope="row"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a><span class="vins-dom-l">${esc(DOMAINES[w.domaine].nom)}</span></th>`
         + `<td data-label="Élevage">${nbsp(esc(w.elevage || '—'))}</td>`
         + `<td data-label="Garde">${nbsp(esc(w.garde || '—'))}</td>`
         + `<td data-label="Jusqu'en">${jusqu}</td></tr>`;
@@ -78,7 +76,7 @@ function tableauGarde() {
   return `<div class="vins-table-wrap">
 <table class="vins-table" aria-label="Potentiel de garde des vins d'Andivino">
 <thead>
-<tr><th scope="col">Vin</th><th scope="col">Domaine</th><th scope="col">Élevage</th><th scope="col">Garde</th><th scope="col">À boire jusqu'en</th></tr>
+<tr><th scope="col">Vin</th><th scope="col">Élevage</th><th scope="col">Garde</th><th scope="col">À boire jusqu'en</th></tr>
 </thead>
 <tbody>
 ${lignes.join('\n')}
