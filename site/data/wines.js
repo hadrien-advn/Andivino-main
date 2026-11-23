@@ -226,7 +226,7 @@ const WINES = [
       { note: 93, source: 'Wine Advocate' },
       { note: 95, source: 'Descorchados' }
     ],
-    image: { src: '/assets/images/bout-carmelo-patti-malbec-2019-v2.webp', width: 227, height: 900, alt: 'Bouteille de Carmelo Patti Malbec 2019, vin argentin de Luján de Cuyo' },
+    image: { src: '/assets/images/bout-carmelo-patti-malbec-2019-v3.webp', width: 227, height: 900, alt: 'Bouteille de Carmelo Patti Malbec 2019, vin argentin de Luján de Cuyo' },
     og: '/assets/images/og/carmelo-patti-malbec-2019.jpg',
     maj: '2026-11-14',
     seo: {
