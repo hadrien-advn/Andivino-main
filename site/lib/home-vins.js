@@ -57,7 +57,6 @@ function renderHomeVins(html) {
     </ul>
     <div class="vc-bar">
       <button type="button" class="vc-btn" data-vc="-1" aria-controls="vinsGrid" aria-label="Cuvées précédentes">${FLECHE('M15 6l-6 6 6 6')}</button>
-      <button type="button" class="vc-play" aria-controls="vinsGrid" aria-label="Mettre en pause le défilement" aria-pressed="false" hidden><span aria-hidden="true"></span></button>
       <button type="button" class="vc-btn" data-vc="1" aria-controls="vinsGrid" aria-label="Cuvées suivantes">${FLECHE('M9 6l6 6-6 6')}</button>
     </div>
   </div>

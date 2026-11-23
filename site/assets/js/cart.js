@@ -69,8 +69,36 @@
     if (retour) fin.appendChild(retour);
   }
   if (!bouton) return;
-  bouton.setAttribute('aria-haspopup', 'dialog');
-  bouton.setAttribute('aria-controls', 'panier');
+
+  // Sur téléphone, le panier quitte le bandeau : un bouton rond fixe en bas à droite (cart.css le montre
+  // sous 600 px et masque celui du bandeau). Il se pose au-dessus des barres fixes du bas quand il y en a.
+  var fab = document.createElement('button');
+  fab.type = 'button';
+  fab.className = 'cd-fab';
+  fab.innerHTML = BAG + '<span class="cd-fab-n" aria-hidden="true"></span>';
+  document.body.appendChild(fab);
+  var fabN = fab.querySelector('.cd-fab-n');
+  var BARRES = '.pdp-sticky, .px-bar, .book-bar, .cookie-banner';
+  var calage = 0;
+  function caler() {
+    calage = 0;
+    var h = 0;
+    document.querySelectorAll(BARRES).forEach(function (el) {
+      if (el.hidden || !el.getClientRects().length) return;
+      var r = el.getBoundingClientRect();
+      if (r.height && r.bottom > window.innerHeight - 4) h = Math.max(h, window.innerHeight - r.top);
+    });
+    fab.style.setProperty('--fab-cale', Math.round(h) + 'px');
+  }
+  function planifier() { if (!calage) calage = requestAnimationFrame(caler); }
+  window.addEventListener('resize', planifier);
+  new MutationObserver(planifier).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['hidden', 'class', 'style'], childList: true });
+  caler();
+
+  [bouton, fab].forEach(function (b) {
+    b.setAttribute('aria-haspopup', 'dialog');
+    b.setAttribute('aria-controls', 'panier');
+  });
 
   // ── Volet ──
   var volet = document.createElement('div');
@@ -131,7 +159,11 @@
     volet.querySelector('.cd-nb').textContent = n ? n + (n > 1 ? ' bouteilles' : ' bouteille') : '';
     volet.querySelector('.cd-total strong').textContent = euros(total);
     if (badge) { badge.textContent = n; badge.classList.toggle('on', n > 0); }
-    bouton.setAttribute('aria-label', n ? 'Voir le panier, ' + n + (n > 1 ? ' bouteilles' : ' bouteille') : 'Voir le panier, vide');
+    fabN.textContent = n;
+    fabN.classList.toggle('on', n > 0);
+    var etiquette = n ? 'Voir le panier, ' + n + (n > 1 ? ' bouteilles' : ' bouteille') : 'Voir le panier, vide';
+    bouton.setAttribute('aria-label', etiquette);
+    fab.setAttribute('aria-label', etiquette);
     commander();
   }
 
@@ -157,6 +189,7 @@
     volet.hidden = false;
     document.body.style.overflow = 'hidden';
     bouton.setAttribute('aria-expanded', 'true');
+    fab.setAttribute('aria-expanded', 'true');
     // lecture forcée de la mise en page : le volet part de sa position fermée, puis glisse
     void panneau.offsetWidth;
     volet.classList.add('cd--ouvert');
@@ -169,13 +202,16 @@
     volet.classList.remove('cd--ouvert');
     document.body.style.overflow = '';
     bouton.setAttribute('aria-expanded', 'false');
+    fab.setAttribute('aria-expanded', 'false');
     var fini = function () { if (!ouvert) volet.hidden = true; };
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) fini();
     else setTimeout(fini, 420);
     if (avant && avant.focus) avant.focus({ preventScroll: true });
   }
 
-  bouton.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); ouvert ? fermer() : ouvrir(); }, true);
+  [bouton, fab].forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); ouvert ? fermer() : ouvrir(); }, true);
+  });
   volet.addEventListener('click', function (e) {
     if (e.target.closest('[data-cd-fermer]')) { fermer(); return; }
     var ligne = e.target.closest('.cd-ligne');

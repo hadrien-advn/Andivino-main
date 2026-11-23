@@ -10,6 +10,19 @@
 .nav-panier-n.on{display:flex}
 @media(max-width:600px){.nav-fin{gap:.6rem}}
 
+/* ── Bouton rond fixe (téléphone seulement) : remplace celui du bandeau ── */
+.cd-fab{display:none}
+@media(max-width:600px){
+  .nav-panier,#cartBtn{display:none!important}
+  .cd-fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom) + var(--fab-cale,0px));z-index:480;display:inline-flex;align-items:center;justify-content:center;width:58px;height:58px;padding:0;border:0;border-radius:50%;background:var(--bdx);color:var(--cream-l);cursor:pointer;box-shadow:0 0 0 1px rgba(196,164,74,.45),0 10px 26px rgba(70,20,30,.28),0 2px 6px rgba(20,16,12,.16);transition:bottom .3s cubic-bezier(.16,1,.3,1),transform .2s ease,background var(--e);-webkit-tap-highlight-color:transparent}
+  .cd-fab svg{width:23px;height:23px}
+  .cd-fab:active{transform:scale(.94)}
+  .cd-fab:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
+  .cd-fab-n{position:absolute;top:-2px;right:-2px;display:none;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--cream-l);color:var(--bdx);box-shadow:0 0 0 1.5px var(--bdx);font-family:var(--fb);font-size:.72rem;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+  .cd-fab-n.on{display:flex}
+}
+@media(max-width:600px) and (prefers-reduced-motion:reduce){.cd-fab{transition:none}}
+
 /* ── Volet ── */
 .cd{position:fixed;inset:0;z-index:1000}
 .cd[hidden]{display:none}

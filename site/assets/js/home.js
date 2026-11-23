@@ -54,13 +54,12 @@ function renderWines(){
 
 // Flèches : on avance d'autant de cuvées qu'il en tient à l'écran (au moins une), et chaque flèche
 // s'éteint en bout de piste. Le défilement lui-même reste natif (doigt, trackpad, clavier).
-// Défilement automatique : une cuvée toutes les 4,5 s, retour au début en bout de piste. Il s'arrête
-// au survol, au focus, au toucher, hors écran ou onglet masqué, et ne démarre pas si le visiteur a demandé
-// à réduire les animations. Le bouton du milieu le met en pause (ou le relance) pour de bon.
+// Défilement automatique : une cuvée toutes les 2,8 s, retour au début en bout de piste. Il se suspend
+// au survol, au focus, hors écran ou onglet masqué ; au doigt, il reprend 4 s après le dernier geste.
+// Il ne démarre pas si le visiteur a demandé à réduire les animations.
 function initCarousel(track){
   const root=track.closest('.vc');if(!root)return;
   const btns=root.querySelectorAll('[data-vc]');
-  const play=root.querySelector('.vc-play');
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const gap=()=>parseFloat(getComputedStyle(track).columnGap)||0;
   const card=()=>{const it=track.querySelector('.vc-item');return it?it.getBoundingClientRect().width+gap():track.clientWidth;};
@@ -69,11 +68,11 @@ function initCarousel(track){
   const sync=()=>{btns.forEach(b=>{b.disabled=+b.dataset.vc<0?track.scrollLeft<=2:atEnd();});};
   const go=(left)=>track.scrollBy({left,behavior:reduce?'auto':'smooth'});
 
-  let timer=null,stopped=reduce,hover=false,visible=false;
+  let timer=null,stopped=reduce,hover=false,visible=false,touch=false,reprise=null;
   const tick=()=>{if(atEnd())track.scrollTo({left:0,behavior:'smooth'});else go(card());};
   const update=()=>{
-    const run=!stopped&&!hover&&visible&&!document.hidden;
-    if(run&&!timer)timer=setInterval(tick,4500);
+    const run=!stopped&&!hover&&!touch&&visible&&!document.hidden;
+    if(run&&!timer)timer=setInterval(tick,2800);
     else if(!run&&timer){clearInterval(timer);timer=null;}
   };
   const restart=()=>{if(timer){clearInterval(timer);timer=null;}update();};
@@ -85,21 +84,14 @@ function initCarousel(track){
   root.addEventListener('mouseleave',()=>{hover=false;update();});
   root.addEventListener('focusin',()=>{hover=true;update();});
   root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget)){hover=false;update();}});
-  // Un doigt posé sur la piste : le visiteur a pris la main, on n'insiste pas.
-  track.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'){stopped=true;if(play)play.setAttribute('aria-pressed','true'),play.setAttribute('aria-label','Relancer le défilement');update();}},{passive:true});
+  // Un doigt posé sur la piste : on laisse la main le temps du geste, puis on repart.
+  const lacher=()=>{clearTimeout(reprise);reprise=setTimeout(()=>{touch=false;restart();},4000);};
+  track.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'){touch=true;clearTimeout(reprise);update();}},{passive:true});
+  track.addEventListener('touchend',lacher,{passive:true});
+  track.addEventListener('touchcancel',lacher,{passive:true});
   document.addEventListener('visibilitychange',update);
   if('IntersectionObserver' in window)new IntersectionObserver(es=>{visible=es[0].isIntersecting;update();},{threshold:.35}).observe(track);
   else visible=true;
-  if(play&&!reduce){
-    play.hidden=false;
-    play.addEventListener('click',()=>{
-      stopped=!stopped;
-      play.setAttribute('aria-pressed',String(stopped));
-      play.setAttribute('aria-label',stopped?'Relancer le défilement':'Mettre en pause le défilement');
-      if(!stopped)hover=false;
-      restart();
-    });
-  }
   sync();update();
 }
 

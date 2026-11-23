@@ -136,13 +136,6 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .vc-btn:hover:not(:disabled){background:var(--bdx);border-color:var(--bdx);color:var(--cream-l)}
 .vc-btn:disabled{opacity:.3;cursor:default}
 .vc-btn:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
-/* Pause / reprise du défilement automatique : deux barres, ou un triangle quand il est en pause. */
-.vc-play{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:0;background:transparent;color:var(--gris);cursor:pointer;transition:color var(--e)}
-.vc-play[hidden]{display:none}
-.vc-play:hover{color:var(--bdx)}
-.vc-play:focus-visible{outline:2px solid var(--bdx);outline-offset:2px;border-radius:50%}
-.vc-play span{width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor}
-.vc-play[aria-pressed="true"] span{width:0;height:0;border:0;border-left:10px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
 .vc-track{list-style:none;margin:0;display:grid;grid-auto-flow:column;grid-auto-columns:var(--vc-w);gap:clamp(1.5rem,3vw,3.2rem);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--vc-pad);padding:1rem var(--vc-pad) 1.5rem;background:var(--cream-l);scrollbar-width:none}
 .vc-track::-webkit-scrollbar{display:none}
 .vc-track:focus-visible{outline:2px solid var(--bdx);outline-offset:-2px}
