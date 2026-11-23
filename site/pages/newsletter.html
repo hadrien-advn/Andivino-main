@@ -42,11 +42,12 @@
   </div>
 
   <div class="card">
-    <div class="eyebrow">Newsletter</div>
-    <h1>Des nouvelles <em>des Andes</em></h1>
-    <p class="lead">
-      Nos nouvelles chroniques, l'arrivée des prochaines cuvées et les invitations à nos dégustations, directement dans votre boîte mail.
-    </p>
+    <header class="intro" id="nlIntro">
+      <h1>Des nouvelles <em>des Andes</em></h1>
+      <p class="lead">
+        Nos nouvelles chroniques, l'arrivée des prochaines cuvées et les invitations à nos dégustations, directement dans votre boîte mail.
+      </p>
+    </header>
 
     <form id="newsletterForm" novalidate>
       <div class="form-row">
@@ -74,13 +75,25 @@
     </form>
 
     <div class="done" id="nlDone" hidden>
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7"/></svg></div>
-      <h2>Merci <span id="nlDoneName"></span></h2>
-      <p class="lead">Votre inscription est enregistrée. À très bientôt dans votre boîte mail.</p>
-      <div class="cta-row">
-        <a href="/chroniques" class="btn-p">Lire les chroniques</a>
-        <a href="/vins-argentins" class="btn-o">Découvrir les vins</a>
-      </div>
+      <h1 class="done-title">Merci, <em id="nlDoneName"></em></h1>
+      <p class="done-ok"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Inscription enregistrée</p>
+      <p class="done-msg">Nos prochaines nouvelles des Andes arriveront à <span class="done-email" id="nlDoneEmail"></span>. À très bientôt dans votre boîte mail.</p>
+      <p class="done-sign">Gaspard, Esteban et Hadrien</p>
+
+      <nav class="next" aria-label="En attendant la prochaine lettre">
+        <a href="/chroniques" class="next-row">
+          <span class="next-txt"><span class="next-t">Lire les chroniques</span><span class="next-d">Terroirs, cépages et récits de Mendoza, écrits par les fondateurs.</span></span>
+          <svg class="next-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="/vins-argentins" class="next-row">
+          <span class="next-txt"><span class="next-t">Découvrir les vins</span><span class="next-d">Nos cuvées de Mendoza, domaine par domaine.</span></span>
+          <svg class="next-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="/degustation" class="next-row">
+          <span class="next-txt"><span class="next-t">Venir à une dégustation</span><span class="next-d">Goûter nos vins avec les fondateurs avant de commander.</span></span>
+          <svg class="next-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+      </nav>
     </div>
   </div>
 </main>

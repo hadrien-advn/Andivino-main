@@ -43,11 +43,21 @@
       })
       .then(function () {
         document.getElementById('nlDoneName').textContent = prenom;
-        form.hidden = true;
-        done.hidden = false;
-        var title = done.querySelector('h2');
-        title.setAttribute('tabindex', '-1');
-        title.focus();
+        document.getElementById('nlDoneEmail').textContent = email;
+        var swap = function () {
+          document.getElementById('nlIntro').hidden = true;
+          form.hidden = true;
+          done.hidden = false;
+        };
+        var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var shown = (document.startViewTransition && !calm)
+          ? document.startViewTransition(swap).updateCallbackDone
+          : Promise.resolve(swap());
+        return shown.then(function () {
+          var title = done.querySelector('.done-title');
+          title.setAttribute('tabindex', '-1');
+          title.focus();
+        });
       })
       .catch(function (err) {
         fail(err.message === 'Failed to fetch' ? 'Connexion impossible. Vérifiez votre réseau et réessayez.' : err.message);
