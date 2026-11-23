@@ -127,12 +127,12 @@ function buyBlock(w, s) {
       </form>`;
 }
 
-function card(w) {
+function card(w, avecDomaine) {
   const d = DOMAINES[w.domaine];
   const s = statutDe(w);
   return `<div class="pdp-card">
       ${w.image ? `<div class="pdp-card-visual" style="${papier(w)}"><img src="${esc(w.image.src)}" width="${w.image.width}" height="${w.image.height}" alt="" loading="lazy"></div>` : (d.logo ? `<img class="pdp-card-logo" src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" alt="" loading="lazy">` : '')}
-      <p class="pdp-card-dom">${esc(d.nom)}</p>
+      ${avecDomaine ? `<p class="pdp-card-dom">${esc(d.nom)}</p>` : ''}
       <h3 class="pdp-card-name"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></h3>
       <p class="pdp-card-cep">${fine(cepagesTexte(w))}</p>
       <p class="pdp-card-price">${fine(prixTexte(w.prix))}${w.statut !== 'en-stock' ? ` <span>${esc(s.label)}</span>` : ''}</p>
@@ -271,7 +271,7 @@ ${s.achetable ? `      <ul class="pdp-reassure">
   <section class="pdp-related" aria-labelledby="pdp-related-t">
     <h2 id="pdp-related-t">${autres.length ? `Les autres cuvées ${/^Bodega /.test(d.nom) ? 'de la' : 'du domaine'} ${esc(d.nom)}` : 'Nos autres cuvées'}</h2>
     <div class="pdp-cards">
-    ${related.map(card).join('\n    ')}
+    ${related.map((x) => card(x, !autres.length)).join('\n    ')}
     </div>
     <p class="pdp-all"><a href="/vins-argentins">Voir toutes nos cuvées</a></p>
   </section>
