@@ -38,24 +38,26 @@ function observeFade(){
 // pour être lisible sans JavaScript : ici on branche les boutons « Ajouter » et les flèches du carrousel.
 function renderWines(){
   const {wines}=getData();const g=document.getElementById('vinsGrid');if(!g)return;
-  g.querySelectorAll('[data-add-id]').forEach(btn=>{
-    btn.addEventListener('click',(event)=>{
-      event.preventDefault();
-      const w=wines.find(x=>x.id===btn.dataset.addId);
-      addToCart(btn.dataset.addId);
-      // Le panier latéral (cart.js) s'ouvre sur la bouteille ajoutée ; sans lui, simple message.
-      if(window.AndivinoCart){window.AndivinoCart.rendre();window.AndivinoCart.ouvrir();}
-      else if(w)showToast(`${w.nom} ${w.millesime} ajouté au panier`);
-    });
+  // Délégué sur la piste : vaut aussi pour la copie des cuvées ajoutée par le défilement sans fin.
+  g.addEventListener('click',(event)=>{
+    const btn=event.target.closest('[data-add-id]');if(!btn)return;
+    event.preventDefault();
+    const w=wines.find(x=>x.id===btn.dataset.addId);
+    addToCart(btn.dataset.addId);
+    // Le panier latéral (cart.js) s'ouvre sur la bouteille ajoutée ; sans lui, simple message.
+    if(window.AndivinoCart){window.AndivinoCart.rendre();window.AndivinoCart.ouvrir();}
+    else if(w)showToast(`${w.nom} ${w.millesime} ajouté au panier`);
   });
   initCarousel(g);
   observeFade();
 }
 
 // Flèches : on avance d'autant de cuvées qu'il en tient à l'écran (au moins une), et chaque flèche
-// s'éteint en bout de piste. Le défilement lui-même reste natif (doigt, trackpad, clavier).
-// Défilement automatique : une cuvée toutes les 2,8 s, retour au début en bout de piste. Il se suspend
-// au survol, au focus, hors écran ou onglet masqué ; au doigt, il reprend 4 s après le dernier geste.
+// s'éteint en bout de piste. Le défilement manuel reste natif (doigt, trackpad, clavier).
+// Défilement automatique : un glissé continu (environ 55 px/s, avec une mise en route douce), sans fin :
+// la piste est suivie d'une copie des cuvées (cachée aux lecteurs d'écran) et on revient d'une longueur
+// en arrière sans que cela se voie. Il se suspend au survol de la souris, hors écran ou onglet masqué, et
+// s'arrête pour de bon dès que le visiteur touche au carrousel (doigt, clic, flèche, molette, clavier).
 // Il ne démarre pas si le visiteur a demandé à réduire les animations.
 function initCarousel(track){
   const root=track.closest('.vc');if(!root)return;
@@ -68,31 +70,54 @@ function initCarousel(track){
   const sync=()=>{btns.forEach(b=>{b.disabled=+b.dataset.vc<0?track.scrollLeft<=2:atEnd();});};
   const go=(left)=>track.scrollBy({left,behavior:reduce?'auto':'smooth'});
 
-  let timer=null,stopped=reduce,hover=false,visible=false,touch=false,reprise=null;
-  const tick=()=>{if(atEnd())track.scrollTo({left:0,behavior:'smooth'});else go(card());};
-  const update=()=>{
-    const run=!stopped&&!hover&&!touch&&visible&&!document.hidden;
-    if(run&&!timer)timer=setInterval(tick,2800);
-    else if(!run&&timer){clearInterval(timer);timer=null;}
-  };
-  const restart=()=>{if(timer){clearInterval(timer);timer=null;}update();};
+  let stopped=reduce,hover=false,visible=false,raf=0,last=0,pos=0,speed=0;
+  const VITESSE=55; // px par seconde
+  const items=[...track.children];
+  // Longueur d'un tour : de la première cuvée à sa copie.
+  let tour=0;
+  if(!reduce&&items.length>1){
+    items.forEach(it=>{
+      const c=it.cloneNode(true);
+      c.setAttribute('aria-hidden','true');c.dataset.copie='';
+      c.querySelectorAll('a,button').forEach(el=>el.setAttribute('tabindex','-1'));
+      track.appendChild(c);
+    });
+  }
+  const mesurer=()=>{const c=track.querySelector('[data-copie]');tour=c?c.offsetLeft-items[0].offsetLeft:0;};
 
-  btns.forEach(b=>b.addEventListener('click',()=>{go(+b.dataset.vc*step());restart();}));
+  const frame=(t)=>{
+    raf=requestAnimationFrame(frame);
+    const dt=last?Math.min(.05,(t-last)/1000):0;last=t;
+    speed+=(VITESSE-speed)*Math.min(1,dt*2.5); // mise en route progressive
+    pos+=speed*dt;
+    if(tour&&pos>=tour)pos-=tour;
+    track.scrollLeft=pos;
+  };
+  const update=()=>{
+    const run=!stopped&&!hover&&visible&&!document.hidden&&tour>0;
+    if(run&&!raf){pos=track.scrollLeft;last=0;speed=0;track.style.scrollSnapType='none';raf=requestAnimationFrame(frame);}
+    else if(!run&&raf){cancelAnimationFrame(raf);raf=0;}
+  };
+  // Le visiteur prend la main : plus de défilement automatique, l'aimantation des cuvées revient.
+  const stop=()=>{
+    if(stopped)return;
+    stopped=true;update();
+    track.style.scrollSnapType='';
+  };
+
+  btns.forEach(b=>b.addEventListener('click',()=>{stop();go(+b.dataset.vc*step());}));
   track.addEventListener('scroll',()=>requestAnimationFrame(sync),{passive:true});
-  window.addEventListener('resize',sync);
+  window.addEventListener('resize',()=>{mesurer();sync();});
   root.addEventListener('mouseenter',()=>{hover=true;update();});
   root.addEventListener('mouseleave',()=>{hover=false;update();});
-  root.addEventListener('focusin',()=>{hover=true;update();});
-  root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget)){hover=false;update();}});
-  // Un doigt posé sur la piste : on laisse la main le temps du geste, puis on repart.
-  const lacher=()=>{clearTimeout(reprise);reprise=setTimeout(()=>{touch=false;restart();},4000);};
-  track.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'){touch=true;clearTimeout(reprise);update();}},{passive:true});
-  track.addEventListener('touchend',lacher,{passive:true});
-  track.addEventListener('touchcancel',lacher,{passive:true});
+  root.addEventListener('pointerdown',stop,{passive:true});
+  root.addEventListener('keydown',stop);
+  root.addEventListener('focusin',stop);
+  track.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY))stop();},{passive:true});
   document.addEventListener('visibilitychange',update);
   if('IntersectionObserver' in window)new IntersectionObserver(es=>{visible=es[0].isIntersecting;update();},{threshold:.35}).observe(track);
   else visible=true;
-  sync();update();
+  mesurer();sync();update();
 }
 
 /* ── DÉGUSTATIONS ── */
