@@ -232,3 +232,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .art-next-wines img.shelf-logo{padding:2.6rem 1.5rem}
 .vins-table .vins-pre{display:block;font-family:var(--fb);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bdx)}
 @media(max-width:600px){.vins-shelf .shelf-item>a:first-child img.shelf-logo{padding:1.6rem 0}}
+/* Guide du vin argentin : sommaire et tableau des régions (texte courant, pas de colonne prix). */
+.art-toc ol{margin:0}
+.art-toc li{margin:.25rem 0}
+.vins-table.regions-table td:last-child{white-space:normal;font-family:inherit;font-size:inherit;color:inherit}

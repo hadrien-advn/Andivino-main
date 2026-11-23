@@ -427,6 +427,7 @@ app.get(['/chroniques', '/chroniques/'], sendPage('chroniques.html'));
 app.get(['/chroniques/malbec-argentin-histoire-terroirs', '/chroniques/malbec-argentin-histoire-terroirs/'], sendPage('chronique-malbec-argentin-histoire-terroirs.html'));
 app.get(['/chroniques/accords-mets-vins-malbec-argentin', '/chroniques/accords-mets-vins-malbec-argentin/'], sendPage('chronique-accords-mets-vins-malbec-argentin.html'));
 app.get(['/chroniques/choisir-vin-argentin', '/chroniques/choisir-vin-argentin/'], sendPage('chronique-choisir-vin-argentin.html'));
+app.get(['/chroniques/vin-argentin-guide', '/chroniques/vin-argentin-guide/'], sendPage('chronique-vin-argentin-guide.html'));
 // Fiches produits : une route par cuvée de data/wines.js, même gabarit (lib/product-page.js).
 for (const w of WINES) app.get(wineUrl(w), sendPage(`vin:${w.id}`));
 // Pages domaine (data/domaines.js) ; un domaine sans page renvoie au catalogue.
