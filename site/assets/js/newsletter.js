@@ -46,6 +46,7 @@
         document.getElementById('nlDoneEmail').textContent = email;
         var swap = function () {
           document.getElementById('nlIntro').hidden = true;
+          done.closest('.card').classList.add('is-done');
           form.hidden = true;
           done.hidden = false;
         };

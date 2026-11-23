@@ -6,9 +6,12 @@
   --or:#C4A44A;
   --gris:#655D54;--gris-l:#C0BBB5;
   --green:#2D6A4F;
+  --rule:rgba(101,93,84,.34);
   --fd:'Cormorant Garamond','Cormorant Fallback',Georgia,serif;
   --fb:'DM Sans','DM Sans Fallback',system-ui,sans-serif;
   --e:.3s ease;
+  --out:cubic-bezier(.16,1,.3,1);
+  --tilt:-.7deg;
 }
 body{font-family:var(--fb);background:var(--cream);color:var(--noir);line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
 ::selection{background:rgba(110,24,40,.14);color:var(--charbon)}
@@ -20,82 +23,94 @@ body>nav{display:flex;align-items:center;justify-content:space-between;padding:1
 .back-link{white-space:nowrap;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);text-decoration:none}
 .back-link:hover{color:var(--charbon)}
 
-main{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:5rem 2rem}
-.nl-visual{position:absolute;inset:0 0 auto 0;height:62%;overflow:hidden}
-.nl-visual img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;display:block}
-.nl-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,12,.15) 0%,rgba(250,246,241,0) 55%,var(--cream-l) 97%)}
+/* La vigne occupe toute la hauteur, jusqu'au pied de page : pas de fondu vers un autre crème */
+main{flex:1;position:relative;isolation:isolate;overflow:clip;display:flex;align-items:center;justify-content:center;padding:6rem 2rem 7rem}
+.nl-visual{position:absolute;inset:0;z-index:-1}
+.nl-visual img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+.nl-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,12,.08) 0%,rgba(20,16,12,0) 35%,rgba(20,16,12,.22) 100%)}
 
-.card{position:relative;max-width:620px;width:100%;background:var(--cream-l);border:1px solid var(--cream-d);padding:3.5rem 3.5rem 3rem;box-shadow:0 18px 50px rgba(20,16,12,.08)}
-h1{font-family:var(--fd);font-size:2.6rem;font-weight:300;color:var(--charbon);margin-bottom:1.2rem;line-height:1.15;text-align:center;text-wrap:balance}
+/* Une feuille aux bords déchirés, posée un peu de travers sur la photo (même motif que la fiche domaine) */
+.card{position:relative;max-width:600px;width:100%;view-transition-name:nl-card}
+.card::before{content:'';position:absolute;inset:44px 26px -10px;background:rgba(40,28,18,.42);filter:blur(30px);transform:rotate(var(--tilt));border-radius:14px}
+.sheet{position:relative;padding:3.8rem 3.4rem 3.4rem;transform:rotate(var(--tilt));
+  isolation:isolate;background:var(--cream-l);
+  -webkit-mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x;
+  mask:url('/assets/images/papier/bord-haut.png') top left/640px 18px repeat-x,linear-gradient(#000,#000) center/100% calc(100% - 32px) no-repeat,url('/assets/images/papier/bord-bas.png') bottom left/640px 18px repeat-x}
+.sheet::before{content:'';position:absolute;inset:0;z-index:-1;background:url('/assets/images/papier/fond-2.webp') center/cover;mix-blend-mode:multiply;opacity:.38}
+.sheet>*{transform:rotate(calc(var(--tilt) * -1))}
+/* L'écusson posé comme un cachet sur le coin de la feuille */
+.seal{position:absolute;z-index:3;top:-30px;right:22px;height:92px;width:auto;transform:rotate(8deg);filter:drop-shadow(0 6px 6px rgba(40,28,18,.3)) drop-shadow(0 1px 1px rgba(40,28,18,.25));pointer-events:none}
+
+h1{font-family:var(--fd);font-size:2.9rem;font-weight:300;color:var(--charbon);margin-bottom:1rem;line-height:1.08;text-wrap:balance;padding-right:3rem}
 h1 em{font-style:italic;color:var(--bdx)}
-.lead{font-size:.95rem;color:var(--charbon);margin-bottom:2rem;line-height:1.75;text-align:center}
+.lead{font-size:.95rem;color:var(--gris);margin-bottom:2.2rem;line-height:1.75;max-width:30rem}
 
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+/* Champs sur une ligne d'écriture, comme on remplit une carte */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+.form-group{display:flex;flex-direction:column;gap:.15rem;margin-bottom:1.4rem}
 .form-group label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
-.form-group input{caret-color:var(--bdx);font-family:var(--fb);font-size:1rem;color:var(--charbon);background:var(--cream-l);border:1px solid var(--cream-d);padding:.75rem 1rem;outline:none;border-radius:0;transition:border-color var(--e),box-shadow var(--e)}
+.form-group input{caret-color:var(--bdx);font-family:var(--fb);font-size:1rem;color:var(--charbon);background:transparent;border:0;border-bottom:1px solid var(--rule);padding:.5rem 0 .55rem;outline:none;border-radius:0;transition:border-color var(--e),box-shadow var(--e)}
 .form-group input::placeholder{color:#736B62}
-.form-group input:focus{border-color:var(--bdx);box-shadow:0 0 0 3px rgba(110,24,40,.12)}
-.form-group input[aria-invalid="true"]{border-color:var(--bdx)}
+.form-group input:focus{border-bottom-color:var(--bdx);box-shadow:0 1px 0 var(--bdx)}
+.form-group input[aria-invalid="true"]{border-bottom-color:var(--bdx);box-shadow:0 1px 0 var(--bdx)}
 .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 
-.consent{display:flex;gap:.7rem;align-items:flex-start;font-size:.84rem;color:var(--charbon);line-height:1.55;margin:.4rem 0 1.2rem;cursor:pointer}
+.consent{display:flex;gap:.7rem;align-items:flex-start;font-size:.84rem;color:var(--charbon);line-height:1.55;margin:.6rem 0 1.6rem;cursor:pointer}
 .consent input{margin-top:.2rem;width:16px;height:16px;flex-shrink:0;accent-color:var(--bdx)}
 
 .status{font-size:.84rem;color:var(--bdx);min-height:1.3em;margin-bottom:.8rem}
 .status:empty{margin:0;min-height:0}
 
-.btn-p{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);border:0;padding:1rem 2.2rem;text-decoration:none;display:inline-block;cursor:pointer;transition:background var(--e)}
-form .btn-p{width:100%}
+.btn-p{font-family:var(--fb);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-l);background:var(--bdx);border:0;padding:1.05rem 2.4rem;text-decoration:none;display:inline-block;cursor:pointer;transition:background var(--e)}
 .btn-p:hover{background:var(--bdx-d)}
 .btn-p:disabled{opacity:.6;cursor:wait}
-.form-note{font-size:.72rem;color:var(--gris);line-height:1.6;margin-top:1.2rem;text-align:center}
-.form-note a{color:var(--bdx)}
+.form-note{font-size:.72rem;color:var(--gris);line-height:1.6;margin-top:1.4rem;max-width:30rem}
+.form-note a{color:var(--bdx);text-underline-offset:2px}
 
-/* Confirmation : la carte devient une courte lettre signée, puis trois chemins à filets */
-.card{view-transition-name:nl-card}
-.done{text-align:center}
+/* Confirmation : une courte lettre signée, puis trois chemins */
 .done[hidden],.intro[hidden]{display:none}
-.done-title{font-size:3rem;line-height:1.08;margin-bottom:.9rem}
+.done-title{font-size:3.2rem;margin-bottom:.7rem}
 .done-title:focus{outline:none}
-.done-title em{font-style:italic;color:var(--bdx)}
-.done-ok{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:1.6rem}
+.done-ok{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem}
 .done-ok svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.done-msg{font-size:.95rem;line-height:1.75;color:var(--gris);max-width:30rem;margin:0 auto}
+.done-msg{font-size:.95rem;line-height:1.75;color:var(--gris);max-width:30rem}
 .done-email{color:var(--charbon);font-weight:500;overflow-wrap:anywhere}
-.done-sign{font-family:var(--fd);font-style:italic;font-size:1.3rem;color:var(--charbon);margin-top:1.1rem;line-height:1.3}
-.done-sign::before{content:'';display:block;width:24px;height:1px;background:var(--or);margin:0 auto 1.1rem}
+.done-sign{font-family:var(--fd);font-style:italic;font-size:1.5rem;color:var(--charbon);margin-top:1.2rem;line-height:1.25;text-align:right}
+.done-sign span{color:var(--gris)}
 
-.next{margin-top:2.6rem;border-top:1px solid var(--cream-d);text-align:left}
-.next-row{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.15rem .25rem;border-bottom:1px solid var(--cream-d);text-decoration:none;color:var(--charbon);transition:background var(--e)}
-.next-txt{display:flex;flex-direction:column;gap:.2rem;min-width:0}
+.next{margin-top:2.4rem}
+.next-row{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.05rem 0;border-top:1px dashed var(--rule);text-decoration:none;color:var(--charbon)}
+.next-txt{display:flex;flex-direction:column;gap:.15rem;min-width:0}
 .next-t{font-family:var(--fd);font-size:1.45rem;font-weight:400;line-height:1.15;transition:color var(--e)}
 .next-d{font-size:.84rem;line-height:1.5;color:var(--gris)}
-.next-arrow{flex-shrink:0;width:20px;height:20px;stroke:var(--bdx);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.next-arrow{flex-shrink:0;width:20px;height:20px;stroke:var(--bdx);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--out)}
 .next-row:hover .next-t{color:var(--bdx)}
 .next-row:hover .next-arrow{transform:translateX(5px)}
-.next-row:focus-visible{outline-offset:-2px}
 
 @media(prefers-reduced-motion:no-preference){
-  .done:not([hidden])>*{animation:nl-rise .9s cubic-bezier(.16,1,.3,1) backwards}
+  .done:not([hidden])>*{animation:nl-rise .9s var(--out) backwards}
   .done>:nth-child(2){animation-delay:.08s}
   .done>:nth-child(3){animation-delay:.14s}
-  .done>:nth-child(4){animation-delay:.2s}
-  .done>:nth-child(5){animation-delay:.32s}
-  ::view-transition-group(nl-card){animation-duration:.55s;animation-timing-function:cubic-bezier(.16,1,.3,1)}
+  .done>:nth-child(4){animation-delay:.22s}
+  .done>:nth-child(5){animation-delay:.34s}
+  /* le cachet se pose quand l'inscription est enregistrée */
+  .card.is-done .seal{animation:nl-stamp .7s var(--out) .15s backwards}
+  ::view-transition-group(nl-card){animation-duration:.6s;animation-timing-function:var(--out)}
 }
 @keyframes nl-rise{from{opacity:0;transform:translateY(10px)}}
+@keyframes nl-stamp{from{opacity:0;transform:rotate(-6deg) scale(1.5)}60%{opacity:1}}
 
 @media(max-width:640px){
   body>nav{padding:1rem 1.2rem}
   .nl{gap:.8rem}
   .nav-logo-mark{height:36px}
   .nav-logo-text{height:17px}
-  main{padding:3rem 1rem}
-  .nl-visual{height:46%}
-  .card{padding:2.4rem 1.4rem 2rem}
-  h1{font-size:2rem}
-  .done-title{font-size:2.4rem}
+  main{padding:3.4rem .9rem 4rem}
+  .sheet{padding:3rem 1.5rem 2.6rem}
+  .seal{height:68px;top:-24px;right:14px}
+  h1{font-size:2.2rem}
+  .done-title{font-size:2.5rem}
   .next-t{font-size:1.3rem}
   .form-row{grid-template-columns:1fr;gap:0}
+  .btn-p{width:100%}
 }
