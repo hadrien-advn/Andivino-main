@@ -181,6 +181,13 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
 .vd-mot{display:block;width:min(100%,230px);height:auto;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .vd-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .vd a:focus-visible{outline:2px solid var(--bdx);outline-offset:6px}
+/* Ordinateur : les trois domaines s'étalent sur la largeur du carrousel, blasons un peu plus grands. */
+@media(min-width:961px){
+  .vd{max-width:min(1500px,100%)}
+  .vd ul{column-gap:clamp(3rem,8vw,9rem)}
+  .vd-img{height:130px}
+  .vd-logo{max-width:165px}
+}
 @media(max-width:600px){
   /* Téléphone : la cuvée active au centre de l'écran, ses voisines dépassent de chaque côté. */
   .vc{--vc-w:72vw}
