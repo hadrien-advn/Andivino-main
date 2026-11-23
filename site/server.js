@@ -167,6 +167,7 @@ app.post('/api/stripe/webhook', express.raw({ type: 'application/json', limit: '
       const order = orderFromPaymentIntent(event);
       await recordPaymentIntentEvent(event, order);
       await sendOrderToCrm(order);
+      if (event.data.object.metadata?.newsletter === 'oui') await subscribeOrderBuyer(order);
     }
 
     await markProcessedEvent(event.id);
@@ -302,7 +303,9 @@ function normalizeCustomer(raw = {}) {
     adresse: cleanText(raw.adresse, 180),
     cp: cleanText(raw.cp, 12),
     ville: cleanText(raw.ville, 100),
-    message: cleanText(raw.message, 600)
+    message: cleanText(raw.message, 600),
+    // Case newsletter de /commande, décochée par défaut : seul un true explicite vaut consentement.
+    newsletter: raw.newsletter === true
   };
 
   if (!customer.prenom || !customer.nom || !customer.email || !customer.adresse || !customer.cp || !customer.ville) {
@@ -418,6 +421,24 @@ async function sendOrderToCrm(order) {
   if (!crmResponse.ok) throw new Error(`CRM ${crmResponse.status}`);
 }
 
+// Le client a coché la case newsletter de /commande : même inscription que /newsletter, notée comme
+// venant d'une commande. Un échec ici ne bloque pas la commande (Stripe ne renvoie pas l'événement).
+async function subscribeOrderBuyer(order) {
+  const { email, firstName, lastName } = order.customer;
+  if (!email || !newsletterSecret) return console.error(`[stripe] ${order.paymentIntentId} : newsletter non transmise (email ou secret manquant)`);
+  try {
+    const res = await fetch(`${crmUrl}/api/newsletter`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${newsletterSecret}` },
+      body: JSON.stringify({ email, firstName, lastName, source: 'commande' }),
+      signal: AbortSignal.timeout(8000)
+    });
+    if (!res.ok) throw new Error(`CRM ${res.status}`);
+  } catch (error) {
+    console.error(`[stripe] ${order.paymentIntentId} : inscription newsletter impossible :`, error.message);
+  }
+}
+
 app.get('/', sendPage('home.html'));
 app.get(['/commande', '/commande/'], sendPage('commande.html'));
 app.get('/vins-argentins', sendPage('vins-argentins.html'));
@@ -512,6 +533,8 @@ function paymentIntentCustomerFields(order, customer) {
       // Chaine vide = cle effacee par Stripe, si le client vide le champ entre deux mises a jour.
       customer_phone: customer.tel,
       customer_message: customer.message.slice(0, 500),
+      // Consentement newsletter gardé dans Stripe comme trace ; chaîne vide = clé effacée si décochée.
+      newsletter: customer.newsletter ? 'oui' : '',
       shipping_mode: order.shippingMode,
       bottle_count: String(order.bottleCount),
       order_total_cents: String(order.amount),

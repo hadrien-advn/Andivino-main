@@ -404,7 +404,8 @@ function collectCustomer() {
     adresse: withAddress ? document.getElementById('f-adresse').value.trim() : '',
     cp:      withAddress ? document.getElementById('f-cp').value.trim() : '',
     ville:   withAddress ? document.getElementById('f-ville').value.trim() : '',
-    message: document.getElementById('f-message').value.trim()
+    message: document.getElementById('f-message').value.trim(),
+    newsletter: document.getElementById('f-newsletter').checked
   };
 }
 

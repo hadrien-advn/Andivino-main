@@ -115,6 +115,11 @@ a.back-link:hover{color:var(--charbon)}
 .form-group input::placeholder,.form-group textarea::placeholder{color:#736B62}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--bdx);box-shadow:0 0 0 3px rgba(110,24,40,.12)}
 .form-group textarea{resize:vertical;min-height:80px}
+/* Case newsletter, décochée par défaut (même dessin que sur /degustation). */
+.consent{display:flex;gap:.85rem;align-items:flex-start;font-size:.86rem;color:var(--charbon);line-height:1.55;padding:.4rem 0 .2rem;cursor:pointer}
+.consent input{appearance:none;-webkit-appearance:none;margin:.1rem 0 0;width:20px;height:20px;flex-shrink:0;border:1px solid var(--gris-l);border-radius:4px;background:var(--cream-l) center/12px no-repeat;cursor:pointer;transition:background-color var(--e),border-color var(--e)}
+.consent input:checked{background-color:var(--bdx);border-color:var(--bdx);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5' fill='none' stroke='%23FAF6F1' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.consent input:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
 .form-note{font-size:.8rem;color:var(--gris);line-height:1.6;margin-top:.5rem}
 .form-note a,.text-link{color:var(--bdx)}
 
