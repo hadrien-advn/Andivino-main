@@ -12,7 +12,7 @@ const DOMAINES = {
     lieu: 'Luján de Cuyo, Mendoza',
     schemaId: 'https://andivino.fr/#bodega-poesia',
     page: '/vins/bodega-poesia',
-    maj: '2026-11-14',
+    maj: '2026-11-23',
     degustationHtml: 'servi avec les deux autres cuvées de la Bodega Poesía lors de notre <a href="/degustation">dégustation de vins argentins à Paris</a>',
     seo: {
       title: 'Bodega Poesía, vins de Luján de Cuyo (Mendoza) | Andivino',
@@ -62,15 +62,17 @@ const DOMAINES = {
   'carmelo-patti': {
     slug: 'carmelo-patti',
     nom: 'Carmelo Patti',
+    // Le vigneron (homonyme d'autres personnes : toujours « vigneron, Mendoza » à côté du nom).
+    fondateur: { nom: 'Carmelo Patti', role: 'Vigneron, fondateur de la bodega (1989)' },
     appellation: 'Luján de Cuyo',
     region: 'Mendoza',
     pays: 'AR',
     lieu: 'Perdriel, Luján de Cuyo, Mendoza',
     schemaId: 'https://andivino.fr/#carmelo-patti',
     page: '/vins/carmelo-patti',
-    maj: '2026-11-14',
+    maj: '2026-11-23',
     seo: {
-      title: 'Carmelo Patti, vins de garde de Luján de Cuyo | Andivino',
+      title: 'Bodega Carmelo Patti (Mendoza) en exclusivité | Andivino',
       description: 'Carmelo Patti, bodega de Perdriel (Luján de Cuyo) fondée en 1989 : levures indigènes, sans collage ni filtration. Malbec, Cabernet Sauvignon et Cabernet Franc.'
     },
     accroche: 'Un vigneron de garde, en exclusivité en France',
@@ -122,7 +124,7 @@ const DOMAINES = {
     lieu: 'Tupungato, Valle de Uco, Mendoza',
     schemaId: 'https://andivino.fr/#gualtallary-wines',
     page: '/vins/gualtallary-wines',
-    maj: '2026-11-14',
+    maj: '2026-11-23',
     seo: {
       title: 'Gualtallary Wines, vins d\'altitude de la Valle de Uco | Andivino',
       description: 'Gualtallary Wines, à Tupungato (Valle de Uco, Mendoza) : vignes de 1250 à 1600 m sur sols alluviaux calcaires, conseil Alberto Antonini. Torrontés, Malbec, Chardonnay.'
@@ -149,6 +151,7 @@ const DOMAINES = {
       {
         titre: 'Le terroir de Gualtallary',
         html: [
+          "Gualtallary est un secteur viticole de Tupungato, dans la Valle de Uco (province de Mendoza, Argentine), où les vignes s'étagent entre 1250 et 1600 mètres d'altitude sur des sols alluviaux riches en carbonate de calcium.",
           "Gualtallary incarne le front pionnier de la viticulture argentine, sur l'un des secteurs les plus prisés de Mendoza, juste en face des parcelles de Catena Zapata. L'altitude et les sols alluviaux, à forte teneur en carbonate de calcium, y donnent des vins tendus, salins, à l'acidité franche&nbsp;: un profil qui tranche avec le Malbec solaire auquel l'Argentine est souvent réduite."
         ]
       },

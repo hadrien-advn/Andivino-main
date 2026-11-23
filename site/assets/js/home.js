@@ -122,7 +122,7 @@ function renderDeg(tab='upcoming'){
     return `<div class="ditem">
       <div class="ddate"><div class="dday">${dt.getDate()}</div><div class="dmon">${MN[dt.getMonth()]} ${dt.getFullYear()}</div></div>
       <div class="dinfo"><h3>${d.titre}</h3><div class="dmeta"><span>${ICON_TIME}${d.heure}</span><span>${ICON_PIN}${d.lieu}</span></div></div>
-      ${tab==='upcoming'?(d.url?`<a href="${d.url}" class="btn-or"${d.inscription?' data-places':''}>S'inscrire</a>`:`<span class="btn-or disabled">Sur invitation</span>`):''}
+      ${tab==='upcoming'?(d.complet?`<span class="btn-or disabled">Complet</span>`:d.url?`<a href="${d.url}" class="btn-or"${d.inscription?' data-places':''}>S'inscrire</a>`:`<span class="btn-or disabled">Sur invitation</span>`):''}
     </div>`;
   }).join('');
   // Dégustation payante complète : le bouton l'annonce avant même d'ouvrir la page.

@@ -54,14 +54,25 @@ function domaines() {
   }).join('\n\n  ');
 }
 
-function table() {
+// Section « Nos Malbec argentins » (#malbec) : les cuvées 100 % Malbec, du moins cher au plus cher.
+function malbecs() {
+  const vins = WINES.filter((w) => w.cepages.length === 1 && w.cepages[0].nom === 'Malbec').sort((a, b) => a.prix - b.prix);
+  if (!vins.length) return '';
+  return `<h2 id="malbec">Nos Malbec argentins</h2>
+  <p>${vins.length} Malbec de Mendoza, de ${new Set(vins.map((w) => w.domaine)).size} domaines&nbsp;:</p>
+  <ul>
+    ${vins.map((w) => `<li><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a> (${esc(DOMAINES[w.domaine].nom)}, ${esc(DOMAINES[w.domaine].lieu.split(',').slice(-2, -1)[0] ? DOMAINES[w.domaine].lieu.split(',').slice(-2, -1)[0].trim() : DOMAINES[w.domaine].appellation)})&nbsp;: ${fine(prixTexte(w.prix))}${w.statut === 'a-venir' ? ', arrivée en janvier 2027' : ''}${w.elevage ? `, élevage ${esc(w.elevage)}` : ''}${w.garde ? `, garde ${esc(w.garde)}` : ''}.</li>`).join('\n    ')}
+  </ul>`;
+}
+
+function table(prixLabel = 'Prix') {
   return `<div class="vins-table-wrap">
     <table class="vins-table">
       <thead>
-        <tr><th scope="col">Cuvée</th><th scope="col">Domaine</th><th scope="col">Cépages</th><th scope="col">Élevage</th><th scope="col">Garde</th><th scope="col">Prix</th></tr>
+        <tr><th scope="col">Cuvée</th><th scope="col">Domaine</th><th scope="col">Cépages</th><th scope="col">Élevage</th><th scope="col">Garde</th><th scope="col">${prixLabel}</th></tr>
       </thead>
       <tbody>
-        ${WINES.map((w) => `<tr><th scope="row"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></th><td data-label="Domaine">${esc(DOMAINES[w.domaine].nom)}</td><td data-label="Cépages">${fine(cepagesTexte(w))}</td><td data-label="Élevage">${esc(w.elevage || '—')}</td><td data-label="Garde">${esc(w.garde || '—')}</td><td data-label="Prix">${fine(prixTexte(w.prix))}${w.statut === 'precommande' ? '<span class="vins-pre">précommande</span>' : ''}</td></tr>`).join('\n        ')}
+        ${WINES.map((w) => `<tr><th scope="row"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></th><td data-label="Domaine">${esc(DOMAINES[w.domaine].nom)}</td><td data-label="Cépages">${fine(cepagesTexte(w))}</td><td data-label="Élevage">${esc(w.elevage || '—')}</td><td data-label="Garde">${esc(w.garde || '—')}</td><td data-label="${prixLabel}">${fine(prixTexte(w.prix))}${w.statut === 'precommande' ? '<span class="vins-pre">précommande</span>' : w.statut === 'a-venir' ? '<span class="vins-pre">arrivée janvier 2027</span>' : ''}</td></tr>`).join('\n        ')}
       </tbody>
     </table>
   </div>`;
@@ -89,7 +100,13 @@ function renderCatalogue(html) {
     .replace('<!--vins:jsonld-->', jsonLd())
     .replace('<!--vins:domaines-->', domaines())
     .replace('<!--vins:table-->', table())
+    .replace('<!--vins:malbec-->', malbecs())
     .replace(/<!--vins:nombre-->/g, String(WINES.length));
 }
 
-module.exports = { renderCatalogue };
+// Page /professionnels : même tableau, prix public TTC (repère <!--vins:table-pro-->).
+function renderPros(html) {
+  return html.replace('<!--vins:table-pro-->', table('Prix public TTC'));
+}
+
+module.exports = { renderCatalogue, renderPros };

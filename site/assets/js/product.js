@@ -17,7 +17,8 @@
   if (sticky && cta && 'IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
       var e = entries[0];
-      sticky.hidden = e.isIntersecting || e.boundingClientRect.top > 0;
+      // Cachée seulement quand le bouton principal est visible : présente dès l'arrivée s'il est sous l'écran.
+      sticky.hidden = e.isIntersecting;
     }).observe(cta);
   }
 })();

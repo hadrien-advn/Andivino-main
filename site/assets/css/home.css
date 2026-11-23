@@ -426,3 +426,5 @@ nav.scrolled{padding:1rem var(--gut);box-shadow:0 1px 0 rgba(196,164,74,.25)}
   .nav-cta[data-count]::after{content:attr(data-count);display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;margin-left:.55rem;padding:0 .3rem;border-radius:9px;background:var(--cream-l);color:var(--bdx);font-size:.68rem;letter-spacing:0;font-weight:500}
   #toast{left:1rem;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));text-align:center}
 }
+/* Petits écrans avec bandeau cookies : le second bouton (« Commander », déjà dans l'en-tête) laisse sa place au titre. */
+@media(max-width:600px) and (max-height:700px){.hero-ctas .btn-o{display:none}}

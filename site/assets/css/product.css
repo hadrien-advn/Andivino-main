@@ -124,3 +124,10 @@
 .pdp-card img.pdp-card-logo{height:110px;margin:45px auto 45px}
 @media(max-width:860px){.pdp-media--domaine img{aspect-ratio:3/2;height:auto}}
 @media(max-width:600px){.pdp-card img.pdp-card-logo{height:80px;margin:35px auto}}
+
+/* Téléphone : bouteille plus courte pour garder le prix et le bouton sur le premier écran. */
+@media(max-width:600px){
+  .pdp-media{padding:.4rem 1rem 0}
+  .pdp-visual{width:170px;height:260px;padding-top:2.2rem;--floor:1rem}
+  .pdp-top{gap:1.1rem}
+}

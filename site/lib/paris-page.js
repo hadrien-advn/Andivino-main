@@ -135,7 +135,7 @@ function degustation() {
             <h3>${esc(next.titre)}</h3>
             <p class="pt-meta">${esc(next.heure)} · ${esc(salle)}, ${esc(next.lieu)}</p>
             <p>${esc(next.description)}</p>
-            <a class="pv-btn" href="${esc(next.url)}">Réserver ma place</a>
+            ${next.complet ? `<a class="pv-btn" href="/newsletter">Complet&nbsp;: être prévenu de la prochaine</a>` : `<a class="pv-btn" href="${esc(next.url)}">Réserver ma place</a>`}
           </div>
         </div>
         ${deja}`;
@@ -159,7 +159,9 @@ function faq() {
       "Oui, partout en France métropolitaine (hors Corse)&nbsp;: en point relais dès 9&nbsp;€, à domicile dès 12&nbsp;€, et la livraison est offerte au-delà de 300&nbsp;€ d'achat."],
     ['Peut-on goûter les vins avant de les acheter ?',
       next
-        ? `Oui&nbsp;: nous organisons des dégustations à Paris. La prochaine a lieu le ${quand} (${esc(next.lieu)})&nbsp;: <a href="${esc(next.url)}">réservez votre place</a>.`
+        ? (next.complet
+          ? `Oui&nbsp;: nous organisons des dégustations à Paris. Celle du ${quand} (${esc(next.lieu)}) est complète&nbsp;: <a href="/newsletter">inscrivez-vous à la newsletter</a> pour être prévenu de la prochaine.`
+          : `Oui&nbsp;: nous organisons des dégustations à Paris. La prochaine a lieu le ${quand} (${esc(next.lieu)})&nbsp;: <a href="${esc(next.url)}">réservez votre place</a>.`)
         : 'Oui, lors de nos dégustations à Paris. <a href="/newsletter">Inscrivez-vous à la newsletter</a> pour être prévenu de la prochaine date.']
   ];
   const html = `<div class="pf-grid">

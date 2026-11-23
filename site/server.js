@@ -9,7 +9,7 @@ require('dotenv').config();
 const { PRODUCTS, buildOrder } = require('./data/catalog');
 const { WINES, DOMAINES, SITE, wineUrl } = require('./data/wines');
 const { renderProductPage, renderDomainPage, winesDataJs } = require('./lib/product-page');
-const { renderCatalogue } = require('./lib/catalogue');
+const { renderCatalogue, renderPros } = require('./lib/catalogue');
 const { renderParis } = require('./lib/paris-page');
 const { renderHomeVins } = require('./lib/home-vins');
 const { merchantFeedXml } = require('./lib/merchant-feed');
@@ -79,6 +79,14 @@ const LEGACY_REDIRECTS = {
   '/chroniques/malbec-cabernet-assemblage-argentin': '/chroniques/malbec-argentin-histoire-terroirs',
   '/chroniques/vendanges-bodega-poesia-recit': '/chroniques'
 };
+
+// /vins/... en majuscules (liens mal saisis) -> même adresse en minuscules.
+app.use((req, res, next) => {
+  if ((req.method === 'GET' || req.method === 'HEAD') && req.path.startsWith('/vins/') && /[A-Z]/.test(req.path)) {
+    return res.redirect(301, req.path.toLowerCase() + req.originalUrl.slice(req.path.length));
+  }
+  next();
+});
 
 // Une seule URL par page : www.andivino.fr -> andivino.fr, /page/ -> /page, ancienne URL -> nouvelle,
 // le tout en une seule redirection permanente.
@@ -198,7 +206,7 @@ function renderHomeDegustations(html) {
   const list = items.map((d) => {
     const dt = new Date(d.date);
     const cta = tab === 'upcoming'
-      ? (d.url ? `<a href="${escHtml(d.url)}" class="btn-or">S'inscrire</a>` : '<span class="btn-or disabled">Sur invitation</span>')
+      ? (d.complet ? '<span class="btn-or disabled">Complet</span>' : d.url ? `<a href="${escHtml(d.url)}" class="btn-or">S'inscrire</a>` : '<span class="btn-or disabled">Sur invitation</span>')
       : '';
     return `<div class="ditem">
       <div class="ddate"><div class="dday">${dt.getDate()}</div><div class="dmon">${DEG_MONTHS[dt.getMonth()]} ${dt.getFullYear()}</div></div>
@@ -246,6 +254,7 @@ async function getHtmlWithVersion(fileName) {
   else html = await fs.readFile(page(fileName), 'utf8');
   if (fileName === 'home.html') html = renderHomeVins(renderHomeDegustations(html));
   if (fileName === 'vins-argentins.html') html = renderCatalogue(html);
+  if (fileName === 'professionnels.html') html = renderPros(html);
   if (fileName === 'vin-argentin-paris.html') html = renderParis(html);
   html = renderSiteDegustations(html);
   html = html.replace(/(href|src)="(\/assets\/[^"]+\.(css|js))"/g, `$1="$2?v=${BUILD_VERSION}"`);

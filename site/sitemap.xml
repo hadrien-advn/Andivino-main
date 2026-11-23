@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://andivino.fr/</loc><lastmod>2026-11-09</lastmod></url>
-  <url><loc>https://andivino.fr/vins-argentins</loc><lastmod>2026-11-09</lastmod></url>
-  <url><loc>https://andivino.fr/vin-argentin-paris</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://andivino.fr/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://andivino.fr/vins-argentins</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://andivino.fr/vin-argentin-paris</loc><lastmod>2026-11-23</lastmod></url>
   <!-- vins -->
-  <url><loc>https://andivino.fr/degustation</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://andivino.fr/commande</loc><lastmod>2026-11-09</lastmod></url>
-  <url><loc>https://andivino.fr/professionnels</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://andivino.fr/degustation</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://andivino.fr/commande</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://andivino.fr/professionnels</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://andivino.fr/chroniques</loc><lastmod>2026-11-09</lastmod></url>
-  <url><loc>https://andivino.fr/chroniques/malbec-argentin-histoire-terroirs</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://andivino.fr/chroniques/malbec-argentin-histoire-terroirs</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://andivino.fr/chroniques/accords-mets-vins-malbec-argentin</loc><lastmod>2026-11-09</lastmod></url>
 </urlset>

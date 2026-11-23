@@ -2,6 +2,17 @@
 // Une seule mise en page pour toutes les cuvées : modifier ce fichier modifie toutes les fiches.
 const { WINES, DOMAINES, STATUTS, SITE, wineUrl, cepagesTexte, prixTexte } = require('../data/wines');
 const { packshot } = require('./merchant-feed');
+const { SHIPPING_OPTIONS, EXCLUS } = require('./shipping-offers');
+// Variantes -800 / -1200 d'une photo (si présentes dans assets/images) : le téléphone charge la petite.
+const fsImages = require('fs');
+const pathImages = require('path');
+function srcset(src, largeur) {
+  const m = /^(.*)\.webp$/.exec(src);
+  if (!m) return '';
+  const tailles = [800, 1200].filter((w) => fsImages.existsSync(pathImages.join(__dirname, '..', `${m[1]}-${w}.webp`)));
+  if (!tailles.length) return '';
+  return ` srcset="${tailles.map((w) => `${m[1]}-${w}.webp ${w}w`).join(', ')}, ${src} ${largeur}w" sizes="(max-width: 860px) 100vw, 33vw"`;
+}
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 // Espaces insécables avant « % », « € », « : » dans les textes simples (déjà échappés).
@@ -32,26 +43,20 @@ function jsonLd(w, d) {
     availability: s.schema,
     itemCondition: 'https://schema.org/NewCondition',
     seller: { '@type': 'Organization', '@id': `${SITE}/#organization`, name: 'Andivino', url: `${SITE}/` },
-    shippingDetails: [{
-      '@type': 'OfferShippingDetails',
-      shippingRate: { '@type': 'MonetaryAmount', value: '5.00', currency: 'EUR' },
-      shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'FR', postalCodePrefix: ['75', '92', '93', '94'] },
-      deliveryTime: {
-        '@type': 'ShippingDeliveryTime',
-        handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 2, unitCode: 'DAY' },
-        transitTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 5, unitCode: 'DAY' }
-      }
-    }, {
-      // Point relais, 1 à 3 bouteilles (grille complète dans data/catalog.js).
-      '@type': 'OfferShippingDetails',
-      shippingRate: { '@type': 'MonetaryAmount', value: '9.00', currency: 'EUR' },
-      shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'FR' },
-      deliveryTime: {
-        '@type': 'ShippingDeliveryTime',
-        handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 2, unitCode: 'DAY' },
-        transitTime: { '@type': 'QuantitativeValue', minValue: 3, maxValue: 5, unitCode: 'DAY' }
-      }
-    }],
+    shippingDetails: [
+      ...SHIPPING_OPTIONS.map((o) => ({
+        '@type': 'OfferShippingDetails',
+        shippingRate: { '@type': 'MonetaryAmount', value: prixSchema(o.price), currency: 'EUR' },
+        shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'FR', ...(o.prefixes ? { postalCodePrefix: o.prefixes } : {}) },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 2, unitCode: 'DAY' },
+          transitTime: { '@type': 'QuantitativeValue', minValue: o.transit[0], maxValue: o.transit[1], unitCode: 'DAY' }
+        }
+      })),
+      // Ni Corse ni outre-mer.
+      { '@type': 'OfferShippingDetails', doesNotShip: true, shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'FR', postalCodePrefix: EXCLUS } }
+    ],
     hasMerchantReturnPolicy: {
       '@type': 'MerchantReturnPolicy',
       applicableCountry: 'FR',
@@ -241,7 +246,7 @@ ${NAV}
 ${s.achetable ? `      <ul class="pdp-reassure">
         ${preorderNote}
         ${w.statut === 'precommande' ? `<li><strong>Livraison et retours</strong> Remise en main propre à <a href="/vin-argentin-paris">Paris et petite couronne</a>, ou expédition en France métropolitaine, dès l'arrivée des bouteilles. Retour possible sous 14 jours après la remise (bouteilles non ouvertes).</li>` : `<li><strong>Livraison et retours</strong> <span data-delivery-note>Remise en main propre sous 7 jours à <a href="/vin-argentin-paris">Paris et petite couronne</a>. Retour possible sous 14 jours (bouteilles non ouvertes). Pas d'expédition ailleurs pour l'instant : <a href="mailto:contact@andivino.fr">écrivez-nous</a>.</span></li>`}
-        <li><strong>Paiement sécurisé</strong> Par Stripe, confirmation immédiate par email.</li>
+        <li><strong>Paiement sécurisé</strong> Par Stripe, confirmation immédiate par email. Vente réservée aux personnes majeures.</li>
       </ul>` : ''}
       <dl class="pdp-facts" aria-label="Fiche technique">
         ${w.fiche.map(([k, v, wide]) => `<div${wide ? ' class="wide"' : ''}><dt>${esc(k)}</dt><dd>${fine(v)}</dd></div>`).join('\n        ')}
@@ -264,7 +269,7 @@ ${s.achetable ? `      <ul class="pdp-reassure">
 
 
   <section class="pdp-related" aria-labelledby="pdp-related-t">
-    <h2 id="pdp-related-t">${autres.length ? `Les autres cuvées de la ${esc(d.nom)}` : 'Nos autres cuvées'}</h2>
+    <h2 id="pdp-related-t">${autres.length ? `Les autres cuvées ${/^Bodega /.test(d.nom) ? 'de la' : 'du domaine'} ${esc(d.nom)}` : 'Nos autres cuvées'}</h2>
     <div class="pdp-cards">
     ${related.map(card).join('\n    ')}
     </div>
@@ -329,7 +334,8 @@ function renderDomainPage(d) {
     url,
     description: d.seo.description,
     address: { '@type': 'PostalAddress', addressLocality: d.lieu.split(',')[0].trim(), addressRegion: d.region, addressCountry: d.pays },
-    ...(visuel ? { image: SITE + visuel.src } : {})
+    ...(visuel ? { image: SITE + visuel.src } : {}),
+    ...(d.fondateur ? { founder: { '@type': 'Person', name: d.fondateur.nom, jobTitle: d.fondateur.role } } : {})
   };
   const breadcrumb = {
     '@context': 'https://schema.org',
@@ -448,7 +454,7 @@ ${NAV}
   </section>
 ${photos.length ? `
   <section class="dm-photos dm-wrap dm-photos--${Math.min(photos.length, 3)}" aria-label="Le domaine en images">
-    ${photos.slice(0, 3).map((g, i) => `<figure><img src="${esc(g.src)}" width="${g.width}" height="${g.height}" alt="${esc(g.alt)}" loading="lazy"></figure>`).join('\n    ')}
+    ${photos.slice(0, 3).map((g, i) => `<figure><img src="${esc(g.src)}"${srcset(g.src, g.width)} width="${g.width}" height="${g.height}" alt="${esc(g.alt)}" loading="lazy"></figure>`).join('\n    ')}
   </section>
 ` : ''}${autres.length ? `
   <section class="dm-autres dm-wrap" aria-labelledby="dm-autres-t">
