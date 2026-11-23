@@ -1,0 +1,97 @@
+/* /professionnels : la fiche commerciale. Charge après chronicles.css (jetons, nav, pied).
+   Un en-tête comme le catalogue, les raisons de référencer à côté d'une photo de comptoir, puis la carte des vins
+   imprimée sur sa feuille (filets d'or, points de conduite, prix en Cormorant), enfin les trois étapes. */
+.pro{--gut:4rem;--nav:74px}
+.pro ::selection{background:rgba(110,24,40,.16);color:var(--charbon)}
+.pro a:focus-visible{outline:2px solid var(--bdx);outline-offset:3px}
+.pro-wrap{max-width:calc(1160px + 2 * var(--gut));margin:0 auto;padding-left:var(--gut);padding-right:var(--gut)}
+.pro-h2{font-family:var(--fd);font-weight:300;font-size:clamp(2rem,3.8vw,3rem);line-height:1.1;letter-spacing:-.01em;color:var(--charbon);text-wrap:balance}
+.pro-h2 em,.pro-title em{font-style:italic;color:var(--bdx)}
+
+/* Boutons */
+.pro-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 2rem;background:var(--bdx);color:var(--cream-l);font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;text-decoration:none;transition:background var(--e)}
+.pro-btn:hover{background:var(--bdx-d)}
+.pro-mail,.pro-lien{display:inline-flex;align-items:center;min-height:44px;color:var(--bdx);text-decoration:underline;text-decoration-color:rgba(110,24,40,.35);text-underline-offset:4px;transition:text-decoration-color var(--e)}
+.pro-mail{font-size:.92rem}
+.pro-lien{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+.pro-mail:hover,.pro-lien:hover{text-decoration-color:currentColor}
+
+/* ── En-tête ── */
+.pro-hero{padding-top:calc(var(--nav) + 2.2rem);padding-bottom:4.5rem}
+.pro-crumb{max-width:none;margin:0 0 2.6rem;padding:0}
+.pro-hero-g{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:2.5rem 5.5rem;align-items:end}
+.pro-title{font-family:var(--fd);font-weight:300;font-size:clamp(2.8rem,5.4vw,4.7rem);line-height:1.02;letter-spacing:-.015em;color:var(--charbon);text-wrap:balance}
+.pro-lieu{display:flex;align-items:center;gap:.9rem;margin-top:1.5rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris)}
+.pro-lieu::before{content:'';width:28px;height:1px;background:var(--or);flex:none}
+.pro-lead{max-width:34rem;font-size:.98rem;line-height:1.85;color:var(--gris);text-wrap:pretty}
+.pro-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.6rem;margin-top:1.8rem}
+
+/* ── Pourquoi : photo de comptoir et trois raisons ── */
+.pro-why{padding:5.5rem 0;border-top:1px solid var(--cream-d)}
+.pro-why-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4rem 6rem;align-items:center}
+.pro-photo{margin:0;aspect-ratio:5/4;overflow:hidden;border-radius:2px;background:var(--cream-d)}
+.pro-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.pro-args{margin-top:2.2rem}
+.pro-args>div{padding:1.4rem 0;border-top:1px solid var(--cream-d)}
+.pro-args>div:last-child{border-bottom:1px solid var(--cream-d)}
+.pro-args dt{font-family:var(--fd);font-style:italic;font-size:1.5rem;line-height:1.2;color:var(--charbon)}
+.pro-args dd{margin:.4rem 0 0;max-width:60ch;font-size:.92rem;line-height:1.75;color:var(--gris);text-wrap:pretty}
+.pro-args a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
+
+/* ── La carte des vins : une feuille crème dans un double filet d'or ── */
+.pro-carte{padding:6rem 0;background:var(--cream)}
+.pc-feuille{position:relative;max-width:880px;margin:0 auto;padding:4.6rem clamp(1.6rem,6vw,5.5rem) 4.2rem;background:var(--cream-l);border:1px solid rgba(196,164,74,.5);outline:1px solid rgba(196,164,74,.28);outline-offset:-9px}
+.pc-titre{text-align:center}
+.pc-sous{margin-top:.9rem;text-align:center;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.pc-dom{margin-top:3.6rem}
+.pc-dom-hd{display:flex;flex-direction:column;align-items:center;text-align:center;padding-bottom:1.3rem;margin-bottom:.4rem;position:relative}
+.pc-dom-hd::after{content:'';position:absolute;bottom:0;left:50%;width:28px;height:1px;background:var(--or);transform:translateX(-50%)}
+.pc-emb{display:block;width:auto;height:58px;max-width:72px;object-fit:contain;margin-bottom:.9rem}
+.pc-dom-nm{font-family:var(--fd);font-weight:400;font-size:1.9rem;line-height:1.1;color:var(--charbon)}
+.pc-dom-nm a{color:inherit;text-decoration:none;transition:color var(--e)}
+.pc-dom-nm a:hover{color:var(--bdx)}
+.pc-dom-lieu{margin-top:.45rem;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.pc-vins{list-style:none;margin:0;padding:0}
+.pc-vin{padding:1.15rem 0 1.05rem}
+.pc-vin+.pc-vin{border-top:1px solid rgba(230,221,208,.7)}
+.pc-ligne{display:flex;align-items:baseline;gap:.7rem}
+.pc-nm{flex:0 1 auto;min-width:0;font-family:var(--fd);font-style:italic;font-size:1.45rem;line-height:1.2;color:var(--charbon);text-decoration:none;transition:color var(--e)}
+.pc-nm span{font-style:normal;color:var(--gris)}
+.pc-nm:hover{color:var(--bdx)}
+.pc-pts{flex:1 1 2rem;min-width:1.5rem;height:0;border-bottom:1.5px dotted var(--gris-l);transform:translateY(-.3em)}
+.pc-px{flex:none;font-family:var(--fd);font-size:1.45rem;line-height:1;color:var(--charbon);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+.pc-det{margin-top:.35rem;font-size:.8rem;line-height:1.6;color:var(--gris);text-wrap:pretty}
+.pc-note{margin-top:1rem;font-family:var(--fd);font-style:italic;font-size:1.12rem;line-height:1.5;color:var(--gris);text-align:center;text-wrap:balance}
+
+/* ── Les étapes ── */
+.pro-steps{padding:6rem 0 6.5rem}
+.pro-etapes{list-style:none;counter-reset:etape;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem clamp(2rem,4vw,4rem);margin:2.8rem 0 0;padding:0}
+.pro-etapes li{counter-increment:etape;padding-top:1.4rem;border-top:1px solid var(--cream-d)}
+.pro-etapes li::before{content:counter(etape);display:block;font-family:var(--fd);font-weight:300;font-size:2.6rem;line-height:1;color:var(--bdx);margin-bottom:.9rem;font-variant-numeric:lining-nums}
+.pro-etapes h3{font-family:var(--fd);font-style:italic;font-weight:400;font-size:1.45rem;line-height:1.2;color:var(--charbon)}
+.pro-etapes p{margin-top:.5rem;max-width:36ch;font-size:.92rem;line-height:1.75;color:var(--gris);text-wrap:pretty}
+.pro-etapes a{color:var(--bdx);text-decoration:underline;text-underline-offset:3px}
+.pro-fin{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem;margin-top:3.4rem;padding-top:2.6rem;border-top:1px solid var(--cream-d)}
+
+@media(max-width:960px){
+  .pro{--gut:1.5rem}
+  .pro-hero-g,.pro-why-g{grid-template-columns:1fr;gap:2rem}
+  .pro-why{padding:4.5rem 0}
+  .pro-etapes{grid-template-columns:1fr;gap:1.6rem}
+  .pro-etapes li{display:grid;grid-template-columns:3rem minmax(0,1fr);column-gap:.6rem}
+  .pro-etapes li::before{grid-row:1 / span 2;margin:0;font-size:2.2rem}
+}
+@media(max-width:600px){
+  .pro{--gut:1.2rem}
+  .pro-hero{padding-top:calc(var(--nav) + 1.4rem);padding-bottom:3.4rem}
+  .pro-crumb{margin-bottom:1.8rem}
+  .pro-title{font-size:clamp(2.3rem,10.5vw,3rem)}
+  .pro-actions .pro-btn,.pro-fin .pro-btn{width:100%}
+  .pro-carte{padding:3.5rem 0}
+  .pc-feuille{padding:3.2rem 1.3rem 2.8rem;outline-offset:-6px}
+  .pc-dom{margin-top:2.8rem}
+  .pc-nm,.pc-px{font-size:1.25rem}
+  .pc-det{font-size:.78rem}
+  .pro-steps{padding:4.2rem 0 4.5rem}
+  .pro-fin{margin-top:2.6rem;padding-top:2rem}
+}

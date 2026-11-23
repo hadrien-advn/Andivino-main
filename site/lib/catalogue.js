@@ -1,6 +1,6 @@
 // Catalogue /vins-argentins : un chapitre par domaine (emblème, accroche, bouteilles sur papier froissé) et
 // JSON-LD, rendus depuis data/wines.js et data/domaines.js (repères <!--vins:…--> de pages/vins-argentins.html).
-// Le tableau comparatif ne sert plus qu'à /professionnels.
+// La carte des vins de /professionnels (renderPros) est rendue ici aussi.
 const { WINES, DOMAINES, STATUTS, SITE, wineUrl, cepagesTexte, prixTexte } = require('../data/wines');
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -74,19 +74,6 @@ function chapitres() {
   }).join('\n\n  ');
 }
 
-function table(prixLabel = 'Prix') {
-  return `<div class="vins-table-wrap">
-    <table class="vins-table">
-      <thead>
-        <tr><th scope="col">Cuvée</th><th scope="col">Domaine</th><th scope="col">Cépages</th><th scope="col">Élevage</th><th scope="col">Garde</th><th scope="col">${prixLabel}</th></tr>
-      </thead>
-      <tbody>
-        ${WINES.map((w) => `<tr><th scope="row"><a href="${wineUrl(w)}">${esc(w.nomComplet)}</a></th><td data-label="Domaine">${esc(DOMAINES[w.domaine].nom)}</td><td data-label="Cépages">${fine(cepagesTexte(w))}</td><td data-label="Élevage">${esc(w.elevage || '—')}</td><td data-label="Garde">${esc(w.garde || '—')}</td><td data-label="${prixLabel}">${fine(prixTexte(w.prix))}${w.statut === 'precommande' ? '<span class="vins-pre">précommande</span>' : w.statut === 'a-venir' ? '<span class="vins-pre">arrivée janvier 2027</span>' : ''}</td></tr>`).join('\n        ')}
-      </tbody>
-    </table>
-  </div>`;
-}
-
 function jsonLd() {
   const page = {
     '@context': 'https://schema.org',
@@ -112,9 +99,46 @@ function renderCatalogue(html) {
     .replace(/<!--vins:nombre-mot-->/g, ['Une', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', 'Dix', 'Onze', 'Douze'][WINES.length - 1] || String(WINES.length));
 }
 
-// Page /professionnels : même tableau, prix public TTC (repère <!--vins:table-pro-->).
+// Page /professionnels : la carte des vins, domaine par domaine, comme une carte de restaurant
+// (nom de la cuvée, points de conduite, prix public ; cépages, élevage et garde dessous). Repère <!--pro:carte-->.
+const NOTES_PRO = {
+  'bodega-poesia': "Le Clos des Andes en Malbec de découverte, sur une viande grillée ; la Cuvée Hélène et Poesía 2014, assemblages de garde, pour les plats mijotés et le gibier."
+};
+
+function ligneCarte(w) {
+  const e = w.elevage ? (/^\d/.test(w.elevage) ? `élevage ${w.elevage}` : w.elevage.charAt(0).toLowerCase() + w.elevage.slice(1)) : '';
+  const details = [w.couleur, cepagesTexte(w), e, w.garde ? `garde ${w.garde}` : ''].filter(Boolean).join(' · ');
+  return `<li class="pc-vin">
+          <p class="pc-ligne"><a class="pc-nm" href="${wineUrl(w)}">${esc(nomCourt(w))}&nbsp;<span>${esc(w.millesime)}</span></a><span class="pc-pts" aria-hidden="true"></span><span class="pc-px">${fine(prixTexte(w.prix))}</span></p>
+          <p class="pc-det">${fine(details)}</p>
+        </li>`;
+}
+
+function carte() {
+  return Object.values(DOMAINES).map((d) => {
+    const vins = WINES.filter((w) => w.domaine === d.slug);
+    if (!vins.length) return '';
+    const aVenir = vins.every((w) => w.statut === 'a-venir');
+    const note = aVenir
+      ? `Arrivée en France en ${esc(moisArrivee(vins[0].arrivee))}, en exclusivité. Pour être parmi les premiers à les proposer, dites-le-nous.`
+      : (NOTES_PRO[d.slug] ? fine(NOTES_PRO[d.slug]) : '');
+    const emb = d.logo ? `<img class="pc-emb" src="${esc(d.logo.src)}" width="${d.logo.width}" height="${d.logo.height}" alt="" loading="lazy" decoding="async">` : '';
+    return `<section class="pc-dom" aria-labelledby="pc-${esc(d.slug)}">
+        <header class="pc-dom-hd">
+          ${emb}
+          <h3 class="pc-dom-nm" id="pc-${esc(d.slug)}">${d.page ? `<a href="${d.page}">${esc(d.nom)}</a>` : esc(d.nom)}</h3>
+          <p class="pc-dom-lieu">${esc(d.lieu)}</p>
+        </header>
+        <ul class="pc-vins">
+        ${vins.map(ligneCarte).join('\n        ')}
+        </ul>
+        ${note ? `<p class="pc-note">${note}</p>` : ''}
+      </section>`;
+  }).join('\n      ');
+}
+
 function renderPros(html) {
-  return html.replace('<!--vins:table-pro-->', table('Prix public TTC'));
+  return html.replace('<!--pro:carte-->', carte());
 }
 
 module.exports = { renderCatalogue, renderPros };
