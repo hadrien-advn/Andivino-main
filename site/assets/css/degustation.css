@@ -265,3 +265,11 @@ form .btn-p:hover::after{transform:translateX(4px)}
 /* Sections sous la ligne de flottaison : rendues (et leurs fonds papier chargés) à l'approche,
    pour laisser la bande passante à la photo d'ouverture (LCP mobile). */
 .wines,.hosts{content-visibility:auto;contain-intrinsic-size:auto 1100px}
+/* Téléphone : la feuille fait environ 126 px de large, on sert des feuilles de 240 px (54 Ko au lieu de 172)
+   pour laisser la bande passante à la photo d'ouverture. */
+@media(max-width:600px){
+  .wine-visual{--papier:url('/assets/images/papier/feuille-1-240.webp')}
+  .wine:nth-child(2) .wine-visual{--papier:url('/assets/images/papier/feuille-2-240.webp')}
+  .wine:nth-child(3) .wine-visual{--papier:url('/assets/images/papier/feuille-3-240.webp')}
+  .wine:nth-child(4) .wine-visual{--papier:url('/assets/images/papier/feuille-4-240.webp')}
+}
