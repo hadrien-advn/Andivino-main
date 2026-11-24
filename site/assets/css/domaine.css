@@ -172,3 +172,6 @@
   .dm-autres-nom{font-size:1.45rem}
 }
 @media(prefers-reduced-motion:reduce){.dm *{transition:none!important}}
+/* L'accroche passe de une à deux lignes quand Cormorant italique arrive : on réserve les deux lignes
+   sur téléphone pour que le texte dessous ne saute pas (CLS). */
+@media(max-width:600px){.dm-accroche{min-height:2.6em}}
