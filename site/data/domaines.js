@@ -21,7 +21,7 @@ const DOMAINES = {
     accroche: 'Vignes de 1935 en franc de pied, à 900 mètres',
     leadHtml: "La <strong>Bodega Poesía</strong> est un domaine de Luján de Cuyo, dans la province de Mendoza (Argentine)&nbsp;: 13 hectares de Malbec et de Cabernet Sauvignon plantés en 1935 en franc de pied, à 900 mètres d'altitude. Andivino importe en exclusivité en France trois de ses vins&nbsp;: Clos des Andes 2017, la Cuvée Hélène 2016 et Poesía 2014.",
     image: { src: '/assets/images/poarg3.webp', width: 1800, height: 1200, alt: 'Vignes de Malbec de la Bodega Poesía, à Luján de Cuyo (Mendoza)' },
-    logo: { src: '/assets/images/logo-bodega-poesia-embleme.webp', width: 400, height: 350, alt: 'Emblème de la Bodega Poesía, Mendoza Argentina' },
+    logo: { src: '/assets/images/logo-bodega-poesia-embleme-300.webp', width: 300, height: 262, alt: 'Emblème de la Bodega Poesía, Mendoza Argentina' },
     galerie: [
       { src: '/assets/images/poarg1.webp', width: 1800, height: 1200, alt: 'Chai et installations de la Bodega Poesía, Mendoza' }
     ],
@@ -46,7 +46,8 @@ const DOMAINES = {
         titre: 'Le terroir',
         carte: { src: '/assets/images/map-mendoza.webp', width: 866, height: 1000, alt: 'Carte de Mendoza : la Bodega Poesía entre Chacras de Coria et Luján de Cuyo, au pied de la cordillère des Andes', legende: 'La Bodega Poesía, au pied des Andes, entre Chacras de Coria et Luján de Cuyo' },
         html: [
-          "Le Malbec et le Cabernet Sauvignon poussent sur un sol sablo-argileux posé sur un sous-sol de graves, qui assure un drainage optimal et donne de la profondeur au vin. Les vignes, plantées en 1935 en franc de pied, s'épanouissent face à l'Aconcagua et à ses neiges éternelles, entre des oliviers bicentenaires, avec les contrastes thermiques du piedmont andin."
+          "Le Malbec et le Cabernet Sauvignon poussent sur un sol sablo-argileux posé sur un sous-sol de graves, qui assure un drainage optimal et donne de la profondeur au vin. Les vignes, plantées en 1935 en franc de pied, s'épanouissent face à l'Aconcagua et à ses neiges éternelles, entre des oliviers bicentenaires, avec les contrastes thermiques du piedmont andin.",
+      "Pour situer Luján de Cuyo parmi les régions viticoles d'Argentine, lisez <a href=\"/chroniques/vin-argentin-guide\">notre guide du vin argentin</a>."
         ]
       },
       {
@@ -104,7 +105,8 @@ const DOMAINES = {
       {
         titre: 'Le terroir',
         html: [
-          "Les vignes poussent à 960 mètres d'altitude à Perdriel, au cœur de Luján de Cuyo, sur un sol sablo-argileux. Les vins qui en naissent sont faits pour durer&nbsp;: de 30 à 35 ans de garde selon les cuvées."
+          "Les vignes poussent à 960 mètres d'altitude à Perdriel, au cœur de Luján de Cuyo, sur un sol sablo-argileux. Les vins qui en naissent sont faits pour durer&nbsp;: de 30 à 35 ans de garde selon les cuvées.",
+      "Pourquoi ces vins vieillissent si bien&nbsp;: lisez <a href=\"/chroniques/malbec-argentin-garde-vieillissement\">le Malbec argentin se garde-t-il&nbsp;?</a> Pour situer Luján de Cuyo parmi les régions d'Argentine, voyez <a href=\"/chroniques/vin-argentin-guide\">notre guide du vin argentin</a>."
         ]
       }
     ],
@@ -127,12 +129,12 @@ const DOMAINES = {
     maj: '2026-11-23',
     seo: {
       title: 'Gualtallary Wines, vins d\'altitude de la Valle de Uco | Andivino',
-      description: 'Gualtallary Wines, à Tupungato (Valle de Uco, Mendoza) : vignes de 1250 à 1600 m sur sols alluviaux calcaires, conseil Alberto Antonini. Torrontés, Malbec, Chardonnay.'
+      description: 'Gualtallary Wines, à Tupungato (Valle de Uco) : vignes de 1250 à 1600 m sur sols calcaires, conseil Alberto Antonini. Torrontés, Malbec et Chardonnay.'
     },
     accroche: 'Vins d\'altitude, tendus et salins',
     leadHtml: "<strong>Gualtallary Wines</strong> est un domaine de Tupungato, dans la Valle de Uco (Mendoza), dont les vignes s'étagent entre 1250 et 1600 mètres d'altitude. Ses vins, tendus et salins, sont vinifiés par Macarena Giménez avec les conseils d'Alberto Antonini. Andivino importe en exclusivité en France trois de ses vins&nbsp;: Altus Torrontés 2026, Altus Reserva Malbec 2026 et Gran Chardonnay 2024.",
     image: { src: '/assets/images/banque/entree-gualtallary-wines-volcan-tupungato.webp', width: 2000, height: 1333, alt: "Panneau Gualtallary Wines à l'entrée du domaine, sommet enneigé des Andes au fond" },
-    logo: { src: '/assets/images/logo-gualtallary.webp', width: 363, height: 320, alt: 'Logo de Gualtallary Wines' },
+    logo: { src: '/assets/images/logo-gualtallary-300.webp', width: 300, height: 264, alt: 'Logo de Gualtallary Wines' },
     galerie: [
       { src: '/assets/images/banque/poteaux-vigne-sommet-enneige-aube.webp', width: 2000, height: 1178, alt: "Poteaux de palissage dans les vignes de Gualtallary, sommet enneigé rosi par l'aube" },
       { src: '/assets/images/banque/alberto-antonini-degustation-cuverie.webp', width: 2000, height: 1333, alt: 'Alberto Antonini, conseil de Gualtallary Wines, en dégustation dans la cuverie' }
@@ -152,7 +154,8 @@ const DOMAINES = {
         titre: 'Le terroir de Gualtallary',
         html: [
           "Gualtallary est un secteur viticole de Tupungato, dans la Valle de Uco (province de Mendoza, Argentine), où les vignes s'étagent entre 1250 et 1600 mètres d'altitude sur des sols alluviaux riches en carbonate de calcium.",
-          "Gualtallary incarne le front pionnier de la viticulture argentine, sur l'un des secteurs les plus prisés de Mendoza, juste en face des parcelles de Catena Zapata. L'altitude et les sols alluviaux, à forte teneur en carbonate de calcium, y donnent des vins tendus, salins, à l'acidité franche&nbsp;: un profil qui tranche avec le Malbec solaire auquel l'Argentine est souvent réduite."
+          "Gualtallary incarne le front pionnier de la viticulture argentine, sur l'un des secteurs les plus prisés de Mendoza, juste en face des parcelles de Catena Zapata. L'altitude et les sols alluviaux, à forte teneur en carbonate de calcium, y donnent des vins tendus, salins, à l'acidité franche&nbsp;: un profil qui tranche avec le Malbec solaire auquel l'Argentine est souvent réduite.",
+      "Pour situer la Valle de Uco parmi les régions d'Argentine, lisez <a href=\"/chroniques/vin-argentin-guide\">notre guide du vin argentin</a>, et pour le grand blanc du domaine, <a href=\"/chroniques/torrontes-vin-blanc-argentin\">notre chronique sur le Torrontés</a>."
         ]
       },
       {

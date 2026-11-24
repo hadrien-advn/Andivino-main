@@ -18,7 +18,7 @@ const ASSETS = path.join(__dirname, '..', 'assets');
 // Packshot carré sur fond blanc (scripts/shopping-images.py) en premier, puis l'image OG et la photo de bouteille.
 const packshot = (w) => (fs.existsSync(path.join(ASSETS, 'images/shopping', `${w.id}.jpg`)) ? `/assets/images/shopping/${w.id}.jpg` : null);
 function images(w) {
-  return [packshot(w), w.og, w.image && w.image.src].filter(Boolean).map((src) => SITE + src);
+  return [packshot(w), w.og, (w.zoom || w.image) && (w.zoom || w.image).src].filter(Boolean).map((src) => SITE + src);
 }
 
 function item(w) {

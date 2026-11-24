@@ -103,7 +103,7 @@ h2{font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12}
 /* La finca sous la neige en fond (floutée, gardée lumineuse), et posée dessus une
    carte d'invitation en papier : bords déchirés, légèrement de travers, un cachet de cire. */
 .book{position:relative;isolation:isolate;overflow:hidden;padding:8rem var(--gut) 8.5rem;scroll-margin-top:0;background:#D9D4CC}
-.book::before{content:'';position:absolute;inset:-40px;z-index:-2;background:url('/assets/images/finca-neige-reservation.webp') center 62%/cover no-repeat;filter:blur(10px) saturate(1.05) brightness(1.04);transform:scale(1.05)}
+.book::before{content:'';position:absolute;inset:-40px;z-index:-2;background:url('/assets/images/finca-neige-reservation-480.webp') center 62%/cover no-repeat;filter:blur(10px) saturate(1.05) brightness(1.04);transform:scale(1.05)}
 .book::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(75% 65% at 50% 45%,rgba(250,246,241,.08),rgba(52,38,27,.22))}
 .book-sheet{position:relative;max-width:640px;margin:0 auto}
 /* ombre douce sous la carte (un calque flou à part : la carte découpée ne peut pas porter d'ombre) */

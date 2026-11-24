@@ -77,7 +77,7 @@ function jsonLd(w, d) {
     sku: w.id,
     description: w.descriptionSchema,
     // Packshot carré sur fond blanc d'abord : c'est l'image que Google Shopping préfère.
-    image: [packshot(w), w.og, w.image && w.image.src].filter(Boolean).map((src) => SITE + src).filter((x, i, a) => a.indexOf(x) === i),
+    image: [packshot(w), w.og, (w.zoom || w.image) && (w.zoom || w.image).src].filter(Boolean).map((src) => SITE + src).filter((x, i, a) => a.indexOf(x) === i),
     brand: { '@type': 'Brand', name: d.nom },
     manufacturer: {
       '@type': 'Organization',
@@ -172,7 +172,7 @@ function footer() {
         <img src="/assets/images/logo-ecusson.webp" alt="Andivino" width="116" height="150" class="ft-logo-mark">
         <img src="/assets/images/logotype-andivino.webp" alt="" width="530" height="80" class="ft-logo-text">
       </div>
-      <p>Importateur de vins argentins d'exception. Bodega Poesía — Luján de Cuyo, Mendoza.</p>
+      <p>Importateur de vins argentins de Mendoza, en exclusivité en France : Bodega Poesía, Carmelo Patti et Gualtallary Wines.</p>
     </div>
     <div class="ft-col"><h4>Navigation</h4><a href="/#philosophie">Notre histoire</a><a href="/vins-argentins">Les vins</a><a href="/degustation">Dégustations</a><a href="/chroniques">Chroniques</a></div>
     <div class="ft-col"><h4>Commander</h4>${vins}<a href="/vins-argentins">Particuliers (B2C)</a><a href="/vin-argentin-paris">Livraison à Paris</a><a href="/professionnels">Professionnels (B2B)</a><a href="/legal/cgv">Livraison &amp; CGV</a></div>
@@ -424,6 +424,7 @@ ${visuel ? `<meta property="og:image" content="${SITE}${esc(visuel.src)}">` : ''
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png">
 <link rel="preload" href="/assets/fonts/dm-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/cormorant-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/fonts.css">
 <link rel="stylesheet" href="/assets/css/chronicles.css">
 <link rel="stylesheet" href="/assets/css/footer.css">

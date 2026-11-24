@@ -85,9 +85,12 @@ const LEGACY_REDIRECTS = {
   '/chroniques/vendanges-bodega-poesia-recit': '/chroniques'
 };
 
-// /vins/... en majuscules (liens mal saisis) -> même adresse en minuscules.
+// Pages en majuscules (liens mal saisis, /VINS/..., /Chroniques) -> même adresse en minuscules.
+// Express ne distingue pas la casse : sans cette redirection, /VINS/x répondrait 200 en double de /vins/x.
+// Les fichiers (/assets, extension) et l'API gardent leur casse.
 app.use((req, res, next) => {
-  if ((req.method === 'GET' || req.method === 'HEAD') && req.path.startsWith('/vins/') && /[A-Z]/.test(req.path)) {
+  if ((req.method === 'GET' || req.method === 'HEAD') && /[A-Z]/.test(req.path)
+    && !/^\/(assets|api|\.well-known)\//i.test(req.path) && !/\.[a-z0-9]+$/i.test(req.path)) {
     return res.redirect(301, req.path.toLowerCase() + req.originalUrl.slice(req.path.length));
   }
   next();
