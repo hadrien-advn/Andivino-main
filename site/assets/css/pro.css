@@ -52,15 +52,14 @@
 .pc-dom-nm a:hover{color:var(--bdx)}
 .pc-dom-lieu{margin-top:.45rem;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
 .pc-vins{list-style:none;margin:0;padding:0}
-.pc-vin{padding:1.15rem 0 1.05rem}
+.pc-vin{padding:1.15rem 0 1.05rem;text-align:center}
 .pc-vin+.pc-vin{border-top:1px solid rgba(230,221,208,.7)}
-.pc-ligne{display:flex;align-items:baseline;gap:.7rem}
-.pc-nm{flex:0 1 auto;min-width:0;font-family:var(--fd);font-style:italic;font-size:1.45rem;line-height:1.2;color:var(--charbon);text-decoration:none;transition:color var(--e)}
+.pc-nm{font-family:var(--fd);font-style:italic;font-size:1.45rem;line-height:1.2;color:var(--charbon);text-decoration:none;transition:color var(--e)}
 .pc-nm span{font-style:normal;color:var(--gris)}
 .pc-nm:hover{color:var(--bdx)}
-.pc-pts{flex:1 1 2rem;min-width:1.5rem;height:0;border-bottom:1.5px dotted var(--gris-l);transform:translateY(-.3em)}
-.pc-px{flex:none;font-family:var(--fd);font-size:1.45rem;line-height:1;color:var(--charbon);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
-.pc-det{margin-top:.35rem;font-size:.8rem;line-height:1.6;color:var(--gris);text-wrap:pretty}
+.pc-det{max-width:52ch;margin:.35rem auto 0;font-size:.8rem;line-height:1.6;color:var(--gris);text-wrap:pretty}
+.pc-fin{margin-top:3.4rem;padding-top:2.4rem;border-top:1px solid rgba(196,164,74,.45);text-align:center}
+.pc-fin p{max-width:40ch;margin:0 auto 1.4rem;font-family:var(--fd);font-style:italic;font-size:1.2rem;line-height:1.5;color:var(--charbon);text-wrap:balance}
 .pc-note{margin-top:1rem;font-family:var(--fd);font-style:italic;font-size:1.12rem;line-height:1.5;color:var(--gris);text-align:center;text-wrap:balance}
 
 /* ── Les étapes ── */
@@ -90,8 +89,9 @@
   .pro-carte{padding:3.5rem 0}
   .pc-feuille{padding:3.2rem 1.3rem 2.8rem;outline-offset:-6px}
   .pc-dom{margin-top:2.8rem}
-  .pc-nm,.pc-px{font-size:1.25rem}
+  .pc-nm{font-size:1.25rem}
   .pc-det{font-size:.78rem}
+  .pc-fin .pro-btn{width:100%}
   .pro-steps{padding:4.2rem 0 4.5rem}
   .pro-fin{margin-top:2.6rem;padding-top:2rem}
 }

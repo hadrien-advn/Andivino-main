@@ -109,7 +109,7 @@ function ligneCarte(w) {
   const e = w.elevage ? (/^\d/.test(w.elevage) ? `élevage ${w.elevage}` : w.elevage.charAt(0).toLowerCase() + w.elevage.slice(1)) : '';
   const details = [w.couleur, cepagesTexte(w), e, w.garde ? `garde ${w.garde}` : ''].filter(Boolean).join(' · ');
   return `<li class="pc-vin">
-          <p class="pc-ligne"><a class="pc-nm" href="${wineUrl(w)}">${esc(nomCourt(w))}&nbsp;<span>${esc(w.millesime)}</span></a><span class="pc-pts" aria-hidden="true"></span><span class="pc-px">${fine(prixTexte(w.prix))}</span></p>
+          <p class="pc-ligne"><a class="pc-nm" href="${wineUrl(w)}">${esc(nomCourt(w))}&nbsp;<span>${esc(w.millesime)}</span></a></p>
           <p class="pc-det">${fine(details)}</p>
         </li>`;
 }
